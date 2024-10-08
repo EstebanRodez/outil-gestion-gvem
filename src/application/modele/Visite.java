@@ -17,6 +17,7 @@ package application.modele;
  * (par exemple « M.Jacques Dupont » ou « Les amis des musées de
  * Rodez » ou encore « M. Jacques Dupont pour les amis des musées
  * de Rodez »)
+ * @version 1.0
  */
 public class Visite {
 
