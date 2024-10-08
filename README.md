@@ -15,6 +15,10 @@ Membres :
   - Thenieres Baptiste, baptiste.thenieres@iut-rodez.fr, login GitHub : BaptisteThnrs
   - Vroemen Esteban, esteban.vroemen@iut-rodez.fr, login GitHub : EstebanRodez
 
+Rôles Itération 1 :
+ - Product Owner : Romain
+ - Scrum Master : Ayoub
+
 Lien GitHub : https://github.com/EstebanRodez/sae-semestre3-projet-java
 
 Lien Google Drive : https://drive.google.com/drive/folders/0AFo8NSY6FjJ1Uk9PVA
