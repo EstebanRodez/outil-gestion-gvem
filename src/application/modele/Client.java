@@ -16,4 +16,32 @@ package application.modele;
  */
 public class Client {
 
+    private String intitule;
+    
+    private String numTel;
+    
+    /**
+     * Initialise un nouveau client avec un intitulé et un numéro de téléphone
+     * @param intitule le nom ou la désignation du client
+     * @param numTel le numéro de téléphone du client
+     */
+    public Client(String intitule, String numTel) {
+        
+    }
+    
+    /**
+     * Récupère l'intitulé du client
+     * @return l'intitulé du client
+     */
+    public String getIntitule() {
+        return intitule;
+    }
+    
+    /**
+     * Récupère le numéro de téléphone du client
+     * @return le numéro de téléphone du client
+     */
+    public String getNumTel() {
+        return numTel;
+    }
 }
