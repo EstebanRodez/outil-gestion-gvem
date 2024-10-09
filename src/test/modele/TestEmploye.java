@@ -187,6 +187,10 @@ class TestEmploye {
                      () -> new Employe(IDENTIFIANT_EMPLOYE_VALIDE, 
                                        NOM_EMPLOYE_VALIDE,
                                        PRENOM_EMPLOYE_VALIDE, "12345"));
+        assertThrows(IllegalArgumentException.class, 
+                     () -> new Employe(IDENTIFIANT_EMPLOYE_VALIDE, 
+                                       NOM_EMPLOYE_VALIDE,
+                                       PRENOM_EMPLOYE_VALIDE, "12a4"));
     }
 
     /**
@@ -282,6 +286,8 @@ class TestEmploye {
                      () -> testEmploye.setNumTel("123"));
         assertThrows(IllegalArgumentException.class,
                      () -> testEmploye.setNumTel("12345"));
+        assertThrows(IllegalArgumentException.class,
+                     () -> testEmploye.setNumTel("1t34"));
         
         assertDoesNotThrow(() -> testEmploye.setNumTel("1234"));
         assertDoesNotThrow(() -> testEmploye.setNumTel("5678"));

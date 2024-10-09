@@ -78,6 +78,11 @@ public class Client {
                     ERREUR_NUMTEL_LONGUEUR_INVALIDE);
         }
         
+        if (!numTel.matches("(\\d){9}")) {
+            throw new IllegalArgumentException(
+                    ERREUR_NUMTEL_CARACTERE_INVALIDE);
+        }
+        
         /* 
          * TODO Vérifier que le numéro de téléphone contient 
          * uniquement des chiffres

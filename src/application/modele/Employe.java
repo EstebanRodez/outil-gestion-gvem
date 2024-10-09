@@ -84,9 +84,9 @@ public class Employe {
             throw new IllegalArgumentException(ERREUR_PRENOM_INVALIDE);
         }
         
-        this.identifiant = identifiant;
-        this.nom = nom;
-        this.prenom = prenom;
+        this.identifiant = identifiant.trim();
+        this.nom = nom.trim();
+        this.prenom = prenom.trim();
         this.numTel = NUMTEL_DEFAUT;
     }
     
@@ -138,11 +138,10 @@ public class Employe {
             throw new IllegalArgumentException(ERREUR_NUMTEL_LONGUEUR_INVALIDE);
         }
         
-        /* 
-         * TODO Vérifier que le numéro de téléphone contient 
-         * uniquement des chiffres
-         * Utiliser un Regex
-         */
+        if (!numTel.matches("(\\d){4}")) {
+            throw new IllegalArgumentException(
+                    ERREUR_NUMTEL_CARACTERE_INVALIDE);
+        }
         
         this.identifiant = identifiant.trim();
         this.nom = nom.trim();
@@ -188,11 +187,10 @@ public class Employe {
             throw new IllegalArgumentException(ERREUR_NUMTEL_LONGUEUR_INVALIDE);
         }
         
-        /* 
-         * TODO Vérifier que le numéro de téléphone contient 
-         * uniquement des chiffres
-         * Utiliser un Regex
-         */
+        if (!numTel.matches("(\\d){4}")) {
+            throw new IllegalArgumentException(
+                    ERREUR_NUMTEL_CARACTERE_INVALIDE);
+        }
         
         this.numTel = numTel;
     }

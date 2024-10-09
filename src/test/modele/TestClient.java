@@ -24,7 +24,7 @@ class TestClient {
     private final Client[] CLIENTS_VALIDES =
     {
         new Client("Esteban", "012345678"),
-        new Client("Romain", "012345678 "),
+        new Client("Romain", "012345678"),
         new Client("Ayoub", "987654321"),
         new Client(" Baptiste", "154564474"),
     };
@@ -76,6 +76,8 @@ class TestClient {
                      () -> new Client(INTITULE_CLIENT_VALIDE, "11545444"));
         assertThrows(IllegalArgumentException.class, 
                      () -> new Client(INTITULE_CLIENT_VALIDE, "1005245478"));
+        assertThrows(IllegalArgumentException.class, 
+                     () -> new Client(INTITULE_CLIENT_VALIDE, "10052d547"));
     }
     
     /**
@@ -87,7 +89,7 @@ class TestClient {
     void testClientValide() {
         
         assertDoesNotThrow(() -> new Client("Esteban", "012345678"));
-        assertDoesNotThrow(() -> new Client("Romain", "012345678 "));
+        assertDoesNotThrow(() -> new Client("Romain", "012345678"));
         assertDoesNotThrow(() -> new Client("Ayoub", "987654321"));
         assertDoesNotThrow(() -> new Client(" Baptiste", "154564474"));
     }
