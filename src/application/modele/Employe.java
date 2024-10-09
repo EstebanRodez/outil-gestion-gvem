@@ -144,10 +144,10 @@ public class Employe {
          * Utiliser un Regex
          */
         
-        this.identifiant = identifiant;
-        this.nom = nom;
-        this.prenom = prenom;
-        this.numTel = numTel;
+        this.identifiant = identifiant.trim();
+        this.nom = nom.trim();
+        this.prenom = prenom.trim();
+        this.numTel = numTel.trim();
     }
     
     /**
