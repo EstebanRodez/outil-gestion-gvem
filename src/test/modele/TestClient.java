@@ -13,10 +13,13 @@ import application.modele.Client;
 
 /**
  * Classe de test pour {@link application.modele.Client}
+ * @author Esteban Vroemen
  */
 class TestClient {
     
     private final String INTITULE_CLIENT_VALIDE = "Tom";
+    
+    private final String NUMTEL_CLIENT_VALIDE = "112345678";
     
     private final Client[] CLIENTS_VALIDES =
     {
@@ -51,6 +54,15 @@ class TestClient {
                      () -> new Client("Ayoub", ""));
         assertThrows(IllegalArgumentException.class, 
                      () -> new Client("", "Esteban"));
+        
+        assertThrows(IllegalArgumentException.class, 
+                     () -> new Client(INTITULE_CLIENT_VALIDE, null));
+        assertThrows(IllegalArgumentException.class, 
+                     () -> new Client(INTITULE_CLIENT_VALIDE, ""));
+        assertThrows(IllegalArgumentException.class, 
+                     () -> new Client(null, NUMTEL_CLIENT_VALIDE));
+        assertThrows(IllegalArgumentException.class, 
+                     () -> new Client("", NUMTEL_CLIENT_VALIDE));
         
         /*
          * Tests spécifiques aux numéros de téléphone
