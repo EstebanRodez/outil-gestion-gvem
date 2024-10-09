@@ -15,18 +15,75 @@ package application.modele;
  * @version 1.0
  */
 public class Client {
+    
+    private static String ERREUR_INTITULE_INVALIDE =
+    """
+    Impossible de créer un client.
+    L'intitulé du client ne doit pas être nul ou vide.                
+    """;
+    
+    private static String ERREUR_NUM_TEL_INVALIDE =
+    """
+    Impossible de créer un client.
+    Le numéro de téléphone du client ne doit pas être nul ou vide.              
+    """;
+    
+    private static String ERREUR_NUM_TEL_LONGUEUR_INVALIDE =
+    """
+    Impossible de créer un client.
+    Le numéro de téléphone du client doit contenir 9 caractères uniquement.              
+    """;
+    
+    private static String ERREUR_NUM_TEL_CARACTERE_INVALIDE =
+    """
+    Impossible de créer un client.
+    Le numéro de téléphone du client doit contenir uniquement des chiffres.              
+    """;
 
     private String intitule;
     
     private String numTel;
     
     /**
-     * Initialise un nouveau client avec un intitulé et un numéro de téléphone
+     * Initialise un nouveau client avec un intitulé et un numéro de
+     * téléphone
      * @param intitule le nom ou la désignation du client
      * @param numTel le numéro de téléphone du client
+     * @throws IllegalArgumentException si la référence de l'intitulé
+     *                                  est nul ou l'intitulé est vide
+     * @throws IllegalArgumentException si la référence du numéro de
+     *                                  téléphone est nul ou le 
+     *                                  numéro de téléphone est vide
+     * @throws IllegalArgumentException si le numéro de téléphone ne
+     *                                  contient pas uniquement 9 
+     *                                  caractères
+     * @throws IllegalArgumentException si le numéro de téléphone ne
+     *                                  contient pas uniquement des
+     *                                  chiffres
      */
     public Client(String intitule, String numTel) {
         
+        if (intitule == null || intitule.isBlank()) {
+            throw new IllegalArgumentException(ERREUR_INTITULE_INVALIDE);
+        }
+        
+        if (numTel == null || numTel.isBlank()) {
+            throw new IllegalArgumentException(ERREUR_NUM_TEL_INVALIDE);
+        }
+        
+        if (numTel.trim().length() != 9) {
+            throw new IllegalArgumentException(
+                    ERREUR_NUM_TEL_LONGUEUR_INVALIDE);
+        }
+        
+        /* 
+         * TODO Vérifier que le numéro de téléphone contient 
+         * uniquement des chiffres
+         * Utiliser un Regex
+         */
+        
+        this.intitule = intitule.trim();
+        this.numTel = numTel.trim();
     }
     
     /**
