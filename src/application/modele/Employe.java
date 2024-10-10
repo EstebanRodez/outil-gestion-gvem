@@ -66,9 +66,13 @@ public class Employe {
      * @param identifiant l'identifiant unique de l'employé
      * @param nom le nom de l'employé
      * @param prenom le prénom de l'employé
-     * @throws IllegalArgumentException
-     * @throws IllegalArgumentException
-     * @throws IllegalArgumentException
+     * @throws IllegalArgumentException si la référence de
+     *                                  l'identifiant est nul ou
+     *                                  l'identifiant est vide
+     * @throws IllegalArgumentException si la référence du nom est
+     *                                  nul ou le nom est vide
+     * @throws IllegalArgumentException si la référence du prénom est
+     *                                  nul ou le prénom est vide
      */
     public Employe(String identifiant, String nom, String prenom) {
         
@@ -168,8 +172,12 @@ public class Employe {
     /**
      * Définit le numéro de téléphone du client.<br>
      * Le numéro de téléphone fourni devra contenir uniquement 4
-     * chiffres. Si ce n'est pas le cas, une exception sera levée. 
+     * chiffres. Si ce n'est pas le cas, une exception sera levée.
+     * 
      * @param numTel le numéro de téléphone à définir
+     * @throws IllegalArgumentException si la référence du numéro de
+     *                                  téléphone est nul ou le
+     *                                  numéro de téléphone est vide
      * @throws IllegalArgumentException si le numéro de téléphone ne
      *                                  contient pas uniquement 4
      *                                  caractères
@@ -192,7 +200,7 @@ public class Employe {
                     ERREUR_NUMTEL_CARACTERE_INVALIDE);
         }
         
-        this.numTel = numTel;
+        this.numTel = numTel.trim();
     }
 
     /**
