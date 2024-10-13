@@ -130,15 +130,14 @@ public class Exposition {
         }
         
         if (motsCles == null || motsCles.length == 0 || motsCles.length > 10) {
-            
-            throw new IllegalArgumentException(ERREUR_MOTSCLES_INVALIDE);
-        } else {
-            
-            for (int i = 0; i < motsCles.length ; i++) {
-                if (motsCles[i] == null || motsCles[i].isBlank()){
-                    throw new IllegalArgumentException(
-                            ERREUR_MOTSCLES_INVALIDE);
-                }
+            throw new IllegalArgumentException(ERREUR_MOTSCLES_INVALIDE);   
+        }
+        
+        /* Vérification de la validité de chaque mot clé */
+        for (int i = 0; i < motsCles.length ; i++) {
+            if (motsCles[i] == null || motsCles[i].isBlank()){
+                throw new IllegalArgumentException(
+                        ERREUR_MOTSCLES_INVALIDE);
             }
         }
         
@@ -146,13 +145,13 @@ public class Exposition {
             throw new IllegalArgumentException(ERREUR_RESUME_INVALIDE);
         }
 
-        this.identifiant = identifiant;
-        this.intitule = intitule;
+        this.identifiant = identifiant.trim();
+        this.intitule = intitule.trim();
         this.periodeDebut = periodeDebut;
         this.periodeFin = periodeFin;
         this.nbOeuvre = nbOeuvre;
         this.motsCles = motsCles;
-        this.resume = resume;
+        this.resume = resume.trim();
     }
 
     /**
