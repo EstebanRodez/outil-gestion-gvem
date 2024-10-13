@@ -5,8 +5,9 @@
  */
 package application.controleur;
 
-import java.awt.Button;
-import java.awt.event.ActionEvent;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 
 /**
  * TODO commenter la responsabilité de cette class (SRP)
@@ -35,7 +36,7 @@ public class AccueilControleur {
 
     @FXML
     void btnConsulterDonneesAction(ActionEvent event) {
-        //TODO renvoyait vers la page consulterDonnesVue.fxml
+        //TODO renvoyait vers la page menuDonneesImporterVue.fxml
     }
 
     @FXML
