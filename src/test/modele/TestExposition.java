@@ -16,8 +16,6 @@ import application.modele.Exposition;
  */
 class TestExposition {
 
-
-
     private final String IDENTIFIANT_EXPO_VALIDE = "E000001";
     
     private final String INTITULE_EXPO_VALIDE = "Les paysages impressionnistes";
@@ -36,14 +34,12 @@ class TestExposition {
     
     private final Exposition[] EXPO_VALIDES =
     {
-        new Exposition("N000001", INTITULE_EXPO_VALIDE, PERIODEDEB_EXPO_VALIDE,
-                       PERIODEFIN_EXPO_VALIDE, 15,
+        new Exposition("N000001", INTITULE_EXPO_VALIDE, 1725, 1850, 15,
                        new String[] {"Romain", "Ayoub", "Esteban", "Baptiste",
                                      "paysage", "mars"},
                        "Une grande exposition sur des paysages originaux et"
                        + " audacieux"),
-        new Exposition("N000002", INTITULE_EXPO_VALIDE, PERIODEDEB_EXPO_VALIDE,
-                       PERIODEFIN_EXPO_VALIDE, 45,
+        new Exposition("N000002", INTITULE_EXPO_VALIDE, 1800, 1900, 45,
                        new String[] {"cubisme", "oeuvre", "abstrait", 
                                      "art moderne"},
                        "Une exposition d'œuvres cubistes influentes."),
@@ -213,6 +209,20 @@ class TestExposition {
                                                 MOTSCLES_EXPO_VALIDE, 
                                                 RESUME_EXPO_VALIDE));
     }
+    
+    /**
+     * Méthode de test pour 
+     * {@link application.modele.Exposition#getIdentifiant()}.
+     */
+    @Test
+    void testGetIdentifiant() {
+        assertEquals("N000001", EXPO_VALIDES[0].getIdentifiant());
+        assertEquals("N000002", EXPO_VALIDES[1].getIdentifiant());
+
+        assertNotEquals("N000003", EXPO_VALIDES[1].getIdentifiant());
+        assertNotEquals(null, EXPO_VALIDES[0].getIdentifiant());
+        assertNotEquals("", EXPO_VALIDES[0].getIdentifiant());
+    }
 
     /**
      * Méthode de test pour {@link application.modele.Exposition#getIntitule()}.
@@ -229,6 +239,42 @@ class TestExposition {
                                          RESUME_EXPO_VALIDE);
         assertEquals(INTITULE_EXPO_VALIDE, expo.getIntitule());
     }
+    
+    /**
+     * Méthode de test pour 
+     * {@link application.modele.Exposition#getPeriodeDeb()}.
+     */
+    @Test
+    void testGetPeriodeDeb() {
+        assertEquals(1725, EXPO_VALIDES[0].getPeriodeDeb());
+        assertEquals(1800, EXPO_VALIDES[1].getPeriodeDeb());
+        
+        assertNotEquals(4444, EXPO_VALIDES[1].getPeriodeDeb());
+        assertNotEquals(0, EXPO_VALIDES[1].getPeriodeDeb());
+        assertNotEquals(-50, EXPO_VALIDES[0].getPeriodeDeb());
+        assertNotEquals(1724, EXPO_VALIDES[0].getPeriodeDeb());
+        assertNotEquals(1726, EXPO_VALIDES[0].getPeriodeDeb());
+        assertNotEquals(1799, EXPO_VALIDES[1].getPeriodeDeb());
+        assertNotEquals(1801, EXPO_VALIDES[1].getPeriodeDeb());
+    }
+    
+    /**
+     * Méthode de test pour 
+     * {@link application.modele.Exposition#getPeriodeFin()}.
+     */
+    @Test
+    void testGetPeriodeFin() {
+        assertEquals(1850, EXPO_VALIDES[0].getPeriodeFin());
+        assertEquals(1900, EXPO_VALIDES[1].getPeriodeFin());
+        
+        assertNotEquals(9999, EXPO_VALIDES[1].getPeriodeFin());
+        assertNotEquals(0, EXPO_VALIDES[1].getPeriodeFin());
+        assertNotEquals(-50, EXPO_VALIDES[0].getPeriodeFin());
+        assertNotEquals(1849, EXPO_VALIDES[0].getPeriodeFin());
+        assertNotEquals(1851, EXPO_VALIDES[0].getPeriodeFin());
+        assertNotEquals(1899, EXPO_VALIDES[1].getPeriodeFin());
+        assertNotEquals(1901, EXPO_VALIDES[1].getPeriodeFin());
+    }
 
     /**
      * Méthode de test pour 
@@ -240,6 +286,9 @@ class TestExposition {
         assertEquals(45, EXPO_VALIDES[1].getNbOeuvre());
 
         assertNotEquals(20, EXPO_VALIDES[0].getNbOeuvre());
+        assertNotEquals(5555, EXPO_VALIDES[0].getNbOeuvre());
+        assertNotEquals(-15, EXPO_VALIDES[0].getNbOeuvre());
+        assertNotEquals(-45, EXPO_VALIDES[1].getNbOeuvre());
     }
 
     /**
@@ -257,6 +306,13 @@ class TestExposition {
 
         assertNotEquals(new String[] {"abstrait"}, 
                         EXPO_VALIDES[1].getMotsCles());
+        assertNotEquals(new String[] {"cubisme", "oeuvre", "abstrait",
+                                      "art moderne", null},
+                        EXPO_VALIDES[1].getMotsCles());
+        assertNotEquals(new String[] {"Romain", "Ayoub", "Esteban", "Baptiste", 
+                                      "paysage", "mars", ""}, 
+                        EXPO_VALIDES[0].getMotsCles());
+        assertNotEquals(null, EXPO_VALIDES[1].getMotsCles());
     }
 
     /**
@@ -272,5 +328,7 @@ class TestExposition {
                      EXPO_VALIDES[1].getResume());
 
         assertNotEquals("Exposition moderne", EXPO_VALIDES[1].getResume());
+        assertNotEquals("", EXPO_VALIDES[0].getResume());
+        assertNotEquals(null, EXPO_VALIDES[1].getResume());
     }
 }
