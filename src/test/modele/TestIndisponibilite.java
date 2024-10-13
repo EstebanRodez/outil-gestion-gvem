@@ -16,6 +16,7 @@ import application.modele.Indisponibilite;
 /**
  * Classe de test pour {@link application.modele.Indisponibilite}
  * @author Esteban Vroemen
+ * @version 1.0
  */
 class TestIndisponibilite {
     

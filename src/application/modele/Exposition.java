@@ -23,6 +23,7 @@ package application.modele;
  * et la date de fin de celle-ci. Par exemple, du 17 mars 2025
  * au 21 juin 2025.
  * @author Romain Augé
+ * @author Esteban Vroemen
  * @version 1.0
  */
 public class Exposition {
@@ -86,7 +87,7 @@ public class Exposition {
      * @param identifiant l'identifiant/code de l'exposition
      * @param intitule le nom ou la désignation de l'exposition
      * @param periodeDebut l'année de début que les oeuvres de
-     *                   l'exposition recouvrent
+     *                     l'exposition recouvrent
      * @param periodeFin l'année de fin que les oeuvres de
      *                   l'exposition recouvrent
      * @param nbOeuvre le nombre d'oeuvre présentes dans l'exposition

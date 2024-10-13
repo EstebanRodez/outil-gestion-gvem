@@ -12,7 +12,10 @@ import org.junit.jupiter.api.Test;
 import application.modele.Exposition;
 
 /**
- * Classe de Test de la classe Exposition
+ * Classe de Test pour {@link application.modele.Exposition}
+ * @author Romain Augé
+ * @author Esteban Vroemen
+ * @version 1.0
  */
 class TestExposition {
 

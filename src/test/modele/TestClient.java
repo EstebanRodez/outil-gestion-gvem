@@ -14,6 +14,7 @@ import application.modele.Client;
 /**
  * Classe de test pour {@link application.modele.Client}
  * @author Esteban Vroemen
+ * @version 1.0
  */
 class TestClient {
     

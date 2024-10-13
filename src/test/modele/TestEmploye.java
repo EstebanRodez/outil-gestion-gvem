@@ -13,6 +13,8 @@ import application.modele.Employe;
 
 /**
  * Classe de test pour {@link application.modele.Employe}
+ * @author Esteban Vroemen
+ * @version 1.0
  */
 class TestEmploye {
     
