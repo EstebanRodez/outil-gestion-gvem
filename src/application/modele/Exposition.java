@@ -117,7 +117,7 @@ public class Exposition {
             throw new IllegalArgumentException(ERREUR_IDENTIFIANT_INVALIDE);
         }
         
-        if (intitule == null || identifiant.isBlank()) {
+        if (intitule == null || intitule.isBlank()) {
             throw new IllegalArgumentException(ERREUR_INTITULE_INVALIDE);
         }
         

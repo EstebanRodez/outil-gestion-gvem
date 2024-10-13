@@ -16,7 +16,7 @@ import application.modele.Exposition;
  */
 class TestExposition {
 
-    private final Exposition[] EXPO_VALIDES = null;
+
 
     private final String IDENTIFIANT_EXPO_VALIDE = "E000001";
     
@@ -33,6 +33,21 @@ class TestExposition {
     
     private final String RESUME_EXPO_VALIDE
     = "Très belle exposition sur l'impressionnisme.";
+    
+    private final Exposition[] EXPO_VALIDES =
+    {
+        new Exposition("N000001", INTITULE_EXPO_VALIDE, PERIODEDEB_EXPO_VALIDE,
+                       PERIODEFIN_EXPO_VALIDE, 15,
+                       new String[] {"Romain", "Ayoub", "Esteban", "Baptiste",
+                                     "paysage", "mars"},
+                       "Une grande exposition sur des paysages originaux et"
+                       + " audacieux"),
+        new Exposition("N000002", INTITULE_EXPO_VALIDE, PERIODEDEB_EXPO_VALIDE,
+                       PERIODEFIN_EXPO_VALIDE, 45,
+                       new String[] {"cubisme", "oeuvre", "abstrait", 
+                                     "art moderne"},
+                       "Une exposition d'œuvres cubistes influentes."),
+    };
 
     /**
      * Méthode de test pour 
