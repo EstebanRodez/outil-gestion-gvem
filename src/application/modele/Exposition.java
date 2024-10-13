@@ -22,6 +22,7 @@ package application.modele;
  * on connaîtra, en plus des éléments précédents, la date de début
  * et la date de fin de celle-ci. Par exemple, du 17 mars 2025
  * au 21 juin 2025.
+ * @author Romain Augé
  * @version 1.0
  */
 public class Exposition {
@@ -78,32 +79,33 @@ public class Exposition {
 
     /**
      * Initialise une nouvelle exposition avec un identifiant,
-     * un intitulé, une période, un nombre d'oeuvres, une liste de
-     * mots clés et un résumé
+     * un intitulé, une période avec une année de début et une année
+     * de fin, un nombre d'oeuvres, une liste de mots clés et un
+     * résumé.
+     * 
      * @param identifiant l'identifiant/code de l'exposition
      * @param intitule le nom ou la désignation de l'exposition
-     * @param periodeDeb est le début de la période durant laquelle
-     *                   aura lieu l'exposition
-     * @param periodeFin est la fin de la période durant laquelle aura
-     *                   lieu l'exposition
-     * @param nbOeuvre le nombre d'oeuvre présent dans l'exposition
-     * @param motsCles liste de mots clés par lequels on peut
-     *                 retrouver l'exposition
-     * @param resume résumé de l'exposition
+     * @param periodeDeb l'année de début que les oeuvres de
+     *                   l'exposition recouvrent
+     * @param periodeFin l'année de fin que les oeuvres de
+     *                   l'exposition recouvrent
+     * @param nbOeuvre le nombre d'oeuvre présentes dans l'exposition
+     * @param motsCles liste de mots clés permettant de retrouver
+     *                 l'exposition
+     * @param resume le résumé de l'exposition
      * @throws IllegalArgumentException si la référence de
-     *                                  l'identifiant est nul ou
+     *                                  l'identifiant est nulle ou
      *                                  l'identifiant est vide
      * @throws IllegalArgumentException si la référence de l'intitulé
-     *                                  est nul ou l'intitulé est
+     *                                  est nulle ou l'intitulé est
      *                                  vide
-     * @throws IllegalArgumentException si la référence de est nul ou
-     *                                  vide
-     * @throws IllegalArgumentException si la référence du nombre
-     *                                  d'oeuvre est nul ou vide
+     * @throws IllegalArgumentException si le nombre d'oeuvres est
+     *                                  négatif ou nul
      * @throws IllegalArgumentException si la référence de la liste
-     *                                  des mots clés est nul ou vide
+     *                                  des mots clés est nul ou la
+     *                                  liste est vide
      * @throws IllegalArgumentException si la référence du résumé est
-     *                                  nul ou vide
+     *                                  nulle ou le résumé est vide
      * @throws IllegalArgumentException si le nombre de mots clés est
      *                                  supérieur à 10
      */
@@ -162,7 +164,7 @@ public class Exposition {
     }
 
     /**
-     * Récupère l'idntitulé de l'exposition
+     * Récupère l'intitulé de l'exposition
      * @return l'intitulé de l'exposition
      */
     public String getIntitule() {
@@ -170,24 +172,24 @@ public class Exposition {
     }
 
     /**
-     * Récupère la période du début de l'exposition
-     * @return la période du début de l'exposition
+     * Récupère l'année de début de la période de l'exposition
+     * @return l'année de début de la période de l'exposition
      */
     public int getPeriodeDeb() {
         return periodeDeb;
     }
 
     /**
-     * Récupère la période de fin de l'exposition
-     * @return la période de fin de l'exposition
+     * Récupère l'année de fin de la période de l'exposition
+     * @return l'année de fin de la période de l'exposition
      */
     public int getPeriodeFin() {
         return periodeFin;
     }
 
     /**
-     * Récupère le nombre d'oeuvre présentent dans l'exposition
-     * @return le nombre d'oeuvre de l'exposition
+     * Récupère le nombre d'oeuvres présentes dans l'exposition
+     * @return le nombre d'oeuvres de l'exposition
      */
     public int getNbOeuvre() {
         return nbOeuvre;
