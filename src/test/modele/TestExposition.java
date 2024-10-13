@@ -245,17 +245,17 @@ class TestExposition {
      * {@link application.modele.Exposition#getPeriodeDeb()}.
      */
     @Test
-    void testGetPeriodeDeb() {
-        assertEquals(1725, EXPO_VALIDES[0].getPeriodeDeb());
-        assertEquals(1800, EXPO_VALIDES[1].getPeriodeDeb());
+    void testGetPeriodeDebut() {
+        assertEquals(1725, EXPO_VALIDES[0].getPeriodeDebut());
+        assertEquals(1800, EXPO_VALIDES[1].getPeriodeDebut());
         
-        assertNotEquals(4444, EXPO_VALIDES[1].getPeriodeDeb());
-        assertNotEquals(0, EXPO_VALIDES[1].getPeriodeDeb());
-        assertNotEquals(-50, EXPO_VALIDES[0].getPeriodeDeb());
-        assertNotEquals(1724, EXPO_VALIDES[0].getPeriodeDeb());
-        assertNotEquals(1726, EXPO_VALIDES[0].getPeriodeDeb());
-        assertNotEquals(1799, EXPO_VALIDES[1].getPeriodeDeb());
-        assertNotEquals(1801, EXPO_VALIDES[1].getPeriodeDeb());
+        assertNotEquals(4444, EXPO_VALIDES[1].getPeriodeDebut());
+        assertNotEquals(0, EXPO_VALIDES[1].getPeriodeDebut());
+        assertNotEquals(-50, EXPO_VALIDES[0].getPeriodeDebut());
+        assertNotEquals(1724, EXPO_VALIDES[0].getPeriodeDebut());
+        assertNotEquals(1726, EXPO_VALIDES[0].getPeriodeDebut());
+        assertNotEquals(1799, EXPO_VALIDES[1].getPeriodeDebut());
+        assertNotEquals(1801, EXPO_VALIDES[1].getPeriodeDebut());
     }
     
     /**

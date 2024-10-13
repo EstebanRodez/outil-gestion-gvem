@@ -67,7 +67,7 @@ public class Exposition {
     
     private String intitule;
     
-    private int periodeDeb;
+    private int periodeDebut;
     
     private int periodeFin;
     
@@ -85,7 +85,7 @@ public class Exposition {
      * 
      * @param identifiant l'identifiant/code de l'exposition
      * @param intitule le nom ou la désignation de l'exposition
-     * @param periodeDeb l'année de début que les oeuvres de
+     * @param periodeDebut l'année de début que les oeuvres de
      *                   l'exposition recouvrent
      * @param periodeFin l'année de fin que les oeuvres de
      *                   l'exposition recouvrent
@@ -109,7 +109,7 @@ public class Exposition {
      * @throws IllegalArgumentException si le nombre de mots clés est
      *                                  supérieur à 10
      */
-    public Exposition (String identifiant,String intitule, int periodeDeb,
+    public Exposition (String identifiant,String intitule, int periodeDebut,
                        int periodeFin, int nbOeuvre, String[] motsCles,
                        String resume) {
         
@@ -121,7 +121,7 @@ public class Exposition {
             throw new IllegalArgumentException(ERREUR_INTITULE_INVALIDE);
         }
         
-        if (periodeDeb <= 0 || periodeFin <= 0 || periodeDeb > periodeFin) {
+        if (periodeDebut <= 0 || periodeFin <= 0 || periodeDebut > periodeFin) {
             throw new IllegalArgumentException(ERREUR_PERIODE_INVALIDE);
         }
         
@@ -148,7 +148,7 @@ public class Exposition {
 
         this.identifiant = identifiant;
         this.intitule = intitule;
-        this.periodeDeb = periodeDeb;
+        this.periodeDebut = periodeDebut;
         this.periodeFin = periodeFin;
         this.nbOeuvre = nbOeuvre;
         this.motsCles = motsCles;
@@ -175,8 +175,8 @@ public class Exposition {
      * Récupère l'année de début de la période de l'exposition
      * @return l'année de début de la période de l'exposition
      */
-    public int getPeriodeDeb() {
-        return periodeDeb;
+    public int getPeriodeDebut() {
+        return periodeDebut;
     }
 
     /**
