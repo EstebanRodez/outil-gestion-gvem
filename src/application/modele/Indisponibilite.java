@@ -23,7 +23,7 @@ public class Indisponibilite {
     private static final String ERREUR_DATE_DEBUT_INVALIDE =
     """
     Impossible de créer une indisponibilité.
-    La référence de la date de début d'une  indisponibilité
+    La référence de la date de début d'une indisponibilité
     ne doit pas être nulle.                 
     """;
     
@@ -51,7 +51,8 @@ public class Indisponibilite {
      * 
      * @param dateDebut La date à laquelle commence l'indisponibilité
      *                  ou le jour de l'indisponibilité
-     * @throws IllegalArgumentException si la référence de la date de début est nulle
+     * @throws IllegalArgumentException si la référence de la date
+     *                                  de début est nulle
      */
     public Indisponibilite(LocalDate dateDebut) {
         
@@ -106,8 +107,11 @@ public class Indisponibilite {
     /**
      * Définit la date de fin de l'indisponibilité.
      * @param dateFin La date à laquelle se termine l'indisponibilité
-     * @throws IllegalArgumentException
-     * @throws IllegalArgumentException
+     * @throws IllegalArgumentException si la référence de la date de
+     *                                  fin est nulle
+     * @throws IllegalArgumentException si la date de fin est
+     *                                  inférieur ou égale à la date
+     *                                  de début
      */
     public void setDateFin(LocalDate dateFin) {
         
