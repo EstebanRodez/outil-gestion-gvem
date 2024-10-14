@@ -73,6 +73,13 @@ public class ExpositionTemporaire extends Exposition {
      * @param resume le résumé de l'exposition
      * @param dateDebut la date de début de l'exposition
      * @param dateFin la date de fin de de l'exposition
+     * @throws IllegalArgumentException si la référence de la date de
+     *                                  début est nulle
+     * @throws IllegalArgumentException si la référence de la date de
+     *                                  fin est nulle
+     * @throws IllegalArgumentException si la date de fin est
+     *                                  inférieur ou égale à la date
+     *                                  de début
      */
     public ExpositionTemporaire(String identifiant, String intitule,
                                 int periodeDebut, int periodeFin, int nbOeuvre,
