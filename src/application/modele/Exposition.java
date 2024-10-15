@@ -43,7 +43,8 @@ public class Exposition {
     private static String ERREUR_PERIODE_INVALIDE =
     """
     Impossible de créer une exposition.
-    La période de l'exposition ne doit pas être nul ou vide.                
+    L'année de début de la période ne doit pas être supérieur
+    à l'année de fin de la période.                
     """;
     
     private static String ERREUR_NBOEUVRE_INVALIDE =
@@ -122,7 +123,7 @@ public class Exposition {
             throw new IllegalArgumentException(ERREUR_INTITULE_INVALIDE);
         }
         
-        if (periodeDebut <= 0 || periodeFin <= 0 || periodeDebut > periodeFin) {
+        if (periodeDebut > periodeFin) {
             throw new IllegalArgumentException(ERREUR_PERIODE_INVALIDE);
         }
         
