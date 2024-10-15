@@ -90,11 +90,74 @@ public class Conferencier{
     private boolean estInterne;
 
     private Indisponibilite[] indisponibilites;
+    
+    /**
+     * Crée un conférencier avec un nom, un prénom, un numéro de
+     * téléphone, une liste de ses spécialités et si il est interne
+     * ou non.
+     * 
+     * @param identifiant l'identifiant unique de conférencier
+     * @param nom le nom du conférencier
+     * @param prenom le prénom du conférencier
+     * @param specialites la liste des spécialités du conférencier
+     * @param numTel le numéro de téléphone du conférencier
+     * @param estInterne si la conférencier est interne ou non
+     * @throws IllegalArgumentException si la référence du nom est
+     *                                  nul ou le nom est vide
+     * @throws IllegalArgumentException si la référence du prénom est
+     *                                  nul ou le prénom est vide
+     * @throws IllegalArgumentException si la référence de la liste 
+     *                                  des spécialités est nulle,
+     *                                  la liste est vide
+     *                                  ou sa taille est supérieur
+     *                                  à 6
+     * @throws IllegalArgumentException si la référence du numéro de
+     *                                  téléphone est nulle, le
+     *                                  numéro de téléphone est vide,
+     *                                  contient autre chose que des
+     *                                  chiffres ou ne contient pas 9
+     *                                  caractères
+     */
+    public Conferencier(String nom, String prenom, String[] specialites,
+                        String numTel, boolean estInterne) {
+        
+        if (nom == null || nom.isBlank()) {
+            throw new IllegalArgumentException(ERREUR_NOM_INVALIDE);
+        }
 
+        if (prenom == null || prenom.isBlank()) {
+            throw new IllegalArgumentException(ERREUR_PRENOM_INVALIDE);
+        }
+
+        if (specialites == null || specialites.length == 0 
+            || specialites.length > 6) {
+            throw new IllegalArgumentException(ERREUR_SPECIALITE_INVALIDE);   
+        }
+        if (numTel == null || numTel.isBlank()) {
+            throw new IllegalArgumentException(ERREUR_NUMTEL_INVALIDE);
+        }
+
+        if (numTel.length() != 9) {
+            throw new IllegalArgumentException(ERREUR_NUMTEL_LONGUEUR_INVALIDE);
+        }
+
+        if (!numTel.matches("(\\d){9}")) {
+            throw new IllegalArgumentException(
+                    ERREUR_NUMTEL_CARACTERE_INVALIDE);
+        }
+
+        this.nom = nom.trim();
+        this.prenom = prenom.trim();
+        this.specialites = specialites;
+        this.numTel = numTel.trim();
+        this.estInterne = estInterne;
+        this.indisponibilites = null;
+    }
+    
     /**
      * Crée un conférencier avec un nom, un prénom, un numéro de
      * téléphone, une liste de ses spécialités, si il est interne ou
-     * non et une liste potentielle de ses indisponibilités.
+     * non et une liste de des indisponibilités du conférencier.
      * 
      * @param identifiant l'identifiant unique de conférencier
      * @param nom le nom du conférencier
