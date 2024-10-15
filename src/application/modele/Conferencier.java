@@ -64,6 +64,20 @@ public class Conferencier{
     Le numéro de téléphone du conférencier doit contenir
     uniquement 9 caractères.                
     """;
+    
+    private static final String ERREUR_INDISPONIBILITES_INVALIDE =
+    """
+    Impossible de créer un conférencier.
+    La référence de la liste des indisponibilités d'un conférencier
+    ne doit pas être nulle.                
+    """;
+    
+    private static final String ERREUR_INDISPONIBILITES_VALEURS_INVALIDES =
+    """
+    Impossible de créer un conférencier.
+    Une valeur de la liste des indisponibilités du conférencier
+    n'est pas valide.                
+    """;
 
     private String nom;
 
@@ -137,11 +151,28 @@ public class Conferencier{
             throw new IllegalArgumentException(
                     ERREUR_NUMTEL_CARACTERE_INVALIDE);
         }
+        
+        if (indisponibilites == null) {
+            throw new IllegalArgumentException(
+                    ERREUR_INDISPONIBILITES_INVALIDE);
+        }
+        
+        /*
+         * On vérifie la validité de chaque valeur contenue dans le
+         * tableau des indisponibilités
+         */
+        for (Indisponibilite valeur : indisponibilites) {
+            
+            if (valeur == null) {
+                throw new IllegalArgumentException(
+                        ERREUR_INDISPONIBILITES_VALEURS_INVALIDES);
+            }
+        }
 
-        this.nom = nom;
-        this.prenom = prenom;
+        this.nom = nom.trim();
+        this.prenom = prenom.trim();
         this.specialite = specialite;
-        this.numTel = numTel;
+        this.numTel = numTel.trim();
         this.estInterne = estInterne;
         this.indisponibilites = indisponibilites;
     }
