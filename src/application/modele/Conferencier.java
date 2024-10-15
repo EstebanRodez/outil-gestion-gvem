@@ -20,6 +20,8 @@ package application.modele;
  * aussi avoir des indisponibilités connues à l’avance et décrites
  * sous la même forme que pour les employés. Les conférenciers
  * internes et externes sont clairement différenciés.
+ * @author Romain Augé
+ * @author Esteban Vroemen
  * @version 1.0
  */
 public class Conferencier{
@@ -73,28 +75,33 @@ public class Conferencier{
     private Indisponibilite[] indisponibilites;
 
     /**
-     * Crée un conférencier avec un nom et un prénom.
-     * Le numéro de téléphone est initialisé par défaut.
+     * Crée un conférencier avec un nom, un prénom, un numéro de
+     * téléphone, une liste de ses spécialités, si il est interne ou
+     * non et une liste potentielle de ses indisponibilités.
      * 
      * @param identifiant l'identifiant unique de conférencier
-     * @param nom le nom de conférencier
-     * @param prenom le prénom de conférencier
-     * @param specialite la liste des specialités du conférencier
-     * @param numTel numéro de téléphone du conférencier
-     * @param estInterne 
-     * @param indisponibilites 
+     * @param nom le nom du conférencier
+     * @param prenom le prénom du conférencier
+     * @param specialite la liste des spécialités du conférencier
+     * @param numTel le numéro de téléphone du conférencier
+     * @param estInterne si la conférencier est interne ou non
+     * @param indisponibilites la liste de ses indisponibités
+     *                         potentielles
      * @throws IllegalArgumentException si la référence du nom est
      *                                  nul ou le nom est vide
      * @throws IllegalArgumentException si la référence du prénom est
      *                                  nul ou le prénom est vide
      * @throws IllegalArgumentException si la référence de la liste 
-     * 					des spécialités est nul, vide
-     *                                  ou superieure à 6
+     * 					des spécialités est nulle,
+     *                                  la liste est vide
+     *                                  ou sa taille est supérieur
+     *                                  à 6
      * @throws IllegalArgumentException si la référence du numéro de
-     * 					téléphone est nul, vide, 
+     * 					téléphone est nulle, le
+     *                                  numéro de téléphone est vide,
      * 					contient autre chose que des
-     * 					chiffres ou contient plus ou
-     *                                  moins de 4 caractères
+     * 					chiffres ou ne contient pas 9
+     *                                  caractères
      */
     public Conferencier(String nom, String prenom, String[] specialite,
                         String numTel, boolean estInterne,
@@ -154,7 +161,7 @@ public class Conferencier{
 
     /**
      * Récupère les spécialités du conférencier.
-     * @return les spécialités du conférencier.
+     * @return les spécialités du conférencier
      */
     public String[] getSpecialite() {
         return specialite;
@@ -162,14 +169,14 @@ public class Conferencier{
 
     /**
      * Récupère le numéro de téléphone du conférencier.
-     * @return le numéro de téléphone du conférencier.
+     * @return le numéro de téléphone du conférencier
      */
     public String getNumTel() {
         return numTel;
     }
 
     /**
-     * Récupère si le conférencier est interne ou non
+     * Récupère si le conférencier est interne ou non.
      * @return est interne ou non
      */
     public boolean getEstInterne() {
@@ -177,7 +184,7 @@ public class Conferencier{
     }
 
     /**
-     * Récupère la liste des indisponibilités du conférencier
+     * Récupère la liste des indisponibilités du conférencier.
      * @return la liste des indisponibilités du conférencier
      */
     public Indisponibilite[] getIndisponibilites() {
