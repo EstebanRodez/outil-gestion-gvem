@@ -294,7 +294,7 @@ class TestVisite {
                                                 + " sculpture grecque."),
                                  new Employe("N000005", "Clara", "Euler", 
                                              "3456"),
-                                 new Conferencier("Lemoine", "Paul", 
+                                 new Conferencier("C000005", "Lemoine", "Paul", 
                                          new String[] {"sculpture",
                                                        "archéologie grecque"}, 
                                          "712345678", true)));
