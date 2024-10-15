@@ -47,7 +47,7 @@ public class Client {
     
     /**
      * Initialise un nouveau client avec un intitulé et un numéro de
-     * téléphone
+     * téléphone.
      * 
      * @param intitule le nom ou la désignation du client
      * @param numTel le numéro de téléphone du client
@@ -82,12 +82,6 @@ public class Client {
             throw new IllegalArgumentException(
                     ERREUR_NUMTEL_CARACTERE_INVALIDE);
         }
-        
-        /* 
-         * TODO Vérifier que le numéro de téléphone contient 
-         * uniquement des chiffres
-         * Utiliser un Regex
-         */
         
         this.intitule = intitule.trim();
         this.numTel = numTel.trim();
