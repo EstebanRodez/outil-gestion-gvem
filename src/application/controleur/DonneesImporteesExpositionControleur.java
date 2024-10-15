@@ -8,11 +8,22 @@ package application.controleur;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.stage.Stage;
 
 /**
  * TODO commenter la responsabilité de cette class (SRP)
  */
 public class DonneesImporteesExpositionControleur {
+    
+    private Stage fenetreAppli;
+    
+    /**
+     * TODO commenter le rôle de cette méthode (SRP)
+     * @param fenetreAppli
+     */
+    public void setFenetreAppli(Stage fenetreAppli) {
+      this.fenetreAppli = fenetreAppli;
+    }
     
     @FXML
     private Button btnAide;

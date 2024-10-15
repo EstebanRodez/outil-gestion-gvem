@@ -5,14 +5,31 @@
  */
 package application.controleur;
 
+import java.io.IOException;
+
+import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.stage.Stage;
 
 /**
  * TODO commenter la responsabilité de cette class (SRP)
  */
 public class AccueilControleur {
+    
+    private Stage fenetreAppli;
+    
+    /**
+     * TODO commenter le rôle de cette méthode (SRP)
+     * @param fenetreAppli
+     */
+    public void setFenetreAppli(Stage fenetreAppli) {
+      this.fenetreAppli = fenetreAppli;
+    }
     
     @FXML
     private Button btnAide;
@@ -35,23 +52,35 @@ public class AccueilControleur {
     }
 
     @FXML
-    void btnConsulterDonneesAction(ActionEvent event) {
-        //TODO renvoyait vers la page menuDonneesImporterVue.fxml
+    void btnConsulterDonneesAction(ActionEvent event) throws IOException {   
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/vue/menuDonneesImporterVue.fxml"));
+        Parent menuDonneesImporterVue = loader.load();
+        MenuDonneesImporterControleur controleur = loader.getController();
+        controleur.setFenetreAppli(fenetreAppli);
+        fenetreAppli.setScene(new Scene(menuDonneesImporterVue));
     }
 
     @FXML
-    void btnExporterAction(ActionEvent event) {
-        //TODO renvoyait vers la page exporter.fxml
+    void btnExporterAction(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/vue/exporterVue.fxml"));
+        Parent exporterVue = loader.load();
+        ExporterControleur controleur = loader.getController();
+        controleur.setFenetreAppli(fenetreAppli);
+        fenetreAppli.setScene(new Scene(exporterVue));
     }
 
     @FXML
-    void btnImporterAction(ActionEvent event) {
-        //TODO renvoyait vers la page importerVue.fxml
+    void btnImporterAction(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/vue/importerVue.fxml"));
+        Parent importerVue = loader.load();
+        ImporterControleur controleur = loader.getController();
+        controleur.setFenetreAppli(fenetreAppli);
+        fenetreAppli.setScene(new Scene(importerVue));
     }
 
     @FXML
     void btnQuitterAction(ActionEvent event) {
-        //TODO quitter l'application
+        fenetreAppli.hide();
     }
 
 }

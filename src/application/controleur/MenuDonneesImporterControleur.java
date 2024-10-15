@@ -5,14 +5,30 @@
  */
 package application.controleur;
 
+import java.io.IOException;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.stage.Stage;
 
 /**
  * TODO commenter la responsabilité de cette class (SRP)
  */
 public class MenuDonneesImporterControleur {
+
+    private Stage fenetreAppli;
+    
+    /**
+     * TODO commenter le rôle de cette méthode (SRP)
+     * @param fenetreAppli
+     */
+    public void setFenetreAppli(Stage fenetreAppli) {
+      this.fenetreAppli = fenetreAppli;
+    }
     
     @FXML
     private Button btnAccueil;
@@ -33,13 +49,17 @@ public class MenuDonneesImporterControleur {
     private Button btnVisite;
 
     @FXML
-    void btnAccueilAction(ActionEvent event) {
-        //TODO renvois vers la page accueil
+    void btnAccueilAction(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/vue/accueuilVue.fxml"));
+        Parent accueuilVue = loader.load();
+        AccueilControleur controleur = loader.getController();
+        controleur.setFenetreAppli(fenetreAppli);
+        fenetreAppli.setScene(new Scene(accueuilVue));
     }
 
     @FXML
     void btnConferencierAction(ActionEvent event) {
-
+        
     }
 
     @FXML
@@ -48,8 +68,12 @@ public class MenuDonneesImporterControleur {
     }
 
     @FXML
-    void btnExpositionAction(ActionEvent event) {
-        
+    void btnExpositionAction(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/vue/donneesImporteesExpositionVue.fxml"));
+        Parent donneesImporteesExpositionVue = loader.load();
+        DonneesImporteesExpositionControleur controleur = loader.getController();
+        controleur.setFenetreAppli(fenetreAppli);
+        fenetreAppli.setScene(new Scene(donneesImporteesExpositionVue));
     }
 
     @FXML
