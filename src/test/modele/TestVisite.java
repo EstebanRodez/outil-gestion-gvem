@@ -44,7 +44,7 @@ class TestVisite {
     = new Employe("N000001", "Mathieu", "Bernoulli", "1234");
     
     private final Conferencier CONFERENCIER_VISITE_VALIDE
-    = new Conferencier("Thenieres", "Baptiste", 
+    = new Conferencier("C000001", "Thenieres", "Baptiste", 
                        new String[] {"impressionnisme", "paysage"}, 
                        "123456789", true);
     
@@ -64,7 +64,7 @@ class TestVisite {
                                   "Une exploration fascinante des couleurs dans"
                                   + " le mouvement surréaliste."),
                    new Employe("N000002", "Chloé", "Fourier", "5678"),
-                   new Conferencier("Durand", "Marie", 
+                   new Conferencier("C000002", "Durand", "Marie", 
                                     new String[] {"surréalisme", "peinture"}, 
                                     "623456789", false)),
         new Visite("V000003", 720, LocalDate.of(2024, 12, 5),
@@ -76,7 +76,7 @@ class TestVisite {
                                                 "Mondrian"},
                                   "Un voyage au cœur de l'art abstrait."),
                    new Employe("N000003", "Julien", "Descartes", "7890"),
-                   new Conferencier("Dupont", "Jacques", 
+                   new Conferencier("C000003", "Dupont", "Jacques", 
                                     new String[] {"abstraction", "modernisme"}, 
                                     "612345678", true)),
         new Visite("V000004", 960, LocalDate.of(2025, 1, 10),
@@ -86,7 +86,7 @@ class TestVisite {
                                                     "Braque", "Gris"},
                                   "Un décryptage fascinant du cubisme."),
                    new Employe("N000004", "Luc", "Galois", "9012"),
-                   new Conferencier("Martin", "Sophie", 
+                   new Conferencier("C000004", "Martin", "Sophie", 
                                     new String[] {"cubisme",
                                                   "peinture moderne"}, 
                                     "698765432", false)),
@@ -99,7 +99,7 @@ class TestVisite {
                                   "Un retour sur l'âge d'or de la sculpture "
                                   + "grecque."),
                    new Employe("N000005", "Clara", "Euler", "3456"),
-                   new Conferencier("Lemoine", "Paul", 
+                   new Conferencier("C000005", "Lemoine", "Paul", 
                                     new String[] {"sculpture",
                                                   "archéologie grecque"}, 
                                     "712345678", true)),
@@ -237,7 +237,7 @@ class TestVisite {
                                                 + " surréaliste."),
                                  new Employe("N000002", "Chloé", "Fourier", 
                                              "5678"),
-                                 new Conferencier("Durand", "Marie", 
+                                 new Conferencier("C000002", "Durand", "Marie", 
                                                   new String[] {"surréalisme", 
                                                                 "peinture"}, 
                                                   "623456789", false)));
@@ -256,7 +256,7 @@ class TestVisite {
                                                 + "abstrait."),
                                  new Employe("N000003", "Julien", "Descartes", 
                                              "7890"),
-                                 new Conferencier("Dupont", "Jacques", 
+                                 new Conferencier("C000003", "Dupont", "Jacques", 
                                                   new String[] {"abstraction",
                                                                 "modernisme"}, 
                                                   "612345678", true)));
@@ -275,7 +275,7 @@ class TestVisite {
                                                 + "cubisme."),
                                  new Employe("N000004", "Luc", "Galois", 
                                              "9012"),
-                                 new Conferencier("Martin", "Sophie", 
+                                 new Conferencier("C000004", "Martin", "Sophie", 
                                          new String[] {"cubisme", 
                                                        "peinture moderne"}, 
                                          "698765432", false)));
