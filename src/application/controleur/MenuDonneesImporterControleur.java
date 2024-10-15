@@ -50,7 +50,7 @@ public class MenuDonneesImporterControleur {
 
     @FXML
     void btnAccueilAction(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/vue/accueuilVue.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/vue/accueilVue.fxml"));
         Parent accueuilVue = loader.load();
         AccueilControleur controleur = loader.getController();
         controleur.setFenetreAppli(fenetreAppli);
@@ -63,8 +63,12 @@ public class MenuDonneesImporterControleur {
     }
 
     @FXML
-    void btnDonnesCalculeesAction(ActionEvent event) {
-        //TODO renvois vers la page menuDonnesCalculees
+    void btnDonnesCalculeesAction(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/vue/menuDonneesCalculeesVue.fxml"));
+        Parent menuDonneesCalculeesVue = loader.load();
+        MenuDonneesCalculeesControleur controleur = loader.getController();
+        controleur.setFenetreAppli(fenetreAppli);
+        fenetreAppli.setScene(new Scene(menuDonneesCalculeesVue));
     }
 
     @FXML

@@ -5,14 +5,30 @@
  */
 package application.controleur;
 
+import java.io.IOException;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.stage.Stage;
 
 /**
  * TODO commenter la responsabilité de cette class (SRP)
  */
 public class MenuDonneesCalculeesControleur {
+    
+private Stage fenetreAppli;
+    
+    /**
+     * TODO commenter le rôle de cette méthode (SRP)
+     * @param fenetreAppli
+     */
+    public void setFenetreAppli(Stage fenetreAppli) {
+      this.fenetreAppli = fenetreAppli;
+    }
     
     @FXML
     private Button btnAccueil;
@@ -43,8 +59,12 @@ public class MenuDonneesCalculeesControleur {
     }
 
     @FXML
-    void btnDonnesImporteesAction(ActionEvent event) {
-
+    void btnDonnesImporteesAction(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/vue/menuDonneesImporterVue.fxml"));
+        Parent menuDonneesImporterVue = loader.load();
+        MenuDonneesImporterControleur controleur = loader.getController();
+        controleur.setFenetreAppli(fenetreAppli);
+        fenetreAppli.setScene(new Scene(menuDonneesImporterVue));
     }
 
     @FXML
