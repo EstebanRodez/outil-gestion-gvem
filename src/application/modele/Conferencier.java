@@ -83,7 +83,7 @@ public class Conferencier{
 
     private String prenom;
 
-    private String[] specialite;
+    private String[] specialites;
 
     private String numTel;
 
@@ -99,7 +99,7 @@ public class Conferencier{
      * @param identifiant l'identifiant unique de conférencier
      * @param nom le nom du conférencier
      * @param prenom le prénom du conférencier
-     * @param specialite la liste des spécialités du conférencier
+     * @param specialites la liste des spécialités du conférencier
      * @param numTel le numéro de téléphone du conférencier
      * @param estInterne si la conférencier est interne ou non
      * @param indisponibilites la liste de ses indisponibités
@@ -120,7 +120,7 @@ public class Conferencier{
      * 					chiffres ou ne contient pas 9
      *                                  caractères
      */
-    public Conferencier(String nom, String prenom, String[] specialite,
+    public Conferencier(String nom, String prenom, String[] specialites,
                         String numTel, boolean estInterne,
                         Indisponibilite[] indisponibilites) {
         
@@ -131,12 +131,9 @@ public class Conferencier{
         if (prenom == null || prenom.isBlank()) {
             throw new IllegalArgumentException(ERREUR_PRENOM_INVALIDE);
         }
-        
-        // TODO vérifier que deux conférenciers (nom, prenom)
-        // ne soient pas similaire
 
-        if (specialite == null || specialite.length == 0 
-            || specialite.length > 6) {
+        if (specialites == null || specialites.length == 0 
+            || specialites.length > 6) {
             throw new IllegalArgumentException(ERREUR_SPECIALITE_INVALIDE);   
         }
         if (numTel == null || numTel.isBlank()) {
@@ -171,7 +168,7 @@ public class Conferencier{
 
         this.nom = nom.trim();
         this.prenom = prenom.trim();
-        this.specialite = specialite;
+        this.specialites = specialites;
         this.numTel = numTel.trim();
         this.estInterne = estInterne;
         this.indisponibilites = indisponibilites;
@@ -197,8 +194,8 @@ public class Conferencier{
      * Récupère les spécialités du conférencier.
      * @return les spécialités du conférencier
      */
-    public String[] getSpecialite() {
-        return specialite;
+    public String[] getSpecialites() {
+        return specialites;
     }
 
     /**
@@ -213,7 +210,7 @@ public class Conferencier{
      * Récupère si le conférencier est interne ou non.
      * @return est interne ou non
      */
-    public boolean getEstInterne() {
+    public boolean estInterne() {
         return estInterne;
     }
 
