@@ -78,7 +78,9 @@ public class Conferencier{
     Une valeur de la liste des indisponibilités du conférencier
     n'est pas valide.                
     """;
-
+    
+    private String identifiant;
+    
     private String nom;
 
     private String prenom;
@@ -118,8 +120,9 @@ public class Conferencier{
      *                                  chiffres ou ne contient pas 9
      *                                  caractères
      */
-    public Conferencier(String nom, String prenom, String[] specialites,
-                        String numTel, boolean estInterne) {
+    public Conferencier(String identifiant, String nom, String prenom,
+                        String[] specialites, String numTel,
+                        boolean estInterne) {
         
         if (nom == null || nom.isBlank()) {
             throw new IllegalArgumentException(ERREUR_NOM_INVALIDE);
@@ -146,6 +149,7 @@ public class Conferencier{
                     ERREUR_NUMTEL_CARACTERE_INVALIDE);
         }
 
+        this.identifiant = identifiant.trim();
         this.nom = nom.trim();
         this.prenom = prenom.trim();
         this.specialites = specialites;
@@ -188,8 +192,8 @@ public class Conferencier{
      * @throws IllegalArgumentException si une valeur de la liste des
      *                                  indisponibilités est invalide
      */
-    public Conferencier(String nom, String prenom, String[] specialites,
-                        String numTel, boolean estInterne,
+    public Conferencier(String identifiant, String nom, String prenom,
+                        String[] specialites, String numTel, boolean estInterne,
                         Indisponibilite[] indisponibilites) {
         
         if (nom == null || nom.isBlank()) {
@@ -233,7 +237,8 @@ public class Conferencier{
                         ERREUR_INDISPONIBILITES_VALEURS_INVALIDES);
             }
         }
-
+        
+        this.identifiant = identifiant.trim();
         this.nom = nom.trim();
         this.prenom = prenom.trim();
         this.specialites = specialites;
@@ -241,7 +246,15 @@ public class Conferencier{
         this.estInterne = estInterne;
         this.indisponibilites = indisponibilites;
     }
-
+    
+    /**
+     * Récupère l'identifiant du conférencier.
+     * @return l'identifiant du conférencier
+     */
+    public String getIdentifant() {
+        return identifiant;
+    }
+    
     /**
      * Récupère le nom du conférencier.
      * @return le nom du conférencier
