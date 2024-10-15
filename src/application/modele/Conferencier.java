@@ -93,7 +93,7 @@ public class Conferencier{
     
     /**
      * Crée un conférencier avec un nom, un prénom, un numéro de
-     * téléphone, une liste de ses spécialités et si il est interne
+     * téléphone, une liste de ses spécialités et s'il est interne
      * ou non.
      * 
      * @param identifiant l'identifiant unique de conférencier
@@ -156,7 +156,7 @@ public class Conferencier{
     
     /**
      * Crée un conférencier avec un nom, un prénom, un numéro de
-     * téléphone, une liste de ses spécialités, si il est interne ou
+     * téléphone, une liste de ses spécialités, s'il est interne ou
      * non et une liste de des indisponibilités du conférencier.
      * 
      * @param identifiant l'identifiant unique de conférencier
