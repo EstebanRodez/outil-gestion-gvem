@@ -119,6 +119,11 @@ public class Conferencier{
      * 					contient autre chose que des
      * 					chiffres ou ne contient pas 9
      *                                  caractères
+     * @throws IllegalArgumentException si la référence de la liste
+     *                                  des indisponibilités est
+     *                                  nulle
+     * @throws IllegalArgumentException si une valeur de la liste des
+     *                                  indisponibilités est invalide
      */
     public Conferencier(String nom, String prenom, String[] specialites,
                         String numTel, boolean estInterne,
