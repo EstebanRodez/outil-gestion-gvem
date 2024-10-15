@@ -101,15 +101,20 @@ public class Exposition {
      * @throws IllegalArgumentException si la référence de l'intitulé
      *                                  est nulle ou l'intitulé est
      *                                  vide
+     * @throws IllegalArgumentException si l'année de la période de
+     *                                  début est supérieur à l'année
+     *                                  de fin
      * @throws IllegalArgumentException si le nombre d'oeuvres est
      *                                  négatif ou nul
      * @throws IllegalArgumentException si la référence de la liste
-     *                                  des mots clés est nul ou la
-     *                                  liste est vide
+     *                                  des mots clés est nulle, la
+     *                                  liste est vide ou sa taille
+     *                                  est supérieur à 10
+     * @throws IllegalArgumentException si l'une des valeurs de la
+     *                                  liste des mots clés est
+     *                                  invalide
      * @throws IllegalArgumentException si la référence du résumé est
      *                                  nulle ou le résumé est vide
-     * @throws IllegalArgumentException si le nombre de mots clés est
-     *                                  supérieur à 10
      */
     public Exposition (String identifiant,String intitule, int periodeDebut,
                        int periodeFin, int nbOeuvre, String[] motsCles,
