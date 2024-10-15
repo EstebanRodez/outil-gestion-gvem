@@ -43,9 +43,10 @@ class TestVisite {
     private final Employe EMPLOYE_VISITE_VALIDE
     = new Employe("N000001", "Mathieu", "Bernoulli", "1234");
     
-    // TODO Compléter avec le constructeur de conferencier
     private final Conferencier CONFERENCIER_VISITE_VALIDE
-    = new Conferencier();
+    = new Conferencier("Thenieres", "Baptiste", 
+                       new String[] {"impressionnisme", "paysage"}, 
+                       "123456789", true);
     
     private final Visite[] VISITES_VALIDES =
     {
@@ -53,7 +54,7 @@ class TestVisite {
                    DATE_VISITE_VALIDE, CLIENT_VISITE_VALIDE,
                    EXPOSITION_VISITE_VALIDE, EMPLOYE_VISITE_VALIDE,
                    CONFERENCIER_VISITE_VALIDE),
-        new Visite("V000002", 1500, LocalDate.of(2024, 11, 20),
+        new Visite("V000002", 600, LocalDate.of(2024, 11, 20),
                    new Client("Alice", "987654321"),
                    new Exposition("E000002", "Le surréalisme en couleurs", 1920,
                                   1950, 30,
@@ -63,8 +64,10 @@ class TestVisite {
                                   "Une exploration fascinante des couleurs dans"
                                   + " le mouvement surréaliste."),
                    new Employe("N000002", "Chloé", "Fourier", "5678"),
-                   new Conferencier()),
-        new Visite("V000003", 1800, LocalDate.of(2024, 12, 5),
+                   new Conferencier("Durand", "Marie", 
+                                    new String[] {"surréalisme", "peinture"}, 
+                                    "623456789", false)),
+        new Visite("V000003", 720, LocalDate.of(2024, 12, 5),
                    new Client("Benjamin", "456123789"),
                    new Exposition("E000003", "L'Art abstrait moderne", 1945,
                                   1980, 40,
@@ -73,16 +76,21 @@ class TestVisite {
                                                 "Mondrian"},
                                   "Un voyage au cœur de l'art abstrait."),
                    new Employe("N000003", "Julien", "Descartes", "7890"),
-                   new Conferencier()),
-        new Visite("V000004", 2000, LocalDate.of(2025, 1, 10),
+                   new Conferencier("Dupont", "Jacques", 
+                                    new String[] {"abstraction", "modernisme"}, 
+                                    "612345678", true)),
+        new Visite("V000004", 960, LocalDate.of(2025, 1, 10),
                    new Client("Camille", "321654987"),
                    new Exposition("E000004", "Le cubisme décomposé", 1907, 1925,
                                   35, new String[] {"cubisme", "Picasso", 
                                                     "Braque", "Gris"},
                                   "Un décryptage fascinant du cubisme."),
                    new Employe("N000004", "Luc", "Galois", "9012"),
-                   new Conferencier()),
-        new Visite("V000005", 1700, LocalDate.of(2025, 2, 28),
+                   new Conferencier("Martin", "Sophie", 
+                                    new String[] {"cubisme",
+                                                  "peinture moderne"}, 
+                                    "698765432", false)),
+        new Visite("V000005", 1160, LocalDate.of(2025, 2, 28),
                    new Client("Diane", "789123456"),
                    new Exposition("E000005", "Les sculptures grecques", -500,
                                   -100, 20,
@@ -91,7 +99,10 @@ class TestVisite {
                                   "Un retour sur l'âge d'or de la sculpture "
                                   + "grecque."),
                    new Employe("N000005", "Clara", "Euler", "3456"),
-                   new Conferencier())
+                   new Conferencier("Lemoine", "Paul", 
+                                    new String[] {"sculpture",
+                                                  "archéologie grecque"}, 
+                                    "712345678", true)),
     };
 
     /**
@@ -210,7 +221,7 @@ class TestVisite {
                                             EMPLOYE_VISITE_VALIDE,
                                             CONFERENCIER_VISITE_VALIDE));
         assertDoesNotThrow(
-                () -> new Visite("V000002", 1500, LocalDate.of(2024, 11, 20),
+                () -> new Visite("V000002", 600, LocalDate.of(2024, 11, 20),
                                  new Client("Alice", "987654321"),
                                  new Exposition("E000002",
                                                 "Le surréalisme en couleurs",
@@ -226,9 +237,12 @@ class TestVisite {
                                                 + " surréaliste."),
                                  new Employe("N000002", "Chloé", "Fourier", 
                                              "5678"),
-                                 new Conferencier()));
+                                 new Conferencier("Durand", "Marie", 
+                                                  new String[] {"surréalisme", 
+                                                                "peinture"}, 
+                                                  "623456789", false)));
         assertDoesNotThrow(
-                () -> new Visite("V000003", 1800, LocalDate.of(2024, 12, 5),
+                () -> new Visite("V000003", 720, LocalDate.of(2024, 12, 5),
                                  new Client("Benjamin", "456123789"),
                                  new Exposition("E000003",
                                                 "L'Art abstrait moderne",
@@ -242,10 +256,13 @@ class TestVisite {
                                                 + "abstrait."),
                                  new Employe("N000003", "Julien", "Descartes", 
                                              "7890"),
-                                 new Conferencier()));
+                                 new Conferencier("Dupont", "Jacques", 
+                                                  new String[] {"abstraction",
+                                                                "modernisme"}, 
+                                                  "612345678", true)));
                                  
             assertDoesNotThrow(
-                () -> new Visite("V000004", 2000, LocalDate.of(2025, 1, 10),
+                () -> new Visite("V000004", 960, LocalDate.of(2025, 1, 10),
                                  new Client("Camille", "321654987"),
                                  new Exposition("E000004",
                                                 "Le cubisme décomposé",
@@ -258,10 +275,13 @@ class TestVisite {
                                                 + "cubisme."),
                                  new Employe("N000004", "Luc", "Galois", 
                                              "9012"),
-                                 new Conferencier()));
+                                 new Conferencier("Martin", "Sophie", 
+                                         new String[] {"cubisme", 
+                                                       "peinture moderne"}, 
+                                         "698765432", false)));
                                  
             assertDoesNotThrow(
-                () -> new Visite("V000005", 1700, LocalDate.of(2025, 2, 28),
+                () -> new Visite("V000005", 1160, LocalDate.of(2025, 2, 28),
                                  new Client("Diane", "789123456"),
                                  new Exposition("E000005",
                                                 "Les sculptures grecques",
@@ -274,7 +294,10 @@ class TestVisite {
                                                 + " sculpture grecque."),
                                  new Employe("N000005", "Clara", "Euler", 
                                              "3456"),
-                                 new Conferencier()));
+                                 new Conferencier("Lemoine", "Paul", 
+                                         new String[] {"sculpture",
+                                                       "archéologie grecque"}, 
+                                         "712345678", true)));
     }
 
     /**
