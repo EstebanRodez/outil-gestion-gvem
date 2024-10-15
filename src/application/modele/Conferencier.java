@@ -24,8 +24,14 @@ package application.modele;
  * @author Esteban Vroemen
  * @version 1.0
  */
-public class Conferencier{
-
+public class Conferencier {
+    
+    private static final String ERREUR_IDENTIFIANT_INVALIDE =
+    """
+    Impossible de créer un conférencier.
+    L'identifiant du conférencier ne doit pas être nul ou vide.                
+    """;
+    
     private static final String ERREUR_NOM_INVALIDE =
     """
     Impossible de créer un conférencier.
@@ -104,10 +110,13 @@ public class Conferencier{
      * @param specialites la liste des spécialités du conférencier
      * @param numTel le numéro de téléphone du conférencier
      * @param estInterne si la conférencier est interne ou non
+     * @throws IllegalArgumentException si la référence de
+     *                                  l'identifiant est nulle ou
+     *                                  l'identifiant est vide
      * @throws IllegalArgumentException si la référence du nom est
-     *                                  nul ou le nom est vide
+     *                                  nulle ou le nom est vide
      * @throws IllegalArgumentException si la référence du prénom est
-     *                                  nul ou le prénom est vide
+     *                                  nulle ou le prénom est vide
      * @throws IllegalArgumentException si la référence de la liste 
      *                                  des spécialités est nulle,
      *                                  la liste est vide
@@ -123,6 +132,10 @@ public class Conferencier{
     public Conferencier(String identifiant, String nom, String prenom,
                         String[] specialites, String numTel,
                         boolean estInterne) {
+        
+        if (identifiant == null || identifiant.isBlank()) {
+            throw new IllegalArgumentException(ERREUR_IDENTIFIANT_INVALIDE);
+        }
         
         if (nom == null || nom.isBlank()) {
             throw new IllegalArgumentException(ERREUR_NOM_INVALIDE);
@@ -171,10 +184,13 @@ public class Conferencier{
      * @param estInterne si la conférencier est interne ou non
      * @param indisponibilites la liste de ses indisponibités
      *                         potentielles
+     * @throws IllegalArgumentException si la référence de
+     *                                  l'identifiant est nulle ou
+     *                                  l'identifiant est vide
      * @throws IllegalArgumentException si la référence du nom est
-     *                                  nul ou le nom est vide
+     *                                  nulle ou le nom est vide
      * @throws IllegalArgumentException si la référence du prénom est
-     *                                  nul ou le prénom est vide
+     *                                  nulle ou le prénom est vide
      * @throws IllegalArgumentException si la référence de la liste 
      * 					des spécialités est nulle,
      *                                  la liste est vide
@@ -195,6 +211,10 @@ public class Conferencier{
     public Conferencier(String identifiant, String nom, String prenom,
                         String[] specialites, String numTel, boolean estInterne,
                         Indisponibilite[] indisponibilites) {
+        
+        if (identifiant == null || identifiant.isBlank()) {
+            throw new IllegalArgumentException(ERREUR_IDENTIFIANT_INVALIDE);
+        }
         
         if (nom == null || nom.isBlank()) {
             throw new IllegalArgumentException(ERREUR_NOM_INVALIDE);
