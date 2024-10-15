@@ -28,38 +28,41 @@ public class Conferencier{
 
     private static final String ERREUR_NOM_INVALIDE =
     """
-    Impossible de créer un employé.
-    Le nom de l'employé ne doit pas être nul ou vide.                
+    Impossible de créer un conférencier.
+    Le nom du conférencier ne doit pas être nul ou vide.                
     """;
 
     private static final String ERREUR_PRENOM_INVALIDE =
     """
-    Impossible de créer un employé.
-    Le prénom de l'employé ne doit pas être nul ou vide.                
+    Impossible de créer un conférencier.
+    Le prénom du conférencier ne doit pas être nul ou vide.                
     """;
     
     private static final String ERREUR_SPECIALITE_INVALIDE =
     """
-    Impossible de créer unconférencier.
+    Impossible de créer un conférencier.
     La liste de spécialités du conférencier ne doit pas être nul, vide
-    ou superieure à 6                
+    ou sa taille ne doit pas être supérieure à 6.           
     """;
     
     private static final String ERREUR_NUMTEL_INVALIDE =
     """
-    Impossible de créer un employé.
-    Le numéro de téléphone de l'employé ne doit pas être nul ou vide.                
+    Impossible de créer un conférencier.
+    Le numéro de téléphone du conférencier ne doit pas être nul ou vide.                
     """;
     
     private static final String ERREUR_NUMTEL_CARACTERE_INVALIDE =
     """
-    Impossible de créer un employé.
-    Le numéro de téléphone de l'employé doit contenir uniquement des chiffres.              
+    Impossible de créer un conférencier.
+    Le numéro de téléphone du conférencier doit contenir
+    uniquement des chiffres.              
     """;
+    
     private static final String ERREUR_NUMTEL_LONGUEUR_INVALIDE =
     """
-    Impossible de créer un employé.
-    Le numéro de téléphone de l'employé doit contenir uniquement 4 caractères.                
+    Impossible de créer un conférencier.
+    Le numéro de téléphone du conférencier doit contenir
+    uniquement 9 caractères.                
     """;
 
     private String nom;
@@ -126,11 +129,11 @@ public class Conferencier{
             throw new IllegalArgumentException(ERREUR_NUMTEL_INVALIDE);
         }
 
-        if (numTel.length() != 4) {
+        if (numTel.length() != 9) {
             throw new IllegalArgumentException(ERREUR_NUMTEL_LONGUEUR_INVALIDE);
         }
 
-        if (!numTel.matches("(\\d){4}")) {
+        if (!numTel.matches("(\\d){9}")) {
             throw new IllegalArgumentException(
                     ERREUR_NUMTEL_CARACTERE_INVALIDE);
         }
