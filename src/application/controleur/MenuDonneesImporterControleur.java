@@ -90,8 +90,12 @@ public class MenuDonneesImporterControleur {
     }
 
     @FXML
-    void btnVisiteAction(ActionEvent event) {
-
+    void btnVisiteAction(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/vue/donneesImporteesVisiteVue.fxml"));
+        Parent donneesImporteesVisiteVue = loader.load();
+        DonneesImporteesVisiteControleur controleur = loader.getController();
+        controleur.setFenetreAppli(fenetreAppli);
+        fenetreAppli.setScene(new Scene(donneesImporteesVisiteVue));
     }
 
 

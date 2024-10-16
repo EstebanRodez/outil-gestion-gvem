@@ -1,5 +1,5 @@
 /*
- * DonneesImporteesConferencierControleur.java                           
+ * DonneesImporteesVisiteControleur.java                           
  * 16 oct. 2024
  * IUT de Rodez, pas de copyright
  */
@@ -7,6 +7,8 @@ package application.controleur;
 
 import java.io.IOException;
 
+import application.controleur.AccueilControleur;
+import application.controleur.MenuDonneesImporterControleur;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,7 +20,7 @@ import javafx.stage.Stage;
 /**
  * TODO commenter la responsabilité de cette class (SRP)
  */
-public class DonneesImporteesConferencierControleur {
+public class DonneesImporteesVisiteControleur {
     
     private Stage fenetreAppli;
     
