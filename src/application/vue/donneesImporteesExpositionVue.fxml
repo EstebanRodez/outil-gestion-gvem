@@ -32,11 +32,6 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Menu?>
@@ -49,7 +44,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controleur.DonneesImporteesExpositionControleur">
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controleur.DonneesImporteesExpositionControleur">
   <children>
       <MenuBar VBox.vgrow="NEVER">
          <menus>
@@ -57,7 +52,7 @@
                <items>
                   <MenuItem mnemonicParsing="false" onAction="#retourAccueilAction" text="Accueil" />
                   <SeparatorMenuItem mnemonicParsing="false" onAction="#quitterAction" />
-                  <MenuItem mnemonicParsing="false" text="Quitter" />
+                  <MenuItem mnemonicParsing="false" onAction="#quitterAction" text="Quitter" />
                </items></Menu>
             <Menu mnemonicParsing="false" text="Aide">
                <items>
