@@ -5,6 +5,7 @@
  */
 package application.controleur;
 
+import java.io.File;
 import java.io.IOException;
 
 import javafx.event.ActionEvent;
@@ -12,7 +13,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 /**
@@ -58,8 +62,30 @@ public class ImporterControleur {
 
     @FXML
     void btnImporterLocalAction(ActionEvent event) {
+        // Créer une instance de FileChooser
+        FileChooser fileChooser = new FileChooser();
+        
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Fichiers données (*.csv)", "*.csv");
+        fileChooser.getExtensionFilters().add(extFilter);
+        
+        // Ouvrir le dialogue pour choisir un fichier
+        File fichierSelectionne = fileChooser.showOpenDialog(fenetreAppli);
+        
+        // Vérifier si un fichier a été sélectionné
+        if (fichierSelectionne != null) {
+            // TODO ImportationCsv.importer(fichierSelectionne.getAbsolutePath()));
+        } else {
+            Alert boiteErreurInconnueOuverture =
+                    new Alert(Alert.AlertType.ERROR, 
+                              "Aucun fichier sélectionner",
+                              ButtonType.OK);
 
-    }
+            boiteErreurInconnueOuverture.setTitle("Erreur fichier");
+            boiteErreurInconnueOuverture.setHeaderText("Erreur récupération fichier");
+
+            boiteErreurInconnueOuverture.showAndWait();
+        }
+    }   
 
     @FXML
     void btnRetourAction(ActionEvent event) throws IOException {

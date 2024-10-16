@@ -86,7 +86,7 @@ public class MenuDonneesImporterControleur {
 
     @FXML
     void btnStatistiqueAction(ActionEvent event) {
-        //TODO renvois vers la page menuStatistique
+
     }
 
     @FXML
