@@ -98,19 +98,13 @@ class TestExposition {
                                           RESUME_EXPO_VALIDE));
         assertThrows(IllegalArgumentException.class, 
                      () -> new Exposition(IDENTIFIANT_EXPO_VALIDE,
-                                         INTITULE_EXPO_VALIDE, -10, 1880,
-                                         NBOEUVRE_EXPO_VALIDE,
-                                         MOTSCLES_EXPO_VALIDE,
-                                         RESUME_EXPO_VALIDE));
-        assertThrows(IllegalArgumentException.class, 
-                     () -> new Exposition(IDENTIFIANT_EXPO_VALIDE,
                                           INTITULE_EXPO_VALIDE, 1880, 0, 
                                           NBOEUVRE_EXPO_VALIDE, 
                                           MOTSCLES_EXPO_VALIDE,
                                           RESUME_EXPO_VALIDE));
         assertThrows(IllegalArgumentException.class, 
                      () -> new Exposition(IDENTIFIANT_EXPO_VALIDE,
-                                          INTITULE_EXPO_VALIDE, 0, 0,
+                                          INTITULE_EXPO_VALIDE, 0, -40,
                                           NBOEUVRE_EXPO_VALIDE, 
                                           MOTSCLES_EXPO_VALIDE,
                                           RESUME_EXPO_VALIDE));
