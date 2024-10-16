@@ -27,7 +27,7 @@ class TestClient {
         new Client("Esteban", "012345678"),
         new Client("Romain", "012345678"),
         new Client("Ayoub", "987654321"),
-        new Client(" Baptiste", "154564474"),
+        new Client("Baptiste", "154564474"),
     };
 
     /**
@@ -129,6 +129,78 @@ class TestClient {
         assertNotEquals("0123456789", CLIENTS_VALIDES[0].getNumTel());
         assertNotEquals("01234567", CLIENTS_VALIDES[0].getNumTel());
         assertNotEquals("112345678", CLIENTS_VALIDES[0].getNumTel());
+    }
+    
+    /**
+     * Méthode de test pour 
+     * {@link application.modele.Client#equals()}.
+     */
+    @Test
+    void testEquals() {
+        
+        assertTrue(CLIENTS_VALIDES[0].equals(new Client("Esteban",
+                                                        "012345678")));
+        assertTrue(CLIENTS_VALIDES[1].equals(new Client("Romain",
+                                                        "012345678")));
+        assertTrue(CLIENTS_VALIDES[2].equals(new Client("Ayoub",
+                                                        "987654321")));
+        assertTrue(CLIENTS_VALIDES[3].equals(new Client("Baptiste",
+                                                        "154564474")));
+        
+        assertFalse(CLIENTS_VALIDES[0].equals(null));
+        assertFalse(CLIENTS_VALIDES[1].equals(null));
+        assertFalse(CLIENTS_VALIDES[2].equals(null));
+        assertFalse(CLIENTS_VALIDES[3].equals(null));
+        assertFalse(CLIENTS_VALIDES[0].equals("Esteban"));
+        assertFalse(CLIENTS_VALIDES[1].equals("Romain"));
+        assertFalse(CLIENTS_VALIDES[2].equals("Ayoub"));
+        assertFalse(CLIENTS_VALIDES[3].equals("Baptiste"));
+        assertFalse(CLIENTS_VALIDES[0].equals("012345678"));
+        assertFalse(CLIENTS_VALIDES[1].equals("012345678"));
+        assertFalse(CLIENTS_VALIDES[2].equals("987654321"));
+        assertFalse(CLIENTS_VALIDES[3].equals("154564474"));
+        assertFalse(CLIENTS_VALIDES[0].equals(new Client("Estebane",
+                                                         "012345678")));
+        assertFalse(CLIENTS_VALIDES[1].equals(new Client("Romaine",
+                                                         "012345678")));
+        assertFalse(CLIENTS_VALIDES[2].equals(new Client("Ayoube",
+                                                         "987654321")));
+        assertFalse(CLIENTS_VALIDES[3].equals(new Client("Baptistes",
+                                                         "154564474")));
+        assertFalse(CLIENTS_VALIDES[0].equals(new Client("Esteban",
+                                                         "013345678")));
+        assertFalse(CLIENTS_VALIDES[1].equals(new Client("Romain",
+                                                         "012346678")));
+        assertFalse(CLIENTS_VALIDES[2].equals(new Client("Ayoub",
+                                                         "988654321")));
+        assertFalse(CLIENTS_VALIDES[3].equals(new Client("Baptiste",
+                                                         "154564494")));
+    }
+    
+    /**
+     * Méthode de test pour 
+     * {@link application.modele.Client#toString()}.
+     */
+    @Test
+    void testToString() {
+        
+        assertEquals("Esteban 012345678", CLIENTS_VALIDES[0].toString());
+        assertEquals("Romain 012345678", CLIENTS_VALIDES[1].toString());
+        assertEquals("Ayoub 987654321", CLIENTS_VALIDES[2].toString());
+        assertEquals("Baptiste 154564474", CLIENTS_VALIDES[3].toString());
+        
+        assertNotEquals(null, CLIENTS_VALIDES[0].toString());
+        assertNotEquals(null, CLIENTS_VALIDES[1].toString());
+        assertNotEquals(null, CLIENTS_VALIDES[2].toString());
+        assertNotEquals(null, CLIENTS_VALIDES[3].toString());
+        assertNotEquals("", CLIENTS_VALIDES[0].toString());
+        assertNotEquals("", CLIENTS_VALIDES[1].toString());
+        assertNotEquals("", CLIENTS_VALIDES[2].toString());
+        assertNotEquals("", CLIENTS_VALIDES[3].toString());
+        assertNotEquals("Estebane 012345678", CLIENTS_VALIDES[0].toString());
+        assertNotEquals("Romaine 012345678", CLIENTS_VALIDES[1].toString());
+        assertNotEquals("Ayoube 987654321", CLIENTS_VALIDES[2].toString());
+        assertNotEquals("Baptistes 154564474", CLIENTS_VALIDES[3].toString());
     }
 
 }

@@ -102,4 +102,26 @@ public class Client {
     public String getNumTel() {
         return numTel;
     }
+
+    /* non javadoc - @see java.lang.Object#equals(java.lang.Object) */
+    @Override
+    public boolean equals(Object objet) {
+
+        if (objet instanceof Client) {
+            
+            Client client = (Client) objet;
+            return this.getIntitule().equals(client.getIntitule())
+                   && this.getNumTel().equals(client.getNumTel());
+        }
+        
+        return false;
+    }
+
+    /* non javadoc - @see java.lang.Object#toString() */
+    @Override
+    public String toString() {
+        return getIntitule() + " " + getNumTel();
+    }
+    
+    
 }
