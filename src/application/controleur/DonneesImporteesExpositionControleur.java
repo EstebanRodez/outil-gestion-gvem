@@ -26,21 +26,20 @@ public class DonneesImporteesExpositionControleur {
     }
     
     @FXML
-    private Button btnAide;
-
-    @FXML
-    private Button btnMenu;
-
-    @FXML
     private Button btnRetour;
 
     @FXML
-    void btnAideAction(ActionEvent event) {
+    void retourAccueil(ActionEvent event) {
 
     }
 
     @FXML
-    void btnMenuAction(ActionEvent event) {
+    void quitterPartie(ActionEvent event) {
+
+    }
+
+    @FXML
+    void afficherManuelUtilisateur(ActionEvent event) {
 
     }
 
