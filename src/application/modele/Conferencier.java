@@ -271,7 +271,7 @@ public class Conferencier {
      * Récupère l'identifiant du conférencier.
      * @return l'identifiant du conférencier
      */
-    public String getIdentifant() {
+    public String getIdentifiant() {
         return identifiant;
     }
     
