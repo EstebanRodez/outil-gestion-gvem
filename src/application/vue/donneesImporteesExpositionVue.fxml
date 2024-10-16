@@ -54,9 +54,15 @@
       <MenuBar VBox.vgrow="NEVER">
          <menus>
             <Menu mnemonicParsing="false" text="Menu">
-            </Menu>
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#retourAccueilAction" text="Accueil" />
+                  <SeparatorMenuItem mnemonicParsing="false" onAction="#quitterAction" />
+                  <MenuItem mnemonicParsing="false" text="Quitter" />
+               </items></Menu>
             <Menu mnemonicParsing="false" text="Aide">
-            </Menu>
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#aideAction" text="Document d'aide" />
+               </items></Menu>
          </menus>
       </MenuBar>
       <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" style="-fx-background-color: #9FCFF3;">
