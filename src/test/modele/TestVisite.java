@@ -306,6 +306,27 @@ class TestVisite {
     @Test
     void testGetIdentifiant() {
         
+        assertEquals("V000001", VISITES_VALIDES[0].getIdentifiant());
+        assertEquals("V000002", VISITES_VALIDES[1].getIdentifiant());
+        assertEquals("V000003", VISITES_VALIDES[2].getIdentifiant());
+        assertEquals("V000004", VISITES_VALIDES[3].getIdentifiant());
+        assertEquals("V000005", VISITES_VALIDES[4].getIdentifiant());
+        
+        assertNotEquals("V000002", VISITES_VALIDES[0].getIdentifiant());
+        assertNotEquals("V000003", VISITES_VALIDES[1].getIdentifiant());
+        assertNotEquals("V000004", VISITES_VALIDES[2].getIdentifiant());
+        assertNotEquals("V000005", VISITES_VALIDES[3].getIdentifiant());
+        assertNotEquals("V000006", VISITES_VALIDES[4].getIdentifiant());
+        assertNotEquals(null, VISITES_VALIDES[0].getIdentifiant());
+        assertNotEquals(null, VISITES_VALIDES[1].getIdentifiant());
+        assertNotEquals(null, VISITES_VALIDES[2].getIdentifiant());
+        assertNotEquals(null, VISITES_VALIDES[3].getIdentifiant());
+        assertNotEquals(null, VISITES_VALIDES[4].getIdentifiant());
+        assertNotEquals("", VISITES_VALIDES[0].getIdentifiant());
+        assertNotEquals("", VISITES_VALIDES[1].getIdentifiant());
+        assertNotEquals("", VISITES_VALIDES[2].getIdentifiant());
+        assertNotEquals("", VISITES_VALIDES[3].getIdentifiant());
+        assertNotEquals("", VISITES_VALIDES[4].getIdentifiant());
     }
 
     /**
@@ -314,6 +335,27 @@ class TestVisite {
     @Test
     void testGetHoraireDebut() {
         
+        assertEquals(610, VISITES_VALIDES[0].getHoraireDebut());
+        assertEquals(600, VISITES_VALIDES[1].getHoraireDebut());
+        assertEquals(720, VISITES_VALIDES[2].getHoraireDebut());
+        assertEquals(960, VISITES_VALIDES[3].getHoraireDebut());
+        assertEquals(1160, VISITES_VALIDES[4].getHoraireDebut());
+        
+        assertNotEquals(609, VISITES_VALIDES[0].getHoraireDebut());
+        assertNotEquals(599, VISITES_VALIDES[1].getHoraireDebut());
+        assertNotEquals(719, VISITES_VALIDES[2].getHoraireDebut());
+        assertNotEquals(959, VISITES_VALIDES[3].getHoraireDebut());
+        assertNotEquals(1159, VISITES_VALIDES[4].getHoraireDebut());
+        assertNotEquals(611, VISITES_VALIDES[0].getHoraireDebut());
+        assertNotEquals(601, VISITES_VALIDES[1].getHoraireDebut());
+        assertNotEquals(721, VISITES_VALIDES[2].getHoraireDebut());
+        assertNotEquals(961, VISITES_VALIDES[3].getHoraireDebut());
+        assertNotEquals(1161, VISITES_VALIDES[4].getHoraireDebut());
+        assertNotEquals(-610, VISITES_VALIDES[0].getHoraireDebut());
+        assertNotEquals(-600, VISITES_VALIDES[1].getHoraireDebut());
+        assertNotEquals(-720, VISITES_VALIDES[2].getHoraireDebut());
+        assertNotEquals(-960, VISITES_VALIDES[3].getHoraireDebut());
+        assertNotEquals(-1160, VISITES_VALIDES[4].getHoraireDebut());
     }
 
     /**
@@ -322,6 +364,37 @@ class TestVisite {
     @Test
     void testGetDate() {
         
+        assertEquals(LocalDate.of(2024, 10, 12), VISITES_VALIDES[0].getDate());
+        assertEquals(LocalDate.of(2024, 11, 20), VISITES_VALIDES[1].getDate());
+        assertEquals(LocalDate.of(2024, 12, 5), VISITES_VALIDES[2].getDate());
+        assertEquals(LocalDate.of(2025, 1, 10), VISITES_VALIDES[3].getDate());
+        assertEquals(LocalDate.of(2025, 2, 28), VISITES_VALIDES[4].getDate());
+        
+        assertNotEquals(null, VISITES_VALIDES[0].getDate());
+        assertNotEquals(null, VISITES_VALIDES[1].getDate());
+        assertNotEquals(null, VISITES_VALIDES[2].getDate());
+        assertNotEquals(null, VISITES_VALIDES[3].getDate());
+        assertNotEquals(null, VISITES_VALIDES[4].getDate());
+        assertNotEquals(LocalDate.of(2024, 10, 11),
+                        VISITES_VALIDES[0].getDate());
+        assertNotEquals(LocalDate.of(2024, 11, 19),
+                        VISITES_VALIDES[1].getDate());
+        assertNotEquals(LocalDate.of(2024, 12, 4),
+                        VISITES_VALIDES[2].getDate());
+        assertNotEquals(LocalDate.of(2025, 1, 9),
+                        VISITES_VALIDES[3].getDate());
+        assertNotEquals(LocalDate.of(2025, 2, 27),
+                        VISITES_VALIDES[4].getDate());
+        assertNotEquals(LocalDate.of(2024, 10, 13),
+                        VISITES_VALIDES[0].getDate());
+        assertNotEquals(LocalDate.of(2024, 11, 21),
+                        VISITES_VALIDES[1].getDate());
+        assertNotEquals(LocalDate.of(2024, 12, 6),
+                        VISITES_VALIDES[2].getDate());
+        assertNotEquals(LocalDate.of(2025, 1, 11),
+                        VISITES_VALIDES[3].getDate());
+        assertNotEquals(LocalDate.of(2025, 3, 1),
+                        VISITES_VALIDES[4].getDate());
     }
 
     /**
@@ -330,6 +403,11 @@ class TestVisite {
     @Test
     void testGetClient() {
         
+        assertNotEquals(null, VISITES_VALIDES[0].getClient());
+        assertNotEquals(null, VISITES_VALIDES[1].getClient());
+        assertNotEquals(null, VISITES_VALIDES[2].getClient());
+        assertNotEquals(null, VISITES_VALIDES[3].getClient());
+        assertNotEquals(null, VISITES_VALIDES[4].getClient());
     }
 
     /**
@@ -338,6 +416,11 @@ class TestVisite {
     @Test
     void testGetExposition() {
         
+        assertNotEquals(null, VISITES_VALIDES[0].getExposition());
+        assertNotEquals(null, VISITES_VALIDES[1].getExposition());
+        assertNotEquals(null, VISITES_VALIDES[2].getExposition());
+        assertNotEquals(null, VISITES_VALIDES[3].getExposition());
+        assertNotEquals(null, VISITES_VALIDES[4].getExposition());
     }
 
     /**
@@ -346,6 +429,11 @@ class TestVisite {
     @Test
     void testGetEmploye() {
         
+        assertNotEquals(null, VISITES_VALIDES[0].getEmploye());
+        assertNotEquals(null, VISITES_VALIDES[1].getEmploye());
+        assertNotEquals(null, VISITES_VALIDES[2].getEmploye());
+        assertNotEquals(null, VISITES_VALIDES[3].getEmploye());
+        assertNotEquals(null, VISITES_VALIDES[4].getEmploye());
     }
 
     /**
@@ -354,6 +442,11 @@ class TestVisite {
     @Test
     void testGetConferencier() {
         
+        assertNotEquals(null, VISITES_VALIDES[0].getConferencier());
+        assertNotEquals(null, VISITES_VALIDES[1].getConferencier());
+        assertNotEquals(null, VISITES_VALIDES[2].getConferencier());
+        assertNotEquals(null, VISITES_VALIDES[3].getConferencier());
+        assertNotEquals(null, VISITES_VALIDES[4].getConferencier());
     }
 
 }
