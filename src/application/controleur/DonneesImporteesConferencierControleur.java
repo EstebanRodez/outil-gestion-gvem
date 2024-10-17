@@ -7,12 +7,16 @@ package application.controleur;
 
 import java.io.IOException;
 
+import application.modele.Conferencier;
+import application.modele.Indisponibilite;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
 /**
@@ -32,6 +36,30 @@ public class DonneesImporteesConferencierControleur {
     
     @FXML
     private Button btnRetour;
+    
+    @FXML
+    private TableColumn<Conferencier, Boolean> estInterne;
+
+    @FXML
+    private TableColumn<Conferencier, String> identifiant;
+
+    @FXML
+    private TableColumn<Conferencier, Indisponibilite[]> indisponibilites;
+
+    @FXML
+    private TableColumn<Conferencier, String> nom;
+
+    @FXML
+    private TableColumn<Conferencier, String> numTel;
+
+    @FXML
+    private TableColumn<Conferencier, String> prenom;
+
+    @FXML
+    private TableColumn<Conferencier, String[]> specialites;
+
+    @FXML
+    private TableView<Conferencier> tableExposition;
 
     @FXML
     void retourAccueilAction(ActionEvent event) throws IOException {
