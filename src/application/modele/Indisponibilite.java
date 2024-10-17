@@ -139,16 +139,20 @@ public class Indisponibilite {
     @Override
     public boolean equals(Object objet) {
         
-        if (objet instanceof Indisponibilite) {
-            
-            Indisponibilite indisponibilite = (Indisponibilite) objet;
-            return this.getDateDebut().equals(indisponibilite.getDateDebut())
-                   && (indisponibilite.getDateFin() == null
-                       || this.getDateFin().equals(indisponibilite.getDateFin())
-                      );
+        // Même référence
+        if (this == objet) {
+            return true;
         }
         
-        return false;
+        if (!(objet instanceof Indisponibilite)) {
+            return false;
+        }
+        
+        Indisponibilite indisponibilite = (Indisponibilite) objet;
+        return this.getDateDebut().equals(indisponibilite.getDateDebut())
+               && (indisponibilite.getDateFin() == null
+                   || this.getDateFin().equals(indisponibilite.getDateFin())
+                  );
     }
 
     /* non javadoc - @see java.lang.Object#toString() */
