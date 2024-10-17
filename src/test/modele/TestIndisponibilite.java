@@ -245,6 +245,22 @@ class TestIndisponibilite {
     void testEquals() {
         
         assertTrue(INDISPONIBILITES_VALIDES[0].equals(
+                INDISPONIBILITES_VALIDES[0]));
+        assertTrue(INDISPONIBILITES_VALIDES[1].equals(
+                INDISPONIBILITES_VALIDES[1]));
+        assertTrue(INDISPONIBILITES_VALIDES[2].equals(
+                INDISPONIBILITES_VALIDES[2]));
+        assertTrue(INDISPONIBILITES_VALIDES[3].equals(
+                INDISPONIBILITES_VALIDES[3]));
+        assertTrue(INDISPONIBILITES_VALIDES[4].equals(
+                INDISPONIBILITES_VALIDES[4]));
+        assertTrue(INDISPONIBILITES_VALIDES[5].equals(
+                INDISPONIBILITES_VALIDES[5]));
+        assertTrue(INDISPONIBILITES_VALIDES[6].equals(
+                INDISPONIBILITES_VALIDES[6]));
+        assertTrue(INDISPONIBILITES_VALIDES[7].equals(
+                INDISPONIBILITES_VALIDES[7]));
+        assertTrue(INDISPONIBILITES_VALIDES[0].equals(
                 new Indisponibilite(LocalDate.of(2005, 5, 28))));
         assertTrue(INDISPONIBILITES_VALIDES[1].equals(
                 new Indisponibilite(LocalDate.of(2005, 3, 21))));
@@ -273,6 +289,22 @@ class TestIndisponibilite {
         assertFalse(INDISPONIBILITES_VALIDES[5].equals(null));
         assertFalse(INDISPONIBILITES_VALIDES[6].equals(null));
         assertFalse(INDISPONIBILITES_VALIDES[7].equals(null));
+        assertFalse(INDISPONIBILITES_VALIDES[0].equals(
+                INDISPONIBILITES_VALIDES[1]));
+        assertFalse(INDISPONIBILITES_VALIDES[1].equals(
+                INDISPONIBILITES_VALIDES[2]));
+        assertFalse(INDISPONIBILITES_VALIDES[2].equals(
+                INDISPONIBILITES_VALIDES[3]));
+        assertFalse(INDISPONIBILITES_VALIDES[3].equals(
+                INDISPONIBILITES_VALIDES[4]));
+        assertFalse(INDISPONIBILITES_VALIDES[4].equals(
+                INDISPONIBILITES_VALIDES[5]));
+        assertFalse(INDISPONIBILITES_VALIDES[5].equals(
+                INDISPONIBILITES_VALIDES[6]));
+        assertFalse(INDISPONIBILITES_VALIDES[6].equals(
+                INDISPONIBILITES_VALIDES[7]));
+        assertFalse(INDISPONIBILITES_VALIDES[7].equals(
+                INDISPONIBILITES_VALIDES[0]));
         assertFalse(INDISPONIBILITES_VALIDES[0].equals("28/5/2005"));
         assertFalse(INDISPONIBILITES_VALIDES[1].equals("21/3/2005"));
         assertFalse(INDISPONIBILITES_VALIDES[2].equals("14/8/2005"));
