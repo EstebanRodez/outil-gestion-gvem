@@ -113,7 +113,6 @@ public class Client {
         }
 
         if (!(objet instanceof Client)) {
-            
             return false;
         }
         
