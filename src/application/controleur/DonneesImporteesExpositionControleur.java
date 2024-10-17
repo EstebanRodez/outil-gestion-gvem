@@ -7,12 +7,18 @@ package application.controleur;
 
 import java.io.IOException;
 
+import java.time.LocalDate;
+
+import application.modele.Exposition;
+import application.modele.ExpositionTemporaire;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
 /**
@@ -32,6 +38,36 @@ public class DonneesImporteesExpositionControleur {
     
     @FXML
     private Button btnRetour;
+    
+    @FXML
+    private TableColumn<ExpositionTemporaire, LocalDate> dateDebut;
+
+    @FXML
+    private TableColumn<ExpositionTemporaire, LocalDate> dateFin;
+
+    @FXML
+    private TableColumn<Exposition, String> identifiant;
+
+    @FXML
+    private TableColumn<Exposition, String> intitule;
+
+    @FXML
+    private TableColumn<Exposition, String[]> motsCles;
+
+    @FXML
+    private TableColumn<Exposition, Integer> nbOeuvre;
+
+    @FXML
+    private TableColumn<Exposition, Integer> periodeDebut;
+
+    @FXML
+    private TableColumn<Exposition, Integer> periodeFin;
+
+    @FXML
+    private TableColumn<Exposition, String> resume;
+
+    @FXML
+    private TableView<Exposition> tableExposition;
 
     @FXML
     void retourAccueilAction(ActionEvent event) throws IOException {
