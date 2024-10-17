@@ -6,15 +6,23 @@
 package application.controleur;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 import application.controleur.AccueilControleur;
 import application.controleur.MenuDonneesImporterControleur;
+import application.modele.Client;
+import application.modele.Conferencier;
+import application.modele.Employe;
+import application.modele.Exposition;
+import application.modele.Visite;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
 /**
@@ -34,6 +42,33 @@ public class DonneesImporteesVisiteControleur {
     
     @FXML
     private Button btnRetour;
+    
+    @FXML
+    private TableColumn<Visite, Conferencier> conferencier;
+
+    @FXML
+    private TableColumn<Visite, LocalDate> date;
+
+    @FXML
+    private TableColumn<Visite, Employe> employe;
+
+    @FXML
+    private TableColumn<Visite, Exposition> exposition;
+
+    @FXML
+    private TableColumn<Visite, Integer> horaireDebut;
+
+    @FXML
+    private TableColumn<Visite, String> identifiant;
+
+    @FXML
+    private TableColumn<Client, String> intitule;
+
+    @FXML
+    private TableColumn<Client, String> numTel;
+
+    @FXML
+    private TableView<Visite> tableExposition;
 
     @FXML
     void retourAccueilAction(ActionEvent event) throws IOException {
