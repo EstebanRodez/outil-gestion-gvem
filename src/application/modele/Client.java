@@ -106,15 +106,20 @@ public class Client {
     /* non javadoc - @see java.lang.Object#equals(java.lang.Object) */
     @Override
     public boolean equals(Object objet) {
+        
+        // Même référence
+        if (this == objet) {
+            return true;
+        }
 
-        if (objet instanceof Client) {
+        if (!(objet instanceof Client)) {
             
-            Client client = (Client) objet;
-            return this.getIntitule().equals(client.getIntitule())
-                   && this.getNumTel().equals(client.getNumTel());
+            return false;
         }
         
-        return false;
+        Client client = (Client) objet;
+        return this.getIntitule().equals(client.getIntitule())
+                && this.getNumTel().equals(client.getNumTel());
     }
 
     /* non javadoc - @see java.lang.Object#toString() */
