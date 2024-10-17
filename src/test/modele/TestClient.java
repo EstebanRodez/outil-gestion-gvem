@@ -138,6 +138,10 @@ class TestClient {
     @Test
     void testEquals() {
         
+        assertTrue(CLIENTS_VALIDES[0].equals(CLIENTS_VALIDES[0]));
+        assertTrue(CLIENTS_VALIDES[1].equals(CLIENTS_VALIDES[1]));
+        assertTrue(CLIENTS_VALIDES[2].equals(CLIENTS_VALIDES[2]));
+        assertTrue(CLIENTS_VALIDES[3].equals(CLIENTS_VALIDES[3]));
         assertTrue(CLIENTS_VALIDES[0].equals(new Client("Esteban",
                                                         "012345678")));
         assertTrue(CLIENTS_VALIDES[1].equals(new Client("Romain",
@@ -151,6 +155,10 @@ class TestClient {
         assertFalse(CLIENTS_VALIDES[1].equals(null));
         assertFalse(CLIENTS_VALIDES[2].equals(null));
         assertFalse(CLIENTS_VALIDES[3].equals(null));
+        assertFalse(CLIENTS_VALIDES[0].equals(CLIENTS_VALIDES[1]));
+        assertFalse(CLIENTS_VALIDES[1].equals(CLIENTS_VALIDES[2]));
+        assertFalse(CLIENTS_VALIDES[2].equals(CLIENTS_VALIDES[3]));
+        assertFalse(CLIENTS_VALIDES[3].equals(CLIENTS_VALIDES[0]));
         assertFalse(CLIENTS_VALIDES[0].equals("Esteban"));
         assertFalse(CLIENTS_VALIDES[1].equals("Romain"));
         assertFalse(CLIENTS_VALIDES[2].equals("Ayoub"));
