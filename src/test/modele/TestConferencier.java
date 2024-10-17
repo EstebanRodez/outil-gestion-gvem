@@ -8,6 +8,7 @@ package test.modele;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
@@ -200,7 +201,7 @@ class TestConferencier {
                		 PRENOM_CONF_VALIDE, SPECIALITE_CONF_VALIDE, "1234567a9", 
                		 EST_INTERNE_VALIDE));
     }
-
+    
     /**
      * Méthode de test pour 
      * {@link application.modele.Conferencier#Conferencier(java.lang.String,java.lang.String, 
@@ -216,6 +217,118 @@ class TestConferencier {
         assertDoesNotThrow(() -> new Conferencier(ID_CONF_VALIDE,
         		NOM_CONF_VALIDE, PRENOM_CONF_VALIDE, SPECIALITE_CONF_VALIDE, 
         		NUMTEL_CONF_VALIDE, EST_INTERNE_VALIDE));
+    }
+    
+
+    /**
+     * Méthode de test pour {@link application.modele.Conferencier#equals()}.
+     */
+    @Test
+    void testEquals() {
+    	// conferencier1 et conferencier2 sont identiques
+        Conferencier conferencier1 = new Conferencier(ID_CONF_VALIDE, 
+        		NOM_CONF_VALIDE, PRENOM_CONF_VALIDE, SPECIALITE_CONF_VALIDE, 
+        		NUMTEL_CONF_VALIDE, EST_INTERNE_VALIDE, 
+        		INDISPONIBILITES_VALIDES);
+        Conferencier conferencier2 = new Conferencier(ID_CONF_VALIDE, 
+        		NOM_CONF_VALIDE, PRENOM_CONF_VALIDE, SPECIALITE_CONF_VALIDE, 
+        		NUMTEL_CONF_VALIDE, EST_INTERNE_VALIDE, 
+        		INDISPONIBILITES_VALIDES);
+        //même que 1 et 2 sauf que pas d'indisponibilites
+        Conferencier conferencier3 = new Conferencier("C000002", 
+        		NOM_CONF_VALIDE, PRENOM_CONF_VALIDE, SPECIALITE_CONF_VALIDE, 
+        		NUMTEL_CONF_VALIDE, EST_INTERNE_VALIDE);
+        // conferencier4 est diferent de 1 et 2 et 3
+        Conferencier conferencier4 = new Conferencier("C000002", 
+        		NOM_CONF_VALIDE, PRENOM_CONF_VALIDE, SPECIALITE_CONF_VALIDE, 
+        		NUMTEL_CONF_VALIDE, EST_INTERNE_VALIDE, 
+        		INDISPONIBILITES_VALIDES);
+      //même que 4 sauf que pas d'indisponibilites
+        Conferencier conferencier5 = new Conferencier("C000002", 
+        		NOM_CONF_VALIDE, PRENOM_CONF_VALIDE, SPECIALITE_CONF_VALIDE, 
+        		NUMTEL_CONF_VALIDE, EST_INTERNE_VALIDE);
+        
+        // Même référence
+        assertEquals(conferencier1, conferencier1);
+        assertEquals(conferencier2, conferencier2);
+        assertEquals(conferencier3, conferencier3);
+        assertEquals(conferencier4, conferencier4);
+        assertEquals(conferencier5, conferencier5);
+        
+        // Objets avec les mêmes valeurs
+        assertEquals(conferencier1, conferencier2);
+        assertEquals(conferencier2, conferencier1);
+        
+        // Objets différents
+        
+        assertNotEquals(conferencier1, conferencier3);
+        assertNotEquals(conferencier1, conferencier4);
+        assertNotEquals(conferencier1, conferencier5);
+        assertNotEquals(conferencier2, conferencier3);
+        assertNotEquals(conferencier2, conferencier4);
+        assertNotEquals(conferencier2, conferencier5);
+        assertNotEquals(conferencier3, conferencier1);
+        assertNotEquals(conferencier3, conferencier2);
+        assertNotEquals(conferencier4, conferencier1);
+        assertNotEquals(conferencier4, conferencier2);
+        assertNotEquals(conferencier4, conferencier3);
+        assertNotEquals(conferencier4, conferencier5);
+        assertNotEquals(conferencier5, conferencier1);
+        assertNotEquals(conferencier5, conferencier2);
+        
+        // Test avec null
+        assertNotEquals(conferencier1, null);
+        assertNotEquals(conferencier2, null);
+        assertNotEquals(conferencier3, null);
+        assertNotEquals(conferencier4, null);
+        assertNotEquals(conferencier5, null);
+        
+        // Test avec un objet d'une autre classe
+        assertNotEquals(conferencier1, new Object());
+        assertNotEquals(conferencier2, new Object());
+        assertNotEquals(conferencier3, new Object());
+        assertNotEquals(conferencier4, new Object());
+        assertNotEquals(conferencier5, new Object());
+    }
+
+    /**
+     * Méthode de test pour {@link application.modele.Conferencier#toString()}.
+     */
+    @Test
+    void testToString() {
+        Conferencier conferencier1 = new Conferencier(ID_CONF_VALIDE, 
+        		NOM_CONF_VALIDE, PRENOM_CONF_VALIDE, SPECIALITE_CONF_VALIDE, 
+        		NUMTEL_CONF_VALIDE, EST_INTERNE_VALIDE, 
+        		INDISPONIBILITES_VALIDES);
+        
+        String expectedString1 = "identifiant : " + ID_CONF_VALIDE
+                              + ", nom : " + NOM_CONF_VALIDE
+                              + ", prenom : " + PRENOM_CONF_VALIDE
+                              + ", specialites : " 
+                              + Arrays.toString(SPECIALITE_CONF_VALIDE)
+                              + ", numéro de téléphone : " + NUMTEL_CONF_VALIDE
+                              + ", status(interne ou externe) : " 
+                              + EST_INTERNE_VALIDE
+                              + ", liste des indisponibilites : " 
+                              + Arrays.toString(INDISPONIBILITES_VALIDES);
+        
+        //TODO : Corriger test pour conferencier avec indisponibilités vide
+        assertEquals(expectedString1, conferencier1.toString());
+        
+        Conferencier conferencier2 = new Conferencier(ID_CONF_VALIDE, 
+        		NOM_CONF_VALIDE, PRENOM_CONF_VALIDE, SPECIALITE_CONF_VALIDE, 
+        		NUMTEL_CONF_VALIDE, EST_INTERNE_VALIDE);
+        
+        String expectedString2 = "identifiant : " + ID_CONF_VALIDE
+                              + ", nom : " + NOM_CONF_VALIDE
+                              + ", prenom : " + PRENOM_CONF_VALIDE
+                              + ", specialites : " 
+                              + Arrays.toString(SPECIALITE_CONF_VALIDE)
+                              + ", numéro de téléphone : " + NUMTEL_CONF_VALIDE
+                              + ", status(interne ou externe) : " 
+                              + EST_INTERNE_VALIDE;
+        
+        assertEquals(expectedString2, conferencier2.toString());
     }
 
     /**
