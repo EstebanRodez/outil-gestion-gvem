@@ -270,38 +270,39 @@ public class Conferencier {
     }
     
     @Override
-	public boolean equals(Object conferencierAComparer) {
-    	if (this == conferencierAComparer) { // objet de même référence
-    		 return true;
-    	}
-    	
-    	// si conferencierAComparer n'est pas un objet de type Conferencier
-    	 if ( ! (conferencierAComparer instanceof Conferencier)) {
-    		 return false;
-    	 }
-    	 
-    	// sinon : conferencierAComparer est un objet de type Conferencier
-    	 Conferencier confAComparer = (Conferencier) conferencierAComparer;
-    	 return identifiant.equals(confAComparer.identifiant) 
-    			&& nom.equals(confAComparer.nom) 
-    			&& prenom.equals(confAComparer.prenom) 
-    			&& specialites.equals(confAComparer.specialites) 
-    			&& numTel == confAComparer.numTel
-    			&& estInterne
-    			&& (indisponibilites == null || indisponibilites.equals(confAComparer.indisponibilites));
-	}
+    public boolean equals(Object conferencierAComparer) {
+        if (this == conferencierAComparer) { // objet de même référence
+            return true;
+        }
 
-	@Override
-	public String toString() {
-		// concaténation de la description héritée de la classe Conferencier
-		return  "identifiant : " + identifiant + ", nom : " 
-				+ nom + ", prenom : " + prenom + ", specialites : " 
-				+ Arrays.toString(specialites) + ", numéro de téléphone : " + numTel 
-				+ ", status(interne ou externe) : " + estInterne 
-				+ ", liste des indisponibilites : " + indisponibilites;
-	}
+        // si conferencierAComparer n'est pas un objet de type Conferencier
+        if ( ! (conferencierAComparer instanceof Conferencier)) {
+            return false;
+        }
 
-	/**
+        // sinon : conferencierAComparer est un objet de type Conferencier
+        Conferencier confAComparer = (Conferencier) conferencierAComparer;
+        return identifiant.equals(confAComparer.identifiant) 
+               && nom.equals(confAComparer.nom) 
+               && prenom.equals(confAComparer.prenom) 
+               && specialites.equals(confAComparer.specialites) 
+               && numTel == confAComparer.numTel && estInterne
+               && (indisponibilites == null
+                   || indisponibilites.equals(confAComparer.indisponibilites));
+    }
+
+    @Override
+    public String toString() {
+        return "identifiant : " + identifiant + ", nom : " + nom
+               + ", prenom : " + prenom + ", specialites : " 
+               + Arrays.toString(specialites) + ", numéro de téléphone : "
+               + numTel + ", status(interne ou externe) : " + estInterne 
+               + (indisponibilites == null ? ""
+                                           : ", liste des indisponibilites : "
+                                           + Arrays.toString(indisponibilites));
+    }
+
+    /**
      * Récupère l'identifiant du conférencier.
      * @return l'identifiant du conférencier
      */
