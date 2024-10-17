@@ -61,6 +61,7 @@ public class Indisponibilite {
         }
         
         this.dateDebut = dateDebut;
+        this.dateFin = null;
     }
     
     /**
@@ -133,6 +134,57 @@ public class Indisponibilite {
     public LocalDate getDateDebut() {
         return dateDebut;
     }
-    
+
+    /* non javadoc - @see java.lang.Object#equals(java.lang.Object) */
+    @Override
+    public boolean equals(Object objet) {
+        
+        if (objet instanceof Indisponibilite) {
+            
+            Indisponibilite indisponibilite = (Indisponibilite) objet;
+            return this.getDateDebut().equals(indisponibilite.getDateDebut())
+                   && (indisponibilite.getDateFin() == null
+                       || this.getDateFin().equals(indisponibilite.getDateFin())
+                      );
+        }
+        
+        return false;
+    }
+
+    /* non javadoc - @see java.lang.Object#toString() */
+    @Override
+    public String toString() {
+        
+        /*
+         * Exemples de format :
+         * Le 16/10/2024
+         * Ou Du 16/10/2024 a 23/10/2024
+         */
+        LocalDate dateDebut = getDateDebut();
+        LocalDate dateFin = getDateFin();
+        StringBuilder texte = new StringBuilder();
+        
+        texte.append(dateDebut.getDayOfMonth());
+        texte.append('/');
+        texte.append(dateDebut.getMonthValue());
+        texte.append('/');
+        texte.append(dateDebut.getYear());
+        
+        if (dateFin != null) {
+            
+            texte.insert(0, "Du ");
+            texte.append(" au ");
+            texte.append(dateFin.getDayOfMonth());
+            texte.append('/');
+            texte.append(dateFin.getMonthValue());
+            texte.append('/');
+            texte.append(dateFin.getYear());
+        } else {
+            
+            texte.insert(0, "Le ");
+        }
+        
+        return texte.toString();
+    }
     
 }

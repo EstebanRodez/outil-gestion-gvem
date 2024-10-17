@@ -235,7 +235,213 @@ class TestIndisponibilite {
                         INDISPONIBILITES_VALIDES[6].getDateDebut());
         assertNotEquals(LocalDate.of(2005, 9, 28),
                         INDISPONIBILITES_VALIDES[7].getDateDebut());
-
+    }
+    
+    /**
+     * Méthode de test pour
+     * {@link application.modele.Indisponibilite#equals()}.
+     */
+    @Test
+    void testEquals() {
+        
+        assertTrue(INDISPONIBILITES_VALIDES[0].equals(
+                new Indisponibilite(LocalDate.of(2005, 5, 28))));
+        assertTrue(INDISPONIBILITES_VALIDES[1].equals(
+                new Indisponibilite(LocalDate.of(2005, 3, 21))));
+        assertTrue(INDISPONIBILITES_VALIDES[2].equals(
+                new Indisponibilite(LocalDate.of(2005, 8, 14))));
+        assertTrue(INDISPONIBILITES_VALIDES[3].equals(
+                new Indisponibilite(LocalDate.of(2005, 11, 20))));
+        assertTrue(INDISPONIBILITES_VALIDES[4].equals(
+                new Indisponibilite(LocalDate.of(2005, 5, 28),
+                                    LocalDate.of(2005, 6, 28))));
+        assertTrue(INDISPONIBILITES_VALIDES[5].equals(
+                new Indisponibilite(LocalDate.of(2005, 3, 21),
+                                    LocalDate.of(2005, 4, 21))));
+        assertTrue(INDISPONIBILITES_VALIDES[6].equals(
+                new Indisponibilite(LocalDate.of(2005, 8, 14),
+                                    LocalDate.of(2005, 9, 14))));
+        assertTrue(INDISPONIBILITES_VALIDES[7].equals(
+                new Indisponibilite(LocalDate.of(2005, 11, 20),
+                                    LocalDate.of(2005, 12, 20))));
+        
+        assertFalse(INDISPONIBILITES_VALIDES[0].equals(null));
+        assertFalse(INDISPONIBILITES_VALIDES[1].equals(null));
+        assertFalse(INDISPONIBILITES_VALIDES[2].equals(null));
+        assertFalse(INDISPONIBILITES_VALIDES[3].equals(null));
+        assertFalse(INDISPONIBILITES_VALIDES[4].equals(null));
+        assertFalse(INDISPONIBILITES_VALIDES[5].equals(null));
+        assertFalse(INDISPONIBILITES_VALIDES[6].equals(null));
+        assertFalse(INDISPONIBILITES_VALIDES[7].equals(null));
+        assertFalse(INDISPONIBILITES_VALIDES[0].equals("28/5/2005"));
+        assertFalse(INDISPONIBILITES_VALIDES[1].equals("21/3/2005"));
+        assertFalse(INDISPONIBILITES_VALIDES[2].equals("14/8/2005"));
+        assertFalse(INDISPONIBILITES_VALIDES[3].equals("20/11/2005"));
+        assertFalse(INDISPONIBILITES_VALIDES[4].equals("28/5/2005"));
+        assertFalse(INDISPONIBILITES_VALIDES[5].equals("21/3/2005"));
+        assertFalse(INDISPONIBILITES_VALIDES[6].equals("20/11/2005"));
+        assertFalse(INDISPONIBILITES_VALIDES[7].equals("21/3/2005"));
+        assertFalse(INDISPONIBILITES_VALIDES[0].equals(
+                new Indisponibilite(LocalDate.of(2005, 5, 29))));
+        assertFalse(INDISPONIBILITES_VALIDES[1].equals(
+                new Indisponibilite(LocalDate.of(2005, 3, 22))));
+        assertFalse(INDISPONIBILITES_VALIDES[2].equals(
+                new Indisponibilite(LocalDate.of(2005, 8, 15))));
+        assertFalse(INDISPONIBILITES_VALIDES[3].equals(
+                new Indisponibilite(LocalDate.of(2005, 11, 21))));
+        assertFalse(INDISPONIBILITES_VALIDES[4].equals(
+                new Indisponibilite(LocalDate.of(2005, 5, 29),
+                                    LocalDate.of(2005, 6, 28))));
+        assertFalse(INDISPONIBILITES_VALIDES[5].equals(
+                new Indisponibilite(LocalDate.of(2005, 3, 22),
+                                    LocalDate.of(2005, 4, 21))));
+        assertFalse(INDISPONIBILITES_VALIDES[6].equals(
+                new Indisponibilite(LocalDate.of(2005, 8, 15),
+                                    LocalDate.of(2005, 9, 14))));
+        assertFalse(INDISPONIBILITES_VALIDES[7].equals(
+                new Indisponibilite(LocalDate.of(2005, 11, 21),
+                                    LocalDate.of(2005, 12, 20))));
+        assertFalse(INDISPONIBILITES_VALIDES[0].equals(
+                new Indisponibilite(LocalDate.of(2005, 5, 27))));
+        assertFalse(INDISPONIBILITES_VALIDES[1].equals(
+                new Indisponibilite(LocalDate.of(2005, 3, 20))));
+        assertFalse(INDISPONIBILITES_VALIDES[2].equals(
+                new Indisponibilite(LocalDate.of(2005, 8, 13))));
+        assertFalse(INDISPONIBILITES_VALIDES[3].equals(
+                new Indisponibilite(LocalDate.of(2005, 11, 19))));
+        assertFalse(INDISPONIBILITES_VALIDES[4].equals(
+                new Indisponibilite(LocalDate.of(2005, 5, 27),
+                                    LocalDate.of(2005, 6, 28))));
+        assertFalse(INDISPONIBILITES_VALIDES[5].equals(
+                new Indisponibilite(LocalDate.of(2005, 3, 20),
+                                    LocalDate.of(2005, 4, 21))));
+        assertFalse(INDISPONIBILITES_VALIDES[6].equals(
+                new Indisponibilite(LocalDate.of(2005, 8, 13),
+                                    LocalDate.of(2005, 9, 14))));
+        assertFalse(INDISPONIBILITES_VALIDES[7].equals(
+                new Indisponibilite(LocalDate.of(2005, 11, 19),
+                                    LocalDate.of(2005, 12, 20))));
+        assertFalse(INDISPONIBILITES_VALIDES[4].equals(
+                new Indisponibilite(LocalDate.of(2005, 5, 27),
+                                    LocalDate.of(2005, 6, 29))));
+        assertFalse(INDISPONIBILITES_VALIDES[5].equals(
+                new Indisponibilite(LocalDate.of(2005, 3, 20),
+                                    LocalDate.of(2005, 4, 22))));
+        assertFalse(INDISPONIBILITES_VALIDES[6].equals(
+                new Indisponibilite(LocalDate.of(2005, 8, 13),
+                                    LocalDate.of(2005, 9, 15))));
+        assertFalse(INDISPONIBILITES_VALIDES[7].equals(
+                new Indisponibilite(LocalDate.of(2005, 11, 19),
+                                    LocalDate.of(2005, 12, 21))));
+        assertFalse(INDISPONIBILITES_VALIDES[4].equals(
+                new Indisponibilite(LocalDate.of(2005, 5, 27),
+                                    LocalDate.of(2005, 6, 27))));
+        assertFalse(INDISPONIBILITES_VALIDES[5].equals(
+                new Indisponibilite(LocalDate.of(2005, 3, 20),
+                                    LocalDate.of(2005, 4, 20))));
+        assertFalse(INDISPONIBILITES_VALIDES[6].equals(
+                new Indisponibilite(LocalDate.of(2005, 8, 13),
+                                    LocalDate.of(2005, 9, 13))));
+        assertFalse(INDISPONIBILITES_VALIDES[7].equals(
+                new Indisponibilite(LocalDate.of(2005, 11, 19),
+                                    LocalDate.of(2005, 12, 20))));
+    }
+    
+    /**
+     * Méthode de test pour
+     * {@link application.modele.Indisponibilite#toString()}.
+     */
+    @Test
+    void testToString() {
+        
+//        new Indisponibilite(LocalDate.of(2005, 5, 28)),
+//        new Indisponibilite(LocalDate.of(2005, 3, 21)),
+//        new Indisponibilite(LocalDate.of(2005, 8, 14)),
+//        new Indisponibilite(LocalDate.of(2005, 11, 20)),  
+//        new Indisponibilite(LocalDate.of(2005, 5, 28),
+//                            LocalDate.of(2005, 6, 28)),
+//        new Indisponibilite(LocalDate.of(2005, 3, 21),
+//                            LocalDate.of(2005, 4, 21)),
+//        new Indisponibilite(LocalDate.of(2005, 8, 14),
+//                            LocalDate.of(2005, 9, 14)),
+//        new Indisponibilite(LocalDate.of(2005, 11, 20),
+//                            LocalDate.of(2005, 12, 20)), 
+        
+        assertEquals("Le 28/5/2005",
+                     INDISPONIBILITES_VALIDES[0].toString());
+        assertEquals("Le 21/3/2005",
+                     INDISPONIBILITES_VALIDES[1].toString());
+        assertEquals("Le 14/8/2005",
+                     INDISPONIBILITES_VALIDES[2].toString());
+        assertEquals("Le 20/11/2005",
+                     INDISPONIBILITES_VALIDES[3].toString());
+        assertEquals("Du 28/5/2005 au 28/6/2005",
+                     INDISPONIBILITES_VALIDES[4].toString());
+        assertEquals("Du 21/3/2005 au 21/4/2005",
+                     INDISPONIBILITES_VALIDES[5].toString());
+        assertEquals("Du 14/8/2005 au 14/9/2005",
+                     INDISPONIBILITES_VALIDES[6].toString());
+        assertEquals("Du 20/11/2005 au 20/12/2005",
+                     INDISPONIBILITES_VALIDES[7].toString());
+        
+        assertNotEquals(null, INDISPONIBILITES_VALIDES[0].toString());
+        assertNotEquals(null, INDISPONIBILITES_VALIDES[1].toString());
+        assertNotEquals(null, INDISPONIBILITES_VALIDES[2].toString());
+        assertNotEquals(null, INDISPONIBILITES_VALIDES[3].toString());
+        assertNotEquals(null, INDISPONIBILITES_VALIDES[4].toString());
+        assertNotEquals(null, INDISPONIBILITES_VALIDES[5].toString());
+        assertNotEquals(null, INDISPONIBILITES_VALIDES[6].toString());
+        assertNotEquals(null, INDISPONIBILITES_VALIDES[7].toString());
+        assertNotEquals("", INDISPONIBILITES_VALIDES[0].toString());
+        assertNotEquals("", INDISPONIBILITES_VALIDES[1].toString());
+        assertNotEquals("", INDISPONIBILITES_VALIDES[2].toString());
+        assertNotEquals("", INDISPONIBILITES_VALIDES[3].toString());
+        assertNotEquals("", INDISPONIBILITES_VALIDES[4].toString());
+        assertNotEquals("", INDISPONIBILITES_VALIDES[5].toString());
+        assertNotEquals("", INDISPONIBILITES_VALIDES[6].toString());
+        assertNotEquals("", INDISPONIBILITES_VALIDES[7].toString());
+        assertNotEquals("Le 27/5/2005", INDISPONIBILITES_VALIDES[0].toString());
+        assertNotEquals("Le 20/3/2005", INDISPONIBILITES_VALIDES[1].toString());
+        assertNotEquals("Le 13/8/2005", INDISPONIBILITES_VALIDES[2].toString());
+        assertNotEquals("Le 19/11/2005",
+                        INDISPONIBILITES_VALIDES[3].toString());
+        assertNotEquals("Du 27/5/2005 au 28/6/2005",
+                        INDISPONIBILITES_VALIDES[4].toString());
+        assertNotEquals("Du 20/3/2005 au 21/4/2005",
+                        INDISPONIBILITES_VALIDES[5].toString());
+        assertNotEquals("Du 13/8/2005 au 14/09/2005",
+                        INDISPONIBILITES_VALIDES[6].toString());
+        assertNotEquals("Du 19/11/2005 au 20/12/2024",
+                        INDISPONIBILITES_VALIDES[7].toString());
+        assertNotEquals("Le 29/5/2005", INDISPONIBILITES_VALIDES[0].toString());
+        assertNotEquals("Le 22/3/2005", INDISPONIBILITES_VALIDES[1].toString());
+        assertNotEquals("Le 15/8/2005", INDISPONIBILITES_VALIDES[2].toString());
+        assertNotEquals("Le 21/11/2005",
+                        INDISPONIBILITES_VALIDES[3].toString());
+        assertNotEquals("Du 29/5/2005 au 28/6/2005",
+                        INDISPONIBILITES_VALIDES[4].toString());
+        assertNotEquals("Du 22/3/2005 au 21/4/2005",
+                        INDISPONIBILITES_VALIDES[5].toString());
+        assertNotEquals("Du 15/8/2005 au 14/09/2005",
+                        INDISPONIBILITES_VALIDES[6].toString());
+        assertNotEquals("Du 21/11/2005 au 20/12/2024",
+                        INDISPONIBILITES_VALIDES[7].toString());
+        assertNotEquals("Du 28/5/2005 au 29/6/2005",
+                        INDISPONIBILITES_VALIDES[4].toString());
+        assertNotEquals("Du 21/3/2005 au 22/4/2005",
+                        INDISPONIBILITES_VALIDES[5].toString());
+        assertNotEquals("Du 14/8/2005 au 15/09/2005",
+                        INDISPONIBILITES_VALIDES[6].toString());
+        assertNotEquals("Du 20/11/2005 au 21/12/2024",
+                        INDISPONIBILITES_VALIDES[7].toString());
+        assertNotEquals("Du 28/5/2005 au 27/6/2005",
+                        INDISPONIBILITES_VALIDES[4].toString());
+        assertNotEquals("Du 21/3/2005 au 20/4/2005",
+                        INDISPONIBILITES_VALIDES[5].toString());
+        assertNotEquals("Du 14/8/2005 au 13/09/2005",
+                        INDISPONIBILITES_VALIDES[6].toString());
+        assertNotEquals("Du 20/11/2005 au 19/12/2024",
+                        INDISPONIBILITES_VALIDES[7].toString());
     }
 
 }
