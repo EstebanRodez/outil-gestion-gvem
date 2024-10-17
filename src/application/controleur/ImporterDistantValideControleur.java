@@ -16,14 +16,21 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 /**
- * TODO commenter la responsabilité de cette class (SRP)
+ * Contrôleur pour la gestion de l'importation de données à distance après
+ * une connexion réussie.
+ * 
+ * Cette classe permet à l'utilisateur de procéder à l'importation de données
+ * à distance une fois qu'il a validé la connexion avec le serveur.
+ * 
+ * @author Baptiste Thenieres
+ * @version 1.0
  */
 public class ImporterDistantValideControleur {
     
     private Stage fenetreAppli;
     
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
+     * Définit la fenêtre de l'application.
      * @param fenetreAppli
      */
     public void setFenetreAppli(Stage fenetreAppli) {

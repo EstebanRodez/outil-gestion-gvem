@@ -16,14 +16,22 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 /**
- * TODO commenter la responsabilité de cette class (SRP)
+ * Contrôleur pour le menu des données importées.
+ * 
+ * Cette classe gère les interactions de l'utilisateur avec le menu
+ * permettant d'accéder aux différentes fonctionnalités relatives aux
+ * données importées, telles que les conférenciers, les expositions
+ * et les visites.
+ * 
+ * @author Baptiste Thenieres
+ * @version 1.0
  */
 public class MenuDonneesImporterControleur {
 
     private Stage fenetreAppli;
     
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
+     * Définit la fenêtre de l'application.
      * @param fenetreAppli
      */
     public void setFenetreAppli(Stage fenetreAppli) {

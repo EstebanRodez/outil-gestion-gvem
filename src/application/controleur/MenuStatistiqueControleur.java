@@ -10,7 +10,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
 /**
- * TODO commenter la responsabilité de cette class (SRP)
+ * Contrôleur pour le menu des statistiques.
+ * 
+ * Cette classe gère les interactions de l'utilisateur avec le menu
+ * des statistiques, permettant d'accéder aux différentes options
+ * liées aux données statistiques de l'application.
+ * 
+ * @author Baptiste Thenieres
+ * @version 1.0
  */
 public class MenuStatistiqueControleur {
     

@@ -16,14 +16,21 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 /**
- * TODO commenter la responsabilité de cette class (SRP)
+ * Contrôleur pour le menu des données calculées.
+ * 
+ * Cette classe gère les interactions de l'utilisateur avec le menu qui
+ * permet d'accéder aux différentes fonctionnalités liées aux données
+ * calculées, comme les exposés, les visites, et les statistiques.
+ * 
+ * @author Baptiste Thenieres
+ * @version 1.0
  */
 public class MenuDonneesCalculeesControleur {
     
 private Stage fenetreAppli;
     
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
+     * Définit la fenêtre de l'application.
      * @param fenetreAppli
      */
     public void setFenetreAppli(Stage fenetreAppli) {

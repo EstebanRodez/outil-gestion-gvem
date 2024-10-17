@@ -22,14 +22,21 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 /**
- * TODO commenter la responsabilité de cette class (SRP)
+ * Contrôleur pour la gestion de l'importation de données à distance.
+ * 
+ * Cette classe permet à l'utilisateur de spécifier une adresse IP et un port
+ * pour se connecter à un serveur distant. Elle inclut également des 
+ * fonctionnalités pour afficher des règles d'utilisation via un lien.
+ * 
+ * @author Baptiste Thenieres
+ * @version 1.0
  */
 public class ImporterDistantControleur {
     
     private Stage fenetreAppli;
     
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
+     * Définit la fenêtre de l'application.
      * @param fenetreAppli
      */
     public void setFenetreAppli(Stage fenetreAppli) {
@@ -37,7 +44,7 @@ public class ImporterDistantControleur {
     }
     
     /**
-     * Méthode pour vérifier si une adresse IP est valide
+     * Vérifie si une adresse IP est valide
      * @param ip Adresse IP sous forme de chaîne
      * @return true si l'adresse est valide, sinon false
      */
@@ -61,7 +68,7 @@ public class ImporterDistantControleur {
     }
     
     /**
-     * Méthode pour vérifier si le port est valide
+     * Vérifie si le port est valide
      * @param port Chaîne représentant le port
      * @return true si le port est un entier valide entre 0 et 65535, sinon false
      */

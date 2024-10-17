@@ -16,14 +16,22 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 /**
- * TODO commenter la responsabilité de cette class (SRP)
+ * Contrôleur pour la confirmation d'exportation des données.
+ * 
+ * Cette classe gère les interactions de l'utilisateur après qu'une 
+ * exportation valide a été établie. Elle permet à l'utilisateur 
+ * d'envoyer des données, d'accéder à l'aide ou de retourner à la vue 
+ * précédente.
+ * 
+ * @author Baptiste Thenieres
+ * @version 1.0
  */
 public class ExporterValideControleur {
     
     private Stage fenetreAppli;
     
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
+     * Définit la fenêtre de l'application.
      * @param fenetreAppli
      */
     public void setFenetreAppli(Stage fenetreAppli) {

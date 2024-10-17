@@ -20,14 +20,22 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 /**
- * TODO commenter la responsabilité de cette class (SRP)
+ * Contrôleur pour la gestion de l'importation des données.
+ * 
+ * Cette classe permet à l'utilisateur de choisir entre deux méthodes 
+ * d'importation de données : depuis un fichier local ou à distance. 
+ * Elle gère également les interactions liées à l'aide et au retour 
+ * vers l'interface d'accueil.
+ * 
+ * @author Baptiste Thenieres
+ * @version 1.0
  */
 public class ImporterControleur {
     
     private Stage fenetreAppli;
     
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
+     * Définit la fenêtre de l'application.
      * @param fenetreAppli
      */
     public void setFenetreAppli(Stage fenetreAppli) {

@@ -20,14 +20,23 @@ import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
 /**
- * TODO commenter la responsabilité de cette class (SRP)
+ * Contrôleur pour la gestion des données importées des conférenciers.
+ * 
+ * Cette classe gère l'affichage et les interactions relatives aux données 
+ * importées des conférenciers dans l'application. Elle permet à l'utilisateur 
+ * de visualiser les informations des conférenciers, ainsi que d'effectuer 
+ * des actions telles que le retour à l'écran d'accueil ou la fermeture de 
+ * l'application. 
+ * 
+ * @author Baptiste Thenieres
+ * @version 1.0
  */
 public class DonneesImporteesConferencierControleur {
     
     private Stage fenetreAppli;
     
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
+     * Définit la fenêtre de l'application.
      * @param fenetreAppli
      */
     public void setFenetreAppli(Stage fenetreAppli) {

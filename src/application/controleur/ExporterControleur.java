@@ -18,14 +18,21 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 /**
- * TODO commenter la responsabilité de cette class (SRP)
+ * Contrôleur pour la gestion de l'exportation des données.
+ * 
+ * Cette classe permet à l'utilisateur de se connecter à un serveur 
+ * en fournissant une adresse IP et un port. Elle gère également 
+ * la validation des entrées et l'affichage des erreurs éventuelles.
+ * 
+ * @author Baptiste Thenieres
+ * @version 1.0
  */
 public class ExporterControleur {
     
     private Stage fenetreAppli;
     
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
+     * Définit la fenêtre de l'application.
      * @param fenetreAppli
      */
     public void setFenetreAppli(Stage fenetreAppli) {
