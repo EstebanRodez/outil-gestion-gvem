@@ -5,8 +5,10 @@
  */
 package application.controleur;
 
+import java.awt.Desktop;
 import java.io.IOException;
-
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.time.LocalDate;
 
 import application.modele.Exposition;
@@ -16,7 +18,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
@@ -94,7 +98,23 @@ public class DonneesImporteesExpositionControleur {
 
     @FXML
     void aideAction(ActionEvent event) {
+    	final String LIEN_REGLES
+        = "https://docs.google.com/document/d/1wA1ytqySDYe1D-2ZL1M0mLKMvUmv9SCtS0uORFgoRIY/edit?usp=sharing";
 
+        Desktop desktop = Desktop.getDesktop();
+        try {
+            desktop.browse(new URI(LIEN_REGLES));
+        } catch (IOException | URISyntaxException e) {
+            Alert boiteErreurInconnueOuverture =
+                    new Alert(Alert.AlertType.ERROR, 
+                              "impossible d'ouvrir le fichier d'aide",
+                              ButtonType.OK);
+
+            boiteErreurInconnueOuverture.setTitle("Erreur d'affichage aide");
+            boiteErreurInconnueOuverture.setHeaderText("Erreur d'affichage aide");
+
+            boiteErreurInconnueOuverture.showAndWait();
+        }
     }
 
     @FXML

@@ -5,8 +5,11 @@
  */
 package application.controleur;
 
+import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -56,7 +59,23 @@ public class ImporterControleur {
 
     @FXML
     void btnAideAction(ActionEvent event) {
+    	final String LIEN_REGLES
+        = "https://drive.google.com/file/d/1DmblRvNDZ0PTUA0iGn9vQYf74aj1lMUH/view?usp=sharing";
 
+        Desktop desktop = Desktop.getDesktop();
+        try {
+            desktop.browse(new URI(LIEN_REGLES));
+        } catch (IOException | URISyntaxException e) {
+            Alert boiteErreurInconnueOuverture =
+                    new Alert(Alert.AlertType.ERROR, 
+                              "impossible d'ouvrir le fichier d'aide",
+                              ButtonType.OK);
+
+            boiteErreurInconnueOuverture.setTitle("Erreur d'affichage aide");
+            boiteErreurInconnueOuverture.setHeaderText("Erreur d'affichage aide");
+
+            boiteErreurInconnueOuverture.showAndWait();
+        }
     }
 
     @FXML

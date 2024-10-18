@@ -99,7 +99,7 @@ public class ImporterDistantControleur {
     @FXML
     void btnAideAction(ActionEvent event) {
         final String LIEN_REGLES
-        = "https://drive.google.com/file/d/1DmblRvNDZ0PTUA0iGn9vQYf74aj1lMUH/view?usp=sharing";
+        = "https://docs.google.com/document/d/1wA1ytqySDYe1D-2ZL1M0mLKMvUmv9SCtS0uORFgoRIY/edit?usp=sharing";
 
         Desktop desktop = Desktop.getDesktop();
         try {
