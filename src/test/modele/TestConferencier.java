@@ -305,7 +305,7 @@ class TestConferencier {
                               + ", nom : " + NOM_CONF_VALIDE
                               + ", prenom : " + PRENOM_CONF_VALIDE
                               + ", specialites : " 
-                              + Arrays.toString(SPECIALITE_CONF_VALIDE)
+                              + "[Art, Histoire]"
                               + ", numéro de téléphone : " + NUMTEL_CONF_VALIDE
                               + ", status(interne ou externe) : " 
                               + EST_INTERNE_VALIDE
@@ -323,7 +323,7 @@ class TestConferencier {
                               + ", nom : " + NOM_CONF_VALIDE
                               + ", prenom : " + PRENOM_CONF_VALIDE
                               + ", specialites : " 
-                              + Arrays.toString(SPECIALITE_CONF_VALIDE)
+                              + "[Art, Histoire]"
                               + ", numéro de téléphone : " + NUMTEL_CONF_VALIDE
                               + ", status(interne ou externe) : " 
                               + EST_INTERNE_VALIDE;

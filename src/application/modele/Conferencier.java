@@ -286,9 +286,8 @@ public class Conferencier {
                && nom.equals(confAComparer.nom) 
                && prenom.equals(confAComparer.prenom) 
                && specialites.equals(confAComparer.specialites) 
-               && numTel == confAComparer.numTel && estInterne
-               && (indisponibilites == null
-                   || indisponibilites.equals(confAComparer.indisponibilites));
+               && numTel == confAComparer.numTel && this.estInterne == confAComparer.estInterne
+               && indisponibilites.equals(confAComparer.indisponibilites);
     }
 
     @Override
