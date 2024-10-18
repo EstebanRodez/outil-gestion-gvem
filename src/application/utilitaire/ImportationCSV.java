@@ -6,8 +6,11 @@
 package application.utilitaire;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -37,7 +40,103 @@ public class ImportationCSV {
     final static DateTimeFormatter formatter
     = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    static List<Exposition> expositions = new ArrayList<>();
+    private static ArrayList<Exposition> expositions = new ArrayList<>();
+    
+    /**
+     * Importe les données d'un fichier normalement en .csv
+     * @param cheminFichier le chemin du fichier
+     */
+    public static void importerDonnees(String cheminFichier) {
+        
+        BufferedReader fichierCSV;
+        try {
+            
+            fichierCSV = new BufferedReader(new FileReader(cheminFichier));
+            if (isFichierValide(cheminFichier)) {
+                
+                fichierCSV.close();  
+                throw new IllegalArgumentException();
+            } else {
+                
+                parcourirFichier(fichierCSV);
+            }
+        } catch (FileNotFoundException e) {
+
+            throw new IllegalArgumentException();
+        } catch (IOException e) {
+
+            throw new IllegalArgumentException();
+        }
+    }
+
+    /**
+     * Indique si un fichier est valide pour importer ses données.
+     * 
+     * @param cheminFichier le chemin du fichier à vérifier
+     * @return true si on peut importer des données depuis ce fichier
+     *         sinon false
+     * @throws IOException 
+     */
+    private static boolean isFichierValide(String cheminFichier)
+            throws IOException {
+
+        return cheminFichier != null && cheminFichier.isBlank() 
+                && Files.size(Path.of(cheminFichier)) != 0
+                && isExtensionCSV(cheminFichier);
+    }
+
+    /**
+     * Vérifie si un fichier contient l'extension .csv
+     * 
+     * @param cheminFichier le chemin du fichier à vérifier
+     * @return true si le fichier a l'extension .csv ou sinon false
+     */
+    private static boolean isExtensionCSV(String cheminFichier) {
+        return cheminFichier.substring(cheminFichier.lastIndexOf('.'), 
+                                       cheminFichier.length()).equals("csv");
+    }
+
+    /**
+     * Parcours le fichier CSV ligne à ligne.
+     * Enregistre la ligne en fonction du type de données et si la
+     * ligne est valide.
+     * 
+     * @param fichierCSV le fichier CSV ouvert
+     * @throws IOException 
+     */
+    private static void parcourirFichier(BufferedReader fichierCSV)
+             throws IOException {
+        
+        String ligne;
+        while ((ligne = fichierCSV.readLine()) != null) {
+            if (verifierLigne(ligne)) {
+                enregistrerLigne(ligne);
+            }
+        }
+    }
+
+    /**
+     * Enregistre la ligne en mémoire en fonction de son identifiant.
+     * 
+     * @param ligne la ligne où on doit récupérer les données
+     */
+    private static void enregistrerLigne(String ligne) {
+        
+        // TODO Enregistrer la ligne en fonction de son identifiant
+        // et dans son tableau correspondant
+    }
+
+    /**
+     * Vérifie le format de la ligne pour déduire si elle est valide
+     * pour une extraction de ses données.
+     * 
+     * @param ligne la ligne à vérifier
+     */
+    private static boolean verifierLigne(String ligne) {
+        
+        // TODO Vérifier la validité de la ligne
+        return false; // bouchon
+    }
 
     /**
      * Importe les données d'un fichier CSV et les stocke 
@@ -49,10 +148,10 @@ public class ImportationCSV {
      * @throws IOException si une erreur survient lors 
      *         de la lecture du fichier
      */
-    public static List<String[]> importer(String lienFichier)
+    public static ArrayList<String[]> importer(String lienFichier)
             throws IOException {
 
-        List<String[]> data = new ArrayList<>();
+        ArrayList<String[]> data = new ArrayList<>();
         BufferedReader fichierCSV;
         String ligne;
         String[] valeur;
