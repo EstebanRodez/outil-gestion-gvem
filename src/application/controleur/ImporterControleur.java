@@ -8,9 +8,15 @@ package application.controleur;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
+<<<<<<< HEAD
 import java.net.URI;
 import java.net.URISyntaxException;
+=======
+import java.util.List;
+>>>>>>> 5b51919 (feat: ajout des élément sur le tableau importe exposition)
 
+import application.modele.Exposition;
+import application.utilitaire.ImportationCSV;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -88,7 +94,7 @@ public class ImporterControleur {
     }
 
     @FXML
-    void btnImporterLocalAction(ActionEvent event) {
+    void btnImporterLocalAction(ActionEvent event) throws IOException {
         // Créer une instance de FileChooser
         FileChooser fileChooser = new FileChooser();
         
@@ -100,7 +106,10 @@ public class ImporterControleur {
         
         // Vérifier si un fichier a été sélectionné
         if (fichierSelectionne != null) {
-            // TODO ImportationCsv.importer(fichierSelectionne.getAbsolutePath()));
+            List<String[]> donnee;
+            donnee = ImportationCSV.importer(fichierSelectionne
+                                             .getAbsolutePath());
+            ImportationCSV.traitementDonnees(donnee); 
         } else {
             Alert boiteErreurInconnueOuverture =
                     new Alert(Alert.AlertType.ERROR, 

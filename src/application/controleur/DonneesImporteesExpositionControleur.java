@@ -11,8 +11,14 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.LocalDate;
 
+import java.util.List;
+
+import application.utilitaire.ImportationCSV;
 import application.modele.Exposition;
 import application.modele.ExpositionTemporaire;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,6 +29,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 /**
@@ -46,17 +53,19 @@ public class DonneesImporteesExpositionControleur {
      * @param fenetreAppli
      */
     public void setFenetreAppli(Stage fenetreAppli) {
-      this.fenetreAppli = fenetreAppli;
+        this.fenetreAppli = fenetreAppli;
     }
+    
+    static List<Exposition> expo = ImportationCSV.getExpositions();
     
     @FXML
     private Button btnRetour;
     
     @FXML
-    private TableColumn<ExpositionTemporaire, LocalDate> dateDebut;
+    private TableColumn<ExpositionTemporaire, String> dateDebut;
 
     @FXML
-    private TableColumn<ExpositionTemporaire, LocalDate> dateFin;
+    private TableColumn<ExpositionTemporaire, String> dateFin;
 
     @FXML
     private TableColumn<Exposition, String> identifiant;
@@ -65,7 +74,7 @@ public class DonneesImporteesExpositionControleur {
     private TableColumn<Exposition, String> intitule;
 
     @FXML
-    private TableColumn<Exposition, String[]> motsCles;
+    private TableColumn<Exposition, String> motsCles;
 
     @FXML
     private TableColumn<Exposition, Integer> nbOeuvre;
@@ -81,6 +90,40 @@ public class DonneesImporteesExpositionControleur {
 
     @FXML
     private TableView<Exposition> tableExposition;
+    
+    /**
+     * 
+     */
+    @FXML
+    public void initialize() {
+        
+        dateDebut.setCellValueFactory(new PropertyValueFactory<>("dateDebut"));
+        dateFin.setCellValueFactory(new PropertyValueFactory<>("dateFin"));
+
+
+        identifiant.setCellValueFactory(new PropertyValueFactory<>("identifiant"));
+        intitule.setCellValueFactory(new PropertyValueFactory<>("intitule"));
+        periodeDebut.setCellValueFactory(new PropertyValueFactory<>("periodeDebut"));
+        periodeFin.setCellValueFactory(new PropertyValueFactory<>("periodeFin"));
+        nbOeuvre.setCellValueFactory(new PropertyValueFactory<>("nbOeuvre"));
+        resume.setCellValueFactory(new PropertyValueFactory<>("resume"));
+        
+        // Pour motscles, convertie le tableau en chaine de caractere
+        motsCles.setCellValueFactory(cellData -> 
+        new SimpleStringProperty(getMotsClesAsString
+                (cellData.getValue().getMotsCles())));
+    
+    
+        // Populate the table with the imported exhibitions
+        ObservableList<Exposition> exposList = FXCollections.observableArrayList(expo);
+        tableExposition.setItems(exposList);
+    }
+
+    // Helper method to convert String[] to String
+    private String getMotsClesAsString(String[] motsCles) {
+        return motsCles != null ? String.join(", ", motsCles) : "";
+    }
+
 
     @FXML
     void retourAccueilAction(ActionEvent event) throws IOException {
@@ -98,6 +141,7 @@ public class DonneesImporteesExpositionControleur {
 
     @FXML
     void aideAction(ActionEvent event) {
+<<<<<<< HEAD
     	final String LIEN_REGLES
         = "https://docs.google.com/document/d/1wA1ytqySDYe1D-2ZL1M0mLKMvUmv9SCtS0uORFgoRIY/edit?usp=sharing";
 
@@ -115,6 +159,9 @@ public class DonneesImporteesExpositionControleur {
 
             boiteErreurInconnueOuverture.showAndWait();
         }
+=======
+        // Implement help functionality if needed
+>>>>>>> 5b51919 (feat: ajout des élément sur le tableau importe exposition)
     }
 
     @FXML
@@ -125,5 +172,4 @@ public class DonneesImporteesExpositionControleur {
         controleur.setFenetreAppli(fenetreAppli);
         fenetreAppli.setScene(new Scene(menuDonneesImporterVue));
     }
-
 }
