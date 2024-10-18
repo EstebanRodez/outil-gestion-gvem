@@ -93,8 +93,12 @@ public class TestImportationCSV {
     void testTraitementDonneesInvalide() throws IOException {    
         List<String[]> donneeInvalide = ImportationCSV.importer(FichierInvalide);
         
+        // FIXME vérifier le format des nombres dans le csv
+        // List<String[]> donneeInvalide2 = ImportationCSV.importer("ressources/tests/CSV/expositions_nombres_invalides.csv");
+        
         assertThrows(IllegalArgumentException.class, 
                     () -> ImportationCSV.traitementDonnees(donneeInvalide));
+        // ImportationCSV.traitementDonnees(donneeInvalide2);
     }
     
     /**
