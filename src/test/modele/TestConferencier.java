@@ -5,6 +5,7 @@
  */
 package test.modele;
 
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDate;
@@ -236,59 +237,164 @@ class TestConferencier {
         		INDISPONIBILITES_VALIDES);
         //même que 1 et 2 sauf que pas d'indisponibilites
         Conferencier conferencier3 = new Conferencier("C000002", 
-        		NOM_CONF_VALIDE, PRENOM_CONF_VALIDE, SPECIALITE_CONF_VALIDE, 
-        		NUMTEL_CONF_VALIDE, EST_INTERNE_VALIDE);
+        		"Lexpert", "Noemie", new String[]{"peinture", "impressionnisme", "art contemporain"}, 
+        		"600000001", true,new Indisponibilite[] {
+        				new Indisponibilite(LocalDate.of(2024,10,22)), new Indisponibilite(LocalDate.of(2024,10,26))
+        				});
         // conferencier4 est diferent de 1 et 2 et 3
-        Conferencier conferencier4 = new Conferencier("C000002", 
-        		NOM_CONF_VALIDE, PRENOM_CONF_VALIDE, SPECIALITE_CONF_VALIDE, 
+        Conferencier conferencier4 = new Conferencier("C000003", 
+        		"Dujardin", "Oceane", new String[]{"art moderne"}, 
+        		"611111111", true, 
+        		new Indisponibilite[] {
+        				new Indisponibilite(LocalDate.of(2024,11,07)),
+        				new Indisponibilite(LocalDate.of(2024,11,07)),
+        				new Indisponibilite(LocalDate.of(2024,11,19)),
+        				new Indisponibilite(LocalDate.of(2024,11,22))
+        		});
+      //même que 4 sauf que pas d'indisponibilites
+        Conferencier conferencier5 = new Conferencier("C000008", 
+        		"Deneuve", "Zoé", new String[]{"photo","peinture"}, 
+        		"600000003", false);
+        
+        // conferencier avec un paramètre different avec 1
+        Conferencier conferencier6 = new Conferencier(ID_CONF_VALIDE, 
+        		"Vroemen", PRENOM_CONF_VALIDE, SPECIALITE_CONF_VALIDE, 
         		NUMTEL_CONF_VALIDE, EST_INTERNE_VALIDE, 
         		INDISPONIBILITES_VALIDES);
-      //même que 4 sauf que pas d'indisponibilites
-        Conferencier conferencier5 = new Conferencier("C000002", 
+        
+        Conferencier conferencier7 = new Conferencier(ID_CONF_VALIDE, 
+        		NOM_CONF_VALIDE, "Ayoub", SPECIALITE_CONF_VALIDE, 
+        		NUMTEL_CONF_VALIDE, EST_INTERNE_VALIDE, 
+        		INDISPONIBILITES_VALIDES);
+        
+        Conferencier conferencier8 = new Conferencier(ID_CONF_VALIDE, 
+        		NOM_CONF_VALIDE, PRENOM_CONF_VALIDE, new String[]{"photo","peinture"}, 
+        		NUMTEL_CONF_VALIDE, EST_INTERNE_VALIDE, 
+        		INDISPONIBILITES_VALIDES);
+        
+        Conferencier conferencier9 = new Conferencier(ID_CONF_VALIDE, 
+        		NOM_CONF_VALIDE, PRENOM_CONF_VALIDE, SPECIALITE_CONF_VALIDE, 
+        		"060308091", EST_INTERNE_VALIDE, 
+        		INDISPONIBILITES_VALIDES);
+        
+        Conferencier conferencier10 = new Conferencier(ID_CONF_VALIDE, 
+        		NOM_CONF_VALIDE, PRENOM_CONF_VALIDE, SPECIALITE_CONF_VALIDE, 
+        		NUMTEL_CONF_VALIDE, false, 
+        		INDISPONIBILITES_VALIDES);
+        
+        Conferencier conferencier11 = new Conferencier(ID_CONF_VALIDE, 
+        		NOM_CONF_VALIDE, PRENOM_CONF_VALIDE, SPECIALITE_CONF_VALIDE, 
+        		NUMTEL_CONF_VALIDE, EST_INTERNE_VALIDE, 
+        		new Indisponibilite[] {
+        			new Indisponibilite(LocalDate.of(2024,10,22)), new Indisponibilite(LocalDate.of(2024,10,26))
+        		});
+        
+        Conferencier conferencier12 = new Conferencier(ID_CONF_VALIDE, 
         		NOM_CONF_VALIDE, PRENOM_CONF_VALIDE, SPECIALITE_CONF_VALIDE, 
         		NUMTEL_CONF_VALIDE, EST_INTERNE_VALIDE);
         
+        
         // Même référence
-        assertEquals(conferencier1, conferencier1);
-        assertEquals(conferencier2, conferencier2);
-        assertEquals(conferencier3, conferencier3);
-        assertEquals(conferencier4, conferencier4);
-        assertEquals(conferencier5, conferencier5);
+        assertTrue(conferencier1.equals(conferencier1));
+        assertTrue(conferencier2.equals(conferencier2));
+        assertTrue(conferencier3.equals(conferencier3));
+        assertTrue(conferencier4.equals(conferencier4));
+        assertTrue(conferencier5.equals(conferencier5));
+        assertTrue(conferencier6.equals(conferencier6));
+        assertTrue(conferencier7.equals(conferencier7));
+        assertTrue(conferencier8.equals(conferencier8));
+        assertTrue(conferencier9.equals(conferencier9));
+        assertTrue(conferencier10.equals(conferencier10));
+        assertTrue(conferencier11.equals(conferencier11));
+        assertTrue(conferencier12.equals(conferencier12));
         
         // Objets avec les mêmes valeurs
-        assertEquals(conferencier1, conferencier2);
-        assertEquals(conferencier2, conferencier1);
+        assertTrue(conferencier1.equals(conferencier2));
+        assertTrue(conferencier2.equals(conferencier1));
         
         // Objets différents
         
-        assertNotEquals(conferencier1, conferencier3);
-        assertNotEquals(conferencier1, conferencier4);
-        assertNotEquals(conferencier1, conferencier5);
-        assertNotEquals(conferencier2, conferencier3);
-        assertNotEquals(conferencier2, conferencier4);
-        assertNotEquals(conferencier2, conferencier5);
-        assertNotEquals(conferencier3, conferencier1);
-        assertNotEquals(conferencier3, conferencier2);
-        assertNotEquals(conferencier4, conferencier1);
-        assertNotEquals(conferencier4, conferencier2);
-        assertNotEquals(conferencier4, conferencier3);
-        assertNotEquals(conferencier4, conferencier5);
-        assertNotEquals(conferencier5, conferencier1);
-        assertNotEquals(conferencier5, conferencier2);
+        assertFalse(conferencier1.equals(conferencier3));
+        assertFalse(conferencier1.equals(conferencier4));
+        assertFalse(conferencier1.equals(conferencier5));
+        assertFalse(conferencier1.equals(conferencier6));
+        assertFalse(conferencier1.equals(conferencier7));
+        assertFalse(conferencier1.equals(conferencier8));
+        assertFalse(conferencier1.equals(conferencier9));
+        assertFalse(conferencier1.equals(conferencier10));
+        assertFalse(conferencier1.equals(conferencier11));
+        assertFalse(conferencier1.equals(conferencier12));
+        assertFalse(conferencier2.equals(conferencier3));
+        assertFalse(conferencier2.equals(conferencier4));
+        assertFalse(conferencier2.equals(conferencier5));
+        assertFalse(conferencier2.equals(conferencier6));
+        assertFalse(conferencier2.equals(conferencier7));
+        assertFalse(conferencier2.equals(conferencier8));
+        assertFalse(conferencier2.equals(conferencier9));
+        assertFalse(conferencier2.equals(conferencier10));
+        assertFalse(conferencier2.equals(conferencier11));
+        assertFalse(conferencier2.equals(conferencier12));
+        assertFalse(conferencier3.equals(conferencier1));
+        assertFalse(conferencier3.equals(conferencier2));
+        assertFalse(conferencier3.equals(conferencier4));
+        assertFalse(conferencier3.equals(conferencier5));
+        assertFalse(conferencier3.equals(conferencier6));
+        assertFalse(conferencier3.equals(conferencier7));
+        assertFalse(conferencier3.equals(conferencier8));
+        assertFalse(conferencier3.equals(conferencier9));
+        assertFalse(conferencier3.equals(conferencier10));
+        assertFalse(conferencier3.equals(conferencier11));
+        assertFalse(conferencier3.equals(conferencier12));
+        assertFalse(conferencier4.equals(conferencier1));
+        assertFalse(conferencier4.equals(conferencier2));
+        assertFalse(conferencier4.equals(conferencier3));
+        assertFalse(conferencier4.equals(conferencier5));
+        assertFalse(conferencier4.equals(conferencier6));
+        assertFalse(conferencier4.equals(conferencier7));
+        assertFalse(conferencier4.equals(conferencier8));
+        assertFalse(conferencier4.equals(conferencier9));
+        assertFalse(conferencier4.equals(conferencier10));
+        assertFalse(conferencier4.equals(conferencier11));
+        assertFalse(conferencier4.equals(conferencier12));
+        assertFalse(conferencier5.equals(conferencier1));
+        assertFalse(conferencier5.equals(conferencier2));
+        assertFalse(conferencier5.equals(conferencier3));
+        assertFalse(conferencier5.equals(conferencier4));
+        assertFalse(conferencier5.equals(conferencier6));
+        assertFalse(conferencier5.equals(conferencier7));
+        assertFalse(conferencier5.equals(conferencier8));
+        assertFalse(conferencier5.equals(conferencier9));
+        assertFalse(conferencier5.equals(conferencier10));
+        assertFalse(conferencier5.equals(conferencier11));
+        assertFalse(conferencier5.equals(conferencier12));
         
         // Test avec null
-        assertNotEquals(conferencier1, null);
-        assertNotEquals(conferencier2, null);
-        assertNotEquals(conferencier3, null);
-        assertNotEquals(conferencier4, null);
-        assertNotEquals(conferencier5, null);
+        assertFalse(conferencier1.equals(null));
+        assertFalse(conferencier2.equals(null));
+        assertFalse(conferencier3.equals(null));
+        assertFalse(conferencier4.equals(null));
+        assertFalse(conferencier5.equals(null));
+        assertFalse(conferencier6.equals(null));
+        assertFalse(conferencier7.equals(null));
+        assertFalse(conferencier8.equals(null));
+        assertFalse(conferencier9.equals(null));
+        assertFalse(conferencier10.equals(null));
+        assertFalse(conferencier11.equals(null));
+        assertFalse(conferencier12.equals(null));
         
         // Test avec un objet d'une autre classe
-        assertNotEquals(conferencier1, new Object());
-        assertNotEquals(conferencier2, new Object());
-        assertNotEquals(conferencier3, new Object());
-        assertNotEquals(conferencier4, new Object());
-        assertNotEquals(conferencier5, new Object());
+        assertFalse(conferencier1.equals(new Object()));
+        assertFalse(conferencier2.equals(new Object()));
+        assertFalse(conferencier3.equals(new Object()));
+        assertFalse(conferencier4.equals(new Object()));
+        assertFalse(conferencier5.equals(new Object()));
+        assertFalse(conferencier6.equals(new Object()));
+        assertFalse(conferencier7.equals(new Object()));
+        assertFalse(conferencier8.equals(new Object()));
+        assertFalse(conferencier9.equals(new Object()));
+        assertFalse(conferencier10.equals(new Object()));
+        assertFalse(conferencier11.equals(new Object()));
+        assertFalse(conferencier12.equals(new Object()));
     }
 
     /**
