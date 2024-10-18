@@ -386,19 +386,6 @@ class TestIndisponibilite {
     @Test
     void testToString() {
         
-//        new Indisponibilite(LocalDate.of(2005, 5, 28)),
-//        new Indisponibilite(LocalDate.of(2005, 3, 21)),
-//        new Indisponibilite(LocalDate.of(2005, 8, 14)),
-//        new Indisponibilite(LocalDate.of(2005, 11, 20)),  
-//        new Indisponibilite(LocalDate.of(2005, 5, 28),
-//                            LocalDate.of(2005, 6, 28)),
-//        new Indisponibilite(LocalDate.of(2005, 3, 21),
-//                            LocalDate.of(2005, 4, 21)),
-//        new Indisponibilite(LocalDate.of(2005, 8, 14),
-//                            LocalDate.of(2005, 9, 14)),
-//        new Indisponibilite(LocalDate.of(2005, 11, 20),
-//                            LocalDate.of(2005, 12, 20)), 
-        
         assertEquals("Le 28/5/2005",
                      INDISPONIBILITES_VALIDES[0].toString());
         assertEquals("Le 21/3/2005",
