@@ -310,7 +310,7 @@ class TestConferencier {
                               + ", status(interne ou externe) : " 
                               + EST_INTERNE_VALIDE
                               + ", liste des indisponibilites : " 
-                              + Arrays.toString(INDISPONIBILITES_VALIDES);
+                              + "[Le 2/8/2025, Du 22/12/2024 au 26/12/2024]";
         
         //TODO : Corriger test pour conferencier avec indisponibilités vide
         assertEquals(expectedString1, conferencier1.toString());
