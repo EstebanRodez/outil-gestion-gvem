@@ -16,9 +16,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import application.modele.Conferencier;
 import application.modele.Employe;
 import application.modele.Exposition;
 import application.modele.ExpositionTemporaire;
+import application.modele.Indisponibilite;
 
 /**
  * La classe ImportationCSV permet d'importer et de traiter des
@@ -44,6 +46,8 @@ public class ImportationCSV {
     private static ArrayList<Exposition> expositions = new ArrayList<>();
     
     private static ArrayList<Employe> employes = new ArrayList<>();
+    
+    private static ArrayList<Conferencier> conferenciers = new ArrayList<>();
     
     /**
      * Importe les données d'un fichier normalement en .csv
@@ -203,7 +207,7 @@ public class ImportationCSV {
         } else if (typeCSV == 'N') { // Employé
             creerEmploye(donnee);
         } else if (typeCSV == 'C') { // Conférencier
-
+            creerConferencier(donnee);
         } else {
             throw new IllegalArgumentException(ERREUR_CONTENU_FICHIER);
         }
@@ -296,7 +300,7 @@ public class ImportationCSV {
                  nom = ligne[1];
                  prenom = ligne[2];
                  numTel = ligne[3];
-                 if (ligne.length == 7) { 
+                 if (ligne.length == 4) { 
 
                      employe = new Employe(identifiant, nom, prenom, numTel);
                      employes.add(employe);
@@ -308,6 +312,84 @@ public class ImportationCSV {
         
         
         
+    }
+    
+    /**
+     * Crée des objets Conferencier  à partir des données CSV et les
+     * ajoute à la liste des conferenciers.
+     * 
+     * @param donnee La liste des données CSV représentant des
+     *               conferenciers
+     * @throws IllegalArgumentException si le nombre d'argument d'une
+     *                                  ligne est incorrect
+     */
+    private static void creerConferencier(List<String[]> donnee) {
+         String identifiant,
+                nom,
+                prenom;
+         String[] specialites;
+         String numTel;
+         boolean estInterne;
+         Indisponibilite[] indisponibilites = null;
+         int nombreIndisponibilites;
+         
+         int debutIndex;
+         
+         LocalDate dateDebut;
+         LocalDate dateFin;
+         
+         Conferencier conferencier;
+         
+         for (String[] ligne : donnee) {
+
+             // Vérifier si la ligne n'est pas vide
+             if (ligne.length > 0) {
+                 identifiant = ligne[0];
+                 nom = ligne[1];
+                 prenom = ligne[2];
+                 specialites = ligne[3].replace("#", "").split(", ");
+                 numTel = ligne[4]; 
+                 estInterne = ligne[5].equalsIgnoreCase("oui") ? true : false;
+                 
+                 
+                 if (ligne.length == 6) { 
+                     conferencier = new Conferencier(identifiant, nom, prenom, 
+                                                     specialites, numTel,
+                                                     estInterne);
+                     conferenciers.add(conferencier);
+                 } else if (ligne.length > 6){
+                     nombreIndisponibilites = (ligne.length - 6) / 2;
+
+                     for (int i = 0; i < nombreIndisponibilites; i++) {
+                         
+                         debutIndex = 6 + i * 2;
+                         dateDebut = LocalDate.parse(ligne[debutIndex],
+                                                     formatter);
+
+                         // Si une date de fin est fournie
+                         if (debutIndex + 1 < ligne.length 
+                                 && !ligne[debutIndex + 1].isEmpty()) {
+                             dateFin = LocalDate.parse(ligne[debutIndex + 1],
+                                                       formatter);
+                             indisponibilites[i] 
+                              = new Indisponibilite(dateDebut, dateFin);
+                         } else {
+                             // Ajouter seulement la date de début
+                             indisponibilites[i] 
+                               = new Indisponibilite(dateDebut);
+                         }
+                     }
+                     
+                     conferencier = new Conferencier(identifiant, nom, prenom, 
+                                                     specialites, numTel, 
+                                                     estInterne, 
+                                                     indisponibilites);
+                     conferenciers.add(conferencier);
+                 } else {
+                     throw new IllegalArgumentException(ERREUR_NOMBRE_ARGUMENTS); 
+                 }       
+             }
+         }
     }
 
     /**
@@ -326,5 +408,14 @@ public class ImportationCSV {
      */
     public static List<Employe> getEmployes() {
         return employes;
+    }
+    
+    /**
+     * Récupère la liste des conferenciers traitées.
+     * 
+     * @return Une liste d'objets Conferencier
+     */
+    public static List<Conferencier> getConferenciers() {
+        return conferenciers;
     }
 }
