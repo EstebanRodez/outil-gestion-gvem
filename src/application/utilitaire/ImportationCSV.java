@@ -16,6 +16,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import application.modele.Employe;
 import application.modele.Exposition;
 import application.modele.ExpositionTemporaire;
 
@@ -41,6 +42,8 @@ public class ImportationCSV {
     = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     private static ArrayList<Exposition> expositions = new ArrayList<>();
+    
+    private static ArrayList<Employe> employes = new ArrayList<>();
     
     /**
      * Importe les données d'un fichier normalement en .csv
@@ -198,7 +201,7 @@ public class ImportationCSV {
         } else if (typeCSV == 'R') { // Visite
 
         } else if (typeCSV == 'N') { // Employé
-
+            creerEmploye(donnee);
         } else if (typeCSV == 'C') { // Conférencier
 
         } else {
@@ -267,6 +270,45 @@ public class ImportationCSV {
             }
         }
     }
+    
+    /**
+     * Crée des objets Employe  à partir des données CSV et les
+     * ajoute à la liste des employés.
+     * 
+     * @param donnee La liste des données CSV représentant des
+     *               employés
+     * @throws IllegalArgumentException si le nombre d'argument d'une
+     *                                  ligne est incorrect
+     */
+    private static void creerEmploye(List<String[]> donnee) {
+         String identifiant, 
+                nom,
+                prenom,
+                numTel;
+         
+         Employe employe;
+         
+         for (String[] ligne : donnee) {
+
+             // Vérifier si la ligne n'est pas vide
+             if (ligne.length > 0) {
+                 identifiant = ligne[0];
+                 nom = ligne[1];
+                 prenom = ligne[2];
+                 numTel = ligne[3];
+                 if (ligne.length == 7) { 
+
+                     employe = new Employe(identifiant, nom, prenom, numTel);
+                     employes.add(employe);
+                 } else {
+                     throw new IllegalArgumentException(ERREUR_NOMBRE_ARGUMENTS); 
+                 }       
+             }
+         }
+        
+        
+        
+    }
 
     /**
      * Récupère la liste des expositions traitées.
@@ -275,5 +317,14 @@ public class ImportationCSV {
      */
     public static List<Exposition> getExpositions() {
         return expositions;
+    }
+    
+    /**
+     * Récupère la liste des employes traitées.
+     * 
+     * @return Une liste d'objets Employe
+     */
+    public static List<Employe> getEmployes() {
+        return employes;
     }
 }
