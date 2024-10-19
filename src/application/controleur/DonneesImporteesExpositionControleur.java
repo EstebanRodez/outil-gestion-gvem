@@ -120,7 +120,7 @@ public class DonneesImporteesExpositionControleur {
     }
 
     // Helper method to convert String[] to String
-    private String getMotsClesAsString(String[] motsCles) {
+    private static String getMotsClesAsString(String[] motsCles) {
         return motsCles != null ? String.join(", ", motsCles) : "";
     }
 

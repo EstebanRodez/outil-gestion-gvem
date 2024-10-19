@@ -99,14 +99,15 @@ public class ImporterControleur {
         fileChooser.getExtensionFilters().add(extFilter);
         
         // Ouvrir le dialogue pour choisir un fichier
-        File fichierSelectionne = fileChooser.showOpenDialog(fenetreAppli);
+        List<File> fichierSelectionne = fileChooser.showOpenMultipleDialog(fenetreAppli);
         
         // Vérifier si un fichier a été sélectionné
-        if (fichierSelectionne != null) {
-            List<String[]> donnee;
-            donnee = ImportationCSV.importer(fichierSelectionne
-                                             .getAbsolutePath());
-            ImportationCSV.traitementDonnees(donnee); 
+        if (fichierSelectionne != null && !fichierSelectionne.isEmpty()) {
+            for (File fichier : fichierSelectionne) {
+                List<String[]> donnee;
+                donnee = ImportationCSV.importer(fichier.getAbsolutePath());
+                ImportationCSV.traitementDonnees(donnee); 
+            }
         } else {
             Alert boiteErreurInconnueOuverture =
                     new Alert(Alert.AlertType.ERROR, 

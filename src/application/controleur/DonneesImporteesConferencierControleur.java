@@ -9,9 +9,17 @@ import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import application.modele.Conferencier;
+import application.modele.Exposition;
 import application.modele.Indisponibilite;
+import application.utilitaire.ImportationCSV;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,6 +30,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 /**
@@ -48,17 +57,19 @@ public class DonneesImporteesConferencierControleur {
       this.fenetreAppli = fenetreAppli;
     }
     
+    static List<Conferencier> conf = ImportationCSV.getConferenciers();
+    
     @FXML
     private Button btnRetour;
     
     @FXML
-    private TableColumn<Conferencier, Boolean> estInterne;
+    private TableColumn<Conferencier, String> estInterne;
 
     @FXML
     private TableColumn<Conferencier, String> identifiant;
 
     @FXML
-    private TableColumn<Conferencier, Indisponibilite[]> indisponibilites;
+    private TableColumn<Conferencier, String> indisponibilites;
 
     @FXML
     private TableColumn<Conferencier, String> nom;
@@ -70,10 +81,50 @@ public class DonneesImporteesConferencierControleur {
     private TableColumn<Conferencier, String> prenom;
 
     @FXML
-    private TableColumn<Conferencier, String[]> specialites;
+    private TableColumn<Conferencier, String> specialites;
 
     @FXML
     private TableView<Conferencier> tableExposition;
+    
+    /**
+     * 
+     */
+    @FXML
+    public void initialize() {
+        
+        estInterne.setCellValueFactory(cellData -> 
+        new SimpleStringProperty(getEstInterneAsString(cellData.getValue().estInterne())));
+        identifiant.setCellValueFactory(new PropertyValueFactory<>("identifiant"));
+
+
+        indisponibilites.setCellValueFactory(cellData -> 
+        new SimpleStringProperty(getIndisponibilitesAsString(cellData.getValue().getIndisponibilites())));
+        
+        nom.setCellValueFactory(new PropertyValueFactory<>("nom"));
+        numTel.setCellValueFactory(new PropertyValueFactory<>("numTel"));
+        prenom.setCellValueFactory(new PropertyValueFactory<>("prenom"));
+        specialites.setCellValueFactory(cellData -> 
+        new SimpleStringProperty(String.join(", ", cellData.getValue().getSpecialites())));
+        
+        ObservableList<Conferencier> exposList = FXCollections.observableArrayList(conf);
+        tableExposition.setItems(exposList);
+    }
+    
+    private static String getEstInterneAsString(Boolean estInterne) {
+        return estInterne != null && estInterne ? "Oui" : "Non";
+    }
+    
+    private static String getIndisponibilitesAsString(Indisponibilite[] indisponibilitesArray) {
+        if (indisponibilitesArray != null && indisponibilitesArray.length > 0) {
+            return Arrays.stream(indisponibilitesArray)
+                         .map(Indisponibilite::toString)
+                         .collect(Collectors.joining(", "));
+        } else {
+            return "Aucune indisponibilité";
+        }
+    }
+
+
 
     @FXML
     void retourAccueilAction(ActionEvent event) throws IOException {
