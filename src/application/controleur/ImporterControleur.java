@@ -8,12 +8,9 @@ package application.controleur;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
-<<<<<<< HEAD
 import java.net.URI;
 import java.net.URISyntaxException;
-=======
 import java.util.List;
->>>>>>> 5b51919 (feat: ajout des élément sur le tableau importe exposition)
 
 import application.modele.Exposition;
 import application.utilitaire.ImportationCSV;

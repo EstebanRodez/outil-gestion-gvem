@@ -141,7 +141,6 @@ public class DonneesImporteesExpositionControleur {
 
     @FXML
     void aideAction(ActionEvent event) {
-<<<<<<< HEAD
     	final String LIEN_REGLES
         = "https://docs.google.com/document/d/1wA1ytqySDYe1D-2ZL1M0mLKMvUmv9SCtS0uORFgoRIY/edit?usp=sharing";
 
@@ -159,9 +158,7 @@ public class DonneesImporteesExpositionControleur {
 
             boiteErreurInconnueOuverture.showAndWait();
         }
-=======
         // Implement help functionality if needed
->>>>>>> 5b51919 (feat: ajout des élément sur le tableau importe exposition)
     }
 
     @FXML
