@@ -330,7 +330,7 @@ public class ImportationCSV {
          String[] specialites;
          String numTel;
          boolean estInterne;
-         Indisponibilite[] indisponibilites = null;
+         Indisponibilite[] indisponibilites;
          int nombreIndisponibilites;
          
          int debutIndex;
@@ -349,6 +349,7 @@ public class ImportationCSV {
                  prenom = ligne[2];
                  specialites = ligne[3].replace("#", "").split(", ");
                  numTel = ligne[4]; 
+                 System.out.println(numTel);
                  estInterne = ligne[5].equalsIgnoreCase("oui") ? true : false;
                  
                  
@@ -359,6 +360,8 @@ public class ImportationCSV {
                      conferenciers.add(conferencier);
                  } else if (ligne.length > 6){
                      nombreIndisponibilites = (ligne.length - 6) / 2;
+                     indisponibilites 
+                         = new Indisponibilite [nombreIndisponibilites];
 
                      for (int i = 0; i < nombreIndisponibilites; i++) {
                          
@@ -368,7 +371,10 @@ public class ImportationCSV {
 
                          // Si une date de fin est fournie
                          if (debutIndex + 1 < ligne.length 
-                                 && !ligne[debutIndex + 1].isEmpty()) {
+                                 && !ligne[debutIndex + 1].isEmpty() 
+                                 && !ligne[debutIndex]
+                                         .equals(ligne[debutIndex + 1])) {
+                             
                              dateFin = LocalDate.parse(ligne[debutIndex + 1],
                                                        formatter);
                              indisponibilites[i] 

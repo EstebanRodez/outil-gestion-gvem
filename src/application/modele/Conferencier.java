@@ -70,7 +70,7 @@ public class Conferencier {
     """
     Impossible de créer un conférencier.
     Le numéro de téléphone du conférencier doit contenir
-    uniquement 9 caractères.                
+    uniquement 10 caractères.                
     """;
     
     private static final String ERREUR_INDISPONIBILITES_INVALIDE =
@@ -128,7 +128,7 @@ public class Conferencier {
      *                                  téléphone est nulle, le
      *                                  numéro de téléphone est vide,
      *                                  contient autre chose que des
-     *                                  chiffres ou ne contient pas 9
+     *                                  chiffres ou ne contient pas 10
      *                                  caractères
      */
     public Conferencier(String identifiant, String nom, String prenom,
@@ -155,11 +155,11 @@ public class Conferencier {
             throw new IllegalArgumentException(ERREUR_NUMTEL_INVALIDE);
         }
 
-        if (numTel.length() != 9) {
+        if (numTel.length() != 10) {
             throw new IllegalArgumentException(ERREUR_NUMTEL_LONGUEUR_INVALIDE);
         }
 
-        if (!numTel.matches("(\\d){9}")) {
+        if (!numTel.matches("(\\d){10}")) {
             throw new IllegalArgumentException(
                     ERREUR_NUMTEL_CARACTERE_INVALIDE);
         }
@@ -202,7 +202,7 @@ public class Conferencier {
      * 					téléphone est nulle, le
      *                                  numéro de téléphone est vide,
      * 					contient autre chose que des
-     * 					chiffres ou ne contient pas 9
+     * 					chiffres ou ne contient pas 10
      *                                  caractères
      * @throws IllegalArgumentException si la référence de la liste
      *                                  des indisponibilités est
@@ -234,11 +234,11 @@ public class Conferencier {
             throw new IllegalArgumentException(ERREUR_NUMTEL_INVALIDE);
         }
 
-        if (numTel.length() != 9) {
+        if (numTel.length() != 10) {
             throw new IllegalArgumentException(ERREUR_NUMTEL_LONGUEUR_INVALIDE);
         }
 
-        if (!numTel.matches("(\\d){9}")) {
+        if (!numTel.matches("(\\d){10}")) {
             throw new IllegalArgumentException(
                     ERREUR_NUMTEL_CARACTERE_INVALIDE);
         }

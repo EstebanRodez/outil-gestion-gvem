@@ -27,7 +27,7 @@ class TestConferencier {
     private final String NOM_CONF_VALIDE = "Dupont";
     private final String PRENOM_CONF_VALIDE = "Pierre";
     private final String[] SPECIALITE_CONF_VALIDE = {"Art", "Histoire"};
-    private final String NUMTEL_CONF_VALIDE = "123456789";
+    private final String NUMTEL_CONF_VALIDE = "0123456789";
     private final boolean EST_INTERNE_VALIDE = true;
     private final Indisponibilite[] INDISPONIBILITES_VALIDES = 
 	{
@@ -238,13 +238,13 @@ class TestConferencier {
         //même que 1 et 2 sauf que pas d'indisponibilites
         Conferencier conferencier3 = new Conferencier("C000002", 
         		"Lexpert", "Noemie", new String[]{"peinture", "impressionnisme", "art contemporain"}, 
-        		"600000001", true,new Indisponibilite[] {
+        		"0600000001", true,new Indisponibilite[] {
         				new Indisponibilite(LocalDate.of(2024,10,22)), new Indisponibilite(LocalDate.of(2024,10,26))
         				});
         // conferencier4 est diferent de 1 et 2 et 3
         Conferencier conferencier4 = new Conferencier("C000003", 
         		"Dujardin", "Oceane", new String[]{"art moderne"}, 
-        		"611111111", true, 
+        		"0611111111", true, 
         		new Indisponibilite[] {
         				new Indisponibilite(LocalDate.of(2024,11,07)),
         				new Indisponibilite(LocalDate.of(2024,11,07)),
@@ -254,7 +254,7 @@ class TestConferencier {
       //même que 4 sauf que pas d'indisponibilites
         Conferencier conferencier5 = new Conferencier("C000008", 
         		"Deneuve", "Zoé", new String[]{"photo","peinture"}, 
-        		"600000003", false);
+        		"0600000003", false);
         
         // conferencier avec un paramètre different avec 1
         Conferencier conferencier6 = new Conferencier(ID_CONF_VALIDE, 
@@ -274,7 +274,7 @@ class TestConferencier {
         
         Conferencier conferencier9 = new Conferencier(ID_CONF_VALIDE, 
         		NOM_CONF_VALIDE, PRENOM_CONF_VALIDE, SPECIALITE_CONF_VALIDE, 
-        		"060308091", EST_INTERNE_VALIDE, 
+        		"0603080911", EST_INTERNE_VALIDE, 
         		INDISPONIBILITES_VALIDES);
         
         Conferencier conferencier10 = new Conferencier(ID_CONF_VALIDE, 
