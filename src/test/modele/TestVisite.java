@@ -31,7 +31,7 @@ class TestVisite {
     private final LocalDate DATE_VISITE_VALIDE = LocalDate.of(2024, 10, 12);
     
     private final Client CLIENT_VISITE_VALIDE 
-    = new Client("Esteban", "123456789");
+    = new Client("Esteban", "0123456789");
     
     private final Exposition EXPOSITION_VISITE_VALIDE
     = new Exposition("E000001", "Les paysages impressionnistes", 1780, 1810, 25,
@@ -55,7 +55,7 @@ class TestVisite {
                    EXPOSITION_VISITE_VALIDE, EMPLOYE_VISITE_VALIDE,
                    CONFERENCIER_VISITE_VALIDE),
         new Visite("V000002", 600, LocalDate.of(2024, 11, 20),
-                   new Client("Alice", "987654321"),
+                   new Client("Alice", "0987654321"),
                    new Exposition("E000002", "Le surréalisme en couleurs", 1920,
                                   1950, 30,
                                   new String[] {"surréalisme", "Dali", 
@@ -68,7 +68,7 @@ class TestVisite {
                                     new String[] {"surréalisme", "peinture"}, 
                                     "0623456789", false)),
         new Visite("V000003", 720, LocalDate.of(2024, 12, 5),
-                   new Client("Benjamin", "456123789"),
+                   new Client("Benjamin", "0456123789"),
                    new Exposition("E000003", "L'Art abstrait moderne", 1945,
                                   1980, 40,
                                   new String[] {"abstraction", "Kandinsky", 
@@ -80,7 +80,7 @@ class TestVisite {
                                     new String[] {"abstraction", "modernisme"}, 
                                     "0612345678", true)),
         new Visite("V000004", 960, LocalDate.of(2025, 1, 10),
-                   new Client("Camille", "321654987"),
+                   new Client("Camille", "0321654987"),
                    new Exposition("E000004", "Le cubisme décomposé", 1907, 1925,
                                   35, new String[] {"cubisme", "Picasso", 
                                                     "Braque", "Gris"},
@@ -91,7 +91,7 @@ class TestVisite {
                                                   "peinture moderne"}, 
                                     "0698765432", false)),
         new Visite("V000005", 1160, LocalDate.of(2025, 2, 28),
-                   new Client("Diane", "789123456"),
+                   new Client("Diane", "0789123456"),
                    new Exposition("E000005", "Les sculptures grecques", -500,
                                   -100, 20,
                                   new String[] {"sculpture", "Grèce antique", 
@@ -222,7 +222,7 @@ class TestVisite {
                                             CONFERENCIER_VISITE_VALIDE));
         assertDoesNotThrow(
                 () -> new Visite("V000002", 600, LocalDate.of(2024, 11, 20),
-                                 new Client("Alice", "987654321"),
+                                 new Client("Alice", "0987654321"),
                                  new Exposition("E000002",
                                                 "Le surréalisme en couleurs",
                                                 1920, 1950, 30,
@@ -243,7 +243,7 @@ class TestVisite {
                                                   "0623456789", false)));
         assertDoesNotThrow(
                 () -> new Visite("V000003", 720, LocalDate.of(2024, 12, 5),
-                                 new Client("Benjamin", "456123789"),
+                                 new Client("Benjamin", "0456123789"),
                                  new Exposition("E000003",
                                                 "L'Art abstrait moderne",
                                                 1945, 1980, 40,
@@ -263,7 +263,7 @@ class TestVisite {
                                  
             assertDoesNotThrow(
                 () -> new Visite("V000004", 960, LocalDate.of(2025, 1, 10),
-                                 new Client("Camille", "321654987"),
+                                 new Client("Camille", "0321654987"),
                                  new Exposition("E000004",
                                                 "Le cubisme décomposé",
                                                 1907, 1925, 35,
@@ -282,7 +282,7 @@ class TestVisite {
                                  
             assertDoesNotThrow(
                 () -> new Visite("V000005", 1160, LocalDate.of(2025, 2, 28),
-                                 new Client("Diane", "789123456"),
+                                 new Client("Diane", "0789123456"),
                                  new Exposition("E000005",
                                                 "Les sculptures grecques",
                                                 -500, -100, 20,

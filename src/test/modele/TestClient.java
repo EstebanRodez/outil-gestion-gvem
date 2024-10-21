@@ -20,14 +20,14 @@ class TestClient {
     
     private final String INTITULE_CLIENT_VALIDE = "Tom";
     
-    private final String NUMTEL_CLIENT_VALIDE = "112345678";
+    private final String NUMTEL_CLIENT_VALIDE = "0112345678";
     
     private final Client[] CLIENTS_VALIDES =
     {
-        new Client("Esteban", "012345678"),
-        new Client("Romain", "012345678"),
-        new Client("Ayoub", "987654321"),
-        new Client("Baptiste", "154564474"),
+        new Client("Esteban", "0012345678"),
+        new Client("Romain", "0012345678"),
+        new Client("Ayoub", "0987654321"),
+        new Client("Baptiste", "0154564474"),
     };
 
     /**
@@ -76,9 +76,9 @@ class TestClient {
         assertThrows(IllegalArgumentException.class, 
                      () -> new Client(INTITULE_CLIENT_VALIDE, "11545444"));
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Client(INTITULE_CLIENT_VALIDE, "1005245478"));
+                     () -> new Client(INTITULE_CLIENT_VALIDE, "10052454789"));
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Client(INTITULE_CLIENT_VALIDE, "10052d547"));
+                     () -> new Client(INTITULE_CLIENT_VALIDE, "010052d547"));
     }
     
     /**
@@ -89,10 +89,10 @@ class TestClient {
     @Test
     void testClientValide() {
         
-        assertDoesNotThrow(() -> new Client("Esteban", "012345678"));
-        assertDoesNotThrow(() -> new Client("Romain", "012345678"));
-        assertDoesNotThrow(() -> new Client("Ayoub", "987654321"));
-        assertDoesNotThrow(() -> new Client(" Baptiste", "154564474"));
+        assertDoesNotThrow(() -> new Client("Esteban", "0012345678"));
+        assertDoesNotThrow(() -> new Client("Romain", "0012345678"));
+        assertDoesNotThrow(() -> new Client("Ayoub", "0987654321"));
+        assertDoesNotThrow(() -> new Client(" Baptiste", "0154564474"));
     }
 
     /**
@@ -119,10 +119,10 @@ class TestClient {
     @Test
     void testGetNumTel() {
         
-        assertEquals("012345678", CLIENTS_VALIDES[0].getNumTel());
-        assertEquals("012345678", CLIENTS_VALIDES[1].getNumTel());
-        assertEquals("987654321", CLIENTS_VALIDES[2].getNumTel());
-        assertEquals("154564474", CLIENTS_VALIDES[3].getNumTel());
+        assertEquals("0012345678", CLIENTS_VALIDES[0].getNumTel());
+        assertEquals("0012345678", CLIENTS_VALIDES[1].getNumTel());
+        assertEquals("0987654321", CLIENTS_VALIDES[2].getNumTel());
+        assertEquals("0154564474", CLIENTS_VALIDES[3].getNumTel());
         
         assertNotEquals(null, CLIENTS_VALIDES[1].getNumTel());
         assertNotEquals("", CLIENTS_VALIDES[2].getNumTel());
@@ -143,13 +143,13 @@ class TestClient {
         assertTrue(CLIENTS_VALIDES[2].equals(CLIENTS_VALIDES[2]));
         assertTrue(CLIENTS_VALIDES[3].equals(CLIENTS_VALIDES[3]));
         assertTrue(CLIENTS_VALIDES[0].equals(new Client("Esteban",
-                                                        "012345678")));
+                                                        "0012345678")));
         assertTrue(CLIENTS_VALIDES[1].equals(new Client("Romain",
-                                                        "012345678")));
+                                                        "0012345678")));
         assertTrue(CLIENTS_VALIDES[2].equals(new Client("Ayoub",
-                                                        "987654321")));
+                                                        "0987654321")));
         assertTrue(CLIENTS_VALIDES[3].equals(new Client("Baptiste",
-                                                        "154564474")));
+                                                        "0154564474")));
         
         assertFalse(CLIENTS_VALIDES[0].equals(null));
         assertFalse(CLIENTS_VALIDES[1].equals(null));
@@ -168,21 +168,21 @@ class TestClient {
         assertFalse(CLIENTS_VALIDES[2].equals("987654321"));
         assertFalse(CLIENTS_VALIDES[3].equals("154564474"));
         assertFalse(CLIENTS_VALIDES[0].equals(new Client("Estebane",
-                                                         "012345678")));
+                                                         "0012345678")));
         assertFalse(CLIENTS_VALIDES[1].equals(new Client("Romaine",
-                                                         "012345678")));
+                                                         "0012345678")));
         assertFalse(CLIENTS_VALIDES[2].equals(new Client("Ayoube",
-                                                         "987654321")));
+                                                         "0987654321")));
         assertFalse(CLIENTS_VALIDES[3].equals(new Client("Baptistes",
-                                                         "154564474")));
+                                                         "0154564474")));
         assertFalse(CLIENTS_VALIDES[0].equals(new Client("Esteban",
-                                                         "013345678")));
+                                                         "0013345678")));
         assertFalse(CLIENTS_VALIDES[1].equals(new Client("Romain",
-                                                         "012346678")));
+                                                         "0012346678")));
         assertFalse(CLIENTS_VALIDES[2].equals(new Client("Ayoub",
-                                                         "988654321")));
+                                                         "0988654321")));
         assertFalse(CLIENTS_VALIDES[3].equals(new Client("Baptiste",
-                                                         "154564494")));
+                                                         "0154564494")));
     }
     
     /**
@@ -192,10 +192,10 @@ class TestClient {
     @Test
     void testToString() {
         
-        assertEquals("Esteban 012345678", CLIENTS_VALIDES[0].toString());
-        assertEquals("Romain 012345678", CLIENTS_VALIDES[1].toString());
-        assertEquals("Ayoub 987654321", CLIENTS_VALIDES[2].toString());
-        assertEquals("Baptiste 154564474", CLIENTS_VALIDES[3].toString());
+        assertEquals("Esteban 0012345678", CLIENTS_VALIDES[0].toString());
+        assertEquals("Romain 0012345678", CLIENTS_VALIDES[1].toString());
+        assertEquals("Ayoub 0987654321", CLIENTS_VALIDES[2].toString());
+        assertEquals("Baptiste 0154564474", CLIENTS_VALIDES[3].toString());
         
         assertNotEquals(null, CLIENTS_VALIDES[0].toString());
         assertNotEquals(null, CLIENTS_VALIDES[1].toString());

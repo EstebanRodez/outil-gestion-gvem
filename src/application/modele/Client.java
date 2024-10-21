@@ -32,7 +32,7 @@ public class Client {
     private static final String ERREUR_NUMTEL_LONGUEUR_INVALIDE =
     """
     Impossible de créer un client.
-    Le numéro de téléphone du client doit contenir 9 caractères uniquement.              
+    Le numéro de téléphone du client doit contenir 10 caractères uniquement.              
     """;
     
     private static final String ERREUR_NUMTEL_CARACTERE_INVALIDE =
@@ -73,12 +73,12 @@ public class Client {
             throw new IllegalArgumentException(ERREUR_NUMTEL_INVALIDE);
         }
         
-        if (numTel.trim().length() != 9) {
+        if (numTel.trim().length() != 10) {
             throw new IllegalArgumentException(
                     ERREUR_NUMTEL_LONGUEUR_INVALIDE);
         }
         
-        if (!numTel.matches("(\\d){9}")) {
+        if (!numTel.matches("(\\d){10}")) {
             throw new IllegalArgumentException(
                     ERREUR_NUMTEL_CARACTERE_INVALIDE);
         }
@@ -126,6 +126,5 @@ public class Client {
     public String toString() {
         return getIntitule() + " " + getNumTel();
     }
-    
     
 }
