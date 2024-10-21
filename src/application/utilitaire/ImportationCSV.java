@@ -398,38 +398,43 @@ public class ImportationCSV {
          
               
         for (String[] ligne : donnee) {
-            identifiant = ligne[0];
-            date = LocalDate.parse(ligne[4], formatter); 
-            
-            decoupageHeureDebut = ligne[5].split("h");
-            heureDebut = Integer.parseInt(decoupageHeureDebut[0]) * 60 
-                         + Integer.parseInt(decoupageHeureDebut[1]);
-            
-            // Chercher l'exposition par son identifiant
-            exposition = chercherExposition(ligne[1]);
-            // Chercher le conférencier par son identifiant
-            conferencier = chercherConferencier(ligne[2]);
-            // Chercher l'employé par son identifiant
-            employe = chercherEmploye(ligne[3]);
-            
-            // Extraire l'intitulé et le numéro de téléphone
-            intitule = ligne[6];
-            numTel = ligne[7];
-            
-            // Vérifier si le client existe déjà
-            client = trouverClient(intitule, numTel);
-            if (client == null) {
-                // Si le client n'existe pas, en créer un nouveau
-                client = new Client(intitule, numTel);
-                clients.add(client); // Ajoute le nouveau client à la liste
+         // Vérifier si la ligne n'est pas vide
+            if (ligne.length > 0) {
+                identifiant = ligne[0];
+                date = LocalDate.parse(ligne[4], formatter); 
+                
+                decoupageHeureDebut = ligne[5].split("h");
+                heureDebut = Integer.parseInt(decoupageHeureDebut[0]) * 60 
+                             + Integer.parseInt(decoupageHeureDebut[1]);
+                
+                // Chercher l'exposition par son identifiant
+                exposition = chercherExposition(ligne[1]);
+                // Chercher le conférencier par son identifiant
+                conferencier = chercherConferencier(ligne[2]);
+                // Chercher l'employé par son identifiant
+                employe = chercherEmploye(ligne[3]);
+                
+                // Extraire l'intitulé et le numéro de téléphone
+                intitule = ligne[6];
+                numTel = ligne[7];
+                
+                // Vérifier si le client existe déjà
+                client = trouverClient(intitule, numTel);
+                if (client == null) {
+                    // Si le client n'existe pas, en créer un nouveau
+                    client = new Client(intitule, numTel);
+                    clients.add(client); // Ajoute le nouveau client à la liste
+                }
+                
+                // Créer l'objet Visite
+                 visite = new Visite(identifiant, heureDebut, date, client,
+                                     exposition, employe, conferencier);
+                
+                 visites.add(visite);        
+            } else {
+                throw new IllegalArgumentException(ERREUR_NOMBRE_ARGUMENTS); 
             }
-            
-            // Créer l'objet Visite
-             visite = new Visite(identifiant, heureDebut, date, client,
-                                 exposition, employe, conferencier);
-            
-             visites.add(visite);        
-        }     
+        }
     }
     
     /**
