@@ -40,13 +40,20 @@ class TestIndisponibilite {
 
     /**
      * Méthode de test pour 
-     * {@link application.modele.Indisponibilite#Indisponibilite(java.time.LocalDate)}
+     * {@link application.modele.Indisponibilite#Indisponibilite(
+     * java.time.LocalDate)}
      * et
-     * {@link application.modele.Indisponibilite#Indisponibilite(java.time.LocalDate, java.time.LocalDate)}
+     * {@link application.modele.Indisponibilite#Indisponibilite(
+     * java.time.LocalDate, java.time.LocalDate)}
      * Cas uniquement invalides
      */
     @Test
     void testIndisponibiliteInvalide() {
+        
+        System.out.println(INDISPONIBILITES_VALIDES[0].hashCode());
+        System.out.println(INDISPONIBILITES_VALIDES[1].hashCode());
+        System.out.println(INDISPONIBILITES_VALIDES[2].hashCode());
+        System.out.println(INDISPONIBILITES_VALIDES[3].hashCode());
         
         /*
          * Tests spécifiques au constructeur à 1 argument
@@ -79,9 +86,11 @@ class TestIndisponibilite {
 
     /**
      * Méthode de test pour 
-     * {@link application.modele.Indisponibilite#Indisponibilite(java.time.LocalDate)}
+     * {@link application.modele.Indisponibilite#Indisponibilite(
+     * java.time.LocalDate)}
      * et
-     * {@link application.modele.Indisponibilite#Indisponibilite(java.time.LocalDate, java.time.LocalDate)}
+     * {@link application.modele.Indisponibilite#Indisponibilite(
+     * java.time.LocalDate, java.time.LocalDate)}
      * Cas uniquement valides
      */
     @Test
@@ -461,6 +470,27 @@ class TestIndisponibilite {
                         INDISPONIBILITES_VALIDES[6].toString());
         assertNotEquals("Du 20/11/2005 au 19/12/2024",
                         INDISPONIBILITES_VALIDES[7].toString());
+    }
+    
+    /**
+     * Méthode de test pour
+     * {@link application.modele.Indisponibilite#hashCode()}.
+     */
+    @Test
+    void testHashCode() {
+        
+        // TODO Ajouter des tests pour 100% de couverture
+    }
+    
+    /**
+     * Méthode de test pour
+     * {@link application.modele.Indisponibilite#compareTo(
+     * application.modele.Indisponibilite)}.
+     */
+    @Test
+    void testCompareTo() {
+        
+        // TODO Ajouter des tests pour 100% de couverture
     }
 
 }
