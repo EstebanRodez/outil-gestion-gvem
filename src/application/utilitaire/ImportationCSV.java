@@ -44,6 +44,15 @@ public class ImportationCSV {
     private static final String ERREUR_LECTURE_FICHIER 
     = " Erreur : Une erreur d'entrée/sortie est survenue lors de la "
       + "lecture/écriture du fichier.";
+    
+    private static final String ERREUR_CONFERENCIER_INTROUVABLE 
+    = " Erreur : Aucun conferencier n'est associé a l'identifiant indiqué";
+    
+    private static final String ERREUR_EMPLOYE_INTROUVABLE 
+    = " Erreur : Aucun employé n'est associé a l'identifiant indiqué";
+      
+    private static final String ERREUR_EXPOSITION_INTROUVABLE 
+    = " Erreur : Aucune exposition n'est associé a l'identifiant indiqué";
 
     final static DateTimeFormatter formatter
     = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -484,6 +493,7 @@ public class ImportationCSV {
      * Méthode pour chercher une Exposition par son identifiant
      * @param idExposition
      * @return l'objet Exposition
+     * @throws IllegalArgumentException si aucune exposition n'est trouvée
      */
     private static Exposition chercherExposition(String idExposition) {
         for (Exposition expo : expositions) {
@@ -491,13 +501,14 @@ public class ImportationCSV {
                 return expo;
             }
         }
-        return null; //TODO exception peut etre
+        throw new IllegalArgumentException(ERREUR_EXPOSITION_INTROUVABLE);
     }
     
     /**
      * Méthode pour chercher un conferencier par son identifiant
      * @param idConferencier
      * @return l'objet Conferencier
+     * @throws IllegalArgumentException si aucun conferencier n'est trouvé
      */
     private static Conferencier chercherConferencier(String idConferencier) {
         for (Conferencier conf : conferenciers) {
@@ -505,13 +516,14 @@ public class ImportationCSV {
                 return conf;
             }
         }
-        return null; //TODO exception peut etre
+        throw new IllegalArgumentException(ERREUR_CONFERENCIER_INTROUVABLE);
     }
     
     /**
      * Méthode pour chercher un Employé par son identifiant
      * @param idEmploye
      * @return l'objet Employé
+     * @throws IllegalArgumentException si aucun employé n'est trouvé
      */
     private static Employe chercherEmploye(String idEmploye) {
         for (Employe employe : employes) {
@@ -519,7 +531,7 @@ public class ImportationCSV {
                 return employe;
             }
         }
-        return null; //TODO exception peut etre
+        throw new IllegalArgumentException(ERREUR_EMPLOYE_INTROUVABLE);
     }
     
     /**
@@ -536,7 +548,7 @@ public class ImportationCSV {
                 return client; // Client trouvé
             }
         }
-        return null; // Client non trouvé
+        return null;
     }
 
     /**
