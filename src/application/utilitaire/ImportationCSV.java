@@ -22,6 +22,7 @@ import application.modele.Employe;
 import application.modele.Exposition;
 import application.modele.ExpositionTemporaire;
 import application.modele.Indisponibilite;
+import application.modele.Visite;
 
 /**
  * La classe ImportationCSV permet d'importer et de traiter des
@@ -52,6 +53,10 @@ public class ImportationCSV {
     private static ArrayList<Employe> employes = new ArrayList<>();
     
     private static ArrayList<Conferencier> conferenciers = new ArrayList<>();
+    
+    private static ArrayList<Client> clients = new ArrayList<>();
+    
+    private static ArrayList<Visite> visites = new ArrayList<>();
     
     /**
      * Importe les données d'un fichier normalement en .csv
@@ -378,18 +383,52 @@ public class ImportationCSV {
      */
     private static void creerVisite(List<String[]> donnee) {
          String identifiant;
-         int horaireDebut;
-        
+         int heureDebut;
+         String[] decoupageHeureDebut;
+         String intitule,
+                numTel;
+         
          LocalDate date;
-        
+     
          Client client;
          Exposition exposition;       
          Employe employe; 
          Conferencier conferencier;
+         Visite visite;
+         
               
         for (String[] ligne : donnee) {
-        
-          
+            identifiant = ligne[0];
+            date = LocalDate.parse(ligne[4], formatter); 
+            
+            decoupageHeureDebut = ligne[5].split("h");
+            heureDebut = Integer.parseInt(decoupageHeureDebut[0]) * 60 
+                         + Integer.parseInt(decoupageHeureDebut[1]);
+            
+            // Chercher l'exposition par son identifiant
+            exposition = chercherExposition(ligne[1]);
+            // Chercher le conférencier par son identifiant
+            conferencier = chercherConferencier(ligne[2]);
+            // Chercher l'employé par son identifiant
+            employe = chercherEmploye(ligne[3]);
+            
+            // Extraire l'intitulé et le numéro de téléphone
+            intitule = ligne[6];
+            numTel = ligne[7];
+            
+            // Vérifier si le client existe déjà
+            client = trouverClient(intitule, numTel);
+            if (client == null) {
+                // Si le client n'existe pas, en créer un nouveau
+                client = new Client(intitule, numTel);
+                clients.add(client); // Ajoute le nouveau client à la liste
+            }
+            
+            // Créer l'objet Visite
+             visite = new Visite(identifiant, heureDebut, date, client,
+                                 exposition, employe, conferencier);
+            
+             visites.add(visite);        
         }     
     }
     
@@ -435,6 +474,65 @@ public class ImportationCSV {
         }
         return  indisponibilites;
     }
+    
+    /**
+     * Méthode pour chercher une Exposition par son identifiant
+     * @param idExposition
+     * @return l'objet Exposition
+     */
+    private static Exposition chercherExposition(String idExposition) {
+        for (Exposition expo : expositions) {
+            if (expo.getIdentifiant().equals(idExposition)) {
+                return expo;
+            }
+        }
+        return null; //TODO exception peut etre
+    }
+    
+    /**
+     * Méthode pour chercher un conferencier par son identifiant
+     * @param idConferencier
+     * @return l'objet Conferencier
+     */
+    private static Conferencier chercherConferencier(String idConferencier) {
+        for (Conferencier conf : conferenciers) {
+            if (conf.getIdentifiant().equals(idConferencier)) {
+                return conf;
+            }
+        }
+        return null; //TODO exception peut etre
+    }
+    
+    /**
+     * Méthode pour chercher un Employé par son identifiant
+     * @param idEmploye
+     * @return l'objet Employé
+     */
+    private static Employe chercherEmploye(String idEmploye) {
+        for (Employe employe : employes) {
+            if (employe.getIdentifiant().equals(idEmploye)) {
+                return employe;
+            }
+        }
+        return null; //TODO exception peut etre
+    }
+    
+    /**
+     * Trouve un client existant dans la liste des clients.
+     * 
+     * @param intitule le nom ou la désignation du client
+     * @param numTel le numéro de téléphone du client
+     * @return l'objet Client si trouvé, sinon null
+     */
+    private static Client trouverClient(String intitule, String numTel) {
+        for (Client client : clients) {
+            if (client.getIntitule().equals(intitule) 
+                && client.getNumTel().equals(numTel)) {
+                return client; // Client trouvé
+            }
+        }
+        return null; // Client non trouvé
+    }
 
     /**
      * Récupère la liste des expositions traitées.
@@ -461,5 +559,23 @@ public class ImportationCSV {
      */
     public static List<Conferencier> getConferenciers() {
         return conferenciers;
+    }
+    
+    /**
+     * Récupère la liste des clients traitées.
+     * 
+     * @return Une liste d'objets Client
+     */
+    public static List<Client> getClients() {
+        return clients;
+    }
+    
+    /**
+     * Récupère la liste des visites traitées.
+     * 
+     * @return Une liste d'objets Visite
+     */
+    public static List<Visite> getVisites() {
+        return visites;
     }
 }
