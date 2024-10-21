@@ -330,15 +330,9 @@ public class ImportationCSV {
          String[] specialites;
          String numTel;
          boolean estInterne;
-         Indisponibilite[] indisponibilites;
-         int nombreIndisponibilites;
-         
-         int debutIndex;
-         
-         LocalDate dateDebut;
-         LocalDate dateFin;
          
          Conferencier conferencier;
+         Indisponibilite[] indisponibilites;
          
          for (String[] ligne : donnee) {
 
@@ -349,7 +343,6 @@ public class ImportationCSV {
                  prenom = ligne[2];
                  specialites = ligne[3].replace("#", "").split(", ");
                  numTel = ligne[4]; 
-                 System.out.println(numTel);
                  estInterne = ligne[5].equalsIgnoreCase("oui") ? true : false;
                  
                  
@@ -358,34 +351,9 @@ public class ImportationCSV {
                                                      specialites, numTel,
                                                      estInterne);
                      conferenciers.add(conferencier);
-                 } else if (ligne.length > 6){
-                     nombreIndisponibilites = (ligne.length - 6) / 2;
-                     indisponibilites 
-                         = new Indisponibilite [nombreIndisponibilites];
-
-                     for (int i = 0; i < nombreIndisponibilites; i++) {
-                         
-                         debutIndex = 6 + i * 2;
-                         dateDebut = LocalDate.parse(ligne[debutIndex],
-                                                     formatter);
-
-                         // Si une date de fin est fournie
-                         if (debutIndex + 1 < ligne.length 
-                                 && !ligne[debutIndex + 1].isEmpty() 
-                                 && !ligne[debutIndex]
-                                         .equals(ligne[debutIndex + 1])) {
-                             
-                             dateFin = LocalDate.parse(ligne[debutIndex + 1],
-                                                       formatter);
-                             indisponibilites[i] 
-                              = new Indisponibilite(dateDebut, dateFin);
-                         } else {
-                             // Ajouter seulement la date de début
-                             indisponibilites[i] 
-                               = new Indisponibilite(dateDebut);
-                         }
-                     }
-                     
+                 } else if (ligne.length > 6){                     
+                 
+                     indisponibilites = creeIndisponibilité(ligne);
                      conferencier = new Conferencier(identifiant, nom, prenom, 
                                                      specialites, numTel, 
                                                      estInterne, 
@@ -396,6 +364,50 @@ public class ImportationCSV {
                  }       
              }
          }
+    }
+    
+    /**
+     * Crée un tableau de l'objet Indiponibilité
+     * 
+     * @param la ligne du tableau csv qui contient des indisponiblitées
+     */
+    private static Indisponibilite[] creeIndisponibilité(String[] ligne) {
+        int nombreIndisponibilites,
+            debutIndex;
+        
+        LocalDate dateDebut,
+                  dateFin;
+        
+        Indisponibilite[] indisponibilites;
+        
+        
+        nombreIndisponibilites = (ligne.length - 6) / 2;
+        indisponibilites 
+            = new Indisponibilite [nombreIndisponibilites];
+
+        for (int i = 0; i < nombreIndisponibilites; i++) {
+            
+            debutIndex = 6 + i * 2;
+            dateDebut = LocalDate.parse(ligne[debutIndex],
+                                        formatter);
+
+            // Si une date de fin est fournie
+            if (debutIndex + 1 < ligne.length 
+                    && !ligne[debutIndex + 1].isEmpty() 
+                    && !ligne[debutIndex]
+                            .equals(ligne[debutIndex + 1])) {
+                
+                dateFin = LocalDate.parse(ligne[debutIndex + 1],
+                                          formatter);
+                indisponibilites[i] 
+                 = new Indisponibilite(dateDebut, dateFin);
+            } else {
+                // Ajouter seulement la date de début
+                indisponibilites[i] 
+                  = new Indisponibilite(dateDebut);
+            }
+        }
+        return  indisponibilites;
     }
 
     /**
