@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.LocalDate;
-
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import application.utilitaire.ImportationCSV;
@@ -58,14 +58,18 @@ public class DonneesImporteesExpositionControleur {
     
     static List<Exposition> expo = ImportationCSV.getExpositions();
     
+    // Formatter pour les dates au format jj/MM/aaaa
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+    
     @FXML
     private Button btnRetour;
     
     @FXML
-    private TableColumn<ExpositionTemporaire, String> dateDebut;
+    private TableColumn<Exposition, String> dateDebut;
 
     @FXML
-    private TableColumn<ExpositionTemporaire, String> dateFin;
+    private TableColumn<Exposition, String> dateFin;
 
     @FXML
     private TableColumn<Exposition, String> identifiant;
@@ -97,8 +101,12 @@ public class DonneesImporteesExpositionControleur {
     @FXML
     public void initialize() {
         
-        dateDebut.setCellValueFactory(new PropertyValueFactory<>("dateDebut"));
-        dateFin.setCellValueFactory(new PropertyValueFactory<>("dateFin"));
+        // Conversion des dates au format souhaité (jj/MM/aaaa)
+        dateDebut.setCellValueFactory(cellData -> 
+            new SimpleStringProperty(formatDate(cellData.getValue().getDateDebut())));
+
+        dateFin.setCellValueFactory(cellData -> 
+            new SimpleStringProperty(formatDate(cellData.getValue().getDateFin())));
 
 
         identifiant.setCellValueFactory(new PropertyValueFactory<>("identifiant"));
@@ -117,6 +125,11 @@ public class DonneesImporteesExpositionControleur {
         // Populate the table with the imported exhibitions
         ObservableList<Exposition> exposList = FXCollections.observableArrayList(expo);
         tableExposition.setItems(exposList);
+    }
+    
+    // Méthode pour formater les dates en jj/MM/aaaa
+    private static String formatDate(LocalDate date) {
+        return date != null ? date.format(DATE_FORMATTER) : "";
     }
 
     // Helper method to convert String[] to String
