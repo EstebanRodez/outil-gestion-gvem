@@ -466,42 +466,99 @@ class TestConferencier {
      */
     @Test
     void testToString() {
-        Conferencier conferencier1
-        = new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, PRENOM_CONF_VALIDE,
-                           SPECIALITE_CONF_VALIDE, NUMTEL_CONF_VALIDE,
-                           EST_INTERNE_VALIDE, INDISPONIBILITES_VALIDES);
         
-        String expectedString1 = "identifiant : " + ID_CONF_VALIDE
-                                 + ", nom : " + NOM_CONF_VALIDE
-                                 + ", prenom : " + PRENOM_CONF_VALIDE
-                                 + ", specialites : " 
-                                 + "[Art, Histoire]"
-                                 + ", numéro de téléphone : "
-                                 + NUMTEL_CONF_VALIDE
-                                 + ", status(interne ou externe) : " 
-                                 + EST_INTERNE_VALIDE
-                                 + ", liste des indisponibilites : " 
-                                 + "[Le 2/8/2025, Du 22/12/2024 au 26/12/2024]";
+        assertEquals("identifiant : C000001, nom : Dupont, prenom : Pierre, "
+                     + "specialites : [Art, Histoire], numéro de téléphone : "
+                     + "0123456789, status(interne ou externe) : true, liste "
+                     + "des indisponibilites : [Le 2/8/2025, Du 22/12/2024 au "
+                     + "26/12/2024]", 
+                     CONFERENCIERS_VALIDES[0].toString());
+        assertEquals("identifiant : C000001, nom : Dupont, prenom : Pierre, "
+                     + "specialites : [Art, Histoire], numéro de téléphone : "
+                     + "0123456789, status(interne ou externe) : true, liste "
+                     + "des indisponibilites : [Le 2/8/2025, Du 22/12/2024 au "
+                     + "26/12/2024]",
+                     CONFERENCIERS_VALIDES[1].toString());
+        assertEquals("identifiant : C000002, nom : Lexpert, prenom : Noemie, "
+                     + "specialites : [peinture, impressionnisme, art "
+                     + "contemporain], numéro de téléphone : 0600000001, "
+                     + "status(interne ou externe) : true, liste des "
+                     + "indisponibilites : [Le 22/10/2024, Le 26/10/2024]",
+                     CONFERENCIERS_VALIDES[2].toString());
+        assertEquals("identifiant : C000003, nom : Dujardin, prenom : Oceane, "
+                     + "specialites : [art moderne], numéro de téléphone : "
+                     + "0611111111, status(interne ou externe) : true, liste "
+                     + "des indisponibilites : [Le 7/11/2024, Le 7/11/2024, "
+                     + "Le 19/11/2024, Le 22/11/2024]" ,
+                     CONFERENCIERS_VALIDES[3].toString());
+        assertEquals("identifiant : C000008, nom : Deneuve, prenom : Zoé, "
+                     + "specialites : [photo, peinture], numéro de téléphone : "
+                     + "0600000003, status(interne ou externe) : false", 
+                     CONFERENCIERS_VALIDES[4].toString());
+        assertEquals("identifiant : C000001, nom : Vroemen, prenom : Pierre, "
+                     + "specialites : [Art, Histoire], numéro de téléphone : "
+                     + "0123456789, status(interne ou externe) : true, liste "
+                     + "des indisponibilites : [Le 2/8/2025, Du 22/12/2024 au "
+                     + "26/12/2024]", 
+                     CONFERENCIERS_VALIDES[5].toString());
+        assertEquals("identifiant : C000001, nom : Dupont, prenom : Ayoub, "
+                     + "specialites : [Art, Histoire], numéro de téléphone : "
+                     + "0123456789, status(interne ou externe) : true, liste "
+                     + "des indisponibilites : [Le 2/8/2025, Du 22/12/2024 au "
+                     + "26/12/2024]", 
+                     CONFERENCIERS_VALIDES[6].toString());
+        assertEquals("identifiant : C000001, nom : Dupont, prenom : Pierre, "
+                     + "specialites : [photo, peinture], numéro de téléphone : "
+                     + "0123456789, status(interne ou externe) : true, liste "
+                     + "des indisponibilites : [Le 2/8/2025, Du 22/12/2024 au "
+                     + "26/12/2024]", 
+                     CONFERENCIERS_VALIDES[7].toString());
+        assertEquals("identifiant : C000001, nom : Dupont, prenom : Pierre, "
+                     + "specialites : [Art, Histoire], numéro de téléphone : "
+                     + "0603080911, status(interne ou externe) : true, liste "
+                     + "des indisponibilites : [Le 2/8/2025, Du 22/12/2024 au "
+                     + "26/12/2024]", 
+                     CONFERENCIERS_VALIDES[8].toString());
+        assertEquals("identifiant : C000001, nom : Dupont, prenom : Pierre, "
+                     + "specialites : [Art, Histoire], numéro de téléphone : "
+                     + "0123456789, status(interne ou externe) : false, liste "
+                     + "des indisponibilites : [Le 2/8/2025, Du 22/12/2024 au "
+                     + "26/12/2024]", 
+                     CONFERENCIERS_VALIDES[9].toString());
+        assertEquals("identifiant : C000001, nom : Dupont, prenom : Pierre, "
+                     + "specialites : [Art, Histoire], numéro de téléphone : "
+                     + "0123456789, status(interne ou externe) : true, liste "
+                     + "des indisponibilites : [Le 22/10/2024, Le 26/10/2024]", 
+                     CONFERENCIERS_VALIDES[10].toString());
+        assertEquals("identifiant : C000001, nom : Dupont, prenom : Pierre, "
+                     + "specialites : [Art, Histoire], numéro de téléphone : "
+                     + "0123456789, status(interne ou externe) : true",
+                     CONFERENCIERS_VALIDES[11].toString());
         
-        assertEquals(expectedString1, CONFERENCIERS_VALIDES[0].toString());
-        
-        // TODO Faire les tests toString sur le tableau des conférenciers
-//        Conferencier conferencier2 
-//        = new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, PRENOM_CONF_VALIDE,
-//                           SPECIALITE_CONF_VALIDE, NUMTEL_CONF_VALIDE,
-//                           EST_INTERNE_VALIDE);
-//        
-//        String expectedString2 = "identifiant : " + ID_CONF_VALIDE
-//                                 + ", nom : " + NOM_CONF_VALIDE
-//                                 + ", prenom : " + PRENOM_CONF_VALIDE
-//                                 + ", specialites : " 
-//                                 + "[Art, Histoire]"
-//                                 + ", numéro de téléphone : "
-//                                 + NUMTEL_CONF_VALIDE
-//                                 + ", status(interne ou externe) : " 
-//                                 + EST_INTERNE_VALIDE;
-//        
-//        assertEquals(expectedString2, CONFERENCIERS_VALIDES[1].toString());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[0].toString());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[1].toString());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[2].toString());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[3].toString());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[4].toString());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[5].toString());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[6].toString());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[7].toString());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[8].toString());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[9].toString());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[10].toString());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[11].toString());
+        assertNotEquals("", CONFERENCIERS_VALIDES[0].toString());
+        assertNotEquals("", CONFERENCIERS_VALIDES[1].toString());
+        assertNotEquals("", CONFERENCIERS_VALIDES[2].toString());
+        assertNotEquals("", CONFERENCIERS_VALIDES[3].toString());
+        assertNotEquals("", CONFERENCIERS_VALIDES[4].toString());
+        assertNotEquals("", CONFERENCIERS_VALIDES[5].toString());
+        assertNotEquals("", CONFERENCIERS_VALIDES[6].toString());
+        assertNotEquals("", CONFERENCIERS_VALIDES[7].toString());
+        assertNotEquals("", CONFERENCIERS_VALIDES[8].toString());
+        assertNotEquals("", CONFERENCIERS_VALIDES[9].toString());
+        assertNotEquals("", CONFERENCIERS_VALIDES[10].toString());
+        assertNotEquals("", CONFERENCIERS_VALIDES[11].toString());
     }
 
     /**
