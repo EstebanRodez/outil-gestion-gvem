@@ -114,8 +114,9 @@ class TestConferencier {
                     		 EST_INTERNE_VALIDE, INDISPONIBILITES_VALIDES));
         assertThrows(IllegalArgumentException.class, 
                 () -> new Conferencier(ID_CONF_VALIDE,NOM_CONF_VALIDE, 
-               		 PRENOM_CONF_VALIDE, SPECIALITE_CONF_VALIDE, "1234567a9", 
-               		 EST_INTERNE_VALIDE, INDISPONIBILITES_VALIDES));
+               		 PRENOM_CONF_VALIDE, SPECIALITE_CONF_VALIDE,
+               		 "01234567a9", EST_INTERNE_VALIDE, 
+               		 INDISPONIBILITES_VALIDES));
         
         /* Test avec Indisponibilités null */
         assertThrows(IllegalArgumentException.class, 
@@ -199,8 +200,8 @@ class TestConferencier {
                     		 EST_INTERNE_VALIDE));
         assertThrows(IllegalArgumentException.class, 
                 () -> new Conferencier(ID_CONF_VALIDE,NOM_CONF_VALIDE, 
-               		 PRENOM_CONF_VALIDE, SPECIALITE_CONF_VALIDE, "1234567a9", 
-               		 EST_INTERNE_VALIDE));
+               		 PRENOM_CONF_VALIDE, SPECIALITE_CONF_VALIDE,
+               		 "01234567a9", EST_INTERNE_VALIDE));
     }
     
     /**

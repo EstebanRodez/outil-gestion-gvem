@@ -46,7 +46,7 @@ class TestVisite {
     private final Conferencier CONFERENCIER_VISITE_VALIDE
     = new Conferencier("C000001", "Thenieres", "Baptiste", 
                        new String[] {"impressionnisme", "paysage"}, 
-                       "123456789", true);
+                       "0123456789", true);
     
     private final Visite[] VISITES_VALIDES =
     {
@@ -66,7 +66,7 @@ class TestVisite {
                    new Employe("N000002", "Chloé", "Fourier", "5678"),
                    new Conferencier("C000002", "Durand", "Marie", 
                                     new String[] {"surréalisme", "peinture"}, 
-                                    "623456789", false)),
+                                    "0623456789", false)),
         new Visite("V000003", 720, LocalDate.of(2024, 12, 5),
                    new Client("Benjamin", "456123789"),
                    new Exposition("E000003", "L'Art abstrait moderne", 1945,
@@ -78,7 +78,7 @@ class TestVisite {
                    new Employe("N000003", "Julien", "Descartes", "7890"),
                    new Conferencier("C000003", "Dupont", "Jacques", 
                                     new String[] {"abstraction", "modernisme"}, 
-                                    "612345678", true)),
+                                    "0612345678", true)),
         new Visite("V000004", 960, LocalDate.of(2025, 1, 10),
                    new Client("Camille", "321654987"),
                    new Exposition("E000004", "Le cubisme décomposé", 1907, 1925,
@@ -89,7 +89,7 @@ class TestVisite {
                    new Conferencier("C000004", "Martin", "Sophie", 
                                     new String[] {"cubisme",
                                                   "peinture moderne"}, 
-                                    "698765432", false)),
+                                    "0698765432", false)),
         new Visite("V000005", 1160, LocalDate.of(2025, 2, 28),
                    new Client("Diane", "789123456"),
                    new Exposition("E000005", "Les sculptures grecques", -500,
@@ -102,7 +102,7 @@ class TestVisite {
                    new Conferencier("C000005", "Lemoine", "Paul", 
                                     new String[] {"sculpture",
                                                   "archéologie grecque"}, 
-                                    "712345678", true)),
+                                    "0712345678", true)),
     };
 
     /**
@@ -240,7 +240,7 @@ class TestVisite {
                                  new Conferencier("C000002", "Durand", "Marie", 
                                                   new String[] {"surréalisme", 
                                                                 "peinture"}, 
-                                                  "623456789", false)));
+                                                  "0623456789", false)));
         assertDoesNotThrow(
                 () -> new Visite("V000003", 720, LocalDate.of(2024, 12, 5),
                                  new Client("Benjamin", "456123789"),
@@ -259,7 +259,7 @@ class TestVisite {
                                  new Conferencier("C000003", "Dupont", "Jacques", 
                                                   new String[] {"abstraction",
                                                                 "modernisme"}, 
-                                                  "612345678", true)));
+                                                  "0612345678", true)));
                                  
             assertDoesNotThrow(
                 () -> new Visite("V000004", 960, LocalDate.of(2025, 1, 10),
@@ -278,7 +278,7 @@ class TestVisite {
                                  new Conferencier("C000004", "Martin", "Sophie", 
                                          new String[] {"cubisme", 
                                                        "peinture moderne"}, 
-                                         "698765432", false)));
+                                         "0698765432", false)));
                                  
             assertDoesNotThrow(
                 () -> new Visite("V000005", 1160, LocalDate.of(2025, 2, 28),
@@ -297,7 +297,7 @@ class TestVisite {
                                  new Conferencier("C000005", "Lemoine", "Paul", 
                                          new String[] {"sculpture",
                                                        "archéologie grecque"}, 
-                                         "712345678", true)));
+                                         "0712345678", true)));
     }
 
     /**
