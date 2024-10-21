@@ -450,7 +450,8 @@ class TestVisite {
     }
     
     /**
-     * Méthode de test pour {@link application.modele.Visite#getConferencier()}.
+     * Méthode de test pour
+     * {@link application.modele.Visite#toStringHoraireDebut()}.
      */
     @Test
     void testToStringHoraireDebut() {
