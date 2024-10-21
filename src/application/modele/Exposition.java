@@ -5,8 +5,6 @@
  */
 package application.modele;
 
-import java.time.LocalDate;
-
 /**
  * Une exposition, qu'elle soit temporaire ou permanente, sera
  * décrite par :<br>

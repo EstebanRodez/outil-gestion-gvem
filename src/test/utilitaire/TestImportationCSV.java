@@ -14,7 +14,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.io.IOException;
 import java.util.List;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import application.modele.Exposition;

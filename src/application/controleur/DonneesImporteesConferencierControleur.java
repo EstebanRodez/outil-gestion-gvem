@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import application.modele.Conferencier;
-import application.modele.Exposition;
 import application.modele.Indisponibilite;
 import application.utilitaire.ImportationCSV;
 import javafx.beans.property.SimpleStringProperty;
