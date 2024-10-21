@@ -123,8 +123,8 @@ public class ImporterDistantControleur {
         String ipServeur = txtFieldIPServeur.getText().trim();
         String port = txtFieldPort.getText().trim();
         if (isValidIPAddress(ipServeur) && isValidPort(port)) {
-            
-            Client.recevoirFichier(ipServeur, Integer.parseInt(port), "fichierRecu.txt");
+            //TODO créer de nouveux fichiers avec noms unique si fichier déjà existant avec ce nom
+            Client.recevoirFichier(ipServeur, Integer.parseInt(port), "fichierRecu.csv");
             
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/vue/importerDistantValideVue.fxml"));
             Parent importerDistantValideVue = loader.load();
