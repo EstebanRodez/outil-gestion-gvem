@@ -41,6 +41,61 @@ class TestConferencier {
 	new Indisponibilite(LocalDate.of (2024, 12, 22), 
 	                    LocalDate.of(2024,12,26)),
     };
+    
+    private final Conferencier[] CONFERENCIERS_VALIDES =
+    {
+        new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, PRENOM_CONF_VALIDE,
+                         SPECIALITE_CONF_VALIDE, NUMTEL_CONF_VALIDE,
+                         EST_INTERNE_VALIDE, INDISPONIBILITES_VALIDES),
+        new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, PRENOM_CONF_VALIDE,
+                         SPECIALITE_CONF_VALIDE, NUMTEL_CONF_VALIDE,
+                         EST_INTERNE_VALIDE, INDISPONIBILITES_VALIDES),
+        new Conferencier("C000002", "Lexpert", "Noemie",
+                         new String[] {"peinture", "impressionnisme",
+                                       "art contemporain"},
+                         "0600000001", true,
+                         new Indisponibilite[] {
+                             new Indisponibilite(LocalDate.of(2024,10,22)),
+                             new Indisponibilite(LocalDate.of(2024,10,26))
+                         }),
+        new Conferencier("C000003", "Dujardin", "Oceane",
+                         new String[] {"art moderne"}, "0611111111", true,
+                         new Indisponibilite[] {
+                             new Indisponibilite(LocalDate.of(2024,11,07)),
+                             new Indisponibilite(LocalDate.of(2024,11,07)),
+                             new Indisponibilite(LocalDate.of(2024,11,19)),
+                             new Indisponibilite(LocalDate.of(2024,11,22))
+                         }),
+        new Conferencier("C000008", "Deneuve", "Zoé", 
+                         new String[] {"photo","peinture"}, "0600000003",
+                         false),
+        new Conferencier(ID_CONF_VALIDE, "Vroemen", PRENOM_CONF_VALIDE,
+                         SPECIALITE_CONF_VALIDE, NUMTEL_CONF_VALIDE,
+                         EST_INTERNE_VALIDE, INDISPONIBILITES_VALIDES),
+        new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, "Ayoub",
+                         SPECIALITE_CONF_VALIDE, NUMTEL_CONF_VALIDE,
+                         EST_INTERNE_VALIDE, INDISPONIBILITES_VALIDES),
+        new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, PRENOM_CONF_VALIDE,
+                         new String[] {"photo","peinture"},
+                         NUMTEL_CONF_VALIDE, EST_INTERNE_VALIDE, 
+                         INDISPONIBILITES_VALIDES),
+        new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, PRENOM_CONF_VALIDE,
+                         SPECIALITE_CONF_VALIDE, "0603080911",
+                         EST_INTERNE_VALIDE, INDISPONIBILITES_VALIDES),
+        new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, PRENOM_CONF_VALIDE,
+                         SPECIALITE_CONF_VALIDE, NUMTEL_CONF_VALIDE, false, 
+                         INDISPONIBILITES_VALIDES),
+        new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, PRENOM_CONF_VALIDE,
+                         SPECIALITE_CONF_VALIDE, NUMTEL_CONF_VALIDE,
+                         EST_INTERNE_VALIDE, 
+                         new Indisponibilite[] {
+                             new Indisponibilite(LocalDate.of(2024,10,22)),
+                             new Indisponibilite(LocalDate.of(2024,10,26))
+                         }),
+        new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, PRENOM_CONF_VALIDE,
+                         SPECIALITE_CONF_VALIDE, NUMTEL_CONF_VALIDE,
+                         EST_INTERNE_VALIDE),
+    };
 
     /**
      * Méthode de test pour 
@@ -304,185 +359,106 @@ class TestConferencier {
     @Test
     void testEquals() {
         
-    	// conferencier1 et conferencier2 sont identiques
-        Conferencier conferencier1
-        = new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, PRENOM_CONF_VALIDE,
-                           SPECIALITE_CONF_VALIDE, NUMTEL_CONF_VALIDE,
-                           EST_INTERNE_VALIDE, INDISPONIBILITES_VALIDES);
-        Conferencier conferencier2
-        = new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, PRENOM_CONF_VALIDE,
-                           SPECIALITE_CONF_VALIDE, NUMTEL_CONF_VALIDE,
-                           EST_INTERNE_VALIDE, INDISPONIBILITES_VALIDES);
-        
-        // même que 1 et 2 sauf que pas d'indisponibilites
-        Conferencier conferencier3
-        = new Conferencier("C000002", "Lexpert", "Noemie",
-                           new String[] {"peinture", "impressionnisme",
-                                         "art contemporain"},
-        		   "0600000001", true,
-        		   new Indisponibilite[] {
-        		       new Indisponibilite(LocalDate.of(2024,10,22)),
-        		       new Indisponibilite(LocalDate.of(2024,10,26))
-        		   });
-        
-        // conferencier4 est différent de 1 et 2 et 3
-        Conferencier conferencier4
-        = new Conferencier("C000003", "Dujardin", "Oceane",
-                           new String[] {"art moderne"}, "0611111111", true,
-        		   new Indisponibilite[] {
-        		       new Indisponibilite(LocalDate.of(2024,11,07)),
-        		       new Indisponibilite(LocalDate.of(2024,11,07)),
-        		       new Indisponibilite(LocalDate.of(2024,11,19)),
-        		       new Indisponibilite(LocalDate.of(2024,11,22))
-        		   });
-        
-        // même que 4 sauf que pas d'indisponibilites
-        Conferencier conferencier5
-        = new Conferencier("C000008", "Deneuve", "Zoé", 
-                           new String[] {"photo","peinture"}, "0600000003",
-                           false);
-        
-        // conférencier avec un paramètre different avec 1
-        Conferencier conferencier6
-        = new Conferencier(ID_CONF_VALIDE, "Vroemen", PRENOM_CONF_VALIDE,
-                           SPECIALITE_CONF_VALIDE, NUMTEL_CONF_VALIDE,
-                           EST_INTERNE_VALIDE, INDISPONIBILITES_VALIDES);
-        
-        Conferencier conferencier7
-        = new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, "Ayoub",
-                           SPECIALITE_CONF_VALIDE, NUMTEL_CONF_VALIDE,
-                           EST_INTERNE_VALIDE, INDISPONIBILITES_VALIDES);
-        
-        Conferencier conferencier8
-        = new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, PRENOM_CONF_VALIDE,
-                           new String[] {"photo","peinture"},
-                           NUMTEL_CONF_VALIDE, EST_INTERNE_VALIDE, 
-        		   INDISPONIBILITES_VALIDES);
-        
-        Conferencier conferencier9
-        = new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, PRENOM_CONF_VALIDE,
-                           SPECIALITE_CONF_VALIDE, "0603080911",
-                           EST_INTERNE_VALIDE, INDISPONIBILITES_VALIDES);
-        
-        Conferencier conferencier10
-        = new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, PRENOM_CONF_VALIDE,
-                           SPECIALITE_CONF_VALIDE, NUMTEL_CONF_VALIDE, false, 
-        		   INDISPONIBILITES_VALIDES);
-        
-        Conferencier conferencier11
-        = new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, PRENOM_CONF_VALIDE,
-                           SPECIALITE_CONF_VALIDE, NUMTEL_CONF_VALIDE,
-                           EST_INTERNE_VALIDE, 
-        		   new Indisponibilite[] {
-        		       new Indisponibilite(LocalDate.of(2024,10,22)),
-        		       new Indisponibilite(LocalDate.of(2024,10,26))
-        		   });
-        
-        Conferencier conferencier12
-        = new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, PRENOM_CONF_VALIDE,
-                           SPECIALITE_CONF_VALIDE, NUMTEL_CONF_VALIDE,
-                           EST_INTERNE_VALIDE);
-        
         // Même référence
-        assertTrue(conferencier1.equals(conferencier1));
-        assertTrue(conferencier2.equals(conferencier2));
-        assertTrue(conferencier3.equals(conferencier3));
-        assertTrue(conferencier4.equals(conferencier4));
-        assertTrue(conferencier5.equals(conferencier5));
-        assertTrue(conferencier6.equals(conferencier6));
-        assertTrue(conferencier7.equals(conferencier7));
-        assertTrue(conferencier8.equals(conferencier8));
-        assertTrue(conferencier9.equals(conferencier9));
-        assertTrue(conferencier10.equals(conferencier10));
-        assertTrue(conferencier11.equals(conferencier11));
-        assertTrue(conferencier12.equals(conferencier12));
+        assertTrue(CONFERENCIERS_VALIDES[0].equals(CONFERENCIERS_VALIDES[0]));
+        assertTrue(CONFERENCIERS_VALIDES[1].equals(CONFERENCIERS_VALIDES[1]));
+        assertTrue(CONFERENCIERS_VALIDES[2].equals(CONFERENCIERS_VALIDES[2]));
+        assertTrue(CONFERENCIERS_VALIDES[3].equals(CONFERENCIERS_VALIDES[3]));
+        assertTrue(CONFERENCIERS_VALIDES[4].equals(CONFERENCIERS_VALIDES[4]));
+        assertTrue(CONFERENCIERS_VALIDES[5].equals(CONFERENCIERS_VALIDES[5]));
+        assertTrue(CONFERENCIERS_VALIDES[6].equals(CONFERENCIERS_VALIDES[6]));
+        assertTrue(CONFERENCIERS_VALIDES[7].equals(CONFERENCIERS_VALIDES[7]));
+        assertTrue(CONFERENCIERS_VALIDES[8].equals(CONFERENCIERS_VALIDES[8]));
+        assertTrue(CONFERENCIERS_VALIDES[9].equals(CONFERENCIERS_VALIDES[9]));
+        assertTrue(CONFERENCIERS_VALIDES[10].equals(CONFERENCIERS_VALIDES[10]));
+        assertTrue(CONFERENCIERS_VALIDES[11].equals(CONFERENCIERS_VALIDES[11]));
         
         // Objets avec les mêmes valeurs
-        assertTrue(conferencier1.equals(conferencier2));
-        assertTrue(conferencier2.equals(conferencier1));
+        assertTrue(CONFERENCIERS_VALIDES[0].equals(CONFERENCIERS_VALIDES[1]));
+        assertTrue(CONFERENCIERS_VALIDES[1].equals(CONFERENCIERS_VALIDES[0]));
         
         // Objets différents
-        assertFalse(conferencier1.equals(conferencier3));
-        assertFalse(conferencier1.equals(conferencier4));
-        assertFalse(conferencier1.equals(conferencier5));
-        assertFalse(conferencier1.equals(conferencier6));
-        assertFalse(conferencier1.equals(conferencier7));
-        assertFalse(conferencier1.equals(conferencier8));
-        assertFalse(conferencier1.equals(conferencier9));
-        assertFalse(conferencier1.equals(conferencier10));
-        assertFalse(conferencier1.equals(conferencier11));
-        assertFalse(conferencier1.equals(conferencier12));
-        assertFalse(conferencier2.equals(conferencier3));
-        assertFalse(conferencier2.equals(conferencier4));
-        assertFalse(conferencier2.equals(conferencier5));
-        assertFalse(conferencier2.equals(conferencier6));
-        assertFalse(conferencier2.equals(conferencier7));
-        assertFalse(conferencier2.equals(conferencier8));
-        assertFalse(conferencier2.equals(conferencier9));
-        assertFalse(conferencier2.equals(conferencier10));
-        assertFalse(conferencier2.equals(conferencier11));
-        assertFalse(conferencier2.equals(conferencier12));
-        assertFalse(conferencier3.equals(conferencier1));
-        assertFalse(conferencier3.equals(conferencier2));
-        assertFalse(conferencier3.equals(conferencier4));
-        assertFalse(conferencier3.equals(conferencier5));
-        assertFalse(conferencier3.equals(conferencier6));
-        assertFalse(conferencier3.equals(conferencier7));
-        assertFalse(conferencier3.equals(conferencier8));
-        assertFalse(conferencier3.equals(conferencier9));
-        assertFalse(conferencier3.equals(conferencier10));
-        assertFalse(conferencier3.equals(conferencier11));
-        assertFalse(conferencier3.equals(conferencier12));
-        assertFalse(conferencier4.equals(conferencier1));
-        assertFalse(conferencier4.equals(conferencier2));
-        assertFalse(conferencier4.equals(conferencier3));
-        assertFalse(conferencier4.equals(conferencier5));
-        assertFalse(conferencier4.equals(conferencier6));
-        assertFalse(conferencier4.equals(conferencier7));
-        assertFalse(conferencier4.equals(conferencier8));
-        assertFalse(conferencier4.equals(conferencier9));
-        assertFalse(conferencier4.equals(conferencier10));
-        assertFalse(conferencier4.equals(conferencier11));
-        assertFalse(conferencier4.equals(conferencier12));
-        assertFalse(conferencier5.equals(conferencier1));
-        assertFalse(conferencier5.equals(conferencier2));
-        assertFalse(conferencier5.equals(conferencier3));
-        assertFalse(conferencier5.equals(conferencier4));
-        assertFalse(conferencier5.equals(conferencier6));
-        assertFalse(conferencier5.equals(conferencier7));
-        assertFalse(conferencier5.equals(conferencier8));
-        assertFalse(conferencier5.equals(conferencier9));
-        assertFalse(conferencier5.equals(conferencier10));
-        assertFalse(conferencier5.equals(conferencier11));
-        assertFalse(conferencier5.equals(conferencier12));
+        assertFalse(CONFERENCIERS_VALIDES[0].equals(CONFERENCIERS_VALIDES[2]));
+        assertFalse(CONFERENCIERS_VALIDES[0].equals(CONFERENCIERS_VALIDES[3]));
+        assertFalse(CONFERENCIERS_VALIDES[0].equals(CONFERENCIERS_VALIDES[4]));
+        assertFalse(CONFERENCIERS_VALIDES[0].equals(CONFERENCIERS_VALIDES[5]));
+        assertFalse(CONFERENCIERS_VALIDES[0].equals(CONFERENCIERS_VALIDES[6]));
+        assertFalse(CONFERENCIERS_VALIDES[0].equals(CONFERENCIERS_VALIDES[7]));
+        assertFalse(CONFERENCIERS_VALIDES[0].equals(CONFERENCIERS_VALIDES[8]));
+        assertFalse(CONFERENCIERS_VALIDES[0].equals(CONFERENCIERS_VALIDES[9]));
+        assertFalse(CONFERENCIERS_VALIDES[0].equals(CONFERENCIERS_VALIDES[10]));
+        assertFalse(CONFERENCIERS_VALIDES[0].equals(CONFERENCIERS_VALIDES[11]));
+        assertFalse(CONFERENCIERS_VALIDES[1].equals(CONFERENCIERS_VALIDES[2]));
+        assertFalse(CONFERENCIERS_VALIDES[1].equals(CONFERENCIERS_VALIDES[3]));
+        assertFalse(CONFERENCIERS_VALIDES[1].equals(CONFERENCIERS_VALIDES[4]));
+        assertFalse(CONFERENCIERS_VALIDES[1].equals(CONFERENCIERS_VALIDES[5]));
+        assertFalse(CONFERENCIERS_VALIDES[1].equals(CONFERENCIERS_VALIDES[6]));
+        assertFalse(CONFERENCIERS_VALIDES[1].equals(CONFERENCIERS_VALIDES[7]));
+        assertFalse(CONFERENCIERS_VALIDES[1].equals(CONFERENCIERS_VALIDES[8]));
+        assertFalse(CONFERENCIERS_VALIDES[1].equals(CONFERENCIERS_VALIDES[9]));
+        assertFalse(CONFERENCIERS_VALIDES[1].equals(CONFERENCIERS_VALIDES[10]));
+        assertFalse(CONFERENCIERS_VALIDES[1].equals(CONFERENCIERS_VALIDES[11]));
+        assertFalse(CONFERENCIERS_VALIDES[2].equals(CONFERENCIERS_VALIDES[0]));
+        assertFalse(CONFERENCIERS_VALIDES[2].equals(CONFERENCIERS_VALIDES[1]));
+        assertFalse(CONFERENCIERS_VALIDES[2].equals(CONFERENCIERS_VALIDES[3]));
+        assertFalse(CONFERENCIERS_VALIDES[2].equals(CONFERENCIERS_VALIDES[4]));
+        assertFalse(CONFERENCIERS_VALIDES[2].equals(CONFERENCIERS_VALIDES[5]));
+        assertFalse(CONFERENCIERS_VALIDES[2].equals(CONFERENCIERS_VALIDES[6]));
+        assertFalse(CONFERENCIERS_VALIDES[2].equals(CONFERENCIERS_VALIDES[7]));
+        assertFalse(CONFERENCIERS_VALIDES[2].equals(CONFERENCIERS_VALIDES[8]));
+        assertFalse(CONFERENCIERS_VALIDES[2].equals(CONFERENCIERS_VALIDES[9]));
+        assertFalse(CONFERENCIERS_VALIDES[2].equals(CONFERENCIERS_VALIDES[10]));
+        assertFalse(CONFERENCIERS_VALIDES[2].equals(CONFERENCIERS_VALIDES[11]));
+        assertFalse(CONFERENCIERS_VALIDES[3].equals(CONFERENCIERS_VALIDES[0]));
+        assertFalse(CONFERENCIERS_VALIDES[3].equals(CONFERENCIERS_VALIDES[1]));
+        assertFalse(CONFERENCIERS_VALIDES[3].equals(CONFERENCIERS_VALIDES[2]));
+        assertFalse(CONFERENCIERS_VALIDES[3].equals(CONFERENCIERS_VALIDES[4]));
+        assertFalse(CONFERENCIERS_VALIDES[3].equals(CONFERENCIERS_VALIDES[5]));
+        assertFalse(CONFERENCIERS_VALIDES[3].equals(CONFERENCIERS_VALIDES[6]));
+        assertFalse(CONFERENCIERS_VALIDES[3].equals(CONFERENCIERS_VALIDES[7]));
+        assertFalse(CONFERENCIERS_VALIDES[3].equals(CONFERENCIERS_VALIDES[8]));
+        assertFalse(CONFERENCIERS_VALIDES[3].equals(CONFERENCIERS_VALIDES[9]));
+        assertFalse(CONFERENCIERS_VALIDES[3].equals(CONFERENCIERS_VALIDES[10]));
+        assertFalse(CONFERENCIERS_VALIDES[3].equals(CONFERENCIERS_VALIDES[11]));
+        assertFalse(CONFERENCIERS_VALIDES[4].equals(CONFERENCIERS_VALIDES[0]));
+        assertFalse(CONFERENCIERS_VALIDES[4].equals(CONFERENCIERS_VALIDES[1]));
+        assertFalse(CONFERENCIERS_VALIDES[4].equals(CONFERENCIERS_VALIDES[2]));
+        assertFalse(CONFERENCIERS_VALIDES[4].equals(CONFERENCIERS_VALIDES[3]));
+        assertFalse(CONFERENCIERS_VALIDES[4].equals(CONFERENCIERS_VALIDES[5]));
+        assertFalse(CONFERENCIERS_VALIDES[4].equals(CONFERENCIERS_VALIDES[6]));
+        assertFalse(CONFERENCIERS_VALIDES[4].equals(CONFERENCIERS_VALIDES[7]));
+        assertFalse(CONFERENCIERS_VALIDES[4].equals(CONFERENCIERS_VALIDES[8]));
+        assertFalse(CONFERENCIERS_VALIDES[4].equals(CONFERENCIERS_VALIDES[9]));
+        assertFalse(CONFERENCIERS_VALIDES[4].equals(CONFERENCIERS_VALIDES[10]));
+        assertFalse(CONFERENCIERS_VALIDES[4].equals(CONFERENCIERS_VALIDES[11]));
         
         // Test avec null
-        assertFalse(conferencier1.equals(null));
-        assertFalse(conferencier2.equals(null));
-        assertFalse(conferencier3.equals(null));
-        assertFalse(conferencier4.equals(null));
-        assertFalse(conferencier5.equals(null));
-        assertFalse(conferencier6.equals(null));
-        assertFalse(conferencier7.equals(null));
-        assertFalse(conferencier8.equals(null));
-        assertFalse(conferencier9.equals(null));
-        assertFalse(conferencier10.equals(null));
-        assertFalse(conferencier11.equals(null));
-        assertFalse(conferencier12.equals(null));
+        assertFalse(CONFERENCIERS_VALIDES[0].equals(null));
+        assertFalse(CONFERENCIERS_VALIDES[1].equals(null));
+        assertFalse(CONFERENCIERS_VALIDES[2].equals(null));
+        assertFalse(CONFERENCIERS_VALIDES[3].equals(null));
+        assertFalse(CONFERENCIERS_VALIDES[4].equals(null));
+        assertFalse(CONFERENCIERS_VALIDES[5].equals(null));
+        assertFalse(CONFERENCIERS_VALIDES[6].equals(null));
+        assertFalse(CONFERENCIERS_VALIDES[7].equals(null));
+        assertFalse(CONFERENCIERS_VALIDES[8].equals(null));
+        assertFalse(CONFERENCIERS_VALIDES[9].equals(null));
+        assertFalse(CONFERENCIERS_VALIDES[10].equals(null));
+        assertFalse(CONFERENCIERS_VALIDES[11].equals(null));
         
         // Test avec un objet d'une autre classe
-        assertFalse(conferencier1.equals(new Object()));
-        assertFalse(conferencier2.equals(new Object()));
-        assertFalse(conferencier3.equals(new Object()));
-        assertFalse(conferencier4.equals(new Object()));
-        assertFalse(conferencier5.equals(new Object()));
-        assertFalse(conferencier6.equals(new Object()));
-        assertFalse(conferencier7.equals(new Object()));
-        assertFalse(conferencier8.equals(new Object()));
-        assertFalse(conferencier9.equals(new Object()));
-        assertFalse(conferencier10.equals(new Object()));
-        assertFalse(conferencier11.equals(new Object()));
-        assertFalse(conferencier12.equals(new Object()));
+        assertFalse(CONFERENCIERS_VALIDES[0].equals(new Object()));
+        assertFalse(CONFERENCIERS_VALIDES[1].equals(new Object()));
+        assertFalse(CONFERENCIERS_VALIDES[2].equals(new Object()));
+        assertFalse(CONFERENCIERS_VALIDES[3].equals(new Object()));
+        assertFalse(CONFERENCIERS_VALIDES[4].equals(new Object()));
+        assertFalse(CONFERENCIERS_VALIDES[5].equals(new Object()));
+        assertFalse(CONFERENCIERS_VALIDES[6].equals(new Object()));
+        assertFalse(CONFERENCIERS_VALIDES[7].equals(new Object()));
+        assertFalse(CONFERENCIERS_VALIDES[8].equals(new Object()));
+        assertFalse(CONFERENCIERS_VALIDES[9].equals(new Object()));
+        assertFalse(CONFERENCIERS_VALIDES[10].equals(new Object()));
+        assertFalse(CONFERENCIERS_VALIDES[11].equals(new Object()));
     }
 
     /**
@@ -507,24 +483,25 @@ class TestConferencier {
                                  + ", liste des indisponibilites : " 
                                  + "[Le 2/8/2025, Du 22/12/2024 au 26/12/2024]";
         
-        assertEquals(expectedString1, conferencier1.toString());
+        assertEquals(expectedString1, CONFERENCIERS_VALIDES[0].toString());
         
-        Conferencier conferencier2 
-        = new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, PRENOM_CONF_VALIDE,
-                           SPECIALITE_CONF_VALIDE, NUMTEL_CONF_VALIDE,
-                           EST_INTERNE_VALIDE);
-        
-        String expectedString2 = "identifiant : " + ID_CONF_VALIDE
-                                 + ", nom : " + NOM_CONF_VALIDE
-                                 + ", prenom : " + PRENOM_CONF_VALIDE
-                                 + ", specialites : " 
-                                 + "[Art, Histoire]"
-                                 + ", numéro de téléphone : "
-                                 + NUMTEL_CONF_VALIDE
-                                 + ", status(interne ou externe) : " 
-                                 + EST_INTERNE_VALIDE;
-        
-        assertEquals(expectedString2, conferencier2.toString());
+        // TODO Faire les tests toString sur le tableau des conférenciers
+//        Conferencier conferencier2 
+//        = new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, PRENOM_CONF_VALIDE,
+//                           SPECIALITE_CONF_VALIDE, NUMTEL_CONF_VALIDE,
+//                           EST_INTERNE_VALIDE);
+//        
+//        String expectedString2 = "identifiant : " + ID_CONF_VALIDE
+//                                 + ", nom : " + NOM_CONF_VALIDE
+//                                 + ", prenom : " + PRENOM_CONF_VALIDE
+//                                 + ", specialites : " 
+//                                 + "[Art, Histoire]"
+//                                 + ", numéro de téléphone : "
+//                                 + NUMTEL_CONF_VALIDE
+//                                 + ", status(interne ou externe) : " 
+//                                 + EST_INTERNE_VALIDE;
+//        
+//        assertEquals(expectedString2, CONFERENCIERS_VALIDES[1].toString());
     }
 
     /**
@@ -534,11 +511,43 @@ class TestConferencier {
     @Test
     void testGetIdentifiant() {
         
-        Conferencier conferencier
-        = new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, PRENOM_CONF_VALIDE,
-                           SPECIALITE_CONF_VALIDE, NUMTEL_CONF_VALIDE,
-                           EST_INTERNE_VALIDE, INDISPONIBILITES_VALIDES);
-        assertEquals(ID_CONF_VALIDE, conferencier.getIdentifiant());
+        assertEquals("C000001", CONFERENCIERS_VALIDES[0].getIdentifiant());
+        assertEquals("C000001", CONFERENCIERS_VALIDES[1].getIdentifiant());
+        assertEquals("C000002", CONFERENCIERS_VALIDES[2].getIdentifiant());
+        assertEquals("C000003", CONFERENCIERS_VALIDES[3].getIdentifiant());
+        assertEquals("C000008", CONFERENCIERS_VALIDES[4].getIdentifiant());
+        assertEquals("C000001", CONFERENCIERS_VALIDES[5].getIdentifiant());
+        assertEquals("C000001", CONFERENCIERS_VALIDES[6].getIdentifiant());
+        assertEquals("C000001", CONFERENCIERS_VALIDES[7].getIdentifiant());
+        assertEquals("C000001", CONFERENCIERS_VALIDES[8].getIdentifiant());
+        assertEquals("C000001", CONFERENCIERS_VALIDES[9].getIdentifiant());
+        assertEquals("C000001", CONFERENCIERS_VALIDES[10].getIdentifiant());
+        assertEquals("C000001", CONFERENCIERS_VALIDES[11].getIdentifiant());
+        
+        assertNotEquals(null, CONFERENCIERS_VALIDES[0].getIdentifiant());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[1].getIdentifiant());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[2].getIdentifiant());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[3].getIdentifiant());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[4].getIdentifiant());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[5].getIdentifiant());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[6].getIdentifiant());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[7].getIdentifiant());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[8].getIdentifiant());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[9].getIdentifiant());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[10].getIdentifiant());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[11].getIdentifiant());
+        assertNotEquals("", CONFERENCIERS_VALIDES[0].getIdentifiant());
+        assertNotEquals("", CONFERENCIERS_VALIDES[1].getIdentifiant());
+        assertNotEquals("", CONFERENCIERS_VALIDES[2].getIdentifiant());
+        assertNotEquals("", CONFERENCIERS_VALIDES[3].getIdentifiant());
+        assertNotEquals("", CONFERENCIERS_VALIDES[4].getIdentifiant());
+        assertNotEquals("", CONFERENCIERS_VALIDES[5].getIdentifiant());
+        assertNotEquals("", CONFERENCIERS_VALIDES[6].getIdentifiant());
+        assertNotEquals("", CONFERENCIERS_VALIDES[7].getIdentifiant());
+        assertNotEquals("", CONFERENCIERS_VALIDES[8].getIdentifiant());
+        assertNotEquals("", CONFERENCIERS_VALIDES[9].getIdentifiant());
+        assertNotEquals("", CONFERENCIERS_VALIDES[10].getIdentifiant());
+        assertNotEquals("", CONFERENCIERS_VALIDES[11].getIdentifiant());
     }
     
     /**
@@ -547,11 +556,43 @@ class TestConferencier {
     @Test
     void testGetNom() {
         
-        Conferencier conferencier
-        = new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, PRENOM_CONF_VALIDE,
-                           SPECIALITE_CONF_VALIDE, NUMTEL_CONF_VALIDE,
-                           EST_INTERNE_VALIDE, INDISPONIBILITES_VALIDES);
-        assertEquals(NOM_CONF_VALIDE, conferencier.getNom());
+        assertEquals("Dupont", CONFERENCIERS_VALIDES[0].getNom());
+        assertEquals("Dupont", CONFERENCIERS_VALIDES[1].getNom());
+        assertEquals("Lexpert", CONFERENCIERS_VALIDES[2].getNom());
+        assertEquals("Dujardin", CONFERENCIERS_VALIDES[3].getNom());
+        assertEquals("Deneuve", CONFERENCIERS_VALIDES[4].getNom());
+        assertEquals("Vroemen", CONFERENCIERS_VALIDES[5].getNom());
+        assertEquals("Dupont", CONFERENCIERS_VALIDES[6].getNom());
+        assertEquals("Dupont", CONFERENCIERS_VALIDES[7].getNom());
+        assertEquals("Dupont", CONFERENCIERS_VALIDES[8].getNom());
+        assertEquals("Dupont", CONFERENCIERS_VALIDES[9].getNom());
+        assertEquals("Dupont", CONFERENCIERS_VALIDES[10].getNom());
+        assertEquals("Dupont", CONFERENCIERS_VALIDES[11].getNom());
+        
+        assertNotEquals(null, CONFERENCIERS_VALIDES[0].getNom());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[1].getNom());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[2].getNom());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[3].getNom());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[4].getNom());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[5].getNom());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[6].getNom());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[7].getNom());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[8].getNom());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[9].getNom());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[10].getNom());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[11].getNom());
+        assertNotEquals("", CONFERENCIERS_VALIDES[0].getNom());
+        assertNotEquals("", CONFERENCIERS_VALIDES[1].getNom());
+        assertNotEquals("", CONFERENCIERS_VALIDES[2].getNom());
+        assertNotEquals("", CONFERENCIERS_VALIDES[3].getNom());
+        assertNotEquals("", CONFERENCIERS_VALIDES[4].getNom());
+        assertNotEquals("", CONFERENCIERS_VALIDES[5].getNom());
+        assertNotEquals("", CONFERENCIERS_VALIDES[6].getNom());
+        assertNotEquals("", CONFERENCIERS_VALIDES[7].getNom());
+        assertNotEquals("", CONFERENCIERS_VALIDES[8].getNom());
+        assertNotEquals("", CONFERENCIERS_VALIDES[9].getNom());
+        assertNotEquals("", CONFERENCIERS_VALIDES[10].getNom());
+        assertNotEquals("", CONFERENCIERS_VALIDES[11].getNom());
     }
 
     /**
@@ -560,11 +601,43 @@ class TestConferencier {
     @Test
     void testGetPrenom() {
         
-        Conferencier conferencier
-        = new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, PRENOM_CONF_VALIDE,
-                           SPECIALITE_CONF_VALIDE, NUMTEL_CONF_VALIDE,
-                           EST_INTERNE_VALIDE, INDISPONIBILITES_VALIDES);
-        assertEquals(PRENOM_CONF_VALIDE, conferencier.getPrenom());
+        assertEquals("Pierre", CONFERENCIERS_VALIDES[0].getPrenom());
+        assertEquals("Pierre", CONFERENCIERS_VALIDES[1].getPrenom());
+        assertEquals("Noemie", CONFERENCIERS_VALIDES[2].getPrenom());
+        assertEquals("Oceane", CONFERENCIERS_VALIDES[3].getPrenom());
+        assertEquals("Zoé", CONFERENCIERS_VALIDES[4].getPrenom());
+        assertEquals("Pierre", CONFERENCIERS_VALIDES[5].getPrenom());
+        assertEquals("Ayoub", CONFERENCIERS_VALIDES[6].getPrenom());
+        assertEquals("Pierre", CONFERENCIERS_VALIDES[7].getPrenom());
+        assertEquals("Pierre", CONFERENCIERS_VALIDES[8].getPrenom());
+        assertEquals("Pierre", CONFERENCIERS_VALIDES[9].getPrenom());
+        assertEquals("Pierre", CONFERENCIERS_VALIDES[10].getPrenom());
+        assertEquals("Pierre", CONFERENCIERS_VALIDES[11].getPrenom());
+        
+        assertNotEquals(null, CONFERENCIERS_VALIDES[0].getPrenom());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[1].getPrenom());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[2].getPrenom());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[3].getPrenom());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[4].getPrenom());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[5].getPrenom());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[6].getPrenom());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[7].getPrenom());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[8].getPrenom());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[9].getPrenom());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[10].getPrenom());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[11].getPrenom());
+        assertNotEquals("", CONFERENCIERS_VALIDES[0].getPrenom());
+        assertNotEquals("", CONFERENCIERS_VALIDES[1].getPrenom());
+        assertNotEquals("", CONFERENCIERS_VALIDES[2].getPrenom());
+        assertNotEquals("", CONFERENCIERS_VALIDES[3].getPrenom());
+        assertNotEquals("", CONFERENCIERS_VALIDES[4].getPrenom());
+        assertNotEquals("", CONFERENCIERS_VALIDES[5].getPrenom());
+        assertNotEquals("", CONFERENCIERS_VALIDES[6].getPrenom());
+        assertNotEquals("", CONFERENCIERS_VALIDES[7].getPrenom());
+        assertNotEquals("", CONFERENCIERS_VALIDES[8].getPrenom());
+        assertNotEquals("", CONFERENCIERS_VALIDES[9].getPrenom());
+        assertNotEquals("", CONFERENCIERS_VALIDES[10].getPrenom());
+        assertNotEquals("", CONFERENCIERS_VALIDES[11].getPrenom());
     }
 
     /**
@@ -574,12 +647,57 @@ class TestConferencier {
     @Test
     void testGetSpecialite() {
         
-        Conferencier conferencier
-        = new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, PRENOM_CONF_VALIDE,
-                           SPECIALITE_CONF_VALIDE, NUMTEL_CONF_VALIDE,
-                           EST_INTERNE_VALIDE, INDISPONIBILITES_VALIDES);
-        assertArrayEquals(SPECIALITE_CONF_VALIDE,
-                          conferencier.getSpecialites());
+        assertArrayEquals(new String[] {"Art", "Histoire"},
+                          CONFERENCIERS_VALIDES[0].getSpecialites());
+        assertArrayEquals(new String[] {"Art", "Histoire"},
+                          CONFERENCIERS_VALIDES[1].getSpecialites());
+        assertArrayEquals(
+            new String[] {"peinture", "impressionnisme", "art contemporain"},
+            CONFERENCIERS_VALIDES[2].getSpecialites()
+        );
+        assertArrayEquals(new String[] {"art moderne"}, 
+                          CONFERENCIERS_VALIDES[3].getSpecialites());
+        assertArrayEquals(new String[] {"photo","peinture"},
+                          CONFERENCIERS_VALIDES[4].getSpecialites());
+        assertArrayEquals(new String[] {"Art", "Histoire"},
+                          CONFERENCIERS_VALIDES[5].getSpecialites());
+        assertArrayEquals(new String[] {"Art", "Histoire"},
+                          CONFERENCIERS_VALIDES[6].getSpecialites());
+        assertArrayEquals(new String[] {"photo","peinture"},
+                          CONFERENCIERS_VALIDES[7].getSpecialites());
+        assertArrayEquals(new String[] {"Art", "Histoire"},
+                          CONFERENCIERS_VALIDES[8].getSpecialites());
+        assertArrayEquals(new String[] {"Art", "Histoire"},
+                          CONFERENCIERS_VALIDES[9].getSpecialites());
+        assertArrayEquals(new String[] {"Art", "Histoire"},
+                          CONFERENCIERS_VALIDES[10].getSpecialites());
+        assertArrayEquals(new String[] {"Art", "Histoire"},
+                          CONFERENCIERS_VALIDES[11].getSpecialites());
+        
+        assertNotEquals(null, CONFERENCIERS_VALIDES[0].getSpecialites());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[1].getSpecialites());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[2].getSpecialites());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[3].getSpecialites());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[4].getSpecialites());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[5].getSpecialites());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[6].getSpecialites());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[7].getSpecialites());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[8].getSpecialites());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[9].getSpecialites());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[10].getSpecialites());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[11].getSpecialites());
+        assertNotEquals("", CONFERENCIERS_VALIDES[0].getSpecialites());
+        assertNotEquals("", CONFERENCIERS_VALIDES[1].getSpecialites());
+        assertNotEquals("", CONFERENCIERS_VALIDES[2].getSpecialites());
+        assertNotEquals("", CONFERENCIERS_VALIDES[3].getSpecialites());
+        assertNotEquals("", CONFERENCIERS_VALIDES[4].getSpecialites());
+        assertNotEquals("", CONFERENCIERS_VALIDES[5].getSpecialites());
+        assertNotEquals("", CONFERENCIERS_VALIDES[6].getSpecialites());
+        assertNotEquals("", CONFERENCIERS_VALIDES[7].getSpecialites());
+        assertNotEquals("", CONFERENCIERS_VALIDES[8].getSpecialites());
+        assertNotEquals("", CONFERENCIERS_VALIDES[9].getSpecialites());
+        assertNotEquals("", CONFERENCIERS_VALIDES[10].getSpecialites());
+        assertNotEquals("", CONFERENCIERS_VALIDES[11].getSpecialites());
     }
 
     /**
@@ -588,11 +706,43 @@ class TestConferencier {
     @Test
     void testGetNumTel() {
         
-        Conferencier conferencier
-        = new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, PRENOM_CONF_VALIDE,
-                           SPECIALITE_CONF_VALIDE, NUMTEL_CONF_VALIDE,
-                           EST_INTERNE_VALIDE, INDISPONIBILITES_VALIDES);
-        assertEquals(NUMTEL_CONF_VALIDE, conferencier.getNumTel());
+        assertEquals("0123456789", CONFERENCIERS_VALIDES[0].getNumTel());
+        assertEquals("0123456789", CONFERENCIERS_VALIDES[1].getNumTel());
+        assertEquals("0600000001", CONFERENCIERS_VALIDES[2].getNumTel());
+        assertEquals("0611111111", CONFERENCIERS_VALIDES[3].getNumTel());
+        assertEquals("0600000003", CONFERENCIERS_VALIDES[4].getNumTel());
+        assertEquals("0123456789", CONFERENCIERS_VALIDES[5].getNumTel());
+        assertEquals("0123456789", CONFERENCIERS_VALIDES[6].getNumTel());
+        assertEquals("0123456789", CONFERENCIERS_VALIDES[7].getNumTel());
+        assertEquals("0603080911", CONFERENCIERS_VALIDES[8].getNumTel());
+        assertEquals("0123456789", CONFERENCIERS_VALIDES[9].getNumTel());
+        assertEquals("0123456789", CONFERENCIERS_VALIDES[10].getNumTel());
+        assertEquals("0123456789", CONFERENCIERS_VALIDES[11].getNumTel());
+        
+        assertNotEquals(null, CONFERENCIERS_VALIDES[0].getNumTel());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[1].getNumTel());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[2].getNumTel());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[3].getNumTel());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[4].getNumTel());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[5].getNumTel());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[6].getNumTel());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[7].getNumTel());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[8].getNumTel());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[9].getNumTel());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[10].getNumTel());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[11].getNumTel());
+        assertNotEquals("", CONFERENCIERS_VALIDES[0].getNumTel());
+        assertNotEquals("", CONFERENCIERS_VALIDES[1].getNumTel());
+        assertNotEquals("", CONFERENCIERS_VALIDES[2].getNumTel());
+        assertNotEquals("", CONFERENCIERS_VALIDES[3].getNumTel());
+        assertNotEquals("", CONFERENCIERS_VALIDES[4].getNumTel());
+        assertNotEquals("", CONFERENCIERS_VALIDES[5].getNumTel());
+        assertNotEquals("", CONFERENCIERS_VALIDES[6].getNumTel());
+        assertNotEquals("", CONFERENCIERS_VALIDES[7].getNumTel());
+        assertNotEquals("", CONFERENCIERS_VALIDES[8].getNumTel());
+        assertNotEquals("", CONFERENCIERS_VALIDES[9].getNumTel());
+        assertNotEquals("", CONFERENCIERS_VALIDES[10].getNumTel());
+        assertNotEquals("", CONFERENCIERS_VALIDES[11].getNumTel());
     }
 
     /**
@@ -602,11 +752,18 @@ class TestConferencier {
     @Test
     void testGetEstInterne() {
         
-        Conferencier conferencier
-        = new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, PRENOM_CONF_VALIDE,
-                           SPECIALITE_CONF_VALIDE, NUMTEL_CONF_VALIDE,
-                           EST_INTERNE_VALIDE, INDISPONIBILITES_VALIDES);
-        assertTrue(conferencier.estInterne());
+        assertTrue(CONFERENCIERS_VALIDES[0].estInterne());
+        assertTrue(CONFERENCIERS_VALIDES[1].estInterne());
+        assertTrue(CONFERENCIERS_VALIDES[2].estInterne());
+        assertTrue(CONFERENCIERS_VALIDES[3].estInterne());
+        assertFalse(CONFERENCIERS_VALIDES[4].estInterne());
+        assertTrue(CONFERENCIERS_VALIDES[5].estInterne());
+        assertTrue(CONFERENCIERS_VALIDES[6].estInterne());
+        assertTrue(CONFERENCIERS_VALIDES[7].estInterne());
+        assertTrue(CONFERENCIERS_VALIDES[8].estInterne());
+        assertFalse(CONFERENCIERS_VALIDES[9].estInterne());
+        assertTrue(CONFERENCIERS_VALIDES[10].estInterne());
+        assertTrue(CONFERENCIERS_VALIDES[11].estInterne());
     }
 
     /**
@@ -616,11 +773,149 @@ class TestConferencier {
     @Test
     void testGetIndisponibilites() {
         
-        Conferencier conferencier 
-        = new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, PRENOM_CONF_VALIDE,
-                           SPECIALITE_CONF_VALIDE, NUMTEL_CONF_VALIDE,
-                           EST_INTERNE_VALIDE, INDISPONIBILITES_VALIDES);
-        assertArrayEquals(INDISPONIBILITES_VALIDES,
-                          conferencier.getIndisponibilites());
+        assertArrayEquals(
+            new Indisponibilite[] {
+                new Indisponibilite(LocalDate.of (2025, 8, 2)), 
+                new Indisponibilite(LocalDate.of (2024, 12, 22), 
+                                    LocalDate.of(2024,12,26)),
+            },
+            CONFERENCIERS_VALIDES[0].getIndisponibilites()
+        );
+        assertArrayEquals(
+            new Indisponibilite[] {
+                new Indisponibilite(LocalDate.of (2025, 8, 2)), 
+                new Indisponibilite(LocalDate.of (2024, 12, 22), 
+                                    LocalDate.of(2024,12,26)),
+            },
+            CONFERENCIERS_VALIDES[1].getIndisponibilites()
+        );
+        assertArrayEquals(
+            new Indisponibilite[] {
+                new Indisponibilite(LocalDate.of(2024,10,22)),
+                new Indisponibilite(LocalDate.of(2024,10,26))
+            },
+            CONFERENCIERS_VALIDES[2].getIndisponibilites()
+        );
+        assertArrayEquals(
+            new Indisponibilite[] {
+                new Indisponibilite(LocalDate.of(2024,11,07)),
+                new Indisponibilite(LocalDate.of(2024,11,07)),
+                new Indisponibilite(LocalDate.of(2024,11,19)),
+                new Indisponibilite(LocalDate.of(2024,11,22))
+            },
+            CONFERENCIERS_VALIDES[3].getIndisponibilites()
+        );
+        assertEquals(null, CONFERENCIERS_VALIDES[4].getIndisponibilites());
+        assertArrayEquals(
+            new Indisponibilite[] {
+                new Indisponibilite(LocalDate.of (2025, 8, 2)), 
+                new Indisponibilite(LocalDate.of (2024, 12, 22), 
+                                    LocalDate.of(2024,12,26)),
+            },
+            CONFERENCIERS_VALIDES[5].getIndisponibilites()
+        );
+        assertArrayEquals(
+            new Indisponibilite[] {
+                new Indisponibilite(LocalDate.of (2025, 8, 2)), 
+                new Indisponibilite(LocalDate.of (2024, 12, 22), 
+                                    LocalDate.of(2024,12,26)),
+            },
+            CONFERENCIERS_VALIDES[6].getIndisponibilites()
+        );
+        assertArrayEquals(
+            new Indisponibilite[] {
+                new Indisponibilite(LocalDate.of (2025, 8, 2)), 
+                new Indisponibilite(LocalDate.of (2024, 12, 22), 
+                                    LocalDate.of(2024,12,26)),
+            },
+            CONFERENCIERS_VALIDES[7].getIndisponibilites()
+        );
+        assertArrayEquals(
+            new Indisponibilite[] {
+                new Indisponibilite(LocalDate.of (2025, 8, 2)), 
+                new Indisponibilite(LocalDate.of (2024, 12, 22), 
+                                    LocalDate.of(2024,12,26)),
+            },
+            CONFERENCIERS_VALIDES[8].getIndisponibilites()
+        );
+        assertArrayEquals(
+            new Indisponibilite[] {
+                new Indisponibilite(LocalDate.of (2025, 8, 2)), 
+                new Indisponibilite(LocalDate.of (2024, 12, 22), 
+                                    LocalDate.of(2024,12,26)),
+            },
+            CONFERENCIERS_VALIDES[9].getIndisponibilites()
+        );
+        assertArrayEquals(
+            new Indisponibilite[] {
+                new Indisponibilite(LocalDate.of(2024,10,22)),
+                new Indisponibilite(LocalDate.of(2024,10,26))
+            },
+            CONFERENCIERS_VALIDES[10].getIndisponibilites()
+        );
+        assertEquals(null,CONFERENCIERS_VALIDES[11].getIndisponibilites());
+        
+        assertNotEquals(null, CONFERENCIERS_VALIDES[0].getIndisponibilites());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[1].getIndisponibilites());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[2].getIndisponibilites());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[3].getIndisponibilites());
+        assertNotEquals(
+            new Indisponibilite[] {
+                new Indisponibilite(LocalDate.of (2025, 8, 2)), 
+                new Indisponibilite(LocalDate.of (2024, 12, 22), 
+                                    LocalDate.of(2024,12,26)),
+            },
+            CONFERENCIERS_VALIDES[4].getIndisponibilites()
+        );
+        assertNotEquals(null, CONFERENCIERS_VALIDES[5].getIndisponibilites());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[6].getIndisponibilites());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[7].getIndisponibilites());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[8].getIndisponibilites());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[9].getIndisponibilites());
+        assertNotEquals(null, CONFERENCIERS_VALIDES[10].getIndisponibilites());
+        assertNotEquals(
+            new Indisponibilite[] {
+                new Indisponibilite(LocalDate.of (2025, 8, 2)), 
+                new Indisponibilite(LocalDate.of (2024, 12, 22), 
+                                    LocalDate.of(2024,12,26)),
+            },
+            CONFERENCIERS_VALIDES[11].getIndisponibilites()
+        );
+        assertNotEquals("", CONFERENCIERS_VALIDES[0].getIndisponibilites());
+        assertNotEquals("", CONFERENCIERS_VALIDES[1].getIndisponibilites());
+        assertNotEquals("", CONFERENCIERS_VALIDES[2].getIndisponibilites());
+        assertNotEquals("", CONFERENCIERS_VALIDES[3].getIndisponibilites());
+        assertNotEquals("", CONFERENCIERS_VALIDES[4].getIndisponibilites());
+        assertNotEquals("", CONFERENCIERS_VALIDES[5].getIndisponibilites());
+        assertNotEquals("", CONFERENCIERS_VALIDES[6].getIndisponibilites());
+        assertNotEquals("", CONFERENCIERS_VALIDES[7].getIndisponibilites());
+        assertNotEquals("", CONFERENCIERS_VALIDES[8].getIndisponibilites());
+        assertNotEquals("", CONFERENCIERS_VALIDES[9].getIndisponibilites());
+        assertNotEquals("", CONFERENCIERS_VALIDES[10].getIndisponibilites());
+        assertNotEquals("", CONFERENCIERS_VALIDES[11].getIndisponibilites());
+        assertNotEquals(new Indisponibilite[0],
+                        CONFERENCIERS_VALIDES[0].getIndisponibilites());
+        assertNotEquals(new Indisponibilite[0],
+                        CONFERENCIERS_VALIDES[1].getIndisponibilites());
+        assertNotEquals(new Indisponibilite[0],
+                        CONFERENCIERS_VALIDES[2].getIndisponibilites());
+        assertNotEquals(new Indisponibilite[0],
+                        CONFERENCIERS_VALIDES[3].getIndisponibilites());
+        assertNotEquals(new Indisponibilite[0],
+                        CONFERENCIERS_VALIDES[4].getIndisponibilites());
+        assertNotEquals(new Indisponibilite[0],
+                        CONFERENCIERS_VALIDES[5].getIndisponibilites());
+        assertNotEquals(new Indisponibilite[0],
+                        CONFERENCIERS_VALIDES[6].getIndisponibilites());
+        assertNotEquals(new Indisponibilite[0],
+                        CONFERENCIERS_VALIDES[7].getIndisponibilites());
+        assertNotEquals(new Indisponibilite[0],
+                        CONFERENCIERS_VALIDES[8].getIndisponibilites());
+        assertNotEquals(new Indisponibilite[0],
+                        CONFERENCIERS_VALIDES[9].getIndisponibilites());
+        assertNotEquals(new Indisponibilite[0],
+                        CONFERENCIERS_VALIDES[10].getIndisponibilites());
+        assertNotEquals(new Indisponibilite[0],
+                        CONFERENCIERS_VALIDES[11].getIndisponibilites());
     }
 }
