@@ -45,27 +45,19 @@ import javafx.util.Callback;
  * l'application.
  * 
  * @author Baptiste Thenieres
+ * @author Esteban Vroemen
  * @version 1.0
  */
 public class DonneesImporteesExpositionControleur {
     
     private Stage fenetreAppli;
     
-    /**
-     * Définit la fenêtre de l'application.
-     * @param fenetreAppli
-     */
-    public void setFenetreAppli(Stage fenetreAppli) {
-        this.fenetreAppli = fenetreAppli;
-    }
-    
     private static List<Exposition> expo = ImportationCSV.getExpositions();
     
-    // Formatter pour les dates au format jj/MM/aaaa
+    // Format pour les dates au format jj/MM/aaaa
     private static final DateTimeFormatter DATE_FORMAT 
     = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    
     @FXML
     private Button btnRetour;
     
@@ -143,20 +135,25 @@ public class DonneesImporteesExpositionControleur {
             }
         });
 
-        identifiant.setCellValueFactory(new PropertyValueFactory<>("identifiant"));
+        identifiant.setCellValueFactory(
+                new PropertyValueFactory<>("identifiant"));
         intitule.setCellValueFactory(new PropertyValueFactory<>("intitule"));
-        periodeDebut.setCellValueFactory(new PropertyValueFactory<>("periodeDebut"));
-        periodeFin.setCellValueFactory(new PropertyValueFactory<>("periodeFin"));
+        periodeDebut.setCellValueFactory(
+                new PropertyValueFactory<>("periodeDebut"));
+        periodeFin.setCellValueFactory(
+                new PropertyValueFactory<>("periodeFin"));
         nbOeuvre.setCellValueFactory(new PropertyValueFactory<>("nbOeuvre"));
         resume.setCellValueFactory(new PropertyValueFactory<>("resume"));
         
-        // Pour motscles, convertie le tableau en chaine de caractere
-        motsCles.setCellValueFactory(cellData -> 
-        new SimpleStringProperty(toStringMotsCles(cellData.getValue()
-                                                          .getMotsCles())));
+        // Pour motscles, convertie le tableau en chaîne de caractère
+        motsCles.setCellValueFactory(
+                cellData -> new SimpleStringProperty(
+                        toStringMotsCles(cellData.getValue().getMotsCles()))
+        );
     
         // Populate the table with the imported exhibitions
-        ObservableList<Exposition> exposList = FXCollections.observableArrayList(expo);
+        ObservableList<Exposition> exposList
+        = FXCollections.observableArrayList(expo);
         tableExposition.setItems(exposList);
     }
     
@@ -181,11 +178,21 @@ public class DonneesImporteesExpositionControleur {
     private static String toStringMotsCles(String[] motsCles) {
         return motsCles != null ? String.join(", ", motsCles) : "";
     }
-
+    
+    /**
+     * Définit la fenêtre de l'application.
+     * @param fenetreAppli
+     */
+    public void setFenetreAppli(Stage fenetreAppli) {
+        this.fenetreAppli = fenetreAppli;
+    }
 
     @FXML
     void retourAccueilAction(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/vue/accueilVue.fxml"));
+        
+        FXMLLoader loader
+        = new FXMLLoader(
+                getClass().getResource("/application/vue/accueilVue.fxml"));
         Parent accueilVue = loader.load();
         AccueilControleur controleur = loader.getController();
         controleur.setFenetreAppli(fenetreAppli);
@@ -199,21 +206,22 @@ public class DonneesImporteesExpositionControleur {
 
     @FXML
     void aideAction(ActionEvent event) {
+        
     	final String LIEN_REGLES
-        = "https://docs.google.com/document/d/1wA1ytqySDYe1D-2ZL1M0mLKMvUmv9SCtS0uORFgoRIY/edit?usp=sharing";
+        = "https://docs.google.com/document/d/1wA1ytqySDYe1D-2ZL1M0mLKMvUmv9SCt"
+          + "S0uORFgoRIY/edit?usp=sharing";
 
         Desktop desktop = Desktop.getDesktop();
         try {
             desktop.browse(new URI(LIEN_REGLES));
         } catch (IOException | URISyntaxException e) {
-            Alert boiteErreurInconnueOuverture =
-                    new Alert(Alert.AlertType.ERROR, 
-                              "impossible d'ouvrir le fichier d'aide",
-                              ButtonType.OK);
-
+            
+            Alert boiteErreurInconnueOuverture
+            = new Alert(Alert.AlertType.ERROR, 
+                        "impossible d'ouvrir le fichier d'aide", ButtonType.OK);
             boiteErreurInconnueOuverture.setTitle("Erreur d'affichage aide");
-            boiteErreurInconnueOuverture.setHeaderText("Erreur d'affichage aide");
-
+            boiteErreurInconnueOuverture.setHeaderText(
+                    "Erreur d'affichage aide");
             boiteErreurInconnueOuverture.showAndWait();
         }
         // Implement help functionality if needed
@@ -221,7 +229,12 @@ public class DonneesImporteesExpositionControleur {
 
     @FXML
     void btnRetourAction(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/vue/menuDonneesImporterVue.fxml"));
+        
+        FXMLLoader loader
+        = new FXMLLoader(
+                getClass().getResource("/application/vue/menuDonneesImporterVue"
+                                       + ".fxml")
+                );
         Parent menuDonneesImporterVue = loader.load();
         MenuDonneesImporterControleur controleur = loader.getController();
         controleur.setFenetreAppli(fenetreAppli);
