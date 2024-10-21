@@ -12,7 +12,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
-import application.modele.Exposition;
 import application.utilitaire.ImportationCSV;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -103,15 +102,34 @@ public class ImporterControleur {
         
         // Vérifier si un fichier a été sélectionné
         if (fichierSelectionne != null && !fichierSelectionne.isEmpty()) {
+            // Liste pour stocker les noms des fichiers sans chemin
+            StringBuilder nomsFichiers = new StringBuilder();
+            
             for (File fichier : fichierSelectionne) {
                 List<String[]> donnee;
                 donnee = ImportationCSV.importer(fichier.getAbsolutePath());
-                ImportationCSV.traitementDonnees(donnee); 
+                ImportationCSV.traitementDonnees(donnee);
+                
+                // Ajouter le nom du fichier (sans le chemin) à la liste
+                nomsFichiers.append(fichier.getName()).append("\n");
             }
+            
+            // Afficher une alerte avec les noms des fichiers sélectionnés
+            Alert boiteInformationSucces =
+                    new Alert(Alert.AlertType.INFORMATION, 
+                              "Les fichiers suivants ont été sélectionnés :"
+                            + "\n" + nomsFichiers.toString(),
+                              ButtonType.OK);
+
+            boiteInformationSucces.setTitle("Fichiers importés avec succès");
+            boiteInformationSucces.setHeaderText("Fichiers importés avec succès");
+
+            boiteInformationSucces.showAndWait();
         } else {
+            // Afficher une alerte si aucun fichier n'a été sélectionné
             Alert boiteErreurInconnueOuverture =
                     new Alert(Alert.AlertType.ERROR, 
-                              "Aucun fichier sélectionner",
+                              "Aucun fichier sélectionné",
                               ButtonType.OK);
 
             boiteErreurInconnueOuverture.setTitle("Erreur fichier");
@@ -119,7 +137,8 @@ public class ImporterControleur {
 
             boiteErreurInconnueOuverture.showAndWait();
         }
-    }   
+    }
+
 
     @FXML
     void btnRetourAction(ActionEvent event) throws IOException {
