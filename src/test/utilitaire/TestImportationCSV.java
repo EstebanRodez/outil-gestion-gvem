@@ -25,30 +25,31 @@ import application.utilitaire.ImportationCSV;
  */
 public class TestImportationCSV {
     
-    private static final String FichierValide 
+    private final String FICHIER_VALIDE
     = "ressources/tests/CSV/expositions_valide.csv";
     
-    private static final String FichierValideSansEntete 
+    private final String FICHIER_VALIDE_SANS_ENTETE 
     = "ressources/tests/CSV/expositions_valide_sans_entete.csv";
     
-    private static final String FichierInvalide 
+    private final String FICHIER_INVALIDE 
     = "ressources/tests/CSV/donneeInvalide.csv";
     
-    private static final String FichierInexistant 
+    private final String FICHIER_INEXISTANT 
     = "fichier/inexistant.csv";
     
-    private static final String ExpositionValide 
+    private final String EXPOSITION_VALIDE 
     = "ressources/tests/CSV/expositions_valide.csv";
     
-    private static final String ExpositionInvalide 
+    private final String EXPOSITION_INVALIDE 
     = "ressources/tests/CSV/expositions_invalide.csv";
 
-    String[] ligne1Valide = new String[] { "E000001", "Exposition1", "1800", 
-                                           "1900", "10", "mot1, mot2", "Resume 1" };
+    private final String[] ligne1Valide
+    = new String[] { "E000001", "Exposition1", "1800", "1900", "10",
+                     "mot1, mot2", "Resume 1" };
     
-    String[] ligne2Valide = new String[] { "E000002", "Exposition2", "2015",
-                                           "2019", "7", "mot1", "Resume 2", 
-                                           "10/10/2024", "31/12/2024" };
+    private final String[] ligne2Valide
+    = new String[] { "E000002", "Exposition2", "2015", "2019", "7", "mot1",
+                     "Resume 2", "10/10/2024", "31/12/2024" };
     
     /**
      * Teste la méthode {@link application.utilitaire.ImportationCSV#importer(String)}.
@@ -56,7 +57,7 @@ public class TestImportationCSV {
      */
     @Test
     void testImporterFichierValide() throws IOException {      
-        List<String[]> valide = ImportationCSV.importer(FichierValide);
+        List<String[]> valide = ImportationCSV.importer(FICHIER_VALIDE);
         
         assertNotNull(valide);
         assertFalse(valide.isEmpty());
@@ -66,7 +67,7 @@ public class TestImportationCSV {
         
         
         /* Fichier valide sans entete*/ 
-        List<String[]> sansEntete = ImportationCSV.importer(FichierValideSansEntete);
+        List<String[]> sansEntete = ImportationCSV.importer(FICHIER_VALIDE_SANS_ENTETE);
         
         assertNotNull(sansEntete);
         assertFalse(sansEntete.isEmpty());
@@ -81,7 +82,7 @@ public class TestImportationCSV {
     @Test
     void testImporterFichierInexistant() {    
         assertThrows(IOException.class, 
-                     () -> ImportationCSV.importer(FichierInexistant));
+                     () -> ImportationCSV.importer(FICHIER_INEXISTANT));
     }
     
     /**
@@ -91,7 +92,7 @@ public class TestImportationCSV {
      */
     @Test
     void testTraitementDonneesInvalide() throws IOException {    
-        List<String[]> donneeInvalide = ImportationCSV.importer(FichierInvalide);
+        List<String[]> donneeInvalide = ImportationCSV.importer(FICHIER_INVALIDE);
         
         // FIXME vérifier le format des nombres dans le csv
         // List<String[]> donneeInvalide2 = ImportationCSV.importer("ressources/tests/CSV/expositions_nombres_invalides.csv");
@@ -109,7 +110,7 @@ public class TestImportationCSV {
     void testCreeExpositionValide() throws IOException {
         // Charger un fichier CSV de test avec des expositions valides
         
-        List<String[]> donnees = ImportationCSV.importer(ExpositionValide);
+        List<String[]> donnees = ImportationCSV.importer(EXPOSITION_VALIDE);
         
         ImportationCSV.traitementDonnees(donnees);
         
@@ -137,7 +138,7 @@ public class TestImportationCSV {
     @Test
     void testCreerExpositionArgumentsIncorrect() throws IOException {
         // Charger un fichier CSV de test avec des lignes incorrectes 
-        List<String[]> donnees = ImportationCSV.importer(ExpositionInvalide);
+        List<String[]> donnees = ImportationCSV.importer(EXPOSITION_INVALIDE);
         
         assertThrows(IllegalArgumentException.class, 
                      () -> ImportationCSV.traitementDonnees(donnees));
