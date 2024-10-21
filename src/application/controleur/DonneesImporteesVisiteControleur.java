@@ -12,12 +12,24 @@ import java.net.URISyntaxException;
 import java.time.LocalDate;
 import java.util.List;
 
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.control.TableColumn.CellDataFeatures;
+import javafx.scene.control.TableColumn.CellEditEvent;
+import javafx.scene.control.TableColumn.CellEditEvent;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.util.Callback;
+
 import application.modele.Client;
 import application.modele.Conferencier;
 import application.modele.Employe;
 import application.modele.Exposition;
 import application.modele.Visite;
 import application.utilitaire.ImportationCSV;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -63,28 +75,28 @@ public class DonneesImporteesVisiteControleur {
     private Button btnRetour;
     
     @FXML
-    private TableColumn<Visite, Conferencier> conferencier;
+    private TableColumn<Visite, String> conferencier;
 
     @FXML
     private TableColumn<Visite, LocalDate> date;
 
     @FXML
-    private TableColumn<Visite, Employe> employe;
+    private TableColumn<Visite, String> employe;
 
     @FXML
-    private TableColumn<Visite, Exposition> exposition;
+    private TableColumn<Visite, String> exposition;
 
     @FXML
-    private TableColumn<Visite, Integer> horaireDebut;
+    private TableColumn<Visite, String> horaireDebut;
 
     @FXML
     private TableColumn<Visite, String> identifiant;
 
     @FXML
-    private TableColumn<Client, String> intitule;
+    private TableColumn<Visite, String> intitule;
 
     @FXML
-    private TableColumn<Client, String> numTel;
+    private TableColumn<Visite, String> numTel;
 
     @FXML
     private TableView<Visite> tableExposition;
@@ -94,24 +106,44 @@ public class DonneesImporteesVisiteControleur {
      */
     @FXML
     public void initialize() {
-        conferencier.setCellValueFactory(
-                new PropertyValueFactory<>("conferencier"));
+
+        conferencier.setCellValueFactory(cellData -> {
+            Visite visite = cellData.getValue();
+            return new SimpleStringProperty(visite.getConferencier().getIdentifiant()); 
+        });
+        
         date.setCellValueFactory(
                 new PropertyValueFactory<>("date"));
-        employe.setCellValueFactory(
-                new PropertyValueFactory<>("employe"));
-        exposition.setCellValueFactory(
-                new PropertyValueFactory<>("exposition"));
-        horaireDebut.setCellValueFactory(
-                new PropertyValueFactory<>("horaireDebut"));
+        
+        employe.setCellValueFactory(cellData -> {
+            Visite visite = cellData.getValue();
+            return new SimpleStringProperty(visite.getEmploye().getIdentifiant()); 
+        });
+        
+        exposition.setCellValueFactory(cellData -> {
+            Visite visite = cellData.getValue();
+            return new SimpleStringProperty(visite.getExposition().getIdentifiant()); 
+        });
+        
+        horaireDebut.setCellValueFactory(cellData -> {
+            Visite visite = cellData.getValue();
+            return new SimpleStringProperty(visite.toStringHoraireDebut()); 
+        });
+        
         identifiant.setCellValueFactory(
                 new PropertyValueFactory<>("identifiant"));
-        intitule.setCellValueFactory(
-                new PropertyValueFactory<>("intitule"));
-        numTel.setCellValueFactory(
-                new PropertyValueFactory<>("numTel"));
         
-     // Populate the table with the imported exhibitions
+        intitule.setCellValueFactory(cellData -> {
+            Visite visite = cellData.getValue();
+            return new SimpleStringProperty(visite.getClient().getIntitule()); 
+        });
+        
+        numTel.setCellValueFactory(cellData -> {
+            Visite visite = cellData.getValue();
+            return new SimpleStringProperty(visite.getClient().getNumTel()); 
+        });
+        
+        
         ObservableList<Visite> visiteList
         = FXCollections.observableArrayList(visite);
         tableExposition.setItems(visiteList);
