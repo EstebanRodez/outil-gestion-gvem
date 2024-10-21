@@ -27,6 +27,9 @@ import application.modele.Indisponibilite;
  * La classe ImportationCSV permet d'importer et de traiter des
  * données à partir d'un fichier CSV, en créant des objets Exposition
  * ou ExpositionTemporaire selon le type de données.
+ * @author Ayoub Laluti
+ * @author Esteban Vroemen
+ * @version 1.0
  */
 public class ImportationCSV {
 
