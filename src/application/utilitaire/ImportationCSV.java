@@ -16,6 +16,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import application.modele.Client;
 import application.modele.Conferencier;
 import application.modele.Employe;
 import application.modele.Exposition;
@@ -203,7 +204,7 @@ public class ImportationCSV {
         if (typeCSV == 'E') { // Exposition
             creerExposition(donnee);
         } else if (typeCSV == 'R') { // Visite
-
+            creerVisite(donnee);
         } else if (typeCSV == 'N') { // Employé
             creerEmploye(donnee);
         } else if (typeCSV == 'C') { // Conférencier
@@ -285,33 +286,30 @@ public class ImportationCSV {
      *                                  ligne est incorrect
      */
     private static void creerEmploye(List<String[]> donnee) {
-         String identifiant, 
-                nom,
-                prenom,
-                numTel;
+        String identifiant, 
+               nom,
+               prenom,
+               numTel;
          
-         Employe employe;
+        Employe employe;
          
-         for (String[] ligne : donnee) {
-
+        for (String[] ligne : donnee) {
+        
              // Vérifier si la ligne n'est pas vide
-             if (ligne.length > 0) {
-                 identifiant = ligne[0];
-                 nom = ligne[1];
-                 prenom = ligne[2];
-                 numTel = ligne[3];
-                 if (ligne.length == 4) { 
-
-                     employe = new Employe(identifiant, nom, prenom, numTel);
-                     employes.add(employe);
-                 } else {
-                     throw new IllegalArgumentException(ERREUR_NOMBRE_ARGUMENTS); 
-                 }       
-             }
-         }
+            if (ligne.length > 0) {
+                identifiant = ligne[0];
+                nom = ligne[1];
+                prenom = ligne[2];
+                numTel = ligne[3];
+                if (ligne.length == 4) { 
         
-        
-        
+                    employe = new Employe(identifiant, nom, prenom, numTel);
+                    employes.add(employe);
+                } else {
+                    throw new IllegalArgumentException(ERREUR_NOMBRE_ARGUMENTS); 
+                }       
+            }
+        }     
     }
     
     /**
@@ -367,6 +365,32 @@ public class ImportationCSV {
     }
     
     /**
+     * Crée des objets Viste  à partir des données CSV et les
+     * ajoute à la liste des visites.
+     * 
+     * @param donnee La liste des données CSV représentant des
+     *               visite
+     * @throws IllegalArgumentException si le nombre d'argument d'une
+     *                                  ligne est incorrect
+     */
+    private static void creerVisite(List<String[]> donnee) {
+         String identifiant;
+         int horaireDebut;
+        
+         LocalDate date;
+        
+         Client client;
+         Exposition exposition;       
+         Employe employe; 
+         Conferencier conferencier;
+              
+        for (String[] ligne : donnee) {
+        
+          
+        }     
+    }
+    
+    /**
      * Crée un tableau de l'objet Indiponibilité
      * 
      * @param la ligne du tableau csv qui contient des indisponiblitées
@@ -379,7 +403,6 @@ public class ImportationCSV {
                   dateFin;
         
         Indisponibilite[] indisponibilites;
-        
         
         nombreIndisponibilites = (ligne.length - 6) / 2;
         indisponibilites 
