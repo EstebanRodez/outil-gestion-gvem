@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import application.utilitaire.Client;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -122,6 +123,9 @@ public class ImporterDistantControleur {
         String ipServeur = txtFieldIPServeur.getText().trim();
         String port = txtFieldPort.getText().trim();
         if (isValidIPAddress(ipServeur) && isValidPort(port)) {
+            
+            Client.recevoirFichier(ipServeur, Integer.parseInt(port), "fichierRecu.txt");
+            
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/vue/importerDistantValideVue.fxml"));
             Parent importerDistantValideVue = loader.load();
             ImporterDistantValideControleur controleur = loader.getController();

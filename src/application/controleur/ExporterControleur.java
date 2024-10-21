@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import application.utilitaire.Serveur;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -82,8 +83,8 @@ public class ExporterControleur {
     }
     
     @FXML
-    void btnConnexionAction(ActionEvent event) {
-
+    void btnExporterAction(ActionEvent event) {
+        Serveur.envoyerFichier(65432, "fichierAEnvoyer.txt");
     }
 
     @FXML
