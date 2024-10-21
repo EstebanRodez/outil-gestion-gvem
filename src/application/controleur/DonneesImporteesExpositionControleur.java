@@ -17,6 +17,7 @@ import application.utilitaire.ImportationCSV;
 import application.modele.Exposition;
 import application.modele.ExpositionTemporaire;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -28,9 +29,11 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 /**
  * Contrôleur pour la gestion des données importées des expositions.
@@ -101,13 +104,43 @@ public class DonneesImporteesExpositionControleur {
     @FXML
     public void initialize() {
         
-        // Conversion des dates au format souhaité (jj/MM/aaaa)
-        dateDebut.setCellValueFactory(cellData -> 
-            new SimpleStringProperty(formatDate(cellData.getValue().getDateDebut())));
-
-        dateFin.setCellValueFactory(cellData -> 
-            new SimpleStringProperty(formatDate(cellData.getValue().getDateFin())));
-
+        dateDebut.setCellValueFactory(
+                new Callback<CellDataFeatures<Exposition, String>, 
+                             ObservableValue<String>>() {
+                    
+            public ObservableValue<String> call(
+                    CellDataFeatures<Exposition, String> ligne) {
+                
+                /* La date de début n'existe pas */
+                if (!(ligne.getValue() instanceof ExpositionTemporaire)) {
+                    return null;
+                }
+                
+                ExpositionTemporaire expoTempo 
+                = (ExpositionTemporaire) ligne.getValue();
+                return new SimpleStringProperty(expoTempo.getDateDebut()
+                                                         .toString());
+            }
+        });
+        
+        dateFin.setCellValueFactory(
+                new Callback<CellDataFeatures<Exposition, String>, 
+                             ObservableValue<String>>() {
+                    
+            public ObservableValue<String> call(
+                    CellDataFeatures<Exposition, String> ligne) {
+                
+                /* La date de fin n'existe pas */
+                if (!(ligne.getValue() instanceof ExpositionTemporaire)) {
+                    return null;
+                }
+                
+                ExpositionTemporaire expoTempo 
+                = (ExpositionTemporaire) ligne.getValue();
+                return new SimpleStringProperty(expoTempo.getDateFin()
+                                                         .toString());
+            }
+        });
 
         identifiant.setCellValueFactory(new PropertyValueFactory<>("identifiant"));
         intitule.setCellValueFactory(new PropertyValueFactory<>("intitule"));
