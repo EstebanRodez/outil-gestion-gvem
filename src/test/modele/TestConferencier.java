@@ -19,281 +19,370 @@ import application.modele.Indisponibilite;
 /**
  * Classe de Test pour {@link application.modele.Conferencier}
  * @author Romain Augé
+ * @author Esteban Vroemen
  * @version 1.0
  */
 class TestConferencier {
     
-	private final String ID_CONF_VALIDE = "C000001";
+    private final String ID_CONF_VALIDE = "C000001";
+    
     private final String NOM_CONF_VALIDE = "Dupont";
+    
     private final String PRENOM_CONF_VALIDE = "Pierre";
+    
     private final String[] SPECIALITE_CONF_VALIDE = {"Art", "Histoire"};
+    
     private final String NUMTEL_CONF_VALIDE = "0123456789";
+    
     private final boolean EST_INTERNE_VALIDE = true;
+    
     private final Indisponibilite[] INDISPONIBILITES_VALIDES = 
-	{
-	    new Indisponibilite(LocalDate.of (2025, 8, 2)), 
-	    new Indisponibilite(LocalDate.of (2024, 12, 22), 
-	    					LocalDate.of(2024,12,26))
-	};
+    {
+        new Indisponibilite(LocalDate.of (2025, 8, 2)), 
+	new Indisponibilite(LocalDate.of (2024, 12, 22), 
+	                    LocalDate.of(2024,12,26)),
+    };
 
     /**
      * Méthode de test pour 
-     * {@link application.modele.Conferencier#Conferencier(java.lang.String, java.lang.String,
-     *  java.lang.String[], java.lang.String, boolean, application.modele.Indisponibilite[])}.
+     * {@link application.modele.Conferencier#Conferencier(java.lang.String,
+     * java.lang.String, java.lang.String[], java.lang.String, boolean,
+     * application.modele.Indisponibilite[])}.
      * Cas uniquement invalides
      */
     @Test
     void testConferencierInvalide() {
+        
     	// Test avec identifiant null ou vide
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Conferencier(null,NOM_CONF_VALIDE, PRENOM_CONF_VALIDE,
-                    		 SPECIALITE_CONF_VALIDE, NUMTEL_CONF_VALIDE,
-                    		 EST_INTERNE_VALIDE, INDISPONIBILITES_VALIDES));
+                     () -> new Conferencier(null, NOM_CONF_VALIDE,
+                                            PRENOM_CONF_VALIDE,
+                    		            SPECIALITE_CONF_VALIDE,
+                    		            NUMTEL_CONF_VALIDE,
+                    		            EST_INTERNE_VALIDE,
+                    		            INDISPONIBILITES_VALIDES));
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Conferencier("",NOM_CONF_VALIDE, PRENOM_CONF_VALIDE, 
-                    		 SPECIALITE_CONF_VALIDE, NUMTEL_CONF_VALIDE, 
-                    		 EST_INTERNE_VALIDE, INDISPONIBILITES_VALIDES));
+                     () -> new Conferencier("", NOM_CONF_VALIDE,
+                                            PRENOM_CONF_VALIDE,
+                                            SPECIALITE_CONF_VALIDE,
+                                            NUMTEL_CONF_VALIDE, 
+                    		            EST_INTERNE_VALIDE,
+                    		            INDISPONIBILITES_VALIDES));
     	
         // Test avec nom null ou vide
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Conferencier(ID_CONF_VALIDE,null, PRENOM_CONF_VALIDE,
-                    		 SPECIALITE_CONF_VALIDE, NUMTEL_CONF_VALIDE,
-                    		 EST_INTERNE_VALIDE, INDISPONIBILITES_VALIDES));
+                     () -> new Conferencier(ID_CONF_VALIDE, null,
+                                            PRENOM_CONF_VALIDE,
+                    		            SPECIALITE_CONF_VALIDE,
+                    		            NUMTEL_CONF_VALIDE,
+                    		            EST_INTERNE_VALIDE,
+                    		            INDISPONIBILITES_VALIDES));
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Conferencier(ID_CONF_VALIDE,"", PRENOM_CONF_VALIDE, 
-                    		 SPECIALITE_CONF_VALIDE, NUMTEL_CONF_VALIDE, 
-                    		 EST_INTERNE_VALIDE, INDISPONIBILITES_VALIDES));
+                     () -> new Conferencier(ID_CONF_VALIDE, "",
+                                            PRENOM_CONF_VALIDE, 
+                    		            SPECIALITE_CONF_VALIDE,
+                    		            NUMTEL_CONF_VALIDE, 
+                    		            EST_INTERNE_VALIDE,
+                    		            INDISPONIBILITES_VALIDES));
 
         // Test avec prénom null ou vide
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Conferencier(ID_CONF_VALIDE,NOM_CONF_VALIDE, null, 
-                    		 SPECIALITE_CONF_VALIDE, NUMTEL_CONF_VALIDE, 
-                    		 EST_INTERNE_VALIDE, INDISPONIBILITES_VALIDES));
+                     () -> new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE,
+                                            null, SPECIALITE_CONF_VALIDE,
+                                            NUMTEL_CONF_VALIDE, 
+                    		            EST_INTERNE_VALIDE,
+                    		            INDISPONIBILITES_VALIDES));
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Conferencier(ID_CONF_VALIDE,NOM_CONF_VALIDE, "", 
-                    		 SPECIALITE_CONF_VALIDE, NUMTEL_CONF_VALIDE, 
-                    		 EST_INTERNE_VALIDE, INDISPONIBILITES_VALIDES));
+                     () -> new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, "", 
+                    		            SPECIALITE_CONF_VALIDE,
+                    		            NUMTEL_CONF_VALIDE, 
+                    		            EST_INTERNE_VALIDE,
+                    		            INDISPONIBILITES_VALIDES));
 
         // Test avec spécialité null, vide ou plus de 6 éléments
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Conferencier(ID_CONF_VALIDE,NOM_CONF_VALIDE, 
-                    		 PRENOM_CONF_VALIDE, null, NUMTEL_CONF_VALIDE, 
-                    		 EST_INTERNE_VALIDE, INDISPONIBILITES_VALIDES));
+                     () -> new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, 
+                    		            PRENOM_CONF_VALIDE, null,
+                    		            NUMTEL_CONF_VALIDE,
+                    		            EST_INTERNE_VALIDE,
+                    		            INDISPONIBILITES_VALIDES));
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Conferencier(ID_CONF_VALIDE,NOM_CONF_VALIDE, 
-                    		 PRENOM_CONF_VALIDE, new String[0], 
-                    		 NUMTEL_CONF_VALIDE, EST_INTERNE_VALIDE, 
-                    		 INDISPONIBILITES_VALIDES));
+                     () -> new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, 
+                    		            PRENOM_CONF_VALIDE, new String[0], 
+                    		            NUMTEL_CONF_VALIDE,
+                    		            EST_INTERNE_VALIDE, 
+                    		            INDISPONIBILITES_VALIDES));
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Conferencier(ID_CONF_VALIDE,NOM_CONF_VALIDE, PRENOM_CONF_VALIDE, 
-                    		 new String[]{"A", "B", "C", "D", "E", "F", "G"}, 
-                    		 NUMTEL_CONF_VALIDE, EST_INTERNE_VALIDE, 
-                    		 INDISPONIBILITES_VALIDES));
+                     () -> new Conferencier(ID_CONF_VALIDE,NOM_CONF_VALIDE,
+                                            PRENOM_CONF_VALIDE, 
+                    		            new String[] {"A", "B", "C", "D",
+                    		                          "E", "F", "G"}, 
+                    		            NUMTEL_CONF_VALIDE,
+                    		            EST_INTERNE_VALIDE, 
+                    		            INDISPONIBILITES_VALIDES));
 
         /* Test avec numéro de téléphone null, vide, trop long,
         trop court ou non numérique */
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Conferencier(ID_CONF_VALIDE,NOM_CONF_VALIDE, 
-                    		 PRENOM_CONF_VALIDE,SPECIALITE_CONF_VALIDE, null, 
-                    		 EST_INTERNE_VALIDE,INDISPONIBILITES_VALIDES));
+                     () -> new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, 
+                    		            PRENOM_CONF_VALIDE,
+                    		            SPECIALITE_CONF_VALIDE, null, 
+                    		            EST_INTERNE_VALIDE,
+                    		            INDISPONIBILITES_VALIDES));
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Conferencier(ID_CONF_VALIDE,NOM_CONF_VALIDE, 
-                    		 PRENOM_CONF_VALIDE, SPECIALITE_CONF_VALIDE, "", 
-                    		 EST_INTERNE_VALIDE, INDISPONIBILITES_VALIDES));
+                     () -> new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, 
+                    		            PRENOM_CONF_VALIDE,
+                    		            SPECIALITE_CONF_VALIDE, "", 
+                    		            EST_INTERNE_VALIDE,
+                    		            INDISPONIBILITES_VALIDES));
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Conferencier(ID_CONF_VALIDE,NOM_CONF_VALIDE, PRENOM_CONF_VALIDE, 
-                    		 SPECIALITE_CONF_VALIDE, "12345", EST_INTERNE_VALIDE, 
-                    		 INDISPONIBILITES_VALIDES));
+                     () -> new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE,
+                                            PRENOM_CONF_VALIDE,
+                                            SPECIALITE_CONF_VALIDE, "12345",
+                                            EST_INTERNE_VALIDE,
+                    		            INDISPONIBILITES_VALIDES));
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Conferencier(ID_CONF_VALIDE,NOM_CONF_VALIDE, PRENOM_CONF_VALIDE, 
-                    		 SPECIALITE_CONF_VALIDE, "123", EST_INTERNE_VALIDE, 
-                    		 INDISPONIBILITES_VALIDES));
+                     () -> new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE,
+                                            PRENOM_CONF_VALIDE, 
+                    		            SPECIALITE_CONF_VALIDE, "123",
+                    		            EST_INTERNE_VALIDE, 
+                    		            INDISPONIBILITES_VALIDES));
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Conferencier(ID_CONF_VALIDE,NOM_CONF_VALIDE, 
-                    		 PRENOM_CONF_VALIDE, SPECIALITE_CONF_VALIDE, "12a4", 
-                    		 EST_INTERNE_VALIDE, INDISPONIBILITES_VALIDES));
+                     () -> new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, 
+                    		            PRENOM_CONF_VALIDE,
+                    		            SPECIALITE_CONF_VALIDE, "12a4", 
+                    		            EST_INTERNE_VALIDE,
+                    		            INDISPONIBILITES_VALIDES));
         assertThrows(IllegalArgumentException.class, 
-                () -> new Conferencier(ID_CONF_VALIDE,NOM_CONF_VALIDE, 
-               		 PRENOM_CONF_VALIDE, SPECIALITE_CONF_VALIDE,
-               		 "01234567a9", EST_INTERNE_VALIDE, 
-               		 INDISPONIBILITES_VALIDES));
+                     () -> new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, 
+               		                    PRENOM_CONF_VALIDE,
+               		                    SPECIALITE_CONF_VALIDE,
+               		                    "01234567a9",
+               		                    EST_INTERNE_VALIDE, 
+               		                    INDISPONIBILITES_VALIDES));
         
         /* Test avec Indisponibilités null */
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Conferencier(ID_CONF_VALIDE,NOM_CONF_VALIDE, 
-                    		 PRENOM_CONF_VALIDE,SPECIALITE_CONF_VALIDE, 
-                    		 NUMTEL_CONF_VALIDE, EST_INTERNE_VALIDE,null));
+                     () -> new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, 
+                    		            PRENOM_CONF_VALIDE,
+                    		            SPECIALITE_CONF_VALIDE, 
+                    		            NUMTEL_CONF_VALIDE,
+                    		            EST_INTERNE_VALIDE, null));
         assertThrows(IllegalArgumentException.class, 
-                () -> new Conferencier(ID_CONF_VALIDE,NOM_CONF_VALIDE, 
-               		 PRENOM_CONF_VALIDE,SPECIALITE_CONF_VALIDE, NUMTEL_CONF_VALIDE, 
-               		 EST_INTERNE_VALIDE, new Indisponibilite[]
-               				 {new Indisponibilite(LocalDate.of (2024, 10, 16)), 
-               				  null}));
+                     () -> new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, 
+               		                    PRENOM_CONF_VALIDE,
+               		                    SPECIALITE_CONF_VALIDE,
+               		                    NUMTEL_CONF_VALIDE, 
+               		                    EST_INTERNE_VALIDE,
+               		                    new Indisponibilite[] 
+               		                    {new Indisponibilite(
+               		                           LocalDate.of(2024, 10, 16)), 
+               				     null}));
     
 
     	// Test avec identifiant null ou vide
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Conferencier(null,NOM_CONF_VALIDE, 
-                    		 PRENOM_CONF_VALIDE,SPECIALITE_CONF_VALIDE, 
-                    		 NUMTEL_CONF_VALIDE,EST_INTERNE_VALIDE));
+                     () -> new Conferencier(null, NOM_CONF_VALIDE, 
+                    		            PRENOM_CONF_VALIDE,
+                    		            SPECIALITE_CONF_VALIDE, 
+                    		            NUMTEL_CONF_VALIDE,
+                    		            EST_INTERNE_VALIDE));
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Conferencier("",NOM_CONF_VALIDE, 
-                    		 PRENOM_CONF_VALIDE, SPECIALITE_CONF_VALIDE, 
-                    		 NUMTEL_CONF_VALIDE, EST_INTERNE_VALIDE));
+                     () -> new Conferencier("", NOM_CONF_VALIDE, 
+                    		            PRENOM_CONF_VALIDE,
+                    		            SPECIALITE_CONF_VALIDE, 
+                    		            NUMTEL_CONF_VALIDE,
+                    		            EST_INTERNE_VALIDE));
     	
         // Test avec nom null ou vide
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Conferencier(ID_CONF_VALIDE,null, 
-                    		 PRENOM_CONF_VALIDE,SPECIALITE_CONF_VALIDE, 
-                    		 NUMTEL_CONF_VALIDE,EST_INTERNE_VALIDE));
+                     () -> new Conferencier(ID_CONF_VALIDE, null, 
+                    		            PRENOM_CONF_VALIDE,
+                    		            SPECIALITE_CONF_VALIDE, 
+                    		            NUMTEL_CONF_VALIDE,
+                    		            EST_INTERNE_VALIDE));
         assertThrows(IllegalArgumentException.class, 
                      () -> new Conferencier(ID_CONF_VALIDE,"", 
-                    		 PRENOM_CONF_VALIDE, SPECIALITE_CONF_VALIDE, 
-                    		 NUMTEL_CONF_VALIDE, EST_INTERNE_VALIDE));
+                    		            PRENOM_CONF_VALIDE,
+                    		            SPECIALITE_CONF_VALIDE, 
+                    		            NUMTEL_CONF_VALIDE,
+                    		            EST_INTERNE_VALIDE));
 
         // Test avec prénom null ou vide
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Conferencier(ID_CONF_VALIDE,NOM_CONF_VALIDE, 
-                    		 null, SPECIALITE_CONF_VALIDE, NUMTEL_CONF_VALIDE, 
-                    		 EST_INTERNE_VALIDE));
+                     () -> new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, 
+                    		            null, SPECIALITE_CONF_VALIDE,
+                    		            NUMTEL_CONF_VALIDE, 
+                    		            EST_INTERNE_VALIDE));
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Conferencier(ID_CONF_VALIDE,NOM_CONF_VALIDE, 
-                    		 "", SPECIALITE_CONF_VALIDE, NUMTEL_CONF_VALIDE, 
-                    		 EST_INTERNE_VALIDE));
+                     () -> new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, "",
+                                            SPECIALITE_CONF_VALIDE,
+                                            NUMTEL_CONF_VALIDE, 
+                    		            EST_INTERNE_VALIDE));
 
         // Test avec spécialité null, vide ou plus de 6 éléments
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Conferencier(ID_CONF_VALIDE,NOM_CONF_VALIDE, 
-                    		 PRENOM_CONF_VALIDE, null, NUMTEL_CONF_VALIDE, 
-                    		 EST_INTERNE_VALIDE));
+                     () -> new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, 
+                    		            PRENOM_CONF_VALIDE, null,
+                    		            NUMTEL_CONF_VALIDE, 
+                    		            EST_INTERNE_VALIDE));
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Conferencier(ID_CONF_VALIDE,NOM_CONF_VALIDE, 
-                    		 PRENOM_CONF_VALIDE, new String[0], 
-                    		 NUMTEL_CONF_VALIDE, EST_INTERNE_VALIDE));
+                     () -> new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, 
+                    		            PRENOM_CONF_VALIDE, new String[0], 
+                    		            NUMTEL_CONF_VALIDE,
+                    		            EST_INTERNE_VALIDE));
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Conferencier(ID_CONF_VALIDE,NOM_CONF_VALIDE, 
-                    		 				PRENOM_CONF_VALIDE, 
-                    	   new String[]{"A", "B", "C", "D", "E", "F", "G"}, 
-                    		 		NUMTEL_CONF_VALIDE, EST_INTERNE_VALIDE));
+                     () -> new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, 
+                    		            PRENOM_CONF_VALIDE, 
+                    	                    new String[] {"A", "B", "C", "D",
+                    	                                  "E", "F", "G"}, 
+                    		            NUMTEL_CONF_VALIDE,
+                    		            EST_INTERNE_VALIDE));
 
         /* Test avec numéro de téléphone null, vide, trop long,
         trop court ou non numérique */
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Conferencier(ID_CONF_VALIDE,NOM_CONF_VALIDE, 
-                    		 PRENOM_CONF_VALIDE,SPECIALITE_CONF_VALIDE, null, 
-                    		 EST_INTERNE_VALIDE));
+                     () -> new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, 
+                    		            PRENOM_CONF_VALIDE,
+                    		            SPECIALITE_CONF_VALIDE, null, 
+                    		            EST_INTERNE_VALIDE));
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Conferencier(ID_CONF_VALIDE,NOM_CONF_VALIDE, 
-                    		 PRENOM_CONF_VALIDE, SPECIALITE_CONF_VALIDE, "", 
-                    		 EST_INTERNE_VALIDE));
+                     () -> new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, 
+                    		            PRENOM_CONF_VALIDE,
+                    		            SPECIALITE_CONF_VALIDE, "", 
+                    		            EST_INTERNE_VALIDE));
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Conferencier(ID_CONF_VALIDE,NOM_CONF_VALIDE, 
-                    		 PRENOM_CONF_VALIDE, SPECIALITE_CONF_VALIDE, 
-                    		 "12345", EST_INTERNE_VALIDE));
+                     () -> new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, 
+                    		            PRENOM_CONF_VALIDE,
+                    		            SPECIALITE_CONF_VALIDE, "12345",
+                    		            EST_INTERNE_VALIDE));
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Conferencier(ID_CONF_VALIDE,NOM_CONF_VALIDE, 
-                    		 PRENOM_CONF_VALIDE, SPECIALITE_CONF_VALIDE, "123", 
-                    		 EST_INTERNE_VALIDE));
+                     () -> new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, 
+                    		            PRENOM_CONF_VALIDE,
+                    		            SPECIALITE_CONF_VALIDE, "123", 
+                    		            EST_INTERNE_VALIDE));
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Conferencier(ID_CONF_VALIDE,NOM_CONF_VALIDE, 
-                    		 PRENOM_CONF_VALIDE, SPECIALITE_CONF_VALIDE, "12a4", 
-                    		 EST_INTERNE_VALIDE));
+                     () -> new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, 
+                    		            PRENOM_CONF_VALIDE,
+                    		            SPECIALITE_CONF_VALIDE, "12a4", 
+                    		            EST_INTERNE_VALIDE));
         assertThrows(IllegalArgumentException.class, 
-                () -> new Conferencier(ID_CONF_VALIDE,NOM_CONF_VALIDE, 
-               		 PRENOM_CONF_VALIDE, SPECIALITE_CONF_VALIDE,
-               		 "01234567a9", EST_INTERNE_VALIDE));
+                     () -> new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, 
+               		                    PRENOM_CONF_VALIDE,
+               		                    SPECIALITE_CONF_VALIDE,
+               		                    "01234567a9", EST_INTERNE_VALIDE));
     }
     
     /**
      * Méthode de test pour 
-     * {@link application.modele.Conferencier#Conferencier(java.lang.String,java.lang.String, 
-     * java.lang.String, java.lang.String[], java.lang.String, boolean, application.modele.Indisponibilite[])}.
+     * {@link application.modele.Conferencier#Conferencier(java.lang.String,
+     * java.lang.String, java.lang.String, java.lang.String[], java.lang.String,
+     * boolean, application.modele.Indisponibilite[])}.
      * Cas uniquement valides
      */
     @Test
     void testConferencierValide() {
-        assertDoesNotThrow(() -> new Conferencier(ID_CONF_VALIDE,
-        		NOM_CONF_VALIDE, PRENOM_CONF_VALIDE, SPECIALITE_CONF_VALIDE, NUMTEL_CONF_VALIDE, 
-        		EST_INTERNE_VALIDE, INDISPONIBILITES_VALIDES));
         
-        assertDoesNotThrow(() -> new Conferencier(ID_CONF_VALIDE,
-        		NOM_CONF_VALIDE, PRENOM_CONF_VALIDE, SPECIALITE_CONF_VALIDE, 
-        		NUMTEL_CONF_VALIDE, EST_INTERNE_VALIDE));
+        assertDoesNotThrow(() -> {
+            new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE,
+                             PRENOM_CONF_VALIDE, SPECIALITE_CONF_VALIDE,
+                             NUMTEL_CONF_VALIDE, EST_INTERNE_VALIDE,
+                             INDISPONIBILITES_VALIDES);
+        });
+        		
+        assertDoesNotThrow(() -> {
+            new Conferencier(ID_CONF_VALIDE,NOM_CONF_VALIDE, PRENOM_CONF_VALIDE,
+                             SPECIALITE_CONF_VALIDE, NUMTEL_CONF_VALIDE,
+                             EST_INTERNE_VALIDE);
+        });
     }
     
 
     /**
-     * Méthode de test pour {@link application.modele.Conferencier#equals()}.
+     * Méthode de test pour
+     * {@link application.modele.Conferencier#equals(java.lang.Object)}.
      */
     @Test
     void testEquals() {
+        
     	// conferencier1 et conferencier2 sont identiques
-        Conferencier conferencier1 = new Conferencier(ID_CONF_VALIDE, 
-        		NOM_CONF_VALIDE, PRENOM_CONF_VALIDE, SPECIALITE_CONF_VALIDE, 
-        		NUMTEL_CONF_VALIDE, EST_INTERNE_VALIDE, 
-        		INDISPONIBILITES_VALIDES);
-        Conferencier conferencier2 = new Conferencier(ID_CONF_VALIDE, 
-        		NOM_CONF_VALIDE, PRENOM_CONF_VALIDE, SPECIALITE_CONF_VALIDE, 
-        		NUMTEL_CONF_VALIDE, EST_INTERNE_VALIDE, 
-        		INDISPONIBILITES_VALIDES);
-        //même que 1 et 2 sauf que pas d'indisponibilites
-        Conferencier conferencier3 = new Conferencier("C000002", 
-        		"Lexpert", "Noemie", new String[]{"peinture", "impressionnisme", "art contemporain"}, 
-        		"0600000001", true,new Indisponibilite[] {
-        				new Indisponibilite(LocalDate.of(2024,10,22)), new Indisponibilite(LocalDate.of(2024,10,26))
-        				});
-        // conferencier4 est diferent de 1 et 2 et 3
-        Conferencier conferencier4 = new Conferencier("C000003", 
-        		"Dujardin", "Oceane", new String[]{"art moderne"}, 
-        		"0611111111", true, 
-        		new Indisponibilite[] {
-        				new Indisponibilite(LocalDate.of(2024,11,07)),
-        				new Indisponibilite(LocalDate.of(2024,11,07)),
-        				new Indisponibilite(LocalDate.of(2024,11,19)),
-        				new Indisponibilite(LocalDate.of(2024,11,22))
-        		});
-      //même que 4 sauf que pas d'indisponibilites
-        Conferencier conferencier5 = new Conferencier("C000008", 
-        		"Deneuve", "Zoé", new String[]{"photo","peinture"}, 
-        		"0600000003", false);
+        Conferencier conferencier1
+        = new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, PRENOM_CONF_VALIDE,
+                           SPECIALITE_CONF_VALIDE, NUMTEL_CONF_VALIDE,
+                           EST_INTERNE_VALIDE, INDISPONIBILITES_VALIDES);
+        Conferencier conferencier2
+        = new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, PRENOM_CONF_VALIDE,
+                           SPECIALITE_CONF_VALIDE, NUMTEL_CONF_VALIDE,
+                           EST_INTERNE_VALIDE, INDISPONIBILITES_VALIDES);
         
-        // conferencier avec un paramètre different avec 1
-        Conferencier conferencier6 = new Conferencier(ID_CONF_VALIDE, 
-        		"Vroemen", PRENOM_CONF_VALIDE, SPECIALITE_CONF_VALIDE, 
-        		NUMTEL_CONF_VALIDE, EST_INTERNE_VALIDE, 
-        		INDISPONIBILITES_VALIDES);
+        // même que 1 et 2 sauf que pas d'indisponibilites
+        Conferencier conferencier3
+        = new Conferencier("C000002", "Lexpert", "Noemie",
+                           new String[] {"peinture", "impressionnisme",
+                                         "art contemporain"},
+        		   "0600000001", true,
+        		   new Indisponibilite[] {
+        		       new Indisponibilite(LocalDate.of(2024,10,22)),
+        		       new Indisponibilite(LocalDate.of(2024,10,26))
+        		   });
         
-        Conferencier conferencier7 = new Conferencier(ID_CONF_VALIDE, 
-        		NOM_CONF_VALIDE, "Ayoub", SPECIALITE_CONF_VALIDE, 
-        		NUMTEL_CONF_VALIDE, EST_INTERNE_VALIDE, 
-        		INDISPONIBILITES_VALIDES);
+        // conferencier4 est différent de 1 et 2 et 3
+        Conferencier conferencier4
+        = new Conferencier("C000003", "Dujardin", "Oceane",
+                           new String[] {"art moderne"}, "0611111111", true,
+        		   new Indisponibilite[] {
+        		       new Indisponibilite(LocalDate.of(2024,11,07)),
+        		       new Indisponibilite(LocalDate.of(2024,11,07)),
+        		       new Indisponibilite(LocalDate.of(2024,11,19)),
+        		       new Indisponibilite(LocalDate.of(2024,11,22))
+        		   });
         
-        Conferencier conferencier8 = new Conferencier(ID_CONF_VALIDE, 
-        		NOM_CONF_VALIDE, PRENOM_CONF_VALIDE, new String[]{"photo","peinture"}, 
-        		NUMTEL_CONF_VALIDE, EST_INTERNE_VALIDE, 
-        		INDISPONIBILITES_VALIDES);
+        // même que 4 sauf que pas d'indisponibilites
+        Conferencier conferencier5
+        = new Conferencier("C000008", "Deneuve", "Zoé", 
+                           new String[] {"photo","peinture"}, "0600000003",
+                           false);
         
-        Conferencier conferencier9 = new Conferencier(ID_CONF_VALIDE, 
-        		NOM_CONF_VALIDE, PRENOM_CONF_VALIDE, SPECIALITE_CONF_VALIDE, 
-        		"0603080911", EST_INTERNE_VALIDE, 
-        		INDISPONIBILITES_VALIDES);
+        // conférencier avec un paramètre different avec 1
+        Conferencier conferencier6
+        = new Conferencier(ID_CONF_VALIDE, "Vroemen", PRENOM_CONF_VALIDE,
+                           SPECIALITE_CONF_VALIDE, NUMTEL_CONF_VALIDE,
+                           EST_INTERNE_VALIDE, INDISPONIBILITES_VALIDES);
         
-        Conferencier conferencier10 = new Conferencier(ID_CONF_VALIDE, 
-        		NOM_CONF_VALIDE, PRENOM_CONF_VALIDE, SPECIALITE_CONF_VALIDE, 
-        		NUMTEL_CONF_VALIDE, false, 
-        		INDISPONIBILITES_VALIDES);
+        Conferencier conferencier7
+        = new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, "Ayoub",
+                           SPECIALITE_CONF_VALIDE, NUMTEL_CONF_VALIDE,
+                           EST_INTERNE_VALIDE, INDISPONIBILITES_VALIDES);
         
-        Conferencier conferencier11 = new Conferencier(ID_CONF_VALIDE, 
-        		NOM_CONF_VALIDE, PRENOM_CONF_VALIDE, SPECIALITE_CONF_VALIDE, 
-        		NUMTEL_CONF_VALIDE, EST_INTERNE_VALIDE, 
-        		new Indisponibilite[] {
-        			new Indisponibilite(LocalDate.of(2024,10,22)), new Indisponibilite(LocalDate.of(2024,10,26))
-        		});
+        Conferencier conferencier8
+        = new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, PRENOM_CONF_VALIDE,
+                           new String[] {"photo","peinture"},
+                           NUMTEL_CONF_VALIDE, EST_INTERNE_VALIDE, 
+        		   INDISPONIBILITES_VALIDES);
         
-        Conferencier conferencier12 = new Conferencier(ID_CONF_VALIDE, 
-        		NOM_CONF_VALIDE, PRENOM_CONF_VALIDE, SPECIALITE_CONF_VALIDE, 
-        		NUMTEL_CONF_VALIDE, EST_INTERNE_VALIDE);
+        Conferencier conferencier9
+        = new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, PRENOM_CONF_VALIDE,
+                           SPECIALITE_CONF_VALIDE, "0603080911",
+                           EST_INTERNE_VALIDE, INDISPONIBILITES_VALIDES);
         
+        Conferencier conferencier10
+        = new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, PRENOM_CONF_VALIDE,
+                           SPECIALITE_CONF_VALIDE, NUMTEL_CONF_VALIDE, false, 
+        		   INDISPONIBILITES_VALIDES);
+        
+        Conferencier conferencier11
+        = new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, PRENOM_CONF_VALIDE,
+                           SPECIALITE_CONF_VALIDE, NUMTEL_CONF_VALIDE,
+                           EST_INTERNE_VALIDE, 
+        		   new Indisponibilite[] {
+        		       new Indisponibilite(LocalDate.of(2024,10,22)),
+        		       new Indisponibilite(LocalDate.of(2024,10,26))
+        		   });
+        
+        Conferencier conferencier12
+        = new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, PRENOM_CONF_VALIDE,
+                           SPECIALITE_CONF_VALIDE, NUMTEL_CONF_VALIDE,
+                           EST_INTERNE_VALIDE);
         
         // Même référence
         assertTrue(conferencier1.equals(conferencier1));
@@ -314,7 +403,6 @@ class TestConferencier {
         assertTrue(conferencier2.equals(conferencier1));
         
         // Objets différents
-        
         assertFalse(conferencier1.equals(conferencier3));
         assertFalse(conferencier1.equals(conferencier4));
         assertFalse(conferencier1.equals(conferencier5));
@@ -403,50 +491,54 @@ class TestConferencier {
      */
     @Test
     void testToString() {
-        Conferencier conferencier1 = new Conferencier(ID_CONF_VALIDE, 
-        		NOM_CONF_VALIDE, PRENOM_CONF_VALIDE, SPECIALITE_CONF_VALIDE, 
-        		NUMTEL_CONF_VALIDE, EST_INTERNE_VALIDE, 
-        		INDISPONIBILITES_VALIDES);
+        Conferencier conferencier1
+        = new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, PRENOM_CONF_VALIDE,
+                           SPECIALITE_CONF_VALIDE, NUMTEL_CONF_VALIDE,
+                           EST_INTERNE_VALIDE, INDISPONIBILITES_VALIDES);
         
         String expectedString1 = "identifiant : " + ID_CONF_VALIDE
-                              + ", nom : " + NOM_CONF_VALIDE
-                              + ", prenom : " + PRENOM_CONF_VALIDE
-                              + ", specialites : " 
-                              + "[Art, Histoire]"
-                              + ", numéro de téléphone : " + NUMTEL_CONF_VALIDE
-                              + ", status(interne ou externe) : " 
-                              + EST_INTERNE_VALIDE
-                              + ", liste des indisponibilites : " 
-                              + "[Le 2/8/2025, Du 22/12/2024 au 26/12/2024]";
+                                 + ", nom : " + NOM_CONF_VALIDE
+                                 + ", prenom : " + PRENOM_CONF_VALIDE
+                                 + ", specialites : " 
+                                 + "[Art, Histoire]"
+                                 + ", numéro de téléphone : "
+                                 + NUMTEL_CONF_VALIDE
+                                 + ", status(interne ou externe) : " 
+                                 + EST_INTERNE_VALIDE
+                                 + ", liste des indisponibilites : " 
+                                 + "[Le 2/8/2025, Du 22/12/2024 au 26/12/2024]";
         
-        //TODO : Corriger test pour conferencier avec indisponibilités vide
         assertEquals(expectedString1, conferencier1.toString());
         
-        Conferencier conferencier2 = new Conferencier(ID_CONF_VALIDE, 
-        		NOM_CONF_VALIDE, PRENOM_CONF_VALIDE, SPECIALITE_CONF_VALIDE, 
-        		NUMTEL_CONF_VALIDE, EST_INTERNE_VALIDE);
+        Conferencier conferencier2 
+        = new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, PRENOM_CONF_VALIDE,
+                           SPECIALITE_CONF_VALIDE, NUMTEL_CONF_VALIDE,
+                           EST_INTERNE_VALIDE);
         
         String expectedString2 = "identifiant : " + ID_CONF_VALIDE
-                              + ", nom : " + NOM_CONF_VALIDE
-                              + ", prenom : " + PRENOM_CONF_VALIDE
-                              + ", specialites : " 
-                              + "[Art, Histoire]"
-                              + ", numéro de téléphone : " + NUMTEL_CONF_VALIDE
-                              + ", status(interne ou externe) : " 
-                              + EST_INTERNE_VALIDE;
+                                 + ", nom : " + NOM_CONF_VALIDE
+                                 + ", prenom : " + PRENOM_CONF_VALIDE
+                                 + ", specialites : " 
+                                 + "[Art, Histoire]"
+                                 + ", numéro de téléphone : "
+                                 + NUMTEL_CONF_VALIDE
+                                 + ", status(interne ou externe) : " 
+                                 + EST_INTERNE_VALIDE;
         
         assertEquals(expectedString2, conferencier2.toString());
     }
 
     /**
-     * Méthode de test pour {@link application.modele.Conferencier#getIdentifiant()}.
+     * Méthode de test pour
+     * {@link application.modele.Conferencier#getIdentifiant()}.
      */
     @Test
     void testGetIdentifiant() {
-        Conferencier conferencier = new Conferencier(ID_CONF_VALIDE,
-        		NOM_CONF_VALIDE, PRENOM_CONF_VALIDE, SPECIALITE_CONF_VALIDE, 
-        		NUMTEL_CONF_VALIDE, EST_INTERNE_VALIDE, 
-        		INDISPONIBILITES_VALIDES);
+        
+        Conferencier conferencier
+        = new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, PRENOM_CONF_VALIDE,
+                           SPECIALITE_CONF_VALIDE, NUMTEL_CONF_VALIDE,
+                           EST_INTERNE_VALIDE, INDISPONIBILITES_VALIDES);
         assertEquals(ID_CONF_VALIDE, conferencier.getIdentifiant());
     }
     
@@ -455,10 +547,11 @@ class TestConferencier {
      */
     @Test
     void testGetNom() {
-        Conferencier conferencier = new Conferencier(ID_CONF_VALIDE,
-        		NOM_CONF_VALIDE, PRENOM_CONF_VALIDE, SPECIALITE_CONF_VALIDE, 
-        		NUMTEL_CONF_VALIDE, EST_INTERNE_VALIDE, 
-        		INDISPONIBILITES_VALIDES);
+        
+        Conferencier conferencier
+        = new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, PRENOM_CONF_VALIDE,
+                           SPECIALITE_CONF_VALIDE, NUMTEL_CONF_VALIDE,
+                           EST_INTERNE_VALIDE, INDISPONIBILITES_VALIDES);
         assertEquals(NOM_CONF_VALIDE, conferencier.getNom());
     }
 
@@ -467,23 +560,27 @@ class TestConferencier {
      */
     @Test
     void testGetPrenom() {
-        Conferencier conferencier = new Conferencier(ID_CONF_VALIDE,
-        		NOM_CONF_VALIDE, PRENOM_CONF_VALIDE, SPECIALITE_CONF_VALIDE, 
-        		NUMTEL_CONF_VALIDE, EST_INTERNE_VALIDE, 
-        		INDISPONIBILITES_VALIDES);
+        
+        Conferencier conferencier
+        = new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, PRENOM_CONF_VALIDE,
+                           SPECIALITE_CONF_VALIDE, NUMTEL_CONF_VALIDE,
+                           EST_INTERNE_VALIDE, INDISPONIBILITES_VALIDES);
         assertEquals(PRENOM_CONF_VALIDE, conferencier.getPrenom());
     }
 
     /**
-     * Méthode de test pour {@link application.modele.Conferencier#getSpecialite()}.
+     * Méthode de test pour
+     * {@link application.modele.Conferencier#getSpecialite()}.
      */
     @Test
     void testGetSpecialite() {
-        Conferencier conferencier = new Conferencier(ID_CONF_VALIDE,
-        		NOM_CONF_VALIDE, PRENOM_CONF_VALIDE, SPECIALITE_CONF_VALIDE, 
-        		NUMTEL_CONF_VALIDE, EST_INTERNE_VALIDE, 
-        		INDISPONIBILITES_VALIDES);
-        assertArrayEquals(SPECIALITE_CONF_VALIDE, conferencier.getSpecialites());
+        
+        Conferencier conferencier
+        = new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, PRENOM_CONF_VALIDE,
+                           SPECIALITE_CONF_VALIDE, NUMTEL_CONF_VALIDE,
+                           EST_INTERNE_VALIDE, INDISPONIBILITES_VALIDES);
+        assertArrayEquals(SPECIALITE_CONF_VALIDE,
+                          conferencier.getSpecialites());
     }
 
     /**
@@ -491,34 +588,40 @@ class TestConferencier {
      */
     @Test
     void testGetNumTel() {
-        Conferencier conferencier = new Conferencier(ID_CONF_VALIDE,
-        		NOM_CONF_VALIDE, PRENOM_CONF_VALIDE, SPECIALITE_CONF_VALIDE, 
-        		NUMTEL_CONF_VALIDE, EST_INTERNE_VALIDE, 
-        		INDISPONIBILITES_VALIDES);
+        
+        Conferencier conferencier
+        = new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, PRENOM_CONF_VALIDE,
+                           SPECIALITE_CONF_VALIDE, NUMTEL_CONF_VALIDE,
+                           EST_INTERNE_VALIDE, INDISPONIBILITES_VALIDES);
         assertEquals(NUMTEL_CONF_VALIDE, conferencier.getNumTel());
     }
 
     /**
-     * Méthode de test pour {@link application.modele.Conferencier#getEstInterne()}.
+     * Méthode de test pour
+     * {@link application.modele.Conferencier#getEstInterne()}.
      */
     @Test
     void testGetEstInterne() {
-        Conferencier conferencier = new Conferencier(ID_CONF_VALIDE,
-        		NOM_CONF_VALIDE, PRENOM_CONF_VALIDE, SPECIALITE_CONF_VALIDE, 
-        		NUMTEL_CONF_VALIDE, EST_INTERNE_VALIDE, 
-        		INDISPONIBILITES_VALIDES);
+        
+        Conferencier conferencier
+        = new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, PRENOM_CONF_VALIDE,
+                           SPECIALITE_CONF_VALIDE, NUMTEL_CONF_VALIDE,
+                           EST_INTERNE_VALIDE, INDISPONIBILITES_VALIDES);
         assertTrue(conferencier.estInterne());
     }
 
     /**
-     * Méthode de test pour {@link application.modele.Conferencier#getIndisponibilites()}.
+     * Méthode de test pour
+     * {@link application.modele.Conferencier#getIndisponibilites()}.
      */
     @Test
     void testGetIndisponibilites() {
-        Conferencier conferencier = new Conferencier(ID_CONF_VALIDE,
-        		NOM_CONF_VALIDE, PRENOM_CONF_VALIDE, SPECIALITE_CONF_VALIDE, 
-        		NUMTEL_CONF_VALIDE, EST_INTERNE_VALIDE, 
-        		INDISPONIBILITES_VALIDES);
-        assertArrayEquals(INDISPONIBILITES_VALIDES, conferencier.getIndisponibilites());
+        
+        Conferencier conferencier 
+        = new Conferencier(ID_CONF_VALIDE, NOM_CONF_VALIDE, PRENOM_CONF_VALIDE,
+                           SPECIALITE_CONF_VALIDE, NUMTEL_CONF_VALIDE,
+                           EST_INTERNE_VALIDE, INDISPONIBILITES_VALIDES);
+        assertArrayEquals(INDISPONIBILITES_VALIDES,
+                          conferencier.getIndisponibilites());
     }
 }
