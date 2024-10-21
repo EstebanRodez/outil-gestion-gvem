@@ -349,7 +349,7 @@ public class ImportationCSV {
                  prenom = ligne[2];
                  specialites = ligne[3].replace("#", "").split(", ");
                  numTel = ligne[4]; 
-                 estInterne = ligne[5].equalsIgnoreCase("oui") ? true : false;
+                 estInterne = ligne[5].equalsIgnoreCase("oui");
                  
                  
                  if (ligne.length == 6) { 
