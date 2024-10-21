@@ -215,5 +215,16 @@ public class Visite {
     public Conferencier getConferencier() {
         return conferencier;
     }
+    
+    /**
+     * Renvoie l'horaire de début sous le format "heures"h"minutes"
+     * Exemples : 360 : 6h00, 600 : 10h00, 1000 : 16h40
+     * @return l'horaire de début de la visite avec le format
+     */
+    public String toStringHoraireDebut() {
+        return horaireDebut/60 + "h" 
+               + (horaireDebut%60 <= 9 ? "0" + horaireDebut%60
+                                       : horaireDebut%60);
+    }
 
 }

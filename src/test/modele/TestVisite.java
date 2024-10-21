@@ -448,5 +448,44 @@ class TestVisite {
         assertNotEquals(null, VISITES_VALIDES[3].getConferencier());
         assertNotEquals(null, VISITES_VALIDES[4].getConferencier());
     }
+    
+    /**
+     * Méthode de test pour {@link application.modele.Visite#getConferencier()}.
+     */
+    @Test
+    void testToStringHoraireDebut() {
+        
+        assertEquals("10h10", VISITES_VALIDES[0].toStringHoraireDebut());
+        assertEquals("10h00", VISITES_VALIDES[1].toStringHoraireDebut());
+        assertEquals("12h00", VISITES_VALIDES[2].toStringHoraireDebut());
+        assertEquals("16h00", VISITES_VALIDES[3].toStringHoraireDebut());
+        assertEquals("19h20", VISITES_VALIDES[4].toStringHoraireDebut());
+        
+        assertNotEquals(null, VISITES_VALIDES[0].toStringHoraireDebut());
+        assertNotEquals(null, VISITES_VALIDES[1].toStringHoraireDebut());
+        assertNotEquals(null, VISITES_VALIDES[2].toStringHoraireDebut());
+        assertNotEquals(null, VISITES_VALIDES[3].toStringHoraireDebut());
+        assertNotEquals(null, VISITES_VALIDES[4].toStringHoraireDebut());
+        assertNotEquals("10h09", VISITES_VALIDES[0].toStringHoraireDebut());
+        assertNotEquals("9h59", VISITES_VALIDES[1].toStringHoraireDebut());
+        assertNotEquals("11h59", VISITES_VALIDES[2].toStringHoraireDebut());
+        assertNotEquals("15h59", VISITES_VALIDES[3].toStringHoraireDebut());
+        assertNotEquals("19h19", VISITES_VALIDES[4].toStringHoraireDebut());
+        assertNotEquals("10h11", VISITES_VALIDES[0].toStringHoraireDebut());
+        assertNotEquals("10h01", VISITES_VALIDES[1].toStringHoraireDebut());
+        assertNotEquals("12h01", VISITES_VALIDES[2].toStringHoraireDebut());
+        assertNotEquals("16h01", VISITES_VALIDES[3].toStringHoraireDebut());
+        assertNotEquals("19h21", VISITES_VALIDES[4].toStringHoraireDebut());
+        assertNotEquals("1010", VISITES_VALIDES[0].toStringHoraireDebut());
+        assertNotEquals("1000", VISITES_VALIDES[1].toStringHoraireDebut());
+        assertNotEquals("1200", VISITES_VALIDES[2].toStringHoraireDebut());
+        assertNotEquals("1600", VISITES_VALIDES[3].toStringHoraireDebut());
+        assertNotEquals("1920", VISITES_VALIDES[4].toStringHoraireDebut());
+        assertNotEquals("10h9", VISITES_VALIDES[0].toStringHoraireDebut());
+        assertNotEquals("10h0", VISITES_VALIDES[1].toStringHoraireDebut());
+        assertNotEquals("12h0", VISITES_VALIDES[2].toStringHoraireDebut());
+        assertNotEquals("16h0", VISITES_VALIDES[3].toStringHoraireDebut());
+        assertNotEquals("19h2", VISITES_VALIDES[4].toStringHoraireDebut());
+    }
 
 }
