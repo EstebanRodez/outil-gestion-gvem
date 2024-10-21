@@ -59,10 +59,11 @@ public class DonneesImporteesExpositionControleur {
         this.fenetreAppli = fenetreAppli;
     }
     
-    static List<Exposition> expo = ImportationCSV.getExpositions();
+    private static List<Exposition> expo = ImportationCSV.getExpositions();
     
     // Formatter pour les dates au format jj/MM/aaaa
-    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    private static final DateTimeFormatter DATE_FORMAT 
+    = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     
     @FXML
@@ -118,8 +119,8 @@ public class DonneesImporteesExpositionControleur {
                 
                 ExpositionTemporaire expoTempo 
                 = (ExpositionTemporaire) ligne.getValue();
-                return new SimpleStringProperty(expoTempo.getDateDebut()
-                                                         .toString());
+                return new SimpleStringProperty(
+                        formatDate(expoTempo.getDateDebut()));
             }
         });
         
@@ -137,8 +138,8 @@ public class DonneesImporteesExpositionControleur {
                 
                 ExpositionTemporaire expoTempo 
                 = (ExpositionTemporaire) ligne.getValue();
-                return new SimpleStringProperty(expoTempo.getDateFin()
-                                                         .toString());
+                return new SimpleStringProperty(
+                        formatDate(expoTempo.getDateFin()));
             }
         });
 
@@ -160,9 +161,13 @@ public class DonneesImporteesExpositionControleur {
         tableExposition.setItems(exposList);
     }
     
-    // Méthode pour formater les dates en jj/MM/aaaa
+    /**
+     * Formatte une date en chaîne de caractère en format française
+     * @param date la date à convertir
+     * @return la data convertie dans le format français
+     */
     private static String formatDate(LocalDate date) {
-        return date != null ? date.format(DATE_FORMATTER) : "";
+        return date != null ? date.format(DATE_FORMAT) : "";
     }
 
     // Helper method to convert String[] to String
