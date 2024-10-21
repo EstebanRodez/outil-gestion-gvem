@@ -6,6 +6,7 @@
 package application.modele;
 
 import java.util.Arrays;
+import java.util.HashSet;
 
 /**
  * Tout conférencier est décrit par son nom, son prénom et sa
@@ -99,7 +100,7 @@ public class Conferencier {
 
     private boolean estInterne;
 
-    private Indisponibilite[] indisponibilites;
+    private HashSet<Indisponibilite> indisponibilites;
     
     /**
      * Crée un conférencier avec un nom, un prénom, un numéro de
@@ -266,7 +267,13 @@ public class Conferencier {
         this.specialites = specialites;
         this.numTel = numTel.trim();
         this.estInterne = estInterne;
-        this.indisponibilites = indisponibilites;
+        
+        this.indisponibilites = new HashSet<>();
+        for (Indisponibilite date : indisponibilites) {
+            
+            /* La fonction add permet d'éviter les doublons */
+            this.indisponibilites.add(date);
+        }
     }
     
     @Override
@@ -276,7 +283,7 @@ public class Conferencier {
         }
 
         // si conferencierAComparer n'est pas un objet de type Conferencier
-        if ( ! (conferencierAComparer instanceof Conferencier)) {
+        if (!(conferencierAComparer instanceof Conferencier)) {
             return false;
         }
 
@@ -292,13 +299,27 @@ public class Conferencier {
 
     @Override
     public String toString() {
+        
+        StringBuilder listeIndisponibilite = new StringBuilder();
+        int indice = 1;
+        if (indisponibilites != null) {
+            
+            for (Indisponibilite date : indisponibilites) {
+                listeIndisponibilite.append(date.toString());
+                if (indice != indisponibilites.size()) {
+                    listeIndisponibilite.append(", ");
+                }
+                indice++;
+            }
+        }
+        
         return "identifiant : " + identifiant + ", nom : " + nom
                + ", prenom : " + prenom + ", specialites : " 
                + Arrays.toString(specialites) + ", numéro de téléphone : "
                + numTel + ", status(interne ou externe) : " + estInterne 
                + (indisponibilites == null ? ""
                                            : ", liste des indisponibilites : "
-                                           + Arrays.toString(indisponibilites));
+                                           + listeIndisponibilite.toString());
     }
 
     /**
@@ -354,6 +375,9 @@ public class Conferencier {
      * @return la liste des indisponibilités du conférencier
      */
     public Indisponibilite[] getIndisponibilites() {
-        return indisponibilites;
+        return (indisponibilites != null
+                ? indisponibilites.toArray(
+                        new Indisponibilite[indisponibilites.size()])
+                : null);
     }
 }

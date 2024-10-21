@@ -9,6 +9,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
@@ -470,26 +471,26 @@ class TestConferencier {
         assertEquals("identifiant : C000001, nom : Dupont, prenom : Pierre, "
                      + "specialites : [Art, Histoire], numéro de téléphone : "
                      + "0123456789, status(interne ou externe) : true, liste "
-                     + "des indisponibilites : [Le 2/8/2025, Du 22/12/2024 au "
-                     + "26/12/2024]", 
+                     + "des indisponibilites : Le 2/8/2025, Du 22/12/2024 au "
+                     + "26/12/2024", 
                      CONFERENCIERS_VALIDES[0].toString());
         assertEquals("identifiant : C000001, nom : Dupont, prenom : Pierre, "
                      + "specialites : [Art, Histoire], numéro de téléphone : "
                      + "0123456789, status(interne ou externe) : true, liste "
-                     + "des indisponibilites : [Le 2/8/2025, Du 22/12/2024 au "
-                     + "26/12/2024]",
+                     + "des indisponibilites : Le 2/8/2025, Du 22/12/2024 au "
+                     + "26/12/2024",
                      CONFERENCIERS_VALIDES[1].toString());
         assertEquals("identifiant : C000002, nom : Lexpert, prenom : Noemie, "
                      + "specialites : [peinture, impressionnisme, art "
                      + "contemporain], numéro de téléphone : 0600000001, "
                      + "status(interne ou externe) : true, liste des "
-                     + "indisponibilites : [Le 22/10/2024, Le 26/10/2024]",
+                     + "indisponibilites : Le 26/10/2024, Le 22/10/2024",
                      CONFERENCIERS_VALIDES[2].toString());
         assertEquals("identifiant : C000003, nom : Dujardin, prenom : Oceane, "
                      + "specialites : [art moderne], numéro de téléphone : "
                      + "0611111111, status(interne ou externe) : true, liste "
-                     + "des indisponibilites : [Le 7/11/2024, Le 7/11/2024, "
-                     + "Le 19/11/2024, Le 22/11/2024]" ,
+                     + "des indisponibilites : Le 7/11/2024, Le 22/11/2024, "
+                     + "Le 19/11/2024" ,
                      CONFERENCIERS_VALIDES[3].toString());
         assertEquals("identifiant : C000008, nom : Deneuve, prenom : Zoé, "
                      + "specialites : [photo, peinture], numéro de téléphone : "
@@ -498,37 +499,37 @@ class TestConferencier {
         assertEquals("identifiant : C000001, nom : Vroemen, prenom : Pierre, "
                      + "specialites : [Art, Histoire], numéro de téléphone : "
                      + "0123456789, status(interne ou externe) : true, liste "
-                     + "des indisponibilites : [Le 2/8/2025, Du 22/12/2024 au "
-                     + "26/12/2024]", 
+                     + "des indisponibilites : Le 2/8/2025, Du 22/12/2024 au "
+                     + "26/12/2024", 
                      CONFERENCIERS_VALIDES[5].toString());
         assertEquals("identifiant : C000001, nom : Dupont, prenom : Ayoub, "
                      + "specialites : [Art, Histoire], numéro de téléphone : "
                      + "0123456789, status(interne ou externe) : true, liste "
-                     + "des indisponibilites : [Le 2/8/2025, Du 22/12/2024 au "
-                     + "26/12/2024]", 
+                     + "des indisponibilites : Le 2/8/2025, Du 22/12/2024 au "
+                     + "26/12/2024", 
                      CONFERENCIERS_VALIDES[6].toString());
         assertEquals("identifiant : C000001, nom : Dupont, prenom : Pierre, "
                      + "specialites : [photo, peinture], numéro de téléphone : "
                      + "0123456789, status(interne ou externe) : true, liste "
-                     + "des indisponibilites : [Le 2/8/2025, Du 22/12/2024 au "
-                     + "26/12/2024]", 
+                     + "des indisponibilites : Le 2/8/2025, Du 22/12/2024 au "
+                     + "26/12/2024", 
                      CONFERENCIERS_VALIDES[7].toString());
         assertEquals("identifiant : C000001, nom : Dupont, prenom : Pierre, "
                      + "specialites : [Art, Histoire], numéro de téléphone : "
                      + "0603080911, status(interne ou externe) : true, liste "
-                     + "des indisponibilites : [Le 2/8/2025, Du 22/12/2024 au "
-                     + "26/12/2024]", 
+                     + "des indisponibilites : Le 2/8/2025, Du 22/12/2024 au "
+                     + "26/12/2024", 
                      CONFERENCIERS_VALIDES[8].toString());
         assertEquals("identifiant : C000001, nom : Dupont, prenom : Pierre, "
                      + "specialites : [Art, Histoire], numéro de téléphone : "
                      + "0123456789, status(interne ou externe) : false, liste "
-                     + "des indisponibilites : [Le 2/8/2025, Du 22/12/2024 au "
-                     + "26/12/2024]", 
+                     + "des indisponibilites : Le 2/8/2025, Du 22/12/2024 au "
+                     + "26/12/2024", 
                      CONFERENCIERS_VALIDES[9].toString());
         assertEquals("identifiant : C000001, nom : Dupont, prenom : Pierre, "
                      + "specialites : [Art, Histoire], numéro de téléphone : "
                      + "0123456789, status(interne ou externe) : true, liste "
-                     + "des indisponibilites : [Le 22/10/2024, Le 26/10/2024]", 
+                     + "des indisponibilites : Le 26/10/2024, Le 22/10/2024", 
                      CONFERENCIERS_VALIDES[10].toString());
         assertEquals("identifiant : C000001, nom : Dupont, prenom : Pierre, "
                      + "specialites : [Art, Histoire], numéro de téléphone : "
@@ -848,17 +849,16 @@ class TestConferencier {
         );
         assertArrayEquals(
             new Indisponibilite[] {
-                new Indisponibilite(LocalDate.of(2024,10,22)),
-                new Indisponibilite(LocalDate.of(2024,10,26))
+                new Indisponibilite(LocalDate.of(2024,10,26)),
+                new Indisponibilite(LocalDate.of(2024,10,22))
             },
             CONFERENCIERS_VALIDES[2].getIndisponibilites()
         );
         assertArrayEquals(
             new Indisponibilite[] {
                 new Indisponibilite(LocalDate.of(2024,11,07)),
-                new Indisponibilite(LocalDate.of(2024,11,07)),
-                new Indisponibilite(LocalDate.of(2024,11,19)),
-                new Indisponibilite(LocalDate.of(2024,11,22))
+                new Indisponibilite(LocalDate.of(2024,11,22)),
+                new Indisponibilite(LocalDate.of(2024,11,19))
             },
             CONFERENCIERS_VALIDES[3].getIndisponibilites()
         );
@@ -905,8 +905,8 @@ class TestConferencier {
         );
         assertArrayEquals(
             new Indisponibilite[] {
-                new Indisponibilite(LocalDate.of(2024,10,22)),
-                new Indisponibilite(LocalDate.of(2024,10,26))
+                new Indisponibilite(LocalDate.of(2024,10,26)),
+                new Indisponibilite(LocalDate.of(2024,10,22))
             },
             CONFERENCIERS_VALIDES[10].getIndisponibilites()
         );

@@ -190,5 +190,13 @@ public class Indisponibilite {
         
         return texte.toString();
     }
+
+    /* non javadoc - @see java.lang.Object#hashCode() */
+    @Override
+    public int hashCode() {
+        return dateDebut.hashCode() + (dateFin != null ? dateFin.hashCode()
+                                                       : 0);
+    }
+    
     
 }
