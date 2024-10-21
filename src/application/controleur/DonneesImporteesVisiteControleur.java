@@ -10,12 +10,16 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.LocalDate;
+import java.util.List;
 
 import application.modele.Client;
 import application.modele.Conferencier;
 import application.modele.Employe;
 import application.modele.Exposition;
 import application.modele.Visite;
+import application.utilitaire.ImportationCSV;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,6 +30,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 /**
@@ -43,6 +48,8 @@ import javafx.stage.Stage;
 public class DonneesImporteesVisiteControleur {
     
     private Stage fenetreAppli;
+    
+    private static List<Visite> visite = ImportationCSV.getVisites();
     
     /**
      * Définit la fenêtre de l'application.
@@ -81,6 +88,34 @@ public class DonneesImporteesVisiteControleur {
 
     @FXML
     private TableView<Visite> tableExposition;
+    
+    /**
+     * 
+     */
+    @FXML
+    public void initialize() {
+        conferencier.setCellValueFactory(
+                new PropertyValueFactory<>("conferencier"));
+        date.setCellValueFactory(
+                new PropertyValueFactory<>("date"));
+        employe.setCellValueFactory(
+                new PropertyValueFactory<>("employe"));
+        exposition.setCellValueFactory(
+                new PropertyValueFactory<>("exposition"));
+        horaireDebut.setCellValueFactory(
+                new PropertyValueFactory<>("horaireDebut"));
+        identifiant.setCellValueFactory(
+                new PropertyValueFactory<>("identifiant"));
+        intitule.setCellValueFactory(
+                new PropertyValueFactory<>("intitule"));
+        numTel.setCellValueFactory(
+                new PropertyValueFactory<>("numTel"));
+        
+     // Populate the table with the imported exhibitions
+        ObservableList<Visite> visiteList
+        = FXCollections.observableArrayList(visite);
+        tableExposition.setItems(visiteList);
+    }
 
     @FXML
     void retourAccueilAction(ActionEvent event) throws IOException {
