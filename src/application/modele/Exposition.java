@@ -219,20 +219,4 @@ public class Exposition {
         return resume;
     }
 
-    /**
-     * Récupère la date de début de l'exposition temporaire
-     * @return null
-     */
-    public LocalDate getDateDebut() {
-        return null; // ou une date par défaut
-    }
-
-    /**
-     * Récupère la date de début de l'exposition temporaire
-     * @return null
-     */
-    public LocalDate getDateFin() {
-        return null; // ou une date par défaut
-    }
-
 }
