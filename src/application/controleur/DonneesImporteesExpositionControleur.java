@@ -152,9 +152,8 @@ public class DonneesImporteesExpositionControleur {
         
         // Pour motscles, convertie le tableau en chaine de caractere
         motsCles.setCellValueFactory(cellData -> 
-        new SimpleStringProperty(getMotsClesAsString
-                (cellData.getValue().getMotsCles())));
-    
+        new SimpleStringProperty(toStringMotsCles(cellData.getValue()
+                                                          .getMotsCles())));
     
         // Populate the table with the imported exhibitions
         ObservableList<Exposition> exposList = FXCollections.observableArrayList(expo);
@@ -162,7 +161,8 @@ public class DonneesImporteesExpositionControleur {
     }
     
     /**
-     * Formatte une date en chaîne de caractère en format française
+     * Formatte une date en chaîne de caractère en format française.
+     * 
      * @param date la date à convertir
      * @return la data convertie dans le format français
      */
@@ -170,8 +170,15 @@ public class DonneesImporteesExpositionControleur {
         return date != null ? date.format(DATE_FORMAT) : "";
     }
 
-    // Helper method to convert String[] to String
-    private static String getMotsClesAsString(String[] motsCles) {
+    
+    /**
+     * Transforme le tableau des mots clés en une chaîne de caractère
+     * plus visible.
+     * 
+     * @param motsCles la liste des mots clés
+     * @return la chaîne de caractère contenant les mots clés
+     */
+    private static String toStringMotsCles(String[] motsCles) {
         return motsCles != null ? String.join(", ", motsCles) : "";
     }
 
