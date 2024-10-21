@@ -7,6 +7,7 @@ package application.modele;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.TreeSet;
 
 /**
  * Tout conférencier est décrit par son nom, son prénom et sa
@@ -100,7 +101,7 @@ public class Conferencier {
 
     private boolean estInterne;
 
-    private HashSet<Indisponibilite> indisponibilites;
+    private TreeSet<Indisponibilite> indisponibilites;
     
     /**
      * Crée un conférencier avec un nom, un prénom, un numéro de
@@ -268,7 +269,7 @@ public class Conferencier {
         this.numTel = numTel.trim();
         this.estInterne = estInterne;
         
-        this.indisponibilites = new HashSet<>();
+        this.indisponibilites = new TreeSet<>();
         for (Indisponibilite date : indisponibilites) {
             
             /* La fonction add permet d'éviter les doublons */
@@ -278,6 +279,7 @@ public class Conferencier {
     
     @Override
     public boolean equals(Object conferencierAComparer) {
+        
         if (this == conferencierAComparer) { // objet de même référence
             return true;
         }

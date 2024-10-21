@@ -18,7 +18,7 @@ import java.time.LocalDate;
  * @author Esteban Vroemen
  * @version 1.0
  */
-public class Indisponibilite {
+public class Indisponibilite implements Comparable<Indisponibilite> {
     
     private static final String ERREUR_DATE_DEBUT_INVALIDE =
     """
@@ -194,8 +194,32 @@ public class Indisponibilite {
     /* non javadoc - @see java.lang.Object#hashCode() */
     @Override
     public int hashCode() {
-        return dateDebut.hashCode() + (dateFin != null ? dateFin.hashCode()
-                                                       : 0);
+        return dateDebut.hashCode()
+               + (dateFin != null ? dateFin.hashCode() : 0);
+    }
+
+    /* non javadoc - @see java.lang.Comparable#compareTo(java.lang.Object) */
+    @Override
+    public int compareTo(Indisponibilite indisponibilite) {
+
+        int valeur;
+        valeur = this.dateDebut.compareTo(indisponibilite.dateDebut);
+        if (valeur == 0) {
+            
+            if (this.dateFin == null && indisponibilite.dateFin != null) {
+                
+                valeur
+                = indisponibilite.dateDebut.compareTo(indisponibilite.dateFin);
+            } else {
+                
+                valeur = (this.dateFin != null ? this.dateFin : this.dateDebut)
+                          .compareTo(indisponibilite.dateFin != null 
+                                     ? indisponibilite.dateFin 
+                                     : indisponibilite.dateDebut);
+            }
+        }
+        
+        return valeur;
     }
     
     
