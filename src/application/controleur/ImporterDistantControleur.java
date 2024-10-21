@@ -9,8 +9,10 @@ import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 
 import application.utilitaire.Client;
+import application.utilitaire.ImportationCSV;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -124,7 +126,11 @@ public class ImporterDistantControleur {
         String port = txtFieldPort.getText().trim();
         if (isValidIPAddress(ipServeur) && isValidPort(port)) {
             //TODO créer de nouveux fichiers avec noms unique si fichier déjà existant avec ce nom
-            Client.recevoirFichier(ipServeur, Integer.parseInt(port), "fichierRecu.csv");
+            Client.recevoirFichier(ipServeur, Integer.parseInt(port), "expositions 28_08_24 17_26Recu.csv");
+            
+            List<String[]> donnee;
+            donnee = ImportationCSV.importer("expositions 28_08_24 17_26Recu.csv");
+            ImportationCSV.traitementDonnees(donnee);
             
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/vue/importerDistantValideVue.fxml"));
             Parent importerDistantValideVue = loader.load();

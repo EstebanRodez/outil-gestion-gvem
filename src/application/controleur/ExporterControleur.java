@@ -84,7 +84,7 @@ public class ExporterControleur {
     
     @FXML
     void btnExporterAction(ActionEvent event) {
-        Serveur.envoyerFichier(65432, "fichierAEnvoyer.txt");
+        Serveur.envoyerFichier(65432, "expositions 28_08_24 17_26.csv");
     }
 
     @FXML
