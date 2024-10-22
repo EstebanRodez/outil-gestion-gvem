@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import application.utilitaire.Serveur;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -34,6 +35,12 @@ import javafx.stage.Stage;
 public class ExporterControleur {
     
     private Stage fenetreAppli;
+
+    private static String[] CHEMIN_FICHIER_CSV = {
+                                             "conferencier 28_08_24 17_26.csv", 
+                                             "employes 28_08_24 17_26.csv",
+                                             "expositions 28_08_24 17_26.csv",
+                                             "visites 28_08_24 17_26.csv"};
     
     /**
      * Définit la fenêtre de l'application.
@@ -42,6 +49,7 @@ public class ExporterControleur {
     public void setFenetreAppli(Stage fenetreAppli) {
       this.fenetreAppli = fenetreAppli;
     }
+    
     
     @FXML
     private Button btnAide;
@@ -81,8 +89,8 @@ public class ExporterControleur {
     }
     
     @FXML
-    void btnConnexionAction(ActionEvent event) {
-
+    void btnExporterAction(ActionEvent event) {
+        Serveur.envoyerFichiers(65432, CHEMIN_FICHIER_CSV);
     }
 
     @FXML

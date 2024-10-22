@@ -6,10 +6,16 @@
 package application.controleur;
 
 import java.awt.Desktop;
+import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
+import application.utilitaire.Client;
+import application.utilitaire.ImportationCSV;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -34,6 +40,12 @@ import javafx.stage.Stage;
 public class ImporterDistantControleur {
     
     private Stage fenetreAppli;
+    
+    private static String[] CHEMIN_FICHIER_CSV_RECU = {
+                                        "recu/expositions 28_08_24 17_26.csv",
+                                        "recu/employes 28_08_24 17_26.csv",
+                                        "recu/conferencier 28_08_24 17_26.csv", 
+                                        "recu/visites 28_08_24 17_26.csv"};
     
     /**
      * Définit la fenêtre de l'application.
@@ -121,7 +133,37 @@ public class ImporterDistantControleur {
     void btnConnexionAction(ActionEvent event) throws IOException {
         String ipServeur = txtFieldIPServeur.getText().trim();
         String port = txtFieldPort.getText().trim();
+
         if (isValidIPAddress(ipServeur) && isValidPort(port)) {
+            // Réception des fichiers depuis le serveur
+            Client.recevoirFichiers(ipServeur, Integer.parseInt(port), CHEMIN_FICHIER_CSV_RECU);
+
+            // Traitement des fichiers reçus
+            List<File> fichiersSelectionnes = new ArrayList<>();
+            for (String cheminFichier : CHEMIN_FICHIER_CSV_RECU) {
+                fichiersSelectionnes.add(new File(cheminFichier));
+            }
+
+            // Vérification si les fichiers ont été sélectionnés et traitement
+            if (!fichiersSelectionnes.isEmpty()) {
+                StringBuilder nomsFichiers = new StringBuilder();
+                for (File fichier : fichiersSelectionnes) {
+                    try {
+                        // Importer et traiter les données CSV
+                        List<String[]> donnees = ImportationCSV.importer(fichier.getAbsolutePath());
+                        ImportationCSV.traitementDonnees(donnees);
+
+                        // Ajouter le nom du fichier traité à la liste
+                        nomsFichiers.append(fichier.getName()).append("\n");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                // Afficher les noms des fichiers traités (facultatif)
+                System.out.println("Fichiers traités : \n" + nomsFichiers.toString());
+            }
+            
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/vue/importerDistantValideVue.fxml"));
             Parent importerDistantValideVue = loader.load();
             ImporterDistantValideControleur controleur = loader.getController();
