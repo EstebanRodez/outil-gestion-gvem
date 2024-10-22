@@ -5,6 +5,7 @@
 package application.utilitaire;
 
 import java.io.BufferedOutputStream;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -17,62 +18,57 @@ import java.net.Socket;
  */
 public class Serveur {
 
-//    /** 
-//     * Méthode principale pour lancer le serveur.
-//     * @param args non utilisé
-//     */
-//    public static void main(String[] args) {
-//        envoyerFichier(12345, "fichierATransmettre.txt");
-//    }
-
-    /** 
-     * Cette méthode attend la connexion d'un client et lui envoie un fichier texte.
+    /**
+     * Envoie plusieurs fichiers à un client via une connexion socket.
      * 
-     * @param port Le port sur lequel le serveur écoute.
-     * @param cheminFichier Le chemin du fichier texte à envoyer.
+     * Pour chaque fichier, le serveur envoie d'abord la taille du fichier, suivie de son contenu. 
+     * Cela permet au client de savoir exactement combien de données il doit recevoir 
+     * avant de passer au fichier suivant.
+     *
+     * @param port Le port sur lequel le serveur écoute les connexions du client.
+     * @param cheminsFichiers Un tableau contenant les chemins des fichiers à envoyer.
+     * 
+     * @throws IOException Si une erreur survient lors de la lecture des fichiers ou de l'envoi de données au client.
      */
-    public static void envoyerFichier(int port, String cheminFichier) {
+    public static void envoyerFichiers(int port, String[] cheminsFichiers) {
         final int TAILLE_BLOC_DONNEES = 1024;
-        
-        try {
-            // Création d'un ServerSocket écoutant sur le port spécifié.
-            ServerSocket serverSocket = new ServerSocket(port);
+
+        try (ServerSocket serverSocket = new ServerSocket(port)) {
             System.out.println("Serveur en attente de connexion sur le port " + port + "...");
 
-            // Attente d'une connexion client.
-            Socket clientSocket = serverSocket.accept();
-            System.out.println("Connexion établie avec le client.");
+            try (Socket clientSocket = serverSocket.accept();
+                 BufferedOutputStream out = new BufferedOutputStream(clientSocket.getOutputStream());
+                 DataOutputStream dataOut = new DataOutputStream(out)) {
 
-            // Ouverture du fichier à envoyer.
-            File fichier = new File(cheminFichier);
-            if (!fichier.exists() || !fichier.isFile()) {
-                System.err.println("Le fichier spécifié n'existe pas ou n'est pas valide.");
-                clientSocket.close();
-                serverSocket.close();
-                return;
+                for (String cheminFichier : cheminsFichiers) {
+                    File fichier = new File(cheminFichier);
+
+                    if (!fichier.exists() || !fichier.isFile()) {
+                        System.err.println("Le fichier " + fichier.getAbsolutePath() + " n'existe pas.");
+                        return;
+                    }
+
+                    // Envoyer la taille du fichier au client
+                    dataOut.writeLong(fichier.length());
+                    dataOut.flush();  // S'assurer que la taille est envoyée avant le fichier
+
+                    // Envoyer le contenu du fichier
+                    try (FileInputStream fileIn = new FileInputStream(fichier)) {
+                        byte[] buffer = new byte[TAILLE_BLOC_DONNEES];
+                        int tailleBloc;
+                        while ((tailleBloc = fileIn.read(buffer)) != -1) {
+                            dataOut.write(buffer, 0, tailleBloc);
+                        }
+                        dataOut.flush();  // S'assurer que toutes les données sont envoyées
+                        System.out.println("Fichier " + fichier.getAbsolutePath() + " envoyé.");
+                    }
+                }
             }
-
-            // Lecture du fichier.
-            FileInputStream fileIn = new FileInputStream(fichier);
-            BufferedOutputStream out = new BufferedOutputStream(clientSocket.getOutputStream());
-
-            // Envoi du fichier en blocs de données au client.
-            byte[] buffer = new byte[TAILLE_BLOC_DONNEES];
-            int tailleBloc;
-            while ((tailleBloc = fileIn.read(buffer)) != -1) {
-                out.write(buffer, 0, tailleBloc);
-                System.out.println("Bloc de " + tailleBloc + " octets envoyé.");
-            }
-
-            // Fermeture des flux et des connexions.
-            System.out.println("Fichier envoyé : " + fichier.getAbsolutePath());
-            fileIn.close();
-            out.close();
-            clientSocket.close();
-            serverSocket.close();
-
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+
+
 }
