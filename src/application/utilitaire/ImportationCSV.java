@@ -6,9 +6,12 @@
 package application.utilitaire;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
@@ -178,12 +181,19 @@ public class ImportationCSV {
 
         ArrayList<String[]> data = new ArrayList<>();
         BufferedReader fichierCSV;
+        FileInputStream fileInputStream;
+        InputStreamReader inputStreamReader;
+        
         String ligne;
         String[] valeur;
         String entete;
 
         try {
-            fichierCSV = new BufferedReader(new FileReader(lienFichier));
+            fileInputStream = new FileInputStream(lienFichier);
+            inputStreamReader 
+                = new InputStreamReader(fileInputStream, 
+                                        StandardCharsets.ISO_8859_1);
+            fichierCSV = new BufferedReader(inputStreamReader);
             entete = fichierCSV.readLine();
             if (!entete.substring(0,5).equals("Ident") && entete != null) {
                 valeur = entete.split(";");
