@@ -14,7 +14,7 @@ import java.net.Socket;
 
 /** 
  * Classe Serveur responsable de l'envoi d'un fichier texte à un client une fois la connexion établie.
- * @author tom.jammes
+ * @author Baptiste Thenieres
  */
 public class Serveur {
 

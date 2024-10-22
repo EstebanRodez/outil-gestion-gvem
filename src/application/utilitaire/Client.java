@@ -13,6 +13,7 @@ import java.net.Socket;
 
 /**
  * TODO commenter la responsabilité de cette class (SRP)
+ * @author Baptiste Thenieres
  */
 public class Client {
 
