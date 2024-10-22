@@ -50,11 +50,6 @@ class TestIndisponibilite {
     @Test
     void testIndisponibiliteInvalide() {
         
-        System.out.println(INDISPONIBILITES_VALIDES[0].hashCode());
-        System.out.println(INDISPONIBILITES_VALIDES[1].hashCode());
-        System.out.println(INDISPONIBILITES_VALIDES[2].hashCode());
-        System.out.println(INDISPONIBILITES_VALIDES[3].hashCode());
-        
         /*
          * Tests spécifiques au constructeur à 1 argument
          */
@@ -479,7 +474,60 @@ class TestIndisponibilite {
     @Test
     void testHashCode() {
         
-        // TODO Ajouter des tests pour 100% de couverture
+        /*
+         * Manière de calculer le hashCode d'une LocalDate :
+         * (année & 0xFFFFF800) ^ ((année << 11) + (mois << 6) + (jour)
+         */
+        
+        assertEquals(4106588, INDISPONIBILITES_VALIDES[0].hashCode());
+        assertEquals(4106453, INDISPONIBILITES_VALIDES[1].hashCode());
+        assertEquals(4106766, INDISPONIBILITES_VALIDES[2].hashCode());
+        assertEquals(4106964, INDISPONIBILITES_VALIDES[3].hashCode());
+        assertEquals(8213240, INDISPONIBILITES_VALIDES[4].hashCode());
+        assertEquals(8212970, INDISPONIBILITES_VALIDES[5].hashCode());
+        assertEquals(8213596, INDISPONIBILITES_VALIDES[6].hashCode());
+        assertEquals(8213992, INDISPONIBILITES_VALIDES[7].hashCode());
+        
+        assertNotEquals(0, INDISPONIBILITES_VALIDES[0].hashCode());
+        assertNotEquals(0, INDISPONIBILITES_VALIDES[1].hashCode());
+        assertNotEquals(0, INDISPONIBILITES_VALIDES[2].hashCode());
+        assertNotEquals(0, INDISPONIBILITES_VALIDES[3].hashCode());
+        assertNotEquals(0, INDISPONIBILITES_VALIDES[4].hashCode());
+        assertNotEquals(0, INDISPONIBILITES_VALIDES[5].hashCode());
+        assertNotEquals(0, INDISPONIBILITES_VALIDES[6].hashCode());
+        assertNotEquals(0, INDISPONIBILITES_VALIDES[7].hashCode());
+        assertNotEquals("", INDISPONIBILITES_VALIDES[0].hashCode());
+        assertNotEquals("", INDISPONIBILITES_VALIDES[1].hashCode());
+        assertNotEquals("", INDISPONIBILITES_VALIDES[2].hashCode());
+        assertNotEquals("", INDISPONIBILITES_VALIDES[3].hashCode());
+        assertNotEquals("", INDISPONIBILITES_VALIDES[4].hashCode());
+        assertNotEquals("", INDISPONIBILITES_VALIDES[5].hashCode());
+        assertNotEquals("", INDISPONIBILITES_VALIDES[6].hashCode());
+        assertNotEquals("", INDISPONIBILITES_VALIDES[7].hashCode());
+        assertNotEquals(-4106588, INDISPONIBILITES_VALIDES[0].hashCode());
+        assertNotEquals(-4106453, INDISPONIBILITES_VALIDES[1].hashCode());
+        assertNotEquals(-4106766, INDISPONIBILITES_VALIDES[2].hashCode());
+        assertNotEquals(-4106964, INDISPONIBILITES_VALIDES[3].hashCode());
+        assertNotEquals(-8213240, INDISPONIBILITES_VALIDES[4].hashCode());
+        assertNotEquals(-8212970, INDISPONIBILITES_VALIDES[5].hashCode());
+        assertNotEquals(-8213596, INDISPONIBILITES_VALIDES[6].hashCode());
+        assertNotEquals(-8213992, INDISPONIBILITES_VALIDES[7].hashCode());
+        assertNotEquals(4106589, INDISPONIBILITES_VALIDES[0].hashCode());
+        assertNotEquals(4106454, INDISPONIBILITES_VALIDES[1].hashCode());
+        assertNotEquals(4106767, INDISPONIBILITES_VALIDES[2].hashCode());
+        assertNotEquals(4106965, INDISPONIBILITES_VALIDES[3].hashCode());
+        assertNotEquals(8213241, INDISPONIBILITES_VALIDES[4].hashCode());
+        assertNotEquals(8212971, INDISPONIBILITES_VALIDES[5].hashCode());
+        assertNotEquals(8213597, INDISPONIBILITES_VALIDES[6].hashCode());
+        assertNotEquals(8213993, INDISPONIBILITES_VALIDES[7].hashCode());
+        assertNotEquals(4106587, INDISPONIBILITES_VALIDES[0].hashCode());
+        assertNotEquals(4106452, INDISPONIBILITES_VALIDES[1].hashCode());
+        assertNotEquals(4106765, INDISPONIBILITES_VALIDES[2].hashCode());
+        assertNotEquals(4106963, INDISPONIBILITES_VALIDES[3].hashCode());
+        assertNotEquals(8213239, INDISPONIBILITES_VALIDES[4].hashCode());
+        assertNotEquals(8212969, INDISPONIBILITES_VALIDES[5].hashCode());
+        assertNotEquals(8213595, INDISPONIBILITES_VALIDES[6].hashCode());
+        assertNotEquals(8213991, INDISPONIBILITES_VALIDES[7].hashCode());
     }
     
     /**
@@ -490,7 +538,153 @@ class TestIndisponibilite {
     @Test
     void testCompareTo() {
         
-        // TODO Ajouter des tests pour 100% de couverture
+        assertEquals(
+            2,
+            INDISPONIBILITES_VALIDES[0].compareTo(INDISPONIBILITES_VALIDES[1])
+        );
+        assertEquals(
+            -5,
+            INDISPONIBILITES_VALIDES[1].compareTo(INDISPONIBILITES_VALIDES[2])
+        );
+        assertEquals(
+            -3,
+            INDISPONIBILITES_VALIDES[2].compareTo(INDISPONIBILITES_VALIDES[3])
+        );
+        assertEquals(
+            6,
+            INDISPONIBILITES_VALIDES[3].compareTo(INDISPONIBILITES_VALIDES[4])
+        );
+        assertEquals(
+            2,
+            INDISPONIBILITES_VALIDES[4].compareTo(INDISPONIBILITES_VALIDES[5])
+        );
+        assertEquals(
+            -5,
+            INDISPONIBILITES_VALIDES[5].compareTo(INDISPONIBILITES_VALIDES[6])
+        );
+        assertEquals(
+            -3,
+            INDISPONIBILITES_VALIDES[6].compareTo(INDISPONIBILITES_VALIDES[7])
+        );
+        assertEquals(
+            6,
+            INDISPONIBILITES_VALIDES[7].compareTo(INDISPONIBILITES_VALIDES[0])
+        );
+        assertEquals(
+            -1,
+            INDISPONIBILITES_VALIDES[0].compareTo(INDISPONIBILITES_VALIDES[4])
+        );
+        assertEquals(
+            1,
+            INDISPONIBILITES_VALIDES[4].compareTo(INDISPONIBILITES_VALIDES[0])
+        );
+        assertEquals(
+            0,
+            INDISPONIBILITES_VALIDES[0].compareTo(INDISPONIBILITES_VALIDES[0])
+        );
+        assertEquals(
+            0,
+            INDISPONIBILITES_VALIDES[4].compareTo(INDISPONIBILITES_VALIDES[4])
+        );
+        
+        
+        assertNotEquals(
+            -2,
+            INDISPONIBILITES_VALIDES[0].compareTo(INDISPONIBILITES_VALIDES[1])
+        );
+        assertNotEquals(
+            5,
+            INDISPONIBILITES_VALIDES[1].compareTo(INDISPONIBILITES_VALIDES[2])
+        );
+        assertNotEquals(
+            3,
+            INDISPONIBILITES_VALIDES[2].compareTo(INDISPONIBILITES_VALIDES[3])
+        );
+        assertNotEquals(
+            -6,
+            INDISPONIBILITES_VALIDES[3].compareTo(INDISPONIBILITES_VALIDES[4])
+        );
+        assertNotEquals(
+            -2,
+            INDISPONIBILITES_VALIDES[4].compareTo(INDISPONIBILITES_VALIDES[5])
+        );
+        assertNotEquals(
+            5,
+            INDISPONIBILITES_VALIDES[5].compareTo(INDISPONIBILITES_VALIDES[6])
+        );
+        assertNotEquals(
+            3,
+            INDISPONIBILITES_VALIDES[6].compareTo(INDISPONIBILITES_VALIDES[7])
+        );
+        assertNotEquals(
+            -6,
+            INDISPONIBILITES_VALIDES[7].compareTo(INDISPONIBILITES_VALIDES[0])
+        );
+        assertNotEquals(
+            3,
+            INDISPONIBILITES_VALIDES[0].compareTo(INDISPONIBILITES_VALIDES[1])
+        );
+        assertNotEquals(
+            -4,
+            INDISPONIBILITES_VALIDES[1].compareTo(INDISPONIBILITES_VALIDES[2])
+        );
+        assertNotEquals(
+            -2,
+            INDISPONIBILITES_VALIDES[2].compareTo(INDISPONIBILITES_VALIDES[3])
+        );
+        assertNotEquals(
+            7,
+            INDISPONIBILITES_VALIDES[3].compareTo(INDISPONIBILITES_VALIDES[4])
+        );
+        assertNotEquals(
+            3,
+            INDISPONIBILITES_VALIDES[4].compareTo(INDISPONIBILITES_VALIDES[5])
+        );
+        assertNotEquals(
+            -4,
+            INDISPONIBILITES_VALIDES[5].compareTo(INDISPONIBILITES_VALIDES[6])
+        );
+        assertNotEquals(
+            -2,
+            INDISPONIBILITES_VALIDES[6].compareTo(INDISPONIBILITES_VALIDES[7])
+        );
+        assertNotEquals(
+            7,
+            INDISPONIBILITES_VALIDES[7].compareTo(INDISPONIBILITES_VALIDES[0])
+        );
+        assertNotEquals(
+            1,
+            INDISPONIBILITES_VALIDES[0].compareTo(INDISPONIBILITES_VALIDES[1])
+        );
+        assertNotEquals(
+            -6,
+            INDISPONIBILITES_VALIDES[1].compareTo(INDISPONIBILITES_VALIDES[2])
+        );
+        assertNotEquals(
+            -4,
+            INDISPONIBILITES_VALIDES[2].compareTo(INDISPONIBILITES_VALIDES[3])
+        );
+        assertNotEquals(
+            5,
+            INDISPONIBILITES_VALIDES[3].compareTo(INDISPONIBILITES_VALIDES[4])
+        );
+        assertNotEquals(
+            1,
+            INDISPONIBILITES_VALIDES[4].compareTo(INDISPONIBILITES_VALIDES[5])
+        );
+        assertNotEquals(
+            -6,
+            INDISPONIBILITES_VALIDES[5].compareTo(INDISPONIBILITES_VALIDES[6])
+        );
+        assertNotEquals(
+            -4,
+            INDISPONIBILITES_VALIDES[6].compareTo(INDISPONIBILITES_VALIDES[7])
+        );
+        assertNotEquals(
+            5,
+            INDISPONIBILITES_VALIDES[7].compareTo(INDISPONIBILITES_VALIDES[0])
+        );
+        
     }
 
 }
