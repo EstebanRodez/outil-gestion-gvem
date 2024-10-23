@@ -12,6 +12,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
+import application.utilitaire.FichierDonneesInvalides;
 import application.utilitaire.ImportationCSV;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -106,9 +107,22 @@ public class ImporterControleur {
             StringBuilder nomsFichiers = new StringBuilder();
             
             for (File fichier : fichierSelectionne) {
-                List<String[]> donnee;
-                donnee = ImportationCSV.importer(fichier.getAbsolutePath());
-                ImportationCSV.traitementDonnees(donnee);
+
+                try {
+                    
+                    ImportationCSV.importerDonnees(fichier.getAbsolutePath());
+                } catch (FichierDonneesInvalides e) {
+                    
+                    Alert boiteErreurDonneesInvalides
+                    = new Alert(Alert.AlertType.ERROR, 
+                                "Les données du fichier sélectionné sont "
+                                + "incorrectes.", ButtonType.OK);
+
+                    boiteErreurDonneesInvalides.setTitle("Erreur fichier");
+                    boiteErreurDonneesInvalides.setHeaderText(
+                            "Erreur données fichier");
+                    boiteErreurDonneesInvalides.showAndWait();
+                }
                 
                 // Ajouter le nom du fichier (sans le chemin) à la liste
                 nomsFichiers.append(fichier.getName()).append("\n");
