@@ -6,6 +6,7 @@
 package application.modele;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 /**
  * Représente une période d'indisponibilité avec une date de début
@@ -137,24 +138,26 @@ public class Indisponibilite implements Comparable<Indisponibilite> {
 
     /* non javadoc - @see java.lang.Object#equals(java.lang.Object) */
     @Override
-    public boolean equals(Object objet) {
+    public boolean equals(Object obj) {
         
-        // Même référence
-        if (this == objet) {
+        if (this == obj) {
             return true;
         }
-        
-        if (!(objet instanceof Indisponibilite)) {
+            
+        if (obj == null) {
             return false;
         }
-        
-        Indisponibilite indisponibilite = (Indisponibilite) objet;
-        return this.getDateDebut().equals(indisponibilite.getDateDebut())
-               && (indisponibilite.getDateFin() == null
-                   || this.getDateFin().equals(indisponibilite.getDateFin())
-                  );
+           
+        if (!(obj instanceof Indisponibilite)) {
+            return false;
+        }
+            
+        Indisponibilite autre = (Indisponibilite) obj;
+        return Objects.equals(dateDebut, autre.dateDebut) 
+               && Objects.equals(dateFin, autre.dateFin);
     }
 
+    
     /* non javadoc - @see java.lang.Object#toString() */
     @Override
     public String toString() {
@@ -194,8 +197,7 @@ public class Indisponibilite implements Comparable<Indisponibilite> {
     /* non javadoc - @see java.lang.Object#hashCode() */
     @Override
     public int hashCode() {
-        return dateDebut.hashCode()
-               + (dateFin != null ? dateFin.hashCode() : 0);
+        return Objects.hash(dateDebut, dateFin);
     }
 
     /* non javadoc - @see java.lang.Comparable#compareTo(java.lang.Object) */
