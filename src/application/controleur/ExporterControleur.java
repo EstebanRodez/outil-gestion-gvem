@@ -7,8 +7,12 @@ package application.controleur;
 
 import java.awt.Desktop;
 import java.io.IOException;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.SocketException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.UnknownHostException;
 
 import application.utilitaire.Serveur;
 import javafx.event.ActionEvent;
@@ -65,7 +69,37 @@ public class ExporterControleur {
 
     @FXML
     private Label labelPort;
+    
+    /**
+     * Méthode d'initialisation appelée après le chargement de 
+     * l'interface utilisateur. Cette méthode est utilisée pour 
+     * configurer les éléments de l'interface,
+     * initialiser les données, et définir les actions des boutons.
+     */
+    @FXML
+    public void initialize() {
+        String ip;
+        DatagramSocket socket; //UDP
+        
+        try{
+            socket = new DatagramSocket();
+            //Connextion au serveur DNS public de google avec port valide
+            socket.connect(InetAddress.getByName("8.8.8.8"), 10002);
+            ip = socket.getLocalAddress().getHostAddress();
+            labelIp.setText(ip);
+          } catch (SocketException | UnknownHostException e) {
+              Alert boiteIpInconnu 
+                  = new Alert(Alert.AlertType.ERROR, 
+                              "Impossible de connaître l'adresse"
+                                      + " IP de l'interface Ethernet",
+                              ButtonType.OK);
 
+              boiteIpInconnu.setTitle("Erreur adresse IP inconnue");
+              boiteIpInconnu.setHeaderText("Erreur adresse IP inconnue");
+
+              boiteIpInconnu.showAndWait();
+        }
+    }
 
     @FXML
     void btnAideAction(ActionEvent event) {
