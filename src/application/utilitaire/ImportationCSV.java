@@ -71,7 +71,7 @@ public class ImportationCSV {
     
     private static ArrayList<Visite> visites = new ArrayList<>();
     
-    private static final String FORMAT_IDENTIFIANT = "^[EVC]\\d{6}$";
+    private static final String FORMAT_IDENTIFIANT = "^[ERCN](\\d){6}$";
     
     private static final String FORMAT_DATE_FR
     = "^(\\d{2})\\/(\\d{2})\\/(\\d{4})$";
@@ -247,14 +247,38 @@ public class ImportationCSV {
             /* L'identifiant est forcément valide dans ce cas */
             if (lettreIdentifiant == 'E') { // Exposition
                 
-                if (!donnees[2].matches("^\\d+$") // PériodeDeb
-                    || !donnees[3].matches("^\\d+$") // PériodeFin
-                    || !donnees[4].matches("^\\d+$") // nombre
-                    || !donnees[5].matches("^#.*#$") // motClé
+                if (donnees[2].matches("^\\d+$") // PériodeDeb
+                    && donnees[3].matches("^\\d+$") // PériodeFin
+                    && donnees[4].matches("^\\d+$") // nombre
+                    && donnees[5].matches("^#.*#$") // motClé
+                    && donnees[7].matches(FORMAT_DATE_FR) // Début
+                    && donnees[8].matches(FORMAT_DATE_FR) // Fin
                     ) {
                     
-                    return false;
+                    return true;
                 }
+                
+            } else if (lettreIdentifiant == 'R') { // Visite
+                
+                if (donnees[1].matches("^E(\\d){6}$") // Exposition
+                    && donnees[2].matches("^C(\\d){6}$") // Conférencier
+                    && donnees[3].matches("^N(\\d){6}$") // Employé
+                    && donnees[4].matches(FORMAT_DATE_FR) // date
+                    && donnees[5].matches("^(\\d){2}h(\\d){2}$") // heureDebut
+                    && donnees[7].matches("^(\\d){10}$") // Telephone
+                    ) {
+                    
+                    return true;
+                }
+            } else if (lettreIdentifiant == 'N') { // Employé
+                
+                if (donnees[3].isBlank() 
+                    || donnees[3].matches("^(\\d){4}$") // Telephone
+                    ) {
+                    
+                    return true;
+                }
+            } else if (lettreIdentifiant == 'C') { // Conférencier
                 
                 /* On vérifie les format des indisponibilités */
                 for (indiceVerif = 7;
@@ -263,23 +287,18 @@ public class ImportationCSV {
                      indiceVerif++) 
                     ; // empty body
                 
-                /* La vérification a du échoué sur une date */
-                if (indiceVerif < donnees.length) {
-                    return false;
+                if (donnees[3].matches("^#.*#$") // Spécialité
+                    && donnees[4].matches("^(\\d){10}$") // Telephone
+                    && donnees[5].matches("^(?i)(oui|non)$") // Employe
+                    && indiceVerif == donnees.length // Indisponibilite
+                    ) {
+                    
+                    return true;
                 }
-            } else if (lettreIdentifiant == 'R') { // Visite
-                
-                // TODO Vérification de Visite
-            } else if (lettreIdentifiant == 'N') { // Employé
-                
-                // TODO Vérification de Employé
-            } else if (lettreIdentifiant == 'C') { // Conférencier
-                
-                // TODO Vérification de Conférencier
             }
         }
         
-        return true;
+        return false;
     }
 
     /**
