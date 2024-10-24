@@ -106,11 +106,11 @@ public class ImportationCSV {
             BufferedReader fichierCSV = new BufferedReader(inputStreamReader);
             if (isFichierValide(cheminFichier)) {
                 
-                fichierCSV.close();  
-                throw new IllegalArgumentException();
+                parcourirFichier(fichierCSV);
             } else {
                 
-                parcourirFichier(fichierCSV);
+                fichierCSV.close();  
+                throw new IllegalArgumentException();
             }
         } catch (FileNotFoundException e) {
 
@@ -131,10 +131,10 @@ public class ImportationCSV {
      */
     private static boolean isFichierValide(String cheminFichier)
             throws IOException {
-
-        return cheminFichier != null && cheminFichier.isBlank() 
-                && Files.size(Path.of(cheminFichier)) != 0
-                && isExtensionCSV(cheminFichier);
+        
+        return cheminFichier != null && !cheminFichier.isBlank() 
+               && Files.size(Path.of(cheminFichier)) != 0
+               && isExtensionCSV(cheminFichier);
     }
 
     /**
@@ -144,7 +144,8 @@ public class ImportationCSV {
      * @return true si le fichier a l'extension .csv ou sinon false
      */
     private static boolean isExtensionCSV(String cheminFichier) {
-        return cheminFichier.substring(cheminFichier.lastIndexOf('.'), 
+        
+        return cheminFichier.substring(cheminFichier.lastIndexOf('.')+1, 
                                        cheminFichier.length()).equals("csv");
     }
 
