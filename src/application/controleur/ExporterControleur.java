@@ -7,12 +7,10 @@ package application.controleur;
 
 import java.awt.Desktop;
 import java.io.IOException;
-import java.net.DatagramSocket;
+import java.net.Inet4Address;
 import java.net.InetAddress;
-import java.net.SocketException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.UnknownHostException;
 
 import application.utilitaire.Serveur;
 import javafx.event.ActionEvent;
@@ -78,28 +76,65 @@ public class ExporterControleur {
      */
     @FXML
     public void initialize() {
-        String ip;
-        DatagramSocket socket; //UDP
-        
-        try{
-            socket = new DatagramSocket();
-            //Connextion au serveur DNS public de google avec port valide
-            socket.connect(InetAddress.getByName("8.8.8.8"), 10002);
-            ip = socket.getLocalAddress().getHostAddress();
-            labelIp.setText(ip);
-          } catch (SocketException | UnknownHostException e) {
-              Alert boiteIpInconnu 
-                  = new Alert(Alert.AlertType.ERROR, 
-                              "Impossible de connaître l'adresse"
-                                      + " IP de l'interface Ethernet",
-                              ButtonType.OK);
+        try {
+         // Récupérer toutes les adresses locales
+            for (InetAddress adresse : InetAddress.getAllByName(
+                                                    InetAddress.getLocalHost()
+                                                               .getHostName())) {
+                // Vérifier si c'est une adresse IPv4 non loopback et de classe A
+                if (adresse instanceof Inet4Address 
+                        && !adresse.isLoopbackAddress() 
+                        && isClassA(adresse.getHostAddress())) {
+                    labelIp.setText(adresse.getHostAddress()); 
+                }
+            }
+        } catch (Exception e) {  
+            Alert boiteIpInconnu =
+                    new Alert(Alert.AlertType.ERROR, 
+                              "Impossible de connaître l'adresse "
+                                  + "IP de l'interface Ethernet",
+                                      ButtonType.OK);
 
-              boiteIpInconnu.setTitle("Erreur adresse IP inconnue");
-              boiteIpInconnu.setHeaderText("Erreur adresse IP inconnue");
+            boiteIpInconnu.setTitle("Erreur adresse IP inconnue");
+            boiteIpInconnu.setHeaderText("Erreur adresse IP inconnue");
 
-              boiteIpInconnu.showAndWait();
+            boiteIpInconnu.showAndWait();  
+        }  
+    } 
+
+    /**
+     * Vérifie si une adresse IPv4 donnée appartient à la classe A.
+     * Les adresses de classe A sont celles dont le premier octet 
+     * est compris entre 1 et 126 inclus. La méthode divise l'adresse IP 
+     * en octets, extrait le premier octet,et détermine s'il appartient
+     * à la plage de la classe A.
+     * 
+     * @param ipAddress L'adresse IPv4 à vérifier 
+     *        sous forme de chaîne (format "xxx.xxx.xxx.xxx").
+     * @return true si l'adresse IP appartient à la classe A, sinon false.
+     * @throws NumberFormatException si l'adresse IP contient des valeurs 
+     *         non numériques.
+     * @throws ArrayIndexOutOfBoundsException si l'adresse IP 
+     *         n'est pas correctement formatée (moins de 4 octets).
+     */
+    private static boolean isClassA(String ipAddress) {
+        String[] octets;
+        int firstOctet;
+        try {
+            // Diviser l'adresse IP en octets
+            octets = ipAddress.split("\\.");
+            
+            // Extraire le premier octet et le convertir en entier
+            firstOctet = Integer.parseInt(octets[0]);
+            
+            // Vérifier si le premier octet est compris entre 1 et 126
+            return firstOctet >= 1 && firstOctet <= 126;
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+            // En cas d'erreur (par exemple, adresse IP mal formée)
+            return false;
         }
     }
+    
 
     @FXML
     void btnAideAction(ActionEvent event) {
