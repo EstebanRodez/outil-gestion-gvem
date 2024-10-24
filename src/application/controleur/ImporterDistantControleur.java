@@ -150,8 +150,7 @@ public class ImporterDistantControleur {
                 for (File fichier : fichiersSelectionnes) {
                     try {
                         // Importer et traiter les données CSV
-                        List<String[]> donnees = ImportationCSV.importer(fichier.getAbsolutePath());
-                        ImportationCSV.traitementDonnees(donnees);
+                        ImportationCSV.importerDonnees(fichier.getAbsolutePath());
 
                         // Ajouter le nom du fichier traité à la liste
                         nomsFichiers.append(fichier.getName()).append("\n");
