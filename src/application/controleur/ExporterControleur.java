@@ -76,11 +76,15 @@ public class ExporterControleur {
      */
     @FXML
     public void initialize() {
+        InetAddress[] listadresse;
+        
         try {
          // Récupérer toutes les adresses locales
-            for (InetAddress adresse : InetAddress.getAllByName(
-                                                    InetAddress.getLocalHost()
-                                                               .getHostName())) {
+            listadresse = InetAddress.getAllByName(InetAddress
+                                                   .getLocalHost()
+                                                       .getHostName());
+            
+            for (InetAddress adresse : listadresse) {
                 // Vérifier si c'est une adresse IPv4 non loopback et de classe A
                 if (adresse instanceof Inet4Address 
                         && !adresse.isLoopbackAddress() 
