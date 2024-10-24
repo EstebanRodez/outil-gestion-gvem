@@ -12,24 +12,11 @@ import java.net.URISyntaxException;
 import java.time.LocalDate;
 import java.util.List;
 
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.scene.control.TableColumn.CellDataFeatures;
-import javafx.scene.control.TableColumn.CellEditEvent;
-import javafx.scene.control.TableColumn.CellEditEvent;
-import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.util.Callback;
 
-import application.modele.Client;
-import application.modele.Conferencier;
-import application.modele.Employe;
-import application.modele.Exposition;
 import application.modele.Visite;
 import application.utilitaire.ImportationCSV;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -42,7 +29,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 /**
