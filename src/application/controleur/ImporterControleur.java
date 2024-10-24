@@ -111,12 +111,15 @@ public class ImporterControleur {
                 try {
                     
                     ImportationCSV.importerDonnees(fichier.getAbsolutePath());
+                    
+                    // Ajouter le nom du fichier (sans le chemin) à la liste
+                    nomsFichiers.append(fichier.getName()).append("\n");
                 } catch (FichierDonneesInvalides e) {
                     
                     Alert boiteErreurDonneesInvalides
                     = new Alert(Alert.AlertType.ERROR, 
-                                "Les données du fichier sélectionné sont "
-                                + "incorrectes.", ButtonType.OK);
+                                "Les données du fichier " + fichier.getName() 
+                                + " sont incorrectes.", ButtonType.OK);
 
                     boiteErreurDonneesInvalides.setTitle("Erreur fichier");
                     boiteErreurDonneesInvalides.setHeaderText(
@@ -124,8 +127,6 @@ public class ImporterControleur {
                     boiteErreurDonneesInvalides.showAndWait();
                 }
                 
-                // Ajouter le nom du fichier (sans le chemin) à la liste
-                nomsFichiers.append(fichier.getName()).append("\n");
             }
             
             // Afficher une alerte avec les noms des fichiers sélectionnés
