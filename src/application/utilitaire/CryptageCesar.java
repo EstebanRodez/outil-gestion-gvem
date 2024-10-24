@@ -1,41 +1,46 @@
 /*
- * Cryptage.java
+ * CryptageCesar.java
  * 23 oct. 2024
- * IUT de rodez pas de copyright
+ * IUT de Rodez pas de copyright
  */
 package application.utilitaire;
 
-
 /**
- * La classe Cryptage permet de crypter les données des fichiers CSV
- * que l'on souhaite envoyer
- * @author Esteban Vroemen
- * @version 1.0
+ * La classe CryptageCesar permet de crypter les données des fichiers CSV
+ * en appliquant un décalage binaire à chaque caractère du fichier.
+ * @author Romain Augé
+ * @version 1.1
  */
 public class CryptageCesar {
-	private final int decalage;
+    private final int decalage;
 
-    // Constructeur qui initialise le décalage
+    // Constructeur qui initialise le décalage pour le cryptage
     public CryptageCesar(int decalage) {
         this.decalage = decalage;
     }
 
-    // Méthode pour crypter le texte
-    public String encrypt(String data) {
-        StringBuilder encrypted = new StringBuilder();
-        
+    // Méthode pour crypter le texte en modifiant les bits de chaque caractère
+    public String encrypt(String texte) {
+        StringBuilder texteCrypte = new StringBuilder();
+
         // Parcourir chaque caractère du texte
-        for (char ch : data.toCharArray()) {
-            // Vérifier si le caractère est une lettre
-            if (Character.isLetter(ch)) {
-                char base = Character.isLowerCase(ch) ? 'a' : 'A';
-                // Appliquer le décalage et gérer le retour à zéro
-                ch = (char) ((ch + decalage - base) % 26 + base);
+        for (char caractere : texte.toCharArray()) {
+            // Convertir le caractère en son code binaire (8 bits)
+            String chaineBinaire = String.format("%8s", Integer.toBinaryString(caractere)).replace(' ', '0');
+
+            // Appliquer le décalage binaire à chaque bit
+            StringBuilder cleDuCryptage = new StringBuilder();
+            for (char bit : chaineBinaire.toCharArray()) {
+                // Calculer le bit décalé
+                int bitDecale = (bit - '0' + decalage) % 2; // Appliquer le décalage binaire (0 ou 1)
+                cleDuCryptage.append(bitDecale);
             }
-            encrypted.append(ch);
+
+            // Convertir la clé de cryptage (bits décalés) en caractère crypté
+            char caractereCrypte = (char) Integer.parseInt(cleDuCryptage.toString(), 2);
+            texteCrypte.append(caractereCrypte);
         }
-        
-        return encrypted.toString();
+
+        return texteCrypte.toString();
     }
 }
-
