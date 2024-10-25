@@ -1,5 +1,5 @@
 /*
- * MenuDonnesCalculeesControleur.java                           
+ * menuDonneesImporterControleur.java                           
  * 13 oct. 2024
  * IUT de Rodez, pas de copyright
  */
@@ -16,18 +16,19 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 /**
- * Contrôleur pour le menu des données calculées.
+ * Contrôleur pour le menu des données importées.
  * 
- * Cette classe gère les interactions de l'utilisateur avec le menu qui
- * permet d'accéder aux différentes fonctionnalités liées aux données
- * calculées, comme les exposés, les visites, et les statistiques.
+ * Cette classe gère les interactions de l'utilisateur avec le menu
+ * permettant d'accéder aux différentes fonctionnalités relatives aux
+ * données importées, telles que les conférenciers, les expositions
+ * et les visites.
  * 
  * @author Baptiste Thenieres
  * @version 1.0
  */
 public class MenuDonneesCalculeesControleur {
-    
-private Stage fenetreAppli;
+
+    private Stage fenetreAppli;
     
     /**
      * Définit la fenêtre de l'application.
@@ -44,7 +45,7 @@ private Stage fenetreAppli;
     private Button btnConferencier;
 
     @FXML
-    private Button btnDonnesImportees;
+    private Button btnDonnesCalculees;
 
     @FXML
     private Button btnExposition;
@@ -56,27 +57,39 @@ private Stage fenetreAppli;
     private Button btnVisite;
 
     @FXML
-    void btnAccueilAction(ActionEvent event) {
-
+    void btnAccueilAction(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/vue/accueilVue.fxml"));
+        Parent accueuilVue = loader.load();
+        AccueilControleur controleur = loader.getController();
+        controleur.setFenetreAppli(fenetreAppli);
+        fenetreAppli.setScene(new Scene(accueuilVue));
     }
 
     @FXML
-    void btnConferencierAction(ActionEvent event) {
-
+    void btnConferencierAction(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/vue/donneesCalculeesConferencierVue.fxml"));
+        Parent donneesCalculeesConferencierVue = loader.load();
+        DonneesCalculeesConferencierControleur controleur = loader.getController();
+        controleur.setFenetreAppli(fenetreAppli);
+        fenetreAppli.setScene(new Scene(donneesCalculeesConferencierVue));
     }
 
     @FXML
     void btnDonnesImporteesAction(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/vue/menuDonneesImporterVue.fxml"));
-        Parent menuDonneesImporterVue = loader.load();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/vue/menuDonneesImporteesVue.fxml"));
+        Parent menuDonneesImporteesVue = loader.load();
         MenuDonneesImporterControleur controleur = loader.getController();
         controleur.setFenetreAppli(fenetreAppli);
-        fenetreAppli.setScene(new Scene(menuDonneesImporterVue));
+        fenetreAppli.setScene(new Scene(menuDonneesImporteesVue));
     }
 
     @FXML
-    void btnExpositionAction(ActionEvent event) {
-
+    void btnExpositionAction(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/vue/donneesCalculeesExpositionVue.fxml"));
+        Parent donneesCalculeesExpositionVue = loader.load();
+        DonneesCalculeesExpositionControleur controleur = loader.getController();
+        controleur.setFenetreAppli(fenetreAppli);
+        fenetreAppli.setScene(new Scene(donneesCalculeesExpositionVue));
     }
 
     @FXML
@@ -85,8 +98,13 @@ private Stage fenetreAppli;
     }
 
     @FXML
-    void btnVisiteAction(ActionEvent event) {
-
+    void btnVisiteAction(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/vue/donneesCalculeesVisiteVue.fxml"));
+        Parent donneesCalculeesVisiteVue = loader.load();
+        DonneesCalculeesVisiteControleur controleur = loader.getController();
+        controleur.setFenetreAppli(fenetreAppli);
+        fenetreAppli.setScene(new Scene(donneesCalculeesVisiteVue));
     }
+
 
 }
