@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 import application.modele.Conferencier;
 import application.modele.Indisponibilite;
-import application.utilitaire.ImportationCSV;
+import application.utilitaire.TraitementDonnees;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -56,7 +56,7 @@ public class DonneesImporteesConferencierControleur {
       this.fenetreAppli = fenetreAppli;
     }
     
-    static List<Conferencier> conf = ImportationCSV.getConferenciers();
+    static List<Conferencier> conf = TraitementDonnees.getConferenciers();
     
     @FXML
     private Button btnRetour;

@@ -13,7 +13,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import application.utilitaire.ImportationCSV;
+import application.utilitaire.TraitementDonnees;
 import application.modele.Exposition;
 import application.modele.ExpositionTemporaire;
 import javafx.beans.property.SimpleStringProperty;
@@ -52,7 +52,7 @@ public class DonneesImporteesExpositionControleur {
     
     private Stage fenetreAppli;
     
-    private static List<Exposition> expo = ImportationCSV.getExpositions();
+    private static List<Exposition> expo = TraitementDonnees.getExpositions();
     
     // Format pour les dates au format jj/MM/aaaa
     private static final DateTimeFormatter DATE_FORMAT 

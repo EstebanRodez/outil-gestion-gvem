@@ -16,7 +16,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import application.modele.Visite;
-import application.utilitaire.ImportationCSV;
+import application.utilitaire.TraitementDonnees;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -47,7 +47,7 @@ public class DonneesImporteesVisiteControleur {
     
     private Stage fenetreAppli;
     
-    private static List<Visite> visite = ImportationCSV.getVisites();
+    private static List<Visite> visite = TraitementDonnees.getVisites();
     
     /**
      * Définit la fenêtre de l'application.
