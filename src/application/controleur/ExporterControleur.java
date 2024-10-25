@@ -137,20 +137,7 @@ public class ExporterControleur {
     @FXML
     void btnAideAction(ActionEvent event) {
 
-        Desktop desktop = Desktop.getDesktop();
-        try {
-            desktop.browse(new URI(AccueilControleur.getLienAide()));
-        } catch (IOException | URISyntaxException e) {
-            Alert boiteErreurInconnueOuverture =
-                    new Alert(Alert.AlertType.ERROR, 
-                              "impossible d'ouvrir le fichier d'aide",
-                              ButtonType.OK);
-
-            boiteErreurInconnueOuverture.setTitle("Erreur d'affichage aide");
-            boiteErreurInconnueOuverture.setHeaderText("Erreur d'affichage aide");
-
-            boiteErreurInconnueOuverture.showAndWait();
-        }
+        AccueilControleur.lancerAide();
     }
     
     @FXML

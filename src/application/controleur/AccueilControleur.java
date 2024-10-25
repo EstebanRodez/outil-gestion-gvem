@@ -57,11 +57,38 @@ public class AccueilControleur {
     private Button btnQuitter;
     
     /**
-     * Renvoie le lien de la fiche d'aide
+     * Lance l'aide à l'utilisateur
+     */
+    public static void lancerAide() {
+        
+        Desktop desktop = Desktop.getDesktop();
+        try {
+            desktop.browse(new URI(getLienAide()));
+        } catch (IOException | URISyntaxException e) {
+            lancerErreurAide();
+        }
+    }
+    
+    /**
+     * Renvoie le lien de la fiche d'aide.
      * @return le lien de la fiche d'aide
      */
-    public static String getLienAide() {
+    private static String getLienAide() {
         return LIEN_AIDE;
+    }
+    
+    /**
+     * Lance une fenêtre d'erreur en cas d'échec d'ouverture de la
+     * fiche d'aide.
+     */
+    private static void lancerErreurAide() {
+        
+        Alert boiteErreurOuvertureAide
+        = new Alert(Alert.AlertType.ERROR,
+                    "impossible d'ouvrir le fichier d'aide", ButtonType.OK);
+        boiteErreurOuvertureAide.setTitle("Erreur d'affichage aide");
+        boiteErreurOuvertureAide.setHeaderText("Erreur d'affichage aide");
+        boiteErreurOuvertureAide.showAndWait();
     }
     
     /**
@@ -75,20 +102,7 @@ public class AccueilControleur {
     @FXML
     void btnAideAction(ActionEvent event) {
 
-        Desktop desktop = Desktop.getDesktop();
-        try {
-            desktop.browse(new URI(getLienAide()));
-        } catch (IOException | URISyntaxException e) {
-            Alert boiteErreurInconnueOuverture =
-                    new Alert(Alert.AlertType.ERROR, 
-                              "impossible d'ouvrir le fichier d'aide",
-                              ButtonType.OK);
-
-            boiteErreurInconnueOuverture.setTitle("Erreur d'affichage aide");
-            boiteErreurInconnueOuverture.setHeaderText("Erreur d'affichage aide");
-
-            boiteErreurInconnueOuverture.showAndWait();
-        }
+        lancerAide();
     }
 
     @FXML
