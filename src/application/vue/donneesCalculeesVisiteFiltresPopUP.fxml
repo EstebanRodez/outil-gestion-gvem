@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -85,8 +86,11 @@
                <font>
                   <Font size="18.0" />
                </font>
+               <toggleGroup>
+                  <ToggleGroup fx:id="typeExpo" />
+               </toggleGroup>
             </RadioButton>
-            <RadioButton fx:id="radioTemporaire" mnemonicParsing="false" style="-fx-background-color: #ffffff;" text="Temporaire">
+            <RadioButton fx:id="radioTemporaire" mnemonicParsing="false" style="-fx-background-color: #ffffff;" text="Temporaire" toggleGroup="$typeExpo">
                <font>
                   <Font size="18.0" />
                </font>

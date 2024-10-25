@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 
 /**
@@ -57,6 +58,10 @@ public class DonneesCalculeesVisiteFiltresPopUPControleur {
 
     @FXML
     private RadioButton radioTemporaire;
+
+    @FXML
+    private ToggleGroup typeExpo;
+
 
     @FXML
     void btnValiderAction(ActionEvent event) {
