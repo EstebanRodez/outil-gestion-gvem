@@ -37,12 +37,6 @@ import javafx.stage.Stage;
 public class ExporterControleur {
     
     private Stage fenetreAppli;
-
-    private static String[] CHEMIN_FICHIER_CSV = {
-                                             "conferencier 28_08_24 17_26.csv", 
-                                             "employes 28_08_24 17_26.csv",
-                                             "expositions 28_08_24 17_26.csv",
-                                             "visites 28_08_24 17_26.csv"};
     
     /**
      * Définit la fenêtre de l'application.
@@ -162,9 +156,23 @@ public class ExporterControleur {
     }
     
     @FXML
-    void btnExporterAction(ActionEvent event) {
-        Serveur.envoyerFichiers(65432, CHEMIN_FICHIER_CSV);
-    }
+    void btnExporterAction(ActionEvent event) throws IOException {
+            // Charger et afficher la popup de chargement
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/vue/chargementPopUp.fxml"));
+            Parent chargementPopUp = loader.load();
+            
+            // Obtenir le contrôleur de la popup et lui passer la fenêtre principale
+            ChargementPopUpControleur controleur = loader.getController();
+            controleur.setFenetreAppli(fenetreAppli);
+            
+            // Configurer et afficher la popup
+            Scene sceneChargementPopUp = new Scene(chargementPopUp);
+            final Stage boitePopUp = new Stage();
+            boitePopUp.initOwner(this.fenetreAppli); // Définir la fenêtre principale comme "owner" de la popup
+            boitePopUp.setScene(sceneChargementPopUp);
+            boitePopUp.show(); // Afficher la popup
+            controleur.setPopUp(boitePopUp);
+        }
 
     @FXML
     void btnRetourAction(ActionEvent event) throws IOException {

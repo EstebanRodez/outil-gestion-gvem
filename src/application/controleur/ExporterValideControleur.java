@@ -74,8 +74,12 @@ public class ExporterValideControleur {
     }
 
     @FXML
-    void btnEnvoyerAction(ActionEvent event) {
-
+    void btnEnvoyerAction(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/vue/accueilVue.fxml"));
+        Parent accueuilVue = loader.load();
+        AccueilControleur controleur = loader.getController();
+        controleur.setFenetreAppli(fenetreAppli);
+        fenetreAppli.setScene(new Scene(accueuilVue));
     }
 
     @FXML

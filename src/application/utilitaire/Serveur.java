@@ -45,7 +45,6 @@ public class Serveur {
 
                     if (!fichier.exists() || !fichier.isFile()) {
                         System.err.println("Le fichier " + fichier.getAbsolutePath() + " n'existe pas.");
-                        return;
                     }
 
                     // Envoyer la taille du fichier au client
