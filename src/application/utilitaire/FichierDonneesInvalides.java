@@ -10,6 +10,14 @@ package application.utilitaire;
  */
 public class FichierDonneesInvalides extends Exception {
 
+    /**
+     * Initialise l'exception avec un message d'erreur
+     * @param erreurContenuFichier le message d'erreur à transmettre
+     */
+    public FichierDonneesInvalides(String erreurContenuFichier) {
+        super(erreurContenuFichier);
+    }
+
     /** Pour l'interface Serializable de la classe Exception */
     private static final long serialVersionUID = 1L;
 
