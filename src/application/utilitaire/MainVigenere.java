@@ -46,7 +46,7 @@ public class MainVigenere {
 
         String contenu = gestionFichiers.readFile(fichier.getAbsolutePath());
         CryptageVigenere chiffreurVigenere = new CryptageVigenere(key);
-        String contenuCrypte = chiffreurVigenere.encrypt(contenu);
+        String contenuCrypte = chiffreurVigenere.cryptage(contenu);
 
         // Chemin du fichier crypté en .bin
         String cheminFichierCrypte = fichier.getParent() + File.separator + "vigenere_encrypted_" + fichier.getName().replace(".csv", ".bin");

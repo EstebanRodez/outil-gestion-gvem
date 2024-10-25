@@ -1,8 +1,3 @@
-/*
- * ImportationCSV.java                           
- * 16 oct. 2024
- * IUT de Rodez, pas de copyright
- */
 package application.utilitaire;
 
 import java.io.BufferedReader;
@@ -33,10 +28,12 @@ import application.modele.Visite;
  * ou ExpositionTemporaire selon le type de données.
  * @author Ayoub Laluti
  * @author Esteban Vroemen
+ * @autor Romain Augé
  * @version 1.0
  */
 public class ImportationCSV {
 
+    // Messages d'erreur
     private static final String ERREUR_NOMBRE_ARGUMENTS 
     = "Erreur: Le nombre de colonne est incorrect.";
 
@@ -45,17 +42,17 @@ public class ImportationCSV {
       + "ni des employés et ni des conferenciers.";
 
     private static final String ERREUR_LECTURE_FICHIER 
-    = " Erreur : Une erreur d'entrée/sortie est survenue lors de la "
+    = "Erreur : Une erreur d'entrée/sortie est survenue lors de la "
       + "lecture/écriture du fichier.";
     
     private static final String ERREUR_CONFERENCIER_INTROUVABLE 
-    = " Erreur : Aucun conferencier n'est associé a l'identifiant indiqué";
+    = "Erreur : Aucun conferencier n'est associé à l'identifiant indiqué.";
     
     private static final String ERREUR_EMPLOYE_INTROUVABLE 
-    = " Erreur : Aucun employé n'est associé a l'identifiant indiqué";
+    = "Erreur : Aucun employé n'est associé à l'identifiant indiqué.";
       
     private static final String ERREUR_EXPOSITION_INTROUVABLE 
-    = " Erreur : Aucune exposition n'est associé a l'identifiant indiqué";
+    = "Erreur : Aucune exposition n'est associée à l'identifiant indiqué.";
 
     final static DateTimeFormatter formatter
     = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -69,31 +66,24 @@ public class ImportationCSV {
     private static ArrayList<Client> clients = new ArrayList<>();
     
     private static ArrayList<Visite> visites = new ArrayList<>();
-    
+
     /**
      * Importe les données d'un fichier normalement en .csv
      * @param cheminFichier le chemin du fichier
      */
     public static void importerDonnees(String cheminFichier) {
-        
-        BufferedReader fichierCSV;
         try {
-            
-            fichierCSV = new BufferedReader(new FileReader(cheminFichier));
-            if (isFichierValide(cheminFichier)) {
-                
-                fichierCSV.close();  
-                throw new IllegalArgumentException();
-            } else {
-                
-                parcourirFichier(fichierCSV);
+            if (!isFichierValide(cheminFichier)) {
+                throw new IllegalArgumentException(ERREUR_LECTURE_FICHIER);
             }
+
+            BufferedReader fichierCSV = new BufferedReader(new FileReader(cheminFichier));
+            parcourirFichier(fichierCSV);
+            fichierCSV.close(); // Assurez-vous de fermer le fichier après utilisation
         } catch (FileNotFoundException e) {
-
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Erreur : Fichier non trouvé.", e);
         } catch (IOException e) {
-
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(ERREUR_LECTURE_FICHIER, e);
         }
     }
 
@@ -105,10 +95,8 @@ public class ImportationCSV {
      *         sinon false
      * @throws IOException 
      */
-    private static boolean isFichierValide(String cheminFichier)
-            throws IOException {
-
-        return cheminFichier != null && cheminFichier.isBlank() 
+    private static boolean isFichierValide(String cheminFichier) throws IOException {
+        return cheminFichier != null && !cheminFichier.isBlank() 
                 && Files.size(Path.of(cheminFichier)) != 0
                 && isExtensionCSV(cheminFichier);
     }
@@ -117,11 +105,10 @@ public class ImportationCSV {
      * Vérifie si un fichier contient l'extension .csv
      * 
      * @param cheminFichier le chemin du fichier à vérifier
-     * @return true si le fichier a l'extension .csv ou sinon false
+     * @return true si le fichier a l'extension .csv sinon false
      */
     private static boolean isExtensionCSV(String cheminFichier) {
-        return cheminFichier.substring(cheminFichier.lastIndexOf('.'), 
-                                       cheminFichier.length()).equals("csv");
+        return cheminFichier.endsWith(".csv");
     }
 
     /**
@@ -132,9 +119,7 @@ public class ImportationCSV {
      * @param fichierCSV le fichier CSV ouvert
      * @throws IOException 
      */
-    private static void parcourirFichier(BufferedReader fichierCSV)
-             throws IOException {
-        
+    private static void parcourirFichier(BufferedReader fichierCSV) throws IOException {
         String ligne;
         while ((ligne = fichierCSV.readLine()) != null) {
             if (verifierLigne(ligne)) {
@@ -149,7 +134,6 @@ public class ImportationCSV {
      * @param ligne la ligne où on doit récupérer les données
      */
     private static void enregistrerLigne(String ligne) {
-        
         // TODO Enregistrer la ligne en fonction de son identifiant
         // et dans son tableau correspondant
     }
@@ -159,11 +143,11 @@ public class ImportationCSV {
      * pour une extraction de ses données.
      * 
      * @param ligne la ligne à vérifier
+     * @return true si la ligne est valide, sinon false
      */
     private static boolean verifierLigne(String ligne) {
-        
         // TODO Vérifier la validité de la ligne
-        return false; // bouchon
+        return true; // Placeholder, remplacer par une vraie logique de validation
     }
 
     /**

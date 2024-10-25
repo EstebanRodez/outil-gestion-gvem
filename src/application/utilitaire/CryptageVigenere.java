@@ -9,17 +9,17 @@ public class CryptageVigenere {
     }
 
     // Méthode pour chiffrer un texte avec identifiant
-    public String encrypt(String text) {
-        StringBuilder encryptedText = new StringBuilder(CRYPTED_IDENTIFIER + "\n");
+    public String cryptage(String text) {
+        StringBuilder textCrypter = new StringBuilder(CRYPTED_IDENTIFIER + "\n");
         int keyLength = key.length();
 
         for (int i = 0; i < text.length(); i++) {
             char charText = text.charAt(i);
             char charKey = key.charAt(i % keyLength);
             char encryptedChar = (char) ((charText + charKey) % 256);
-            encryptedText.append(encryptedChar);
+            textCrypter.append(encryptedChar);
         }
 
-        return encryptedText.toString();
+        return textCrypter.toString();
     }
 }

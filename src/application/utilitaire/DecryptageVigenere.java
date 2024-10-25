@@ -9,22 +9,22 @@ public class DecryptageVigenere {
     }
 
     // Méthode pour déchiffrer un texte
-    public String decrypt(String encryptedText) {
-        if (!encryptedText.startsWith(CRYPTED_IDENTIFIER)) {
+    public String decrypt(String textCrypter) {
+        if (!textCrypter.startsWith(CRYPTED_IDENTIFIER)) {
             throw new IllegalArgumentException("Le fichier n'est pas crypté avec Vigenère.");
         }
 
-        StringBuilder decryptedText = new StringBuilder();
+        StringBuilder textDecrypter = new StringBuilder();
         int keyLength = key.length();
-        encryptedText = encryptedText.substring(CRYPTED_IDENTIFIER.length() + 1); // Retirer l'identifiant
+        textCrypter = textCrypter.substring(CRYPTED_IDENTIFIER.length() + 1); // Retirer l'identifiant
 
-        for (int i = 0; i < encryptedText.length(); i++) {
-            char charEncrypted = encryptedText.charAt(i);
+        for (int i = 0; i < textCrypter.length(); i++) {
+            char charEncrypted = textCrypter.charAt(i);
             char charKey = key.charAt(i % keyLength);
             char decryptedChar = (char) ((charEncrypted - charKey + 256) % 256);
-            decryptedText.append(decryptedChar);
+            textDecrypter.append(decryptedChar);
         }
 
-        return decryptedText.toString();
+        return textDecrypter.toString();
     }
 }
