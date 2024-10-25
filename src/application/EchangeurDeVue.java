@@ -72,8 +72,7 @@ public class EchangeurDeVue {
      * @return la FXML Loader de la vue
      */
     public static FXMLLoader getFXMLLoader(String nomVue) {
-        return cacheFXMLLoader.containsKey(nomVue) ? cacheFXMLLoader.get(nomVue)
-                                                   : null;
+        return cacheFXMLLoader.get(nomVue);
     }
     
     /**
