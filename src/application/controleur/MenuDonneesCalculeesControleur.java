@@ -76,11 +76,11 @@ public class MenuDonneesCalculeesControleur {
 
     @FXML
     void btnDonnesImporteesAction(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/vue/menuDonneesImporteesVue.fxml"));
-        Parent menuDonneesImporteesVue = loader.load();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/vue/menuDonneesImporterVue.fxml"));
+        Parent menuDonneesImporterVue = loader.load();
         MenuDonneesImporterControleur controleur = loader.getController();
         controleur.setFenetreAppli(fenetreAppli);
-        fenetreAppli.setScene(new Scene(menuDonneesImporteesVue));
+        fenetreAppli.setScene(new Scene(menuDonneesImporterVue));
     }
 
     @FXML
