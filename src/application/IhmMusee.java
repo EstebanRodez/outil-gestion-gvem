@@ -31,9 +31,6 @@ public class IhmMusee extends Application {
         EchangeurDeVue.setFenetreAppli(stage);
         EchangeurDeVue.setSceneAppli(scene);
         
-//        AccueilControleur controleur = loader.getController();
-//        controleur.setFenetreAppli(stage);
-        
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();

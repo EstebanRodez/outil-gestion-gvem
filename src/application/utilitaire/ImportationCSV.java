@@ -14,7 +14,6 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 
 /**
@@ -58,8 +57,6 @@ public class ImportationCSV {
     
     private static final Character[] LETTRES_IDENTIFIANT_VALIDES
     = {'E', 'R', 'C', 'N'};
-    
-    // TODO faire des messages d'erreurs détaillés pour les exceptions
     
     /**
      * Importe les données d'un fichier CSV.
