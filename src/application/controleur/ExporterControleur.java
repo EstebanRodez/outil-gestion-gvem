@@ -5,14 +5,10 @@
  */
 package application.controleur;
 
-import java.awt.Desktop;
 import java.io.IOException;
 import java.net.Inet4Address;
 import java.net.InetAddress;
-import java.net.URI;
-import java.net.URISyntaxException;
 
-import application.utilitaire.Serveur;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
