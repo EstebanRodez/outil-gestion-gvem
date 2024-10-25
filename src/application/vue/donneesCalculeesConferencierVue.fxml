@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controleur.DonneesCalculeesConferencierControleur">
+   <children>
+      <MenuBar VBox.vgrow="NEVER">
+         <menus>
+            <Menu mnemonicParsing="false" text="Menu">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#retourAccueilAction" text="Accueil" />
+                  <SeparatorMenuItem mnemonicParsing="false" onAction="#quitterAction" />
+                  <MenuItem mnemonicParsing="false" onAction="#quitterAction" text="Quitter" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Aide">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#aideAction" text="Document d'aide" />
+               </items>
+            </Menu>
+         </menus>
+      </MenuBar>
+      <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" style="-fx-background-color: #9FCFF3;">
+         <children>
+            <HBox alignment="CENTER" prefHeight="480.0" prefWidth="960.0">
+               <children>
+                  <TableView fx:id="tableExposition" prefHeight="297.0" prefWidth="800.0">
+                     <columns>
+                        <TableColumn fx:id="identifiant" prefWidth="82.0" text="Identifiant" />
+                        <TableColumn fx:id="nom" minWidth="0.0" prefWidth="75.0" text="Nom" />
+                        <TableColumn fx:id="prenom" prefWidth="100.0" text="Prénom" />
+                        <TableColumn fx:id="specialites" prefWidth="87.0" text="Spécialité" />
+                        <TableColumn fx:id="numTel" prefWidth="104.0" text="Téléphone" />
+                        <TableColumn fx:id="estInterne" prefWidth="88.0" text="Employé" />
+                        <TableColumn fx:id="indisponibilites" prefWidth="110.0" text="Indisponibilité" />
+                     </columns>
+                     <HBox.margin>
+                        <Insets top="50.0" />
+                     </HBox.margin>
+                  </TableView>
+               </children>
+            </HBox>
+            <HBox prefHeight="80.0" prefWidth="960.0">
+               <children>
+                  <Button fx:id="btnRetour" mnemonicParsing="false" onAction="#btnRetourAction" prefHeight="30.0" prefWidth="100.0" style="-fx-text-fill: black; -fx-background-color: white;" text="Retour">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="20.0" top="20.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</VBox>
