@@ -1,24 +1,25 @@
 package application.utilitaire;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
+
+import java.io.*;
 
 public class GestionDeFichier {
-	/**
-	 * La classe gestion de fichier pour cryptage permet de crypter les données des fichiers CSV
-	 * que l'on souhaite envoyer
-	 * @author Romain Augé
-	 * @version 1.0
-	 */
-    // Méthode pour lire un fichier et retourner son contenu en tant que chaîne
-    public String readFile(String filePath) throws IOException {
-        return new String(Files.readAllBytes(new File(filePath).toPath()));
+    
+    // Méthode pour lire le contenu d'un fichier texte (ou binaire converti en chaîne)
+    public String readFile(String path) throws IOException {
+        StringBuilder contenu = new StringBuilder();
+        try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                contenu.append(line).append("\n");
+            }
+        }
+        return contenu.toString();
     }
 
-    // Méthode pour écrire des données dans un fichier
-    public void writeFile(String filePath, String data) throws IOException {
-        Files.write(new File(filePath).toPath(), data.getBytes());
+    // Méthode pour écrire le contenu dans un fichier (utilisée pour .csv et .bin)
+    public void writeFile(String path, String contenu) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(path))) {
+            writer.write(contenu);
+        }
     }
 }
-
-
