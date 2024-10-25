@@ -62,8 +62,10 @@ public class ImporterControleur {
 
     @FXML
     void btnAideAction(ActionEvent event) {
+        
     	final String LIEN_REGLES
-        = "https://drive.google.com/file/d/1DmblRvNDZ0PTUA0iGn9vQYf74aj1lMUH/view?usp=sharing";
+        = "https://drive.google.com/file/d/1DmblRvNDZ0PTUA0iGn9vQYf74aj1lMUH/"
+          + "view?usp=sharing";
 
         Desktop desktop = Desktop.getDesktop();
         try {
@@ -75,15 +77,17 @@ public class ImporterControleur {
                               ButtonType.OK);
 
             boiteErreurInconnueOuverture.setTitle("Erreur d'affichage aide");
-            boiteErreurInconnueOuverture.setHeaderText("Erreur d'affichage aide");
-
+            boiteErreurInconnueOuverture.setHeaderText(
+                    "Erreur d'affichage aide");
             boiteErreurInconnueOuverture.showAndWait();
         }
     }
 
     @FXML
     void btnImporterDistantAction(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/vue/importerDistantVue.fxml"));
+        FXMLLoader loader
+        = new FXMLLoader(getClass().getResource(
+                "/application/vue/importerDistantVue.fxml"));
         Parent importerDistantVue = loader.load();
         ImporterDistantControleur controleur = loader.getController();
         controleur.setFenetreAppli(fenetreAppli);
@@ -95,11 +99,13 @@ public class ImporterControleur {
         // Créer une instance de FileChooser
         FileChooser fileChooser = new FileChooser();
         
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Fichiers données (*.csv)", "*.csv");
+        FileChooser.ExtensionFilter extFilter
+        = new FileChooser.ExtensionFilter("Fichiers données (*.csv)", "*.csv");
         fileChooser.getExtensionFilters().add(extFilter);
         
         // Ouvrir le dialogue pour choisir un fichier
-        List<File> fichierSelectionne = fileChooser.showOpenMultipleDialog(fenetreAppli);
+        List<File> fichierSelectionne
+        = fileChooser.showOpenMultipleDialog(fenetreAppli);
         
         // Vérifier si un fichier a été sélectionné
         if (fichierSelectionne != null && !fichierSelectionne.isEmpty()) {
@@ -130,26 +136,25 @@ public class ImporterControleur {
             }
             
             // Afficher une alerte avec les noms des fichiers sélectionnés
-            Alert boiteInformationSucces =
-                    new Alert(Alert.AlertType.INFORMATION, 
-                              "Les fichiers suivants ont été sélectionnés :"
-                            + "\n" + nomsFichiers.toString(),
-                              ButtonType.OK);
+            Alert boiteInformationSucces
+            = new Alert(Alert.AlertType.INFORMATION, 
+                        "Les fichiers suivants ont été sélectionnés :\n"
+                        + nomsFichiers.toString(), ButtonType.OK);
 
             boiteInformationSucces.setTitle("Fichiers importés avec succès");
-            boiteInformationSucces.setHeaderText("Fichiers importés avec succès");
-
+            boiteInformationSucces.setHeaderText(
+                    "Fichiers importés avec succès");
             boiteInformationSucces.showAndWait();
         } else {
+            
             // Afficher une alerte si aucun fichier n'a été sélectionné
-            Alert boiteErreurInconnueOuverture =
-                    new Alert(Alert.AlertType.ERROR, 
-                              "Aucun fichier sélectionné",
-                              ButtonType.OK);
+            Alert boiteErreurInconnueOuverture
+            = new Alert(Alert.AlertType.ERROR, "Aucun fichier sélectionné",
+                        ButtonType.OK);
 
             boiteErreurInconnueOuverture.setTitle("Erreur fichier");
-            boiteErreurInconnueOuverture.setHeaderText("Erreur récupération fichier");
-
+            boiteErreurInconnueOuverture.setHeaderText(
+                    "Erreur récupération fichier");
             boiteErreurInconnueOuverture.showAndWait();
         }
     }
@@ -157,7 +162,10 @@ public class ImporterControleur {
 
     @FXML
     void btnRetourAction(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/vue/accueilVue.fxml"));
+        
+        FXMLLoader loader
+        = new FXMLLoader(getClass().getResource(
+                "/application/vue/accueilVue.fxml"));
         Parent accueuilVue = loader.load();
         AccueilControleur controleur = loader.getController();
         controleur.setFenetreAppli(fenetreAppli);
