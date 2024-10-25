@@ -10,15 +10,12 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import application.EchangeurDeVue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.stage.Stage;
 
 /**
  * Contrôleur de l'interface d'accueil de l'application.
@@ -34,8 +31,6 @@ import javafx.stage.Stage;
  * @version 1.0
  */
 public class AccueilControleur {
-    
-    private Stage fenetreAppli;
     
     private static final String LIEN_AIDE
     = "https://docs.google.com/document/d/1wA1ytqySDYe1D-2ZL1M0mLKMvUmv9SCtS0u"
@@ -73,7 +68,7 @@ public class AccueilControleur {
      * Renvoie le lien de la fiche d'aide.
      * @return le lien de la fiche d'aide
      */
-    private static String getLienAide() {
+    public static String getLienAide() {
         return LIEN_AIDE;
     }
     
@@ -90,51 +85,30 @@ public class AccueilControleur {
         boiteErreurOuvertureAide.setHeaderText("Erreur d'affichage aide");
         boiteErreurOuvertureAide.showAndWait();
     }
-    
-    /**
-     * Définit la fenêtre de l'application.
-     * @param fenetreAppli
-     */
-    public void setFenetreAppli(Stage fenetreAppli) {
-      this.fenetreAppli = fenetreAppli;
-    }
 
     @FXML
     void btnAideAction(ActionEvent event) {
-
         lancerAide();
     }
 
     @FXML
-    void btnConsulterDonneesAction(ActionEvent event) throws IOException {   
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/vue/menuDonneesImporterVue.fxml"));
-        Parent menuDonneesImporterVue = loader.load();
-        MenuDonneesImporterControleur controleur = loader.getController();
-        controleur.setFenetreAppli(fenetreAppli);
-        fenetreAppli.setScene(new Scene(menuDonneesImporterVue));
+    void btnConsulterDonneesAction(ActionEvent event) {   
+        EchangeurDeVue.changerVue("menuDonneesImporterVue");
     }
 
     @FXML
-    void btnExporterAction(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/vue/exporterVue.fxml"));
-        Parent exporterVue = loader.load();
-        ExporterControleur controleur = loader.getController();
-        controleur.setFenetreAppli(fenetreAppli);
-        fenetreAppli.setScene(new Scene(exporterVue));
+    void btnExporterAction(ActionEvent event) {
+        EchangeurDeVue.changerVue("exporterVue");
     }
 
     @FXML
-    void btnImporterAction(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/vue/importerVue.fxml"));
-        Parent importerVue = loader.load();
-        ImporterControleur controleur = loader.getController();
-        controleur.setFenetreAppli(fenetreAppli);
-        fenetreAppli.setScene(new Scene(importerVue));
+    void btnImporterAction(ActionEvent event) {
+        EchangeurDeVue.changerVue("importerVue");
     }
 
     @FXML
     void btnQuitterAction(ActionEvent event) {
-        fenetreAppli.hide();
+        EchangeurDeVue.getFenetreAppli().hide();
     }
 
 }

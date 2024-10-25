@@ -5,12 +5,12 @@
  */
 package application.controleur;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import application.utilitaire.TraitementDonnees;
+import application.EchangeurDeVue;
 import application.modele.Exposition;
 import application.modele.ExpositionTemporaire;
 import javafx.beans.property.SimpleStringProperty;
@@ -19,9 +19,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
@@ -183,15 +180,8 @@ public class DonneesImporteesExpositionControleur {
     }
 
     @FXML
-    void retourAccueilAction(ActionEvent event) throws IOException {
-        
-        FXMLLoader loader
-        = new FXMLLoader(
-                getClass().getResource("/application/vue/accueilVue.fxml"));
-        Parent accueilVue = loader.load();
-        AccueilControleur controleur = loader.getController();
-        controleur.setFenetreAppli(fenetreAppli);
-        fenetreAppli.setScene(new Scene(accueilVue));
+    void retourAccueilAction(ActionEvent event) {
+        EchangeurDeVue.changerVue("accueilVue");
     }
 
     @FXML
@@ -201,21 +191,11 @@ public class DonneesImporteesExpositionControleur {
 
     @FXML
     void aideAction(ActionEvent event) {
-
         AccueilControleur.lancerAide();
     }
 
     @FXML
-    void btnRetourAction(ActionEvent event) throws IOException {
-        
-        FXMLLoader loader
-        = new FXMLLoader(
-                getClass().getResource("/application/vue/menuDonneesImporterVue"
-                                       + ".fxml")
-                );
-        Parent menuDonneesImporterVue = loader.load();
-        MenuDonneesImporterControleur controleur = loader.getController();
-        controleur.setFenetreAppli(fenetreAppli);
-        fenetreAppli.setScene(new Scene(menuDonneesImporterVue));
+    void btnRetourAction(ActionEvent event) {
+        EchangeurDeVue.changerVue("menuDonneesImporterVue");
     }
 }

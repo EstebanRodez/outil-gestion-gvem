@@ -5,15 +5,10 @@
  */
 package application.controleur;
 
-import java.io.IOException;
-
+import application.EchangeurDeVue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.stage.Stage;
 
 /**
  * Contrôleur pour le menu des données importées.
@@ -27,16 +22,6 @@ import javafx.stage.Stage;
  * @version 1.0
  */
 public class MenuDonneesCalculeesControleur {
-
-    private Stage fenetreAppli;
-    
-    /**
-     * Définit la fenêtre de l'application.
-     * @param fenetreAppli
-     */
-    public void setFenetreAppli(Stage fenetreAppli) {
-      this.fenetreAppli = fenetreAppli;
-    }
     
     @FXML
     private Button btnAccueil;
@@ -57,39 +42,23 @@ public class MenuDonneesCalculeesControleur {
     private Button btnVisite;
 
     @FXML
-    void btnAccueilAction(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/vue/accueilVue.fxml"));
-        Parent accueuilVue = loader.load();
-        AccueilControleur controleur = loader.getController();
-        controleur.setFenetreAppli(fenetreAppli);
-        fenetreAppli.setScene(new Scene(accueuilVue));
+    void btnAccueilAction(ActionEvent event) {
+        EchangeurDeVue.changerVue("accueilVue");
     }
 
     @FXML
-    void btnConferencierAction(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/vue/donneesCalculeesConferencierVue.fxml"));
-        Parent donneesCalculeesConferencierVue = loader.load();
-        DonneesCalculeesConferencierControleur controleur = loader.getController();
-        controleur.setFenetreAppli(fenetreAppli);
-        fenetreAppli.setScene(new Scene(donneesCalculeesConferencierVue));
+    void btnConferencierAction(ActionEvent event) {
+        EchangeurDeVue.changerVue("donneesCalculeesConferencierVue");
     }
 
     @FXML
-    void btnDonnesImporteesAction(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/vue/menuDonneesImporterVue.fxml"));
-        Parent menuDonneesImporterVue = loader.load();
-        MenuDonneesImporterControleur controleur = loader.getController();
-        controleur.setFenetreAppli(fenetreAppli);
-        fenetreAppli.setScene(new Scene(menuDonneesImporterVue));
+    void btnDonnesImporteesAction(ActionEvent event) {
+        EchangeurDeVue.changerVue("menuDonneesImporterVue");
     }
 
     @FXML
-    void btnExpositionAction(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/vue/donneesCalculeesExpositionVue.fxml"));
-        Parent donneesCalculeesExpositionVue = loader.load();
-        DonneesCalculeesExpositionControleur controleur = loader.getController();
-        controleur.setFenetreAppli(fenetreAppli);
-        fenetreAppli.setScene(new Scene(donneesCalculeesExpositionVue));
+    void btnExpositionAction(ActionEvent event) {
+        EchangeurDeVue.changerVue("donneesCalculeesExpositionVue");
     }
 
     @FXML
@@ -98,12 +67,8 @@ public class MenuDonneesCalculeesControleur {
     }
 
     @FXML
-    void btnVisiteAction(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/vue/donneesCalculeesVisiteVue.fxml"));
-        Parent donneesCalculeesVisiteVue = loader.load();
-        DonneesCalculeesVisiteControleur controleur = loader.getController();
-        controleur.setFenetreAppli(fenetreAppli);
-        fenetreAppli.setScene(new Scene(donneesCalculeesVisiteVue));
+    void btnVisiteAction(ActionEvent event) {
+        EchangeurDeVue.changerVue("donneesCalculeesVisiteVue");
     }
 
 

@@ -7,13 +7,11 @@ package application.controleur;
 
 import java.io.IOException;
 
+import application.EchangeurDeVue;
 import application.utilitaire.Serveur;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
@@ -22,7 +20,6 @@ import javafx.stage.Stage;
  */
 public class ChargementPopUpControleur {
     
-    private Stage fenetreAppli;
     private Stage boitePopUp;
     
     private Thread attente;
@@ -34,13 +31,6 @@ public class ChargementPopUpControleur {
             "expositions 28_08_24 17_26.csv",
             "visites 28_08_24 17_26.csv"};
     
-    /**
-     * Définit la fenêtre de l'application.
-     * @param fenetreAppli
-     */
-    public void setFenetreAppli(Stage fenetreAppli) {
-      this.fenetreAppli = fenetreAppli;
-    }
     
     /**
      * Définit la fenêtre de l'application.
@@ -65,18 +55,7 @@ public class ChargementPopUpControleur {
 
                 // Une fois le transfert terminé, fermer la fenêtre popup sur le thread JavaFX
                 Platform.runLater(() -> {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/vue/exporterValideVue.fxml"));
-                    Parent exporterValideVue;
-                    try {
-                        this.boitePopUp.close();
-                        exporterValideVue = loader.load();
-                        ExporterValideControleur controleur = loader.getController();
-                        controleur.setFenetreAppli(fenetreAppli);
-                        fenetreAppli.setScene(new Scene(exporterValideVue));
-                        System.out.println("Transfert terminé.");
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    EchangeurDeVue.changerVue("exporterValideVue");
                 });
 
                 // Sortir de la boucle après le transfert

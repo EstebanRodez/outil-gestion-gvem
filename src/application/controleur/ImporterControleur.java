@@ -9,13 +9,11 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import application.EchangeurDeVue;
 import application.utilitaire.FichierDonneesInvalides;
 import application.utilitaire.ImportationCSV;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -64,14 +62,8 @@ public class ImporterControleur {
     }
 
     @FXML
-    void btnImporterDistantAction(ActionEvent event) throws IOException {
-        FXMLLoader loader
-        = new FXMLLoader(getClass().getResource(
-                "/application/vue/importerDistantVue.fxml"));
-        Parent importerDistantVue = loader.load();
-        ImporterDistantControleur controleur = loader.getController();
-        controleur.setFenetreAppli(fenetreAppli);
-        fenetreAppli.setScene(new Scene(importerDistantVue));
+    void btnImporterDistantAction(ActionEvent event) {
+        EchangeurDeVue.changerVue("importerDistantVue");
     }
 
     @FXML
@@ -141,15 +133,8 @@ public class ImporterControleur {
 
 
     @FXML
-    void btnRetourAction(ActionEvent event) throws IOException {
-        
-        FXMLLoader loader
-        = new FXMLLoader(getClass().getResource(
-                "/application/vue/accueilVue.fxml"));
-        Parent accueuilVue = loader.load();
-        AccueilControleur controleur = loader.getController();
-        controleur.setFenetreAppli(fenetreAppli);
-        fenetreAppli.setScene(new Scene(accueuilVue));
+    void btnRetourAction(ActionEvent event) {
+        EchangeurDeVue.changerVue("accueilVue");
     }
 
 }

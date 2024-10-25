@@ -5,15 +5,10 @@
  */
 package application.controleur;
 
-import java.io.IOException;
-
+import application.EchangeurDeVue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.stage.Stage;
 
 /**
  * Contrôleur pour la gestion de l'importation de données à distance après
@@ -27,16 +22,6 @@ import javafx.stage.Stage;
  */
 public class ImporterDistantValideControleur {
     
-    private Stage fenetreAppli;
-    
-    /**
-     * Définit la fenêtre de l'application.
-     * @param fenetreAppli
-     */
-    public void setFenetreAppli(Stage fenetreAppli) {
-      this.fenetreAppli = fenetreAppli;
-    }
-    
     @FXML
     private Button btnImporter;
 
@@ -48,7 +33,6 @@ public class ImporterDistantValideControleur {
 
     @FXML
     void btnAideAction(ActionEvent event) {
-
         AccueilControleur.lancerAide();
     }
 
@@ -58,12 +42,8 @@ public class ImporterDistantValideControleur {
     }
 
     @FXML
-    void btnRetourAction(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/vue/importerDistantVue.fxml"));
-        Parent importerDistantVue = loader.load();
-        ImporterDistantControleur controleur = loader.getController();
-        controleur.setFenetreAppli(fenetreAppli);
-        fenetreAppli.setScene(new Scene(importerDistantVue));
+    void btnRetourAction(ActionEvent event) {
+        EchangeurDeVue.changerVue("importerDistantVue");
     }
 
 }

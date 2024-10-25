@@ -5,15 +5,12 @@
  */
 package application.controleur;
 
-import java.io.IOException;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 
+import application.EchangeurDeVue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -31,17 +28,6 @@ import javafx.stage.Stage;
  * @version 1.0
  */
 public class ExporterControleur {
-    
-    private Stage fenetreAppli;
-    
-    /**
-     * Définit la fenêtre de l'application.
-     * @param fenetreAppli
-     */
-    public void setFenetreAppli(Stage fenetreAppli) {
-      this.fenetreAppli = fenetreAppli;
-    }
-    
     
     @FXML
     private Button btnAide;
@@ -132,36 +118,26 @@ public class ExporterControleur {
 
     @FXML
     void btnAideAction(ActionEvent event) {
-
         AccueilControleur.lancerAide();
     }
     
     @FXML
-    void btnExporterAction(ActionEvent event) throws IOException {
-            // Charger et afficher la popup de chargement
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/vue/chargementPopUp.fxml"));
-            Parent chargementPopUp = loader.load();
-            
-            // Obtenir le contrôleur de la popup et lui passer la fenêtre principale
-            ChargementPopUpControleur controleur = loader.getController();
-            controleur.setFenetreAppli(fenetreAppli);
-            
-            // Configurer et afficher la popup
-            Scene sceneChargementPopUp = new Scene(chargementPopUp);
-            final Stage boitePopUp = new Stage();
-            boitePopUp.initOwner(this.fenetreAppli); // Définir la fenêtre principale comme "owner" de la popup
-            boitePopUp.setScene(sceneChargementPopUp);
-            boitePopUp.show(); // Afficher la popup
-            controleur.setPopUp(boitePopUp);
-        }
+    void btnExporterAction(ActionEvent event) {
+        
+        EchangeurDeVue.changerVue("chargementPopUp");
+        Stage boitePopUp = new Stage();
+        // Défini la fenêtre principale comme "owner" de la popup
+        boitePopUp.initOwner(EchangeurDeVue.getFenetreAppli()); 
+        boitePopUp.setScene(EchangeurDeVue.getSceneAppli());
+        boitePopUp.show(); // Afficher la popup
+        ChargementPopUpControleur controleur
+        = EchangeurDeVue.getFXMLLoader("chargementPopUp").getController();
+        controleur.setPopUp(boitePopUp);
+    }
 
     @FXML
-    void btnRetourAction(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/vue/accueilVue.fxml"));
-        Parent accueuilVue = loader.load();
-        AccueilControleur controleur = loader.getController();
-        controleur.setFenetreAppli(fenetreAppli);
-        fenetreAppli.setScene(new Scene(accueuilVue));
+    void btnRetourAction(ActionEvent event) {
+        EchangeurDeVue.changerVue("accueilVue");
     }
 
 }

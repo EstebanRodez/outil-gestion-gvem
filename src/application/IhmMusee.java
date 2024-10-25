@@ -5,7 +5,6 @@
  */
 package application;
 
-import application.controleur.AccueilControleur;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -23,9 +22,11 @@ public class IhmMusee extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("vue/accueilVue.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
+        EchangeurDeVue.setFenetreAppli(stage);
+        EchangeurDeVue.setSceneAppli(scene);
         
-        AccueilControleur controleur = loader.getController();
-        controleur.setFenetreAppli(stage);
+//        AccueilControleur controleur = loader.getController();
+//        controleur.setFenetreAppli(stage);
         
         stage.setScene(scene);
         stage.setResizable(false);
@@ -45,8 +46,8 @@ public class IhmMusee extends Application {
      * @param lien le lien de la page FXML
      * @return le FXML Loader de la page
      */
-    public FXMLLoader getFXMLLoader(String lien) {
-        return new FXMLLoader(getClass().getResource(lien));
+    public static FXMLLoader getFXMLLoader(String lien) {
+        return new FXMLLoader(IhmMusee.class.getResource(lien));
     }
     
 }

@@ -6,21 +6,16 @@
 package application.controleur;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
+import application.EchangeurDeVue;
 import application.utilitaire.Client;
 import application.utilitaire.ImportationCSV;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 /**
  * Contrôleur pour la gestion de l'importation de données à distance.
@@ -35,8 +30,6 @@ import javafx.stage.Stage;
  */
 public class ImporterDistantControleur {
     
-    private Stage fenetreAppli;
-    
     private static String[] CHEMIN_FICHIER_CSV_RECU =
     {
         "recu/expositions 28_08_24 17_26.csv",
@@ -44,14 +37,6 @@ public class ImporterDistantControleur {
         "recu/conferencier 28_08_24 17_26.csv", 
         "recu/visites 28_08_24 17_26.csv"
     };
-    
-    /**
-     * Définit la fenêtre de l'application.
-     * @param fenetreAppli
-     */
-    public void setFenetreAppli(Stage fenetreAppli) {
-      this.fenetreAppli = fenetreAppli;
-    }
     
     /**
      * Vérifie si une adresse IP est valide
@@ -106,12 +91,11 @@ public class ImporterDistantControleur {
 
     @FXML
     void btnAideAction(ActionEvent event) {
-
         AccueilControleur.lancerAide();
     }
 
     @FXML
-    void btnConnexionAction(ActionEvent event) throws IOException {
+    void btnConnexionAction(ActionEvent event) {
         
         String ipServeur = txtFieldIPServeur.getText().trim();
         String port = txtFieldPort.getText().trim();
@@ -148,13 +132,7 @@ public class ImporterDistantControleur {
 
             }
             
-            FXMLLoader loader 
-            = new FXMLLoader(getClass().getResource(
-                    "/application/vue/importerDistantValideVue.fxml"));
-            Parent importerDistantValideVue = loader.load();
-            ImporterDistantValideControleur controleur = loader.getController();
-            controleur.setFenetreAppli(fenetreAppli);
-            fenetreAppli.setScene(new Scene(importerDistantValideVue));
+            EchangeurDeVue.changerVue("importerDistantValideVue");
         } else if (isValideAdresseIP(ipServeur) && !isPortValide(port)) {
             
             Alert boiteAlerte 
@@ -177,14 +155,8 @@ public class ImporterDistantControleur {
     }
 
     @FXML
-    void btnRetourAction(ActionEvent event) throws IOException {
-        FXMLLoader loader
-        = new FXMLLoader(getClass().getResource(
-                "/application/vue/importerVue.fxml"));
-        Parent importerVue = loader.load();
-        ImporterControleur controleur = loader.getController();
-        controleur.setFenetreAppli(fenetreAppli);
-        fenetreAppli.setScene(new Scene(importerVue));
+    void btnRetourAction(ActionEvent event) {
+        EchangeurDeVue.changerVue("importerVue");
     }
 
 }

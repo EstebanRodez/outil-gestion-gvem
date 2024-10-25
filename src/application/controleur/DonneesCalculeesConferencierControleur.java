@@ -5,14 +5,11 @@
  */
 package application.controleur;
 
-import java.awt.Desktop;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import application.EchangeurDeVue;
 import application.modele.Conferencier;
 import application.modele.Indisponibilite;
 import application.utilitaire.TraitementDonnees;
@@ -21,12 +18,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -56,7 +48,7 @@ public class DonneesCalculeesConferencierControleur {
       this.fenetreAppli = fenetreAppli;
     }
     
-    static List<Conferencier> conf = TraitementDonnees.getConferenciers();
+    private static List<Conferencier> conf = TraitementDonnees.getConferenciers();
     
     @FXML
     private Button btnRetour;
@@ -126,12 +118,8 @@ public class DonneesCalculeesConferencierControleur {
 
 
     @FXML
-    void retourAccueilAction(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/vue/accueilVue.fxml"));
-        Parent accueilVue = loader.load();
-        AccueilControleur controleur = loader.getController();
-        controleur.setFenetreAppli(fenetreAppli);
-        fenetreAppli.setScene(new Scene(accueilVue));
+    void retourAccueilAction(ActionEvent event) {
+        EchangeurDeVue.changerVue("accueilVue");
     }
 
     @FXML
@@ -141,32 +129,12 @@ public class DonneesCalculeesConferencierControleur {
 
     @FXML
     void aideAction(ActionEvent event) {
-        final String LIEN_REGLES
-        = "https://docs.google.com/document/d/1wA1ytqySDYe1D-2ZL1M0mLKMvUmv9SCtS0uORFgoRIY/edit?usp=sharing";
-
-        Desktop desktop = Desktop.getDesktop();
-        try {
-            desktop.browse(new URI(LIEN_REGLES));
-        } catch (IOException | URISyntaxException e) {
-            Alert boiteErreurInconnueOuverture =
-                    new Alert(Alert.AlertType.ERROR, 
-                              "impossible d'ouvrir le fichier d'aide",
-                              ButtonType.OK);
-
-            boiteErreurInconnueOuverture.setTitle("Erreur d'affichage aide");
-            boiteErreurInconnueOuverture.setHeaderText("Erreur d'affichage aide");
-
-            boiteErreurInconnueOuverture.showAndWait();
-        }
+        AccueilControleur.lancerAide();
     }
 
     @FXML
-    void btnRetourAction(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/vue/menuDonneesCalculeesVue.fxml"));
-        Parent menuDonneesCalculeesVue = loader.load();
-        MenuDonneesCalculeesControleur controleur = loader.getController();
-        controleur.setFenetreAppli(fenetreAppli);
-        fenetreAppli.setScene(new Scene(menuDonneesCalculeesVue));
+    void btnRetourAction(ActionEvent event) {
+        EchangeurDeVue.changerVue("menuDonneesCalculeesVue");
     }
 
 }
