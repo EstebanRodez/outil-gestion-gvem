@@ -7,6 +7,9 @@ package application.utilitaire;
 
 /**
  * Exception générée si un fichier .csv contient des données incorrectes
+ * 
+ * @author Esteban Vroemen
+ * @version 1.0
  */
 public class FichierDonneesInvalides extends Exception {
 

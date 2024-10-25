@@ -19,7 +19,10 @@ import javafx.scene.control.Button;
  * données importées, telles que les conférenciers, les expositions
  * et les visites.
  * 
+ * @author Romain Augé
+ * @author Ayoub Laluti
  * @author Baptiste Thenieres
+ * @author Esteban Vroemen
  * @version 1.0
  */
 public class MenuDonneesImporterControleur {

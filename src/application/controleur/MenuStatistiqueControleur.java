@@ -16,7 +16,10 @@ import javafx.scene.control.Button;
  * des statistiques, permettant d'accéder aux différentes options
  * liées aux données statistiques de l'application.
  * 
+ * @author Romain Augé
+ * @author Ayoub Laluti
  * @author Baptiste Thenieres
+ * @author Esteban Vroemen
  * @version 1.0
  */
 public class MenuStatistiqueControleur {

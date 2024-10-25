@@ -17,7 +17,10 @@ import javafx.scene.control.Button;
  * Cette classe permet à l'utilisateur de procéder à l'importation de données
  * à distance une fois qu'il a validé la connexion avec le serveur.
  * 
+ * @author Romain Augé
+ * @author Ayoub Laluti
  * @author Baptiste Thenieres
+ * @author Esteban Vroemen
  * @version 1.0
  */
 public class ImporterDistantValideControleur {

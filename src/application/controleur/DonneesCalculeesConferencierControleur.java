@@ -33,7 +33,10 @@ import javafx.stage.Stage;
  * des actions telles que le retour à l'écran d'accueil ou la fermeture de 
  * l'application. 
  * 
+ * @author Romain Augé
+ * @author Ayoub Laluti
  * @author Baptiste Thenieres
+ * @author Esteban Vroemen
  * @version 1.0
  */
 public class DonneesCalculeesConferencierControleur {

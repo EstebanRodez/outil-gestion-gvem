@@ -27,7 +27,10 @@ import javafx.scene.control.ButtonType;
  * pour effectuer des actions spécifiques comme consulter, importer, 
  * exporter des données ou quitter l'application. 
  * 
+ * @author Romain Augé
+ * @author Ayoub Laluti
  * @author Baptiste Thenieres
+ * @author Esteban Vroemen
  * @version 1.0
  */
 public class AccueilControleur {

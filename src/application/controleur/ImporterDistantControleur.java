@@ -25,7 +25,10 @@ import javafx.scene.control.TextField;
  * également des fonctionnalités pour afficher des règles
  * d'utilisation via un lien.
  * 
+ * @author Romain Augé
+ * @author Ayoub Laluti
  * @author Baptiste Thenieres
+ * @author Esteban Vroemen
  * @version 1.0
  */
 public class ImporterDistantControleur {

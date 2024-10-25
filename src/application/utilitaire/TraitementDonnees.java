@@ -20,8 +20,10 @@ import application.modele.Visite;
 /**
  * Classe responsable du traitement des données importées depuis des
  * fichiers CSV.
+ * 
  * @author Ayoub Laluti
  * @author Esteban Vroemen
+ * @version 1.0
  */
 public class TraitementDonnees {
     

@@ -24,7 +24,10 @@ import javafx.stage.Stage;
  * en fournissant une adresse IP et un port. Elle gère également 
  * la validation des entrées et l'affichage des erreurs éventuelles.
  * 
+ * @author Romain Augé
+ * @author Ayoub Laluti
  * @author Baptiste Thenieres
+ * @author Esteban Vroemen
  * @version 1.0
  */
 public class ExporterControleur {

@@ -17,6 +17,9 @@ import javafx.stage.Stage;
 
 /**
  * TODO commenter le fonctionnement
+ * 
+ * @author Esteban Vroemen
+ * @version 1.0
  */
 public class EchangeurDeVue {
 

@@ -28,7 +28,10 @@ import javafx.stage.Stage;
  * Elle gère également les interactions liées à l'aide et au retour 
  * vers l'interface d'accueil.
  * 
+ * @author Romain Augé
+ * @author Ayoub Laluti
  * @author Baptiste Thenieres
+ * @author Esteban Vroemen
  * @version 1.0
  */
 public class ImporterControleur {
