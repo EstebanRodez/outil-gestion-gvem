@@ -5,8 +5,8 @@
  */
 package application.controleur;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.stream.Collectors;
 
 import application.EchangeurDeVue;
@@ -48,7 +48,8 @@ public class DonneesImporteesConferencierControleur {
       this.fenetreAppli = fenetreAppli;
     }
     
-    static List<Conferencier> conf = TraitementDonnees.getConferenciers();
+    private static ArrayList<Conferencier> conferenciers
+    = TraitementDonnees.getConferenciers();
     
     @FXML
     private Button btnRetour;
@@ -97,8 +98,9 @@ public class DonneesImporteesConferencierControleur {
         specialites.setCellValueFactory(cellData -> 
         new SimpleStringProperty(String.join(", ", cellData.getValue().getSpecialites())));
         
-        ObservableList<Conferencier> exposList = FXCollections.observableArrayList(conf);
-        tableExposition.setItems(exposList);
+        ObservableList<Conferencier> conferenciersListe 
+        = FXCollections.observableArrayList(conferenciers);
+        tableExposition.setItems(conferenciersListe);
     }
     
     private static String getEstInterneAsString(Boolean estInterne) {

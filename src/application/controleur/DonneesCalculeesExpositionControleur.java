@@ -7,7 +7,7 @@ package application.controleur;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
+import java.util.ArrayList;
 
 import application.utilitaire.TraitementDonnees;
 import application.EchangeurDeVue;
@@ -44,7 +44,8 @@ public class DonneesCalculeesExpositionControleur {
     
     private Stage fenetreAppli;
     
-    private static List<Exposition> expo = TraitementDonnees.getExpositions();
+    private static ArrayList<Exposition> expositions
+    = TraitementDonnees.getExpositions();
     
     // Format pour les dates au format jj/MM/aaaa
     private static final DateTimeFormatter DATE_FORMAT 
@@ -144,9 +145,9 @@ public class DonneesCalculeesExpositionControleur {
         );
     
         // Populate the table with the imported exhibitions
-        ObservableList<Exposition> exposList
-        = FXCollections.observableArrayList(expo);
-        tableExposition.setItems(exposList);
+        ObservableList<Exposition> exposListe
+        = FXCollections.observableArrayList(expositions);
+        tableExposition.setItems(exposListe);
     }
     
     /**

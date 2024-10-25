@@ -8,7 +8,6 @@ package application.utilitaire;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.List;
 
 import application.modele.Client;
 import application.modele.Conferencier;
@@ -403,7 +402,7 @@ public class TraitementDonnees {
      * 
      * @return Une liste d'objets Exposition
      */
-    public static List<Exposition> getExpositions() {
+    public static ArrayList<Exposition> getExpositions() {
         return expositions;
     }
     
@@ -412,7 +411,7 @@ public class TraitementDonnees {
      * 
      * @return Une liste d'objets Employe
      */
-    public static List<Employe> getEmployes() {
+    public static ArrayList<Employe> getEmployes() {
         return employes;
     }
     
@@ -421,7 +420,7 @@ public class TraitementDonnees {
      * 
      * @return Une liste d'objets Conferencier
      */
-    public static List<Conferencier> getConferenciers() {
+    public static ArrayList<Conferencier> getConferenciers() {
         return conferenciers;
     }
     
@@ -430,7 +429,7 @@ public class TraitementDonnees {
      * 
      * @return Une liste d'objets Client
      */
-    public static List<Client> getClients() {
+    public static ArrayList<Client> getClients() {
         return clients;
     }
     
@@ -439,7 +438,7 @@ public class TraitementDonnees {
      * 
      * @return Une liste d'objets Visite
      */
-    public static List<Visite> getVisites() {
+    public static ArrayList<Visite> getVisites() {
         return visites;
     }
 }

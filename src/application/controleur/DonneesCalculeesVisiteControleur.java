@@ -6,7 +6,7 @@
 package application.controleur;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.ArrayList;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -38,7 +38,7 @@ public class DonneesCalculeesVisiteControleur {
     
     private Stage fenetreAppli;
     
-    private static List<Visite> visite = TraitementDonnees.getVisites();
+    private static ArrayList<Visite> visites = TraitementDonnees.getVisites();
     
     /**
      * Définit la fenêtre de l'application.
@@ -121,9 +121,9 @@ public class DonneesCalculeesVisiteControleur {
         });
         
         
-        ObservableList<Visite> visiteList
-        = FXCollections.observableArrayList(visite);
-        tableExposition.setItems(visiteList);
+        ObservableList<Visite> visitesListe
+        = FXCollections.observableArrayList(visites);
+        tableExposition.setItems(visitesListe);
     }
 
     @FXML
