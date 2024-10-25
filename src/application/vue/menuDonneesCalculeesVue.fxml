@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.HBox?>
@@ -7,28 +12,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" style="-fx-background-color: #9FCFF3;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-		fx:controller="application.controleur.MenuDonneesCalculeesControleur">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" style="-fx-background-color: #9FCFF3;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controleur.MenuDonneesCalculeesControleur">
    <children>
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Button fx:id="btnAccueil" mnemonicParsing="false" onAction="#btnAccueilAction" prefWidth="240.0" style="-fx-background-color: #ffffff;" text="Accueil">
-               <HBox.margin>
-                  <Insets top="10.0" />
-               </HBox.margin>
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Button>
-            <Button fx:id="btnDonnesImportees" mnemonicParsing="false" onAction="#btnDonnesImporteesAction" prefWidth="240.0" style="-fx-background-color: #ffffff;" text="Données importées">
-               <font>
-                  <Font size="15.0" />
-               </font>
-               <HBox.margin>
-                  <Insets top="10.0" />
-               </HBox.margin>
-            </Button>
-            <Button mnemonicParsing="false" prefHeight="42.0" prefWidth="240.0" style="-fx-background-color: #FFEE8E;" text="Données calculées">
+            <Button fx:id="btnAccueil" mnemonicParsing="false" onAction="#btnAccueilAction" prefHeight="47.0" prefWidth="240.0" style="-fx-background-color: ##D3D3D3;" text="Accueil">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
@@ -36,9 +24,25 @@
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button fx:id="btnStatistique" mnemonicParsing="false" onAction="#btnStatistiqueAction" prefWidth="240.0" style="-fx-background-color: #ffffff;" text="Statistique">
+            <Button fx:id="btnDonnesImportees" mnemonicParsing="false" onAction="#btnDonnesImporteesAction" prefHeight="47.0" prefWidth="240.0" style="-fx-background-color: ##D3D3D3;" text="Données importées">
+               <font>
+                  <Font size="15.0" />
+               </font>
                <HBox.margin>
-                  <Insets top="10.0" />
+                  <Insets />
+               </HBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" prefHeight="47.0" prefWidth="240.0" style="-fx-background-color: #FFEE8E;" text="Données calculées">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnStatistique" mnemonicParsing="false" onAction="#btnStatistiqueAction" prefHeight="47.0" prefWidth="240.0" style="-fx-background-color: ##D3D3D3;" text="Statistique">
+               <HBox.margin>
+                  <Insets />
                </HBox.margin>
                <font>
                   <Font size="15.0" />
