@@ -24,10 +24,30 @@ import java.util.ArrayList;
  * @version 2.0
  */
 public class ImportationCSV {
-
-    private static final String ERREUR_CONTENU_FICHIER 
-    = "Erreur: Le fichier csv n'est ni des expositions, ni des visites, "
-      + "ni des employés et ni des conferenciers.";
+    
+    private static final String ERREUR_FICHIER_INVALIDE =
+    """
+    Erreur de fichier invalide.
+    Le fichier est invalide pour une extraction de données CSV.
+    """;
+    
+    private static final String ERREUR_FICHIER_INTROUVABLE =
+    """
+    Erreur de fichier inexistant.
+    Le fichier est introuvable.
+    """;
+    
+    private static final String ERREUR_FICHIER_ACCES =
+    """
+    Erreur d'accès fichier.
+    Le fichier n'est pas lisible/accessible.
+    """;
+    
+    private static final String ERREUR_DONNEES_INCORRECTES =
+    """
+    Erreur des données fichier.
+    Le fichier contient des données incorrectes.
+    """;
     
     private static final String FORMAT_IDENTIFIANT = "^[ERCN](\\d){6}$";
     
@@ -68,14 +88,14 @@ public class ImportationCSV {
             } else {
                 
                 fichierCSV.close();  
-                throw new IllegalArgumentException();
+                throw new IllegalArgumentException(ERREUR_FICHIER_INVALIDE);
             }
         } catch (FileNotFoundException e) {
 
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(ERREUR_FICHIER_INTROUVABLE);
         } catch (IOException e) {
 
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(ERREUR_FICHIER_ACCES);
         }
     }
 
@@ -85,7 +105,8 @@ public class ImportationCSV {
      * @param cheminFichier le chemin du fichier à vérifier
      * @return true si on peut importer des données depuis ce fichier
      *         sinon false
-     * @throws IOException 
+     * @throws IOException si la taille du fichier n'est pas
+     *                     vérifiable
      */
     private static boolean isFichierValide(String cheminFichier)
             throws IOException {
@@ -128,11 +149,12 @@ public class ImportationCSV {
             lignes.add(ligne);
             ligne = fichierCSV.readLine();
         }
+        fichierCSV.close();
         
         if (verifierLignes(lignes)) {
             enregistrerLignes(lignes);
         } else {
-            throw new FichierDonneesInvalides();
+            throw new FichierDonneesInvalides(ERREUR_DONNEES_INCORRECTES);
         }
     }
 
@@ -153,8 +175,6 @@ public class ImportationCSV {
             TraitementDonnees.creerEmployes(lignes);
         } else if (lettreIdentifiant == 'C') { // Conférencier
             TraitementDonnees.creerConferenciers(lignes);
-        } else {
-            throw new IllegalArgumentException(ERREUR_CONTENU_FICHIER);
         }
     }
 
