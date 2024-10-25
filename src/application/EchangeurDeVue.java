@@ -16,7 +16,16 @@ import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 
 /**
- * TODO commenter le fonctionnement
+ * Classe utilitaire permettant la gestion de vues pour une
+ * application JavaFX. Elle centralise le changement de vue dans
+ * l'application, permettant ainsi d'éviter le rechargement de vues
+ * déjà chargées et de simplifier la navigation entre les différentes
+ * interfaces graphiques.
+ * <p>
+ * Les vues sont mises en cache pour éviter les rechargements et
+ * améliorer les performances. Cette classe offre également un
+ * mécanisme de gestion des erreurs lors du chargement des vues.
+ * </p>
  * 
  * @author Esteban Vroemen
  * @version 1.0
@@ -26,24 +35,31 @@ public class EchangeurDeVue {
     /** Cache permettant d'éviter de charger deux fois la même vue */
     private static HashMap<String, Parent> cacheVue = new HashMap<>();
     
-    /** Cache permettant de charger un contrôleur */
+    /** 
+     * Cache permettant de stocker un contrôleur FXML Loader associé 
+     * à chaque vue. Utile pour récupérer un contrôleur si besoin
+     */
     private static HashMap<String, FXMLLoader> cacheFXMLLoader
     = new HashMap<>();
     
+    /** Fenêtre principale de l'application */
     private static Stage fenetreAppli;
     
+    /** Scène principale de l'application */
     private static Scene sceneAppli;
     
     /**
      * Définit la fenêtre de l'application.
-     * @param fenetreAppli la fenêtre de l'application
+     *
+     * @param fenetreAppli la fenêtre principale de l'application
      */
     public static void setFenetreAppli(Stage fenetreAppli) {
         EchangeurDeVue.fenetreAppli = fenetreAppli;
     }
     
     /**
-     * Renvoie la fenêtre de l'application
+     * Retourne la fenêtre principale de l'application.
+     *
      * @return la fenêtre de l'application
      */
     public static Stage getFenetreAppli() {
@@ -51,44 +67,57 @@ public class EchangeurDeVue {
     }
     
     /**
-     * Définit la scène de l'application.
-     * @param sceneAppli la scène de l'application
+     * Définit la scène principale de l'application.
+     *
+     * @param sceneAppli la scène principale de l'application
      */
     public static void setSceneAppli(Scene sceneAppli) {
         EchangeurDeVue.sceneAppli = sceneAppli;
     }
     
     /**
-     * Renvoie la fenêtre de l'application
-     * @return la fenêtre de l'application
+     * Retourne la scène principale de l'application.
+     * 
+     * @return la scène de l'application
      */
     public static Scene getSceneAppli() {
         return sceneAppli;
     }
     
     /**
-     * Renvoie le FXML Loader d'une vue donnée en argument.
+     * Retourne le FXML Loader associé à une vue.
+     * 
      * @param nomVue le nom de la vue
-     * @return la FXML Loader de la vue
+     * @return le FXML Loader de la vue, ou null si la vue n'a pas
+     *         été chargée
      */
     public static FXMLLoader getFXMLLoader(String nomVue) {
         return cacheFXMLLoader.get(nomVue);
     }
     
     /**
-     * Renvoie le Parent d'une vue donnée en argument.
+     * Retourne le Parent associé à une vue.
+     * 
      * @param nomVue le nom de la vue
-     * @return le Parent de la vue
+     * @return le Parent de la vue, ou null si la vue n'a pas été
+     *         chargée
      */
     public static Parent getParent(String nomVue) {
         return cacheVue.get(nomVue);
     }
     
     /**
-     * Sert à changer de vue dans tous les contrôleurs
+     * Change la vue affichée dans l'application en chargeant la vue
+     * spécifiée. Si la vue est déjà dans le cache, elle est
+     * réutilisée ; sinon, elle est chargée et ajoutée au cache.
+     * <p>
+     * Affiche une boîte d'erreur si la vue ne peut pas être chargée.
+     * </p>
+     * 
      * @param nomVue le nom de la vue sans l'extension .fxml
-     * @throws IllegalArgumentException
-     * @throws IllegalArgumentException
+     * @throws IllegalArgumentException si la référence de la vue est
+     *                                  nulle
+     * @throws IllegalArgumentException si la nom de la vue est vide
      */
     public static void changerVue(String nomVue) {
         
@@ -119,11 +148,16 @@ public class EchangeurDeVue {
         }
         
         if (parentVue != null) {
-            // sceneAppli = new Scene(parentVue);
             sceneAppli.setRoot(parentVue);
         }
     }
     
+    /**
+     * Affiche une boîte de dialogue d'erreur si le chargement d'une
+     * vue échoue.
+     *
+     * @param nomVue le nom de la vue dont le chargement a échoué
+     */
     private static void lancerErreurChargementVue(String nomVue) {
         
         Alert boiteErreurChargementVue
