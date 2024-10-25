@@ -76,6 +76,15 @@ public class EchangeurDeVue {
     }
     
     /**
+     * Renvoie le Parent d'une vue donnée en argument.
+     * @param nomVue le nom de la vue
+     * @return le Parent de la vue
+     */
+    public static Parent getParent(String nomVue) {
+        return cacheVue.get(nomVue);
+    }
+    
+    /**
      * Sert à changer de vue dans tous les contrôleurs
      * @param nomVue le nom de la vue sans l'extension .fxml
      * @throws IllegalArgumentException
