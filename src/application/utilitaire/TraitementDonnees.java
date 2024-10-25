@@ -219,7 +219,8 @@ public class TraitementDonnees {
                                                      indisponibilites);
                      conferenciers.add(conferencier);
                  } else {
-                     throw new IllegalArgumentException(ERREUR_NOMBRE_ARGUMENTS); 
+                     throw new IllegalArgumentException(
+                             ERREUR_NOMBRE_ARGUMENTS); 
                  }       
              }
          }
