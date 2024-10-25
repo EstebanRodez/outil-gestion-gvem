@@ -25,9 +25,10 @@ import javafx.stage.Stage;
 /**
  * Contrôleur pour la gestion de l'importation de données à distance.
  * 
- * Cette classe permet à l'utilisateur de spécifier une adresse IP et un port
- * pour se connecter à un serveur distant. Elle inclut également des 
- * fonctionnalités pour afficher des règles d'utilisation via un lien.
+ * Cette classe permet à l'utilisateur de spécifier une adresse IP et
+ * un port pour se connecter à un serveur distant. Elle inclut
+ * également des fonctionnalités pour afficher des règles
+ * d'utilisation via un lien.
  * 
  * @author Baptiste Thenieres
  * @version 1.0
@@ -36,11 +37,13 @@ public class ImporterDistantControleur {
     
     private Stage fenetreAppli;
     
-    private static String[] CHEMIN_FICHIER_CSV_RECU = {
-                                        "recu/expositions 28_08_24 17_26.csv",
-                                        "recu/employes 28_08_24 17_26.csv",
-                                        "recu/conferencier 28_08_24 17_26.csv", 
-                                        "recu/visites 28_08_24 17_26.csv"};
+    private static String[] CHEMIN_FICHIER_CSV_RECU =
+    {
+        "recu/expositions 28_08_24 17_26.csv",
+        "recu/employes 28_08_24 17_26.csv",
+        "recu/conferencier 28_08_24 17_26.csv", 
+        "recu/visites 28_08_24 17_26.csv"
+    };
     
     /**
      * Définit la fenêtre de l'application.
@@ -55,7 +58,7 @@ public class ImporterDistantControleur {
      * @param ip Adresse IP sous forme de chaîne
      * @return true si l'adresse est valide, sinon false
      */
-    private boolean isValidIPAddress(String ip) {
+    private static boolean isValidIPAddress(String ip) {
         // Expression régulière pour vérifier une adresse IPv4
         String ipPattern = 
             "^([0-9]{1,3}\\.){3}[0-9]{1,3}$";
@@ -77,9 +80,10 @@ public class ImporterDistantControleur {
     /**
      * Vérifie si le port est valide
      * @param port Chaîne représentant le port
-     * @return true si le port est un entier valide entre 0 et 65535, sinon false
+     * @return true si le port est un entier valide entre 0 et 65535,
+     *         sinon false
      */
-    private boolean isValidPort(String port) {
+    private static boolean isValidPort(String port) {
         try {
             int portValue = Integer.parseInt(port);
             return portValue >= 0 && portValue <= 65535;
@@ -111,12 +115,14 @@ public class ImporterDistantControleur {
 
     @FXML
     void btnConnexionAction(ActionEvent event) throws IOException {
+        
         String ipServeur = txtFieldIPServeur.getText().trim();
         String port = txtFieldPort.getText().trim();
 
         if (isValidIPAddress(ipServeur) && isValidPort(port)) {
             // Réception des fichiers depuis le serveur
-            Client.recevoirFichiers(ipServeur, Integer.parseInt(port), CHEMIN_FICHIER_CSV_RECU);
+            Client.recevoirFichiers(ipServeur, Integer.parseInt(port),
+                                    CHEMIN_FICHIER_CSV_RECU);
 
             // Traitement des fichiers reçus
             List<File> fichiersSelectionnes = new ArrayList<>();
@@ -126,11 +132,14 @@ public class ImporterDistantControleur {
 
             // Vérification si les fichiers ont été sélectionnés et traitement
             if (!fichiersSelectionnes.isEmpty()) {
+                
                 StringBuilder nomsFichiers = new StringBuilder();
                 for (File fichier : fichiersSelectionnes) {
+                    
                     try {
                         // Importer et traiter les données CSV
-                        ImportationCSV.importerDonnees(fichier.getAbsolutePath());
+                        ImportationCSV.importerDonnees(
+                                fichier.getAbsolutePath());
 
                         // Ajouter le nom du fichier traité à la liste
                         nomsFichiers.append(fichier.getName()).append("\n");
@@ -140,10 +149,12 @@ public class ImporterDistantControleur {
                 }
 
                 // Afficher les noms des fichiers traités (facultatif)
-                System.out.println("Fichiers traités : \n" + nomsFichiers.toString());
+                // System.out.println("Fichiers traités : \n" + nomsFichiers.toString());
             }
             
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/vue/importerDistantValideVue.fxml"));
+            FXMLLoader loader
+            = new FXMLLoader(getClass().getResource(
+                    "/application/vue/importerDistantValideVue.fxml"));
             Parent importerDistantValideVue = loader.load();
             ImporterDistantValideControleur controleur = loader.getController();
             controleur.setFenetreAppli(fenetreAppli);
@@ -159,11 +170,10 @@ public class ImporterDistantControleur {
             boiteAlerte.showAndWait();
 
         } else {
-            Alert boiteAlerte = new Alert(Alert.AlertType.ERROR,"Veuillez "
-                    + "respecter la norme d'écriture "
-                    + "d'une adresse ip "
-                    + "\n(exemple : 192.168.2.3)."
-                    + " \noctet maximum = 255");
+            Alert boiteAlerte 
+            = new Alert(Alert.AlertType.ERROR, "Veuillez respecter la norme "
+                        + "d'écriture d'une adresse ip  \n(exemple : "
+                        + "192.168.2.3).\noctet maximum = 255");
 
             boiteAlerte.setTitle("Erreur sur l'adresse IP");
             boiteAlerte.setHeaderText("Erreur sur l'adresse IP");
@@ -173,7 +183,9 @@ public class ImporterDistantControleur {
 
     @FXML
     void btnRetourAction(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/vue/importerVue.fxml"));
+        FXMLLoader loader
+        = new FXMLLoader(getClass().getResource(
+                "/application/vue/importerVue.fxml"));
         Parent importerVue = loader.load();
         ImporterControleur controleur = loader.getController();
         controleur.setFenetreAppli(fenetreAppli);
