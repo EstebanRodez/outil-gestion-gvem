@@ -58,7 +58,7 @@ public class ImporterDistantControleur {
      * @param ip Adresse IP sous forme de chaîne
      * @return true si l'adresse est valide, sinon false
      */
-    private static boolean isValidIPAddress(String ip) {
+    private static boolean isValideAdresseIP(String ip) {
         // Expression régulière pour vérifier une adresse IPv4
         String ipPattern = 
             "^([0-9]{1,3}\\.){3}[0-9]{1,3}$";
@@ -83,13 +83,10 @@ public class ImporterDistantControleur {
      * @return true si le port est un entier valide entre 0 et 65535,
      *         sinon false
      */
-    private static boolean isValidPort(String port) {
-        try {
-            int portValue = Integer.parseInt(port);
-            return portValue >= 0 && portValue <= 65535;
-        } catch (NumberFormatException e) {
-            return false;  // Si la chaîne n'est pas un entier, retourne false
-        }
+    private static boolean isPortValide(String port) {
+            
+        return port.matches("(\\d){1,5}") && Integer.parseInt(port) >= 0
+               && Integer.parseInt(port) <= 65535;
     }
     
     @FXML
@@ -119,13 +116,14 @@ public class ImporterDistantControleur {
         String ipServeur = txtFieldIPServeur.getText().trim();
         String port = txtFieldPort.getText().trim();
 
-        if (isValidIPAddress(ipServeur) && isValidPort(port)) {
+        if (isValideAdresseIP(ipServeur) && isPortValide(port)) {
+            
             // Réception des fichiers depuis le serveur
             Client.recevoirFichiers(ipServeur, Integer.parseInt(port),
                                     CHEMIN_FICHIER_CSV_RECU);
 
             // Traitement des fichiers reçus
-            List<File> fichiersSelectionnes = new ArrayList<>();
+            ArrayList<File> fichiersSelectionnes = new ArrayList<>();
             for (String cheminFichier : CHEMIN_FICHIER_CSV_RECU) {
                 fichiersSelectionnes.add(new File(cheminFichier));
             }
@@ -148,33 +146,30 @@ public class ImporterDistantControleur {
                     }
                 }
 
-                // Afficher les noms des fichiers traités (facultatif)
-                // System.out.println("Fichiers traités : \n" + nomsFichiers.toString());
             }
             
-            FXMLLoader loader
+            FXMLLoader loader 
             = new FXMLLoader(getClass().getResource(
                     "/application/vue/importerDistantValideVue.fxml"));
             Parent importerDistantValideVue = loader.load();
             ImporterDistantValideControleur controleur = loader.getController();
             controleur.setFenetreAppli(fenetreAppli);
             fenetreAppli.setScene(new Scene(importerDistantValideVue));
-        } else if (isValidIPAddress(ipServeur) && !isValidPort(port)) {
-            Alert boiteAlerte = new Alert(Alert.AlertType.ERROR,"Veuillez "
-                    + "respecter la norme d'écriture "
-                    + "d'un port :"
-                    + "\n entre 0 et 65535");
-
+        } else if (isValideAdresseIP(ipServeur) && !isPortValide(port)) {
+            
+            Alert boiteAlerte 
+            = new Alert(Alert.AlertType.ERROR,"Veuillez respecter la norme "
+                        + "d'écriture d'un port :\n entre 0 et 65535");
             boiteAlerte.setTitle("Erreur sur le port");
             boiteAlerte.setHeaderText("Erreur sur le port");
             boiteAlerte.showAndWait();
 
         } else {
+            
             Alert boiteAlerte 
             = new Alert(Alert.AlertType.ERROR, "Veuillez respecter la norme "
                         + "d'écriture d'une adresse ip  \n(exemple : "
-                        + "192.168.2.3).\noctet maximum = 255");
-
+                        + "192.168.2.3).\nValeur maximale par octet = 255");
             boiteAlerte.setTitle("Erreur sur l'adresse IP");
             boiteAlerte.setHeaderText("Erreur sur l'adresse IP");
             boiteAlerte.showAndWait();
