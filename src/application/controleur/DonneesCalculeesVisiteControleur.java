@@ -55,6 +55,9 @@ public class DonneesCalculeesVisiteControleur {
     private Button btnRetour;
     
     @FXML
+    private Button btnFiltres;
+    
+    @FXML
     private TableColumn<Visite, String> conferencier;
 
     @FXML
@@ -147,6 +150,19 @@ public class DonneesCalculeesVisiteControleur {
     @FXML
     void btnRetourAction(ActionEvent event) {
         EchangeurDeVue.changerVue("menuDonneesCalculeesVue");
+    }
+    
+    @FXML
+    void btnFiltresAction(ActionEvent event) {
+        EchangeurDeVue.changerVue("donneesCalculeesVisiteFiltresPopUP");
+        Stage filtresPopUP = new Stage();
+        // Défini la fenêtre principale comme "owner" de la popup
+        filtresPopUP.initOwner(EchangeurDeVue.getFenetreAppli()); 
+        filtresPopUP.setScene(EchangeurDeVue.getSceneAppli());
+        filtresPopUP.show(); // Afficher la popup
+        DonneesCalculeesVisiteFiltresPopUPControleur controleur
+        = EchangeurDeVue.getFXMLLoader("donneesCalculeesVisiteFiltresPopUP").getController();
+        controleur.setPopUp(filtresPopUP);
     }
 
 }
