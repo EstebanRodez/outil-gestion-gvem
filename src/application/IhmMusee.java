@@ -33,11 +33,20 @@ public class IhmMusee extends Application {
     }
     
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
+     * Fonction de lancement de l'application
      * @param args
      */
     public static void main(String[] args) {
         launch(args);
     }
-
+    
+    /**
+     * Permet d'obtenir le FXML Loader d'une page FXML
+     * @param lien le lien de la page FXML
+     * @return le FXML Loader de la page
+     */
+    public FXMLLoader getFXMLLoader(String lien) {
+        return new FXMLLoader(getClass().getResource(lien));
+    }
+    
 }
