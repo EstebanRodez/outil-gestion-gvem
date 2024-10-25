@@ -48,6 +48,24 @@ public class EchangeurDeVue {
     /** Scène principale de l'application */
     private static Scene sceneAppli;
     
+    private static final String ERREUR_NOM_VUE_INVALIDE =
+    """
+    Impossible de changer de vue.
+    La référence de la vue ne doit pas être nulle.
+    """;
+    
+    private static final String ERREUR_NOM_VUE_VIDE =
+    """
+    Impossible de changer de vue.
+    Le nom de la vue ne doit pas être vide.
+    """;
+    
+    private static final String ERREUR_NOM_VUE_AVEC_EXCEPTION =
+    """
+    Impossible de changer de vue.
+    Le nom de la vue ne doit pas contenir l'extension .fxml.
+    """;
+    
     /**
      * Définit la fenêtre de l'application.
      *
@@ -114,7 +132,7 @@ public class EchangeurDeVue {
      * Affiche une boîte d'erreur si la vue ne peut pas être chargée.
      * </p>
      * 
-     * @param nomVue le nom de la vue sans l'extension .fxml
+     * @param nomVue le nom de la vue avec ou sans l'extension .fxml
      * @throws IllegalArgumentException si la référence de la vue est
      *                                  nulle
      * @throws IllegalArgumentException si la nom de la vue est vide
@@ -122,11 +140,16 @@ public class EchangeurDeVue {
     public static void changerVue(String nomVue) {
         
         if (nomVue == null) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(ERREUR_NOM_VUE_INVALIDE);
         }
         
         if (nomVue.isBlank()) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(ERREUR_NOM_VUE_VIDE);
+        }
+        
+        String lienVue = "/application/vue/" + nomVue;
+        if (!nomVue.matches(".*\\.fxml$")) {
+            lienVue += ".fxml";
         }
         
         Parent parentVue = null;
@@ -136,9 +159,7 @@ public class EchangeurDeVue {
         } else {
             
             try {
-                FXMLLoader loader
-                = IhmMusee.getFXMLLoader(
-                        "/application/vue/" + nomVue + ".fxml");
+                FXMLLoader loader = IhmMusee.getFXMLLoader(lienVue);
                 cacheFXMLLoader.put(nomVue, loader);
                 parentVue = loader.load();
                 cacheVue.put(nomVue, parentVue);
