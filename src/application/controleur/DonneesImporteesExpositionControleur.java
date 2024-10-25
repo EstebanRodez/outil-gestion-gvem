@@ -206,14 +206,10 @@ public class DonneesImporteesExpositionControleur {
 
     @FXML
     void aideAction(ActionEvent event) {
-        
-    	final String LIEN_REGLES
-        = "https://docs.google.com/document/d/1wA1ytqySDYe1D-2ZL1M0mLKMvUmv9SCt"
-          + "S0uORFgoRIY/edit?usp=sharing";
 
         Desktop desktop = Desktop.getDesktop();
         try {
-            desktop.browse(new URI(LIEN_REGLES));
+            desktop.browse(new URI(AccueilControleur.getLienAide()));
         } catch (IOException | URISyntaxException e) {
             
             Alert boiteErreurInconnueOuverture

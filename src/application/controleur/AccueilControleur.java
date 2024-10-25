@@ -37,13 +37,9 @@ public class AccueilControleur {
     
     private Stage fenetreAppli;
     
-    /**
-     * Définit la fenêtre de l'application.
-     * @param fenetreAppli
-     */
-    public void setFenetreAppli(Stage fenetreAppli) {
-      this.fenetreAppli = fenetreAppli;
-    }
+    private static final String LIEN_AIDE
+    = "https://docs.google.com/document/d/1wA1ytqySDYe1D-2ZL1M0mLKMvUmv9SCtS0u"
+      + "ORFgoRIY";
     
     @FXML
     private Button btnAide;
@@ -59,15 +55,29 @@ public class AccueilControleur {
 
     @FXML
     private Button btnQuitter;
+    
+    /**
+     * Renvoie le lien de la fiche d'aide
+     * @return le lien de la fiche d'aide
+     */
+    public static String getLienAide() {
+        return LIEN_AIDE;
+    }
+    
+    /**
+     * Définit la fenêtre de l'application.
+     * @param fenetreAppli
+     */
+    public void setFenetreAppli(Stage fenetreAppli) {
+      this.fenetreAppli = fenetreAppli;
+    }
 
     @FXML
     void btnAideAction(ActionEvent event) {
-    	final String LIEN_REGLES
-        = "https://docs.google.com/document/d/1wA1ytqySDYe1D-2ZL1M0mLKMvUmv9SCtS0uORFgoRIY/edit?usp=sharing";
 
         Desktop desktop = Desktop.getDesktop();
         try {
-            desktop.browse(new URI(LIEN_REGLES));
+            desktop.browse(new URI(getLienAide()));
         } catch (IOException | URISyntaxException e) {
             Alert boiteErreurInconnueOuverture =
                     new Alert(Alert.AlertType.ERROR, 

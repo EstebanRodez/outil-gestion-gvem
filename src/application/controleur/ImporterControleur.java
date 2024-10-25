@@ -62,14 +62,10 @@ public class ImporterControleur {
 
     @FXML
     void btnAideAction(ActionEvent event) {
-        
-    	final String LIEN_REGLES
-        = "https://drive.google.com/file/d/1DmblRvNDZ0PTUA0iGn9vQYf74aj1lMUH/"
-          + "view?usp=sharing";
 
         Desktop desktop = Desktop.getDesktop();
         try {
-            desktop.browse(new URI(LIEN_REGLES));
+            desktop.browse(new URI(AccueilControleur.getLienAide()));
         } catch (IOException | URISyntaxException e) {
             Alert boiteErreurInconnueOuverture =
                     new Alert(Alert.AlertType.ERROR, 
