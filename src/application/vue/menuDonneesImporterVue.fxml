@@ -16,7 +16,7 @@
    <children>
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Button fx:id="btnAccueil" mnemonicParsing="false" onAction="#btnAccueilAction" prefHeight="47.0" prefWidth="240.0" style="-fx-background-color: ##D3D3D3;" text="Accueil">
+            <Button fx:id="btnAccueil" mnemonicParsing="false" onAction="#btnAccueilAction" prefHeight="47.0" prefWidth="240.0" text="Accueil">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
@@ -29,7 +29,7 @@
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button fx:id="btnDonnesCalculees" mnemonicParsing="false" onAction="#btnDonnesCalculeesAction" prefHeight="47.0" prefWidth="240.0" style="-fx-background-color: ##D3D3D3;" text="Données calculées">
+            <Button fx:id="btnDonnesCalculees" mnemonicParsing="false" onAction="#btnDonnesCalculeesAction" prefHeight="47.0" prefWidth="240.0" text="Données calculées">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
@@ -37,7 +37,7 @@
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button fx:id="btnStatistique" mnemonicParsing="false" onAction="#btnStatistiqueAction" prefHeight="47.0" prefWidth="240.0" style="-fx-background-color: ##D3D3D3;" text="Statistique">
+            <Button fx:id="btnStatistique" mnemonicParsing="false" onAction="#btnStatistiqueAction" prefHeight="47.0" prefWidth="240.0" text="Statistique">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
