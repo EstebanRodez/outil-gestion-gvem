@@ -205,36 +205,36 @@ public class ImportationCSV {
             /* L'identifiant est forcément valide dans ce cas */
             if (lettreIdentifiant == 'E') { // Exposition
                 
-                if (donnees[2].matches("^\\d+$") // PériodeDeb
-                    && donnees[3].matches("^\\d+$") // PériodeFin
-                    && donnees[4].matches("^\\d+$") // nombre
-                    && donnees[5].matches("^#.*#$") // motClé
-                    && donnees[7].matches(FORMAT_DATE_FR) // Début
-                    && donnees[8].matches(FORMAT_DATE_FR) // Fin
+                if (!donnees[2].matches("^\\d+$") // PériodeDeb
+                    || !donnees[3].matches("^\\d+$") // PériodeFin
+                    || !donnees[4].matches("^\\d+$") // nombre
+                    || !donnees[5].matches("^#.*#$") // motClé
+                    || !donnees[7].matches(FORMAT_DATE_FR) // Début
+                    || !donnees[8].matches(FORMAT_DATE_FR) // Fin
                     ) {
                     
-                    return true;
+                    return false;
                 }
                 
             } else if (lettreIdentifiant == 'R') { // Visite
                 
                 if (donnees[1].matches("^E(\\d){6}$") // Exposition
-                    && donnees[2].matches("^C(\\d){6}$") // Conférencier
-                    && donnees[3].matches("^N(\\d){6}$") // Employé
-                    && donnees[4].matches(FORMAT_DATE_FR) // date
-                    && donnees[5].matches("^(\\d){2}h(\\d){2}$") // heureDebut
-                    && donnees[7].matches("^(\\d){10}$") // Telephone
+                    || !donnees[2].matches("^C(\\d){6}$") // Conférencier
+                    || !donnees[3].matches("^N(\\d){6}$") // Employé
+                    || !donnees[4].matches(FORMAT_DATE_FR) // date
+                    || !donnees[5].matches("^(\\d){2}h(\\d){2}$") // heureDebut
+                    || !donnees[7].matches("^(\\d){10}$") // Telephone
                     ) {
                     
-                    return true;
+                    return false;
                 }
             } else if (lettreIdentifiant == 'N') { // Employé
                 
-                if (donnees[3].isBlank() 
-                    || donnees[3].matches("^(\\d){4}$") // Telephone
+                if (!donnees[3].isBlank() 
+                    && !donnees[3].matches("^(\\d){4}$") // Telephone
                     ) {
                     
-                    return true;
+                    return false;
                 }
             } else if (lettreIdentifiant == 'C') { // Conférencier
                 
@@ -246,16 +246,16 @@ public class ImportationCSV {
                     ; // empty body
                 
                 if (donnees[3].matches("^#.*#$") // Spécialité
-                    && donnees[4].matches("^(\\d){10}$") // Telephone
-                    && donnees[5].matches("^(?i)(oui|non)$") // Employe
-                    && indiceVerif == donnees.length // Indisponibilite
+                    || !donnees[4].matches("^(\\d){10}$") // Telephone
+                    || !donnees[5].matches("^(?i)(oui|non)$") // Employe
+                    || indiceVerif != donnees.length // Indisponibilite
                     ) {
                     
-                    return true;
+                    return false;
                 }
             }
         }
         
-        return false;
+        return true;
     }   
 }
