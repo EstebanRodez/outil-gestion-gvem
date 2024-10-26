@@ -21,6 +21,8 @@ import java.net.Socket;
  * @version 1.0
  */
 public class Serveur {
+    
+    private static ServerSocket serverSocket;
 
     /**
      * Envoie plusieurs fichiers à un client via une connexion
@@ -41,53 +43,56 @@ public class Serveur {
     public static void envoyerFichiers(int port, String[] cheminsFichiers) {
         final int TAILLE_BLOC_DONNEES = 1024;
 
-        try (ServerSocket serverSocket = new ServerSocket(port)) {
-            System.out.println("Serveur en attente de connexion sur le port " 
-                               + port + "...");
+        try {
+            serverSocket = new ServerSocket(port);
+            System.out.println("Serveur en attente de connexion sur le port " + port + "...");
 
             try (Socket clientSocket = serverSocket.accept();
-                    
-                 BufferedOutputStream out 
-                 = new BufferedOutputStream(clientSocket.getOutputStream());
+                 BufferedOutputStream out = new BufferedOutputStream(clientSocket.getOutputStream());
                  DataOutputStream dataOut = new DataOutputStream(out)) {
 
                 for (String cheminFichier : cheminsFichiers) {
                     File fichier = new File(cheminFichier);
 
                     if (!fichier.exists() || !fichier.isFile()) {
-                        System.err.println("Le fichier " 
-                                           + fichier.getAbsolutePath()
-                                           + " n'existe pas.");
+                        System.err.println("Le fichier " + fichier.getAbsolutePath() + " n'existe pas.");
+                        continue;
                     }
 
-                    // Envoyer la taille du fichier au client
                     dataOut.writeLong(fichier.length());
-                    
-                    // S'assurer que la taille est envoyée avant le fichier
                     dataOut.flush();
 
-                    // Envoyer le contenu du fichier
                     try (FileInputStream fileIn = new FileInputStream(fichier)) {
-                        
                         byte[] buffer = new byte[TAILLE_BLOC_DONNEES];
                         int tailleBloc;
                         while ((tailleBloc = fileIn.read(buffer)) != -1) {
                             dataOut.write(buffer, 0, tailleBloc);
                         }
-                        
-                        // S'assurer que toutes les données sont envoyées
                         dataOut.flush();
-                        System.out.println("Fichier " 
-                                          + fichier.getAbsolutePath() 
-                                          + " envoyé.");
+                        System.out.println("Fichier " + fichier.getAbsolutePath() + " envoyé.");
                     }
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            if (!Thread.currentThread().isInterrupted()) { // Vérifie si l'interruption est intentionnelle
+                e.printStackTrace();
+            }
+        } finally {
+            fermerServeur();
         }
     }
 
-
-
+    /**
+     * TODO commenter le rôle de cette méthode (SRP)
+     */
+    public static void fermerServeur() {
+        if (serverSocket != null && !serverSocket.isClosed()) {
+            try {
+                serverSocket.close();
+                System.out.println("Serveur fermé.");
+            } catch (IOException e) {
+                System.err.println("Erreur lors de la fermeture du serveur : " + e.getMessage());
+            }
+        }
+    }
 }

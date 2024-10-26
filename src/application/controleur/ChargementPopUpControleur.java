@@ -54,44 +54,34 @@ public class ChargementPopUpControleur {
      */
     @FXML
     public void initialize() {
-     // Initialiser le thread
+        // Initialiser le thread
         attente = new Thread(() -> {
-            while (running) { // Boucle tant que 'running' est vrai
-                Serveur.envoyerFichiers(65422, CHEMIN_FICHIER_CSV);
+            try {
+                Serveur.envoyerFichiers(65432, CHEMIN_FICHIER_CSV);
 
-                // Une fois le transfert terminé, fermer la fenêtre popup sur le thread JavaFX
                 Platform.runLater(() -> {
-                    EchangeurDeVue.changerVue("exporterValideVue");
+                    this.boitePopUp.close();
+                    EchangeurDeVue.changerVue("accueilVue");
                 });
-
-                // Sortir de la boucle après le transfert
-                running = false; // Pour éviter une boucle infinie après le transfert
+            } finally {
+                running = false;
             }
         });
 
-        // Démarrer le thread
         attente.start();
     }
 
     @FXML
-    void btnQuitterAction(ActionEvent event) throws IOException, InterruptedException {
+    void btnQuitterAction(ActionEvent event) {
+        running = false;
         
-        //FIXME arreter le thread quand appuyer sur le bouton 'Quitter'
+        // Demander l'arrêt du serveur
+        Serveur.fermerServeur();
         
-        // Indiquer au thread de s'arrêter
-        running = false; // Signaler que le thread doit s'arrêter
-
-        // Si vous avez besoin d'attendre que le thread se termine
-        if (attente != null) {
+        if (attente != null && attente.isAlive()) {
+            attente.interrupt(); // Interrompt le thread pour sortir de l'attente de connexion
             try {
-                // Attendre que le thread se termine, mais ne pas bloquer indéfiniment
-                if (attente.isAlive()) {
-                    attente.join(500); // Attendre jusqu'à 0.5 seconde
-                    if (attente.isAlive()) {
-                        attente.interrupt();
-                        System.out.println("Transfert annuler.");
-                    }
-                }
+                attente.join(500); // Attendre que le thread termine jusqu'à 500ms
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

@@ -5,6 +5,7 @@
  */
 package application.controleur;
 
+import application.EchangeurDeVue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -66,6 +67,7 @@ public class DonneesCalculeesVisiteFiltresPopUPControleur {
     @FXML
     void btnValiderAction(ActionEvent event) {
         this.boitePopUp.close();
+        
     }
 
 }
