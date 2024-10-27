@@ -9,12 +9,16 @@ import java.net.Inet4Address;
 import java.net.InetAddress;
 
 import application.EchangeurDeVue;
+import application.IhmMusee;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -126,16 +130,7 @@ public class ExporterControleur {
     
     @FXML
     void btnExporterAction(ActionEvent event) {
-        
-        EchangeurDeVue.changerVue("chargementPopUp");
-        Stage boitePopUp = new Stage();
-        // Défini la fenêtre principale comme "owner" de la popup
-        boitePopUp.initOwner(EchangeurDeVue.getFenetreAppli()); 
-        boitePopUp.setScene(EchangeurDeVue.getSceneAppli());
-        boitePopUp.show(); // Afficher la popup
-        ChargementPopUpControleur controleur
-        = EchangeurDeVue.getFXMLLoader("chargementPopUp").getController();
-        controleur.setPopUp(boitePopUp);
+        EchangeurDeVue.creerPopUp("chargementPopUp");
     }
 
     @FXML
