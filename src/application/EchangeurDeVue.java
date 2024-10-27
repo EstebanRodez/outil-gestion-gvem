@@ -12,7 +12,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -41,6 +45,8 @@ public class EchangeurDeVue {
      */
     private static HashMap<String, FXMLLoader> cacheFXMLLoader
     = new HashMap<>();
+    
+    private static HashMap<String, Stage> cachePopUp = new HashMap<>();
     
     /** Fenêtre principale de l'application */
     private static Stage fenetreAppli;
@@ -171,6 +177,83 @@ public class EchangeurDeVue {
         if (parentVue != null) {
             sceneAppli.setRoot(parentVue);
         }
+    }
+    
+    /**
+     * Crée et affiche une fenêtre pop-up (Stage) pour une vue
+     * spécifique.<br>
+     * Si la vue a déjà été chargée auparavant, elle est récupérée
+     * depuis le cache. Sinon, elle est chargée, mise en cache, puis
+     * affichée en tant que pop-up.<br>
+     * Les interactions avec la fenêtre principale sont bloquées tant
+     * que le pop-up est affiché.
+     *
+     * @param nomVuePopUp le nom de la vue avec ou sans extension
+     *                    .fxml pour laquelle le pop-up doit être
+     *                    créé
+     */
+    public static void creerPopUp(String nomVuePopUp) {
+        
+        if (nomVuePopUp == null) {
+            throw new IllegalArgumentException(ERREUR_NOM_VUE_INVALIDE);
+        }
+        
+        if (nomVuePopUp.isBlank()) {
+            throw new IllegalArgumentException(ERREUR_NOM_VUE_VIDE);
+        }
+        
+        String lienPopUp = "/application/vue/" + nomVuePopUp;
+        if (!nomVuePopUp.matches(".*\\.fxml$")) {
+            lienPopUp += ".fxml";
+        }
+        
+        Stage stagePopUp = null;
+        if (cachePopUp.containsKey(nomVuePopUp)) {
+            
+            stagePopUp = cachePopUp.get(nomVuePopUp);
+        } else {
+            
+            Parent parentVue = null;
+            if (cacheVue.containsKey(nomVuePopUp)) {
+                
+                parentVue = cacheVue.get(nomVuePopUp);
+            } else {
+                
+                try {
+                    FXMLLoader loader = IhmMusee.getFXMLLoader(lienPopUp);
+                    cacheFXMLLoader.put(nomVuePopUp, loader);
+                    parentVue = loader.load();
+                    cacheVue.put(nomVuePopUp, parentVue);
+                } catch (IOException | IllegalStateException e) {
+                    lancerErreurChargementVue(nomVuePopUp);
+                }
+            }
+            
+            stagePopUp = new Stage();
+            
+            // Bloque l'accès à la fenêtre principale
+            stagePopUp.initModality(Modality.APPLICATION_MODAL);
+            stagePopUp.setScene(new Scene(parentVue));
+            cachePopUp.put(nomVuePopUp, stagePopUp);
+        }
+        
+        if (stagePopUp != null) {
+            stagePopUp.show();
+        }
+        
+    }
+    
+    /**
+     * Ferme une fenêtre pop-up précédemment ouverte et mise en
+     * cache.
+     * Si le pop-up spécifié est introuvable dans le cache, cette
+     * méthode n'a aucun effet.
+     *
+     * @param nomVuePopUp le nom de la vue associée au pop-up à
+     *                    fermer
+     */
+    public static void fermerPopUp(String nomVuePopUp) {
+        cachePopUp.get(nomVuePopUp).close();
     }
     
     /**
