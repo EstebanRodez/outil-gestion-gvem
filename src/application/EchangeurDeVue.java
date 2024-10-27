@@ -66,12 +66,6 @@ public class EchangeurDeVue {
     Le nom de la vue ne doit pas être vide.
     """;
     
-    private static final String ERREUR_NOM_VUE_AVEC_EXCEPTION =
-    """
-    Impossible de changer de vue.
-    Le nom de la vue ne doit pas contenir l'extension .fxml.
-    """;
-    
     /**
      * Définit la fenêtre de l'application.
      *
