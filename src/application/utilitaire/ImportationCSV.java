@@ -231,9 +231,9 @@ public class ImportationCSV {
                     || !donnees[3].matches("^\\d+$") // PériodeFin
                     || !donnees[4].matches("^\\d+$") // nombre
                     || !donnees[5].matches("^#.*#$") // motClé
-                    || donnees.length > 7 && !donnees[7].isBlank() 
+                    || donnees.length > 7
                        && !donnees[7].matches(FORMAT_DATE_FR) // Début
-                    || donnees.length > 7 && !donnees[8].isBlank() 
+                    || donnees.length > 7 
                        && !donnees[8].matches(FORMAT_DATE_FR) // Fin
                     ) {
                     
