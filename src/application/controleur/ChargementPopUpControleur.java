@@ -6,17 +6,13 @@
 package application.controleur;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 import application.EchangeurDeVue;
 import application.utilitaire.Serveur;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.stage.Stage;
 
 /**
  * TODO commenter la responsabilité de cette class (SRP)
@@ -44,7 +40,7 @@ public class ChargementPopUpControleur {
         
         if (dossier.exists() && dossier.isDirectory()) {
             File[] liste = dossier.listFiles();
-            List<String> cheminsFichiers = new ArrayList<>();
+            ArrayList<String> cheminsFichiers = new ArrayList<>();
             
             if (liste != null) {
                 for (File fichier : liste) {

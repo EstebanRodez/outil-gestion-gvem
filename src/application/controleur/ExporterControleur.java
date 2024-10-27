@@ -9,17 +9,12 @@ import java.net.Inet4Address;
 import java.net.InetAddress;
 
 import application.EchangeurDeVue;
-import application.IhmMusee;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 /**
  * Contrôleur pour la gestion de l'exportation des données.
