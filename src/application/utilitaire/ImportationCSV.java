@@ -86,8 +86,7 @@ public class ImportationCSV {
             FileInputStream fileInputStream
             = new FileInputStream(cheminFichier);
             InputStreamReader inputStreamReader
-            = new InputStreamReader(fileInputStream,
-                                    StandardCharsets.ISO_8859_1);
+            = new InputStreamReader(fileInputStream, "windows-1252");
             BufferedReader fichierCSV = new BufferedReader(inputStreamReader);
                 
             parcourirFichier(fichierCSV);
