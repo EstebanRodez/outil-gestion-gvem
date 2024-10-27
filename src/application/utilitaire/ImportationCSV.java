@@ -74,14 +74,10 @@ public class ImportationCSV {
             throws FichierDonneesInvalides {
         
         try {
+            
             if (!isFichierValide(cheminFichier)) {
                 throw new IllegalArgumentException(ERREUR_FICHIER_INVALIDE);
             }
-        } catch (IOException e) {
-            throw new IllegalArgumentException(ERREUR_FICHIER_INVALIDE);
-        }
-        
-        try {
             
             FileInputStream fileInputStream
             = new FileInputStream(cheminFichier);
