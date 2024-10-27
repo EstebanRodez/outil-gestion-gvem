@@ -244,7 +244,10 @@ public class EchangeurDeVue {
      *                    fermer
      */
     public static void fermerPopUp(String nomVuePopUp) {
-        cachePopUp.get(nomVuePopUp).close();
+        
+        if (cachePopUp.get(nomVuePopUp) != null) {
+            cachePopUp.get(nomVuePopUp).close();
+        }
     }
     
     /**
