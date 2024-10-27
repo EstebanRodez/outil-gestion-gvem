@@ -7,6 +7,9 @@ package application.controleur;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 import application.EchangeurDeVue;
@@ -46,6 +49,9 @@ public class ImporterControleur {
       this.fenetreAppli = fenetreAppli;
     }
     
+    // Chemin du dossier où les fichiers importés seront stockés
+    private static final String DOSSIER_IMPORTATION = "fichiersImportees";
+    
     @FXML
     private Button btnAide;
 
@@ -71,6 +77,12 @@ public class ImporterControleur {
 
     @FXML
     void btnImporterLocalAction(ActionEvent event) throws IOException {
+     // Créer le dossier d'importation s'il n'existe pas
+        File dossierImportation = new File(DOSSIER_IMPORTATION);
+        if (!dossierImportation.exists()) {
+            dossierImportation.mkdir(); // Crée le dossier
+        }
+        
         // Créer une instance de FileChooser
         FileChooser fileChooser = new FileChooser();
         
@@ -91,7 +103,12 @@ public class ImporterControleur {
 
                 try {
                     
+                    // Importer les données
                     ImportationCSV.importerDonnees(fichier.getAbsolutePath());
+
+                    // Déplacer le fichier importé dans le dossier
+                    Path destination = new File(dossierImportation, fichier.getName()).toPath();
+                    Files.copy(fichier.toPath(), destination, StandardCopyOption.REPLACE_EXISTING);
                     
                     // Ajouter le nom du fichier (sans le chemin) à la liste
                     nomsFichiers.append(fichier.getName()).append("\n");

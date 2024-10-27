@@ -13,7 +13,12 @@ import java.io.IOException;
 import java.net.Socket;
 
 /**
- * TODO commenter la responsabilité de cette class (SRP)
+ * Cette classe est responsable de la gestion de la connexion
+ * à un serveur distant pour recevoir des fichiers.
+ * 
+ * La classe permet de se connecter à un serveur via un socket
+ * et de recevoir plusieurs fichiers, en sauvegardant chaque 
+ * fichier dans un emplacement spécifié. 
  * 
  * @author Baptiste Thenieres
  * @version 1.0
@@ -33,26 +38,34 @@ public class Client {
      * @param port Le port sur lequel le serveur écoute
      * @param cheminsFichiers Un tableau contenant les chemins où
      *                        sauvegarder les fichiers reçus
+     * @param dossierDestination Le dossier dans lequel les fichiers
+     *                           seront enregistrés
      * @throws IOException Si une erreur survient lors de la
      *                     réception des fichiers ou de l'écriture
      *                     des données sur le disque
      */
     public static void recevoirFichiers(String adresseServeur, int port,
-                                        String[] cheminsFichiers) {
+                                         String[] cheminsFichiers, String dossierDestination) {
         
         final int TAILLE_BLOC_DONNEES = 1024;
 
         try (Socket socket = new Socket(adresseServeur, port);
                 
-             BufferedInputStream in
-             = new BufferedInputStream(socket.getInputStream());
+             BufferedInputStream in = new BufferedInputStream(socket.getInputStream());
              DataInputStream dataIn = new DataInputStream(in)) {
 
             for (String cheminFichier : cheminsFichiers) {
-                File fichier = new File(cheminFichier);
+                // Créer le fichier dans le dossier de destination
+                File fichier = new File(dossierDestination, cheminFichier);
 
                 // Lire la taille du fichier envoyé
                 long tailleFichier = dataIn.readLong();
+
+                // Assurez-vous que le dossier de destination existe
+                File dossier = new File(dossierDestination);
+                if (!dossier.exists()) {
+                    dossier.mkdirs(); // Créer les répertoires nécessaires
+                }
 
                 try (FileOutputStream fileOut = new FileOutputStream(fichier)) {
                     byte[] buffer = new byte[TAILLE_BLOC_DONNEES];
@@ -73,6 +86,4 @@ public class Client {
             e.printStackTrace();
         }
     }
-
-
 }

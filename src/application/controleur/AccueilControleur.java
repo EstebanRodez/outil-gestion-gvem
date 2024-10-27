@@ -6,6 +6,7 @@
 package application.controleur;
 
 import java.awt.Desktop;
+import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -87,6 +88,20 @@ public class AccueilControleur {
         boiteErreurOuvertureAide.setTitle("Erreur d'affichage aide");
         boiteErreurOuvertureAide.setHeaderText("Erreur d'affichage aide");
         boiteErreurOuvertureAide.showAndWait();
+    }
+    
+    /**
+     * 
+     */
+    @FXML
+    public void initialize() {
+        File dossier = new File("fichiersImportees");
+        File dossierRecu = new File("fichiersImportees");
+        
+        if(!dossier.exists() || !dossierRecu.exists()) {
+            btnConsulterDonnees.setDisable(true);
+            btnExporter.setDisable(true);
+        }
     }
 
     @FXML

@@ -41,7 +41,7 @@ public class ImporterDistantValideControleur {
 
     @FXML
     void btnImporterAction(ActionEvent event) {
-
+        EchangeurDeVue.changerVue("accueilVue");
     }
 
     @FXML

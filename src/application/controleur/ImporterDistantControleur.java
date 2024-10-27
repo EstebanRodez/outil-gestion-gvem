@@ -6,6 +6,7 @@
 package application.controleur;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import application.EchangeurDeVue;
@@ -33,12 +34,13 @@ import javafx.scene.control.TextField;
  */
 public class ImporterDistantControleur {
     
-    private static String[] CHEMIN_FICHIER_CSV_RECU =
-    {
-        "recu/expositions 28_08_24 17_26.csv",
-        "recu/employes 28_08_24 17_26.csv",
-        "recu/conferencier 28_08_24 17_26.csv", 
-        "recu/visites 28_08_24 17_26.csv"
+    private static final String DOSSIER_IMPORTATION = "fichiersImporteesRecu";
+
+    private static String[] CHEMIN_FICHIER_CSV_RECU = {
+        "expositions 28_08_24 17_26.csv",
+        "employes 28_08_24 17_26.csv",
+        "conferencier 28_08_24 17_26.csv", 
+        "visites 28_08_24 17_26.csv"
     };
     
     /**
@@ -72,7 +74,6 @@ public class ImporterDistantControleur {
      *         sinon false
      */
     private static boolean isPortValide(String port) {
-            
         return port.matches("(\\d){1,5}") && Integer.parseInt(port) >= 0
                && Integer.parseInt(port) <= 65535;
     }
@@ -104,27 +105,28 @@ public class ImporterDistantControleur {
         String port = txtFieldPort.getText().trim();
 
         if (isValideAdresseIP(ipServeur) && isPortValide(port)) {
-            
+            // Créer le dossier d'importation s'il n'existe pas
+            File dossierImportes = new File(DOSSIER_IMPORTATION);
+            if (!dossierImportes.exists()) {
+                dossierImportes.mkdir(); // Créer le dossier
+            }
+
             // Réception des fichiers depuis le serveur
-            Client.recevoirFichiers(ipServeur, Integer.parseInt(port),
-                                    CHEMIN_FICHIER_CSV_RECU);
+            Client.recevoirFichiers(ipServeur, Integer.parseInt(port), CHEMIN_FICHIER_CSV_RECU, DOSSIER_IMPORTATION);
 
             // Traitement des fichiers reçus
             ArrayList<File> fichiersSelectionnes = new ArrayList<>();
-            for (String cheminFichier : CHEMIN_FICHIER_CSV_RECU) {
-                fichiersSelectionnes.add(new File(cheminFichier));
+            for (String nomFichier : CHEMIN_FICHIER_CSV_RECU) {
+                fichiersSelectionnes.add(new File(dossierImportes, nomFichier));
             }
 
             // Vérification si les fichiers ont été sélectionnés et traitement
             if (!fichiersSelectionnes.isEmpty()) {
-                
                 StringBuilder nomsFichiers = new StringBuilder();
                 for (File fichier : fichiersSelectionnes) {
-                    
                     try {
                         // Importer et traiter les données CSV
-                        ImportationCSV.importerDonnees(
-                                fichier.getAbsolutePath());
+                        ImportationCSV.importerDonnees(fichier.getAbsolutePath());
 
                         // Ajouter le nom du fichier traité à la liste
                         nomsFichiers.append(fichier.getName()).append("\n");
@@ -133,11 +135,16 @@ public class ImporterDistantControleur {
                     }
                 }
 
+                // Afficher une alerte de succès
+                Alert boiteInformation = new Alert(Alert.AlertType.INFORMATION,
+                        "Les fichiers suivants ont été importés avec succès :\n" + nomsFichiers.toString());
+                boiteInformation.setTitle("Importation réussie");
+                boiteInformation.setHeaderText("Fichiers importés");
+                boiteInformation.showAndWait();
             }
             
             EchangeurDeVue.changerVue("importerDistantValideVue");
         } else if (isValideAdresseIP(ipServeur) && !isPortValide(port)) {
-            
             Alert boiteAlerte 
             = new Alert(Alert.AlertType.ERROR,"Veuillez respecter la norme "
                         + "d'écriture d'un port :\n entre 0 et 65535");
@@ -146,7 +153,6 @@ public class ImporterDistantControleur {
             boiteAlerte.showAndWait();
 
         } else {
-            
             Alert boiteAlerte 
             = new Alert(Alert.AlertType.ERROR, "Veuillez respecter la norme "
                         + "d'écriture d'une adresse ip  \n(exemple : "
@@ -161,5 +167,4 @@ public class ImporterDistantControleur {
     void btnRetourAction(ActionEvent event) {
         EchangeurDeVue.changerVue("importerVue");
     }
-
 }

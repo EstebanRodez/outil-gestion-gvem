@@ -5,7 +5,10 @@
  */
 package application.controleur;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import application.EchangeurDeVue;
 import application.utilitaire.Serveur;
@@ -31,11 +34,7 @@ public class ChargementPopUpControleur {
     private Thread attente;
     private volatile boolean running = true; // Drapeau pour contrôler l'exécution du thread
     
-    private static String[] CHEMIN_FICHIER_CSV = {
-            "conferencier 28_08_24 17_26.csv", 
-            "employes 28_08_24 17_26.csv",
-            "expositions 28_08_24 17_26.csv",
-            "visites 28_08_24 17_26.csv"};
+    private static String[] CHEMIN_FICHIER_CSV;
     
     
     /**
@@ -54,6 +53,22 @@ public class ChargementPopUpControleur {
      */
     @FXML
     public void initialize() {
+        // Récupérer les fichiers CSV dans le dossier
+        File dossier = new File("fichiersImportees");
+        
+        if (dossier.exists() && dossier.isDirectory()) {
+            File[] liste = dossier.listFiles();
+            List<String> cheminsFichiers = new ArrayList<>();
+            
+            if (liste != null) {
+                for (File fichier : liste) {
+                    cheminsFichiers.add(fichier.getAbsolutePath());
+                }
+            }
+            
+            // Convertir la liste en tableau
+            CHEMIN_FICHIER_CSV = cheminsFichiers.toArray(new String[0]);
+        }
         // Initialiser le thread
         attente = new Thread(() -> {
             try {
