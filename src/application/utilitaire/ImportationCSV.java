@@ -74,6 +74,14 @@ public class ImportationCSV {
             throws FichierDonneesInvalides {
         
         try {
+            if (!isFichierValide(cheminFichier)) {
+                throw new IllegalArgumentException(ERREUR_FICHIER_INVALIDE);
+            }
+        } catch (IOException e) {
+            throw new IllegalArgumentException(ERREUR_FICHIER_INVALIDE);
+        }
+        
+        try {
             
             FileInputStream fileInputStream
             = new FileInputStream(cheminFichier);
@@ -81,14 +89,8 @@ public class ImportationCSV {
             = new InputStreamReader(fileInputStream,
                                     StandardCharsets.ISO_8859_1);
             BufferedReader fichierCSV = new BufferedReader(inputStreamReader);
-            if (isFichierValide(cheminFichier)) {
                 
-                parcourirFichier(fichierCSV);
-            } else {
-                
-                fichierCSV.close();  
-                throw new IllegalArgumentException(ERREUR_FICHIER_INVALIDE);
-            }
+            parcourirFichier(fichierCSV);
         } catch (FileNotFoundException e) {
 
             throw new IllegalArgumentException(ERREUR_FICHIER_INTROUVABLE);
