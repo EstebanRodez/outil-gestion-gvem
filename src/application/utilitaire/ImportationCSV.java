@@ -169,7 +169,7 @@ public class ImportationCSV {
             TraitementDonnees.creerVisites(lignes);
         } else if (lettreIdentifiant == 'N') { // Employé
             TraitementDonnees.creerEmployes(lignes);
-        } else if (lettreIdentifiant == 'C') { // Conférencier
+        } else { // Forcément Conférencier
             TraitementDonnees.creerConferenciers(lignes);
         }
     }
@@ -256,7 +256,7 @@ public class ImportationCSV {
                     
                     return false;
                 }
-            } else if (lettreIdentifiant == 'C') { // Conférencier
+            } else { // Forcément Conférencier
                 
                 /* On vérifie les format des indisponibilités */
                 for (indiceVerif = 6;
