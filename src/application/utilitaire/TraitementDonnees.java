@@ -156,9 +156,13 @@ public class TraitementDonnees {
                 identifiant = donnees[0];
                 nom = donnees[1];
                 prenom = donnees[2];
-                numTel = donnees[3];
-                if (donnees.length == 4) { 
-
+                if (donnees.length == 3 || donnees[3].isBlank()) { 
+                    
+                    employe = new Employe(identifiant, nom, prenom);
+                    employes.add(employe);
+                } else if (donnees.length == 4) { 
+                    
+                    numTel = donnees[3];
                     employe = new Employe(identifiant, nom, prenom, numTel);
                     employes.add(employe);
                 } else {
