@@ -29,30 +29,16 @@ import javafx.stage.Stage;
  */
 public class ChargementPopUpControleur {
     
-    private Stage boitePopUp;
-    
     private Thread attente;
     private volatile boolean running = true; // Drapeau pour contrôler l'exécution du thread
     
     private static String[] CHEMIN_FICHIER_CSV;
     
-    
-    /**
-     * Définit la fenêtre de l'application.
-     * @param boitePopUp 
-     */
-    public void setPopUp(Stage boitePopUp) {
-      this.boitePopUp = boitePopUp;
-    }
-    
     @FXML
     private Button btnQuitter;
     
-    /**
-     * 
-     */
     @FXML
-    public void initialize() {
+    void initialize() {
         // Récupérer les fichiers CSV dans le dossier
         File dossier = new File("fichiersImportees");
         
@@ -69,15 +55,20 @@ public class ChargementPopUpControleur {
             // Convertir la liste en tableau
             CHEMIN_FICHIER_CSV = cheminsFichiers.toArray(new String[0]);
         }
+        
         // Initialiser le thread
         attente = new Thread(() -> {
             try {
-                Serveur.envoyerFichiers(65432, CHEMIN_FICHIER_CSV);
-
-                Platform.runLater(() -> {
-                    this.boitePopUp.close();
-                    EchangeurDeVue.changerVue("accueilVue");
-                });
+                Serveur.envoyerFichiers(65429, CHEMIN_FICHIER_CSV);
+                
+                /* 
+                 * Tout s'est déroulé si il n'a pas été interrompu
+                 * donc on affiche la vue de confirmation de
+                 * l'exportation 
+                 */
+                if (!Thread.currentThread().isInterrupted()) {
+                    EchangeurDeVue.changerVue("exporterValideVue");
+                }
             } finally {
                 running = false;
             }
@@ -94,15 +85,19 @@ public class ChargementPopUpControleur {
         Serveur.fermerServeur();
         
         if (attente != null && attente.isAlive()) {
-            attente.interrupt(); // Interrompt le thread pour sortir de l'attente de connexion
+            
+            // Interrompt le thread pour sortir de l'attente de connexion
+            attente.interrupt();
             try {
-                attente.join(500); // Attendre que le thread termine jusqu'à 500ms
+                
+                // Attendre que le thread termine jusqu'à 500ms
+                attente.join(500); 
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
 
         // Fermer la fenêtre pop-up
-        this.boitePopUp.close();
+        EchangeurDeVue.fermerPopUp("chargementPopUp");
     }
 }
