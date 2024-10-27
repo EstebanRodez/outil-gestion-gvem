@@ -50,7 +50,7 @@ public class ImportationCSV {
     Le fichier contient des données incorrectes.
     """;
     
-    private static final String FORMAT_IDENTIFIANT = "^[ERCN](\\d){6}$";
+    private static final String FORMAT_IDENTIFIANT = "^%c(\\d){6}$";
     
     private static final String FORMAT_DATE_FR
     = "^(\\d{2})\\/(\\d{2})\\/(\\d{4})$";
@@ -218,13 +218,15 @@ public class ImportationCSV {
             
             String[] donnees = ligne.split(";");
             String identifiant = donnees[0];
-            if (!identifiant.matches(FORMAT_IDENTIFIANT)) {
+            if (!identifiant.matches(
+                    String.format(FORMAT_IDENTIFIANT, lettreIdentifiant))) {
+                
                 return false;
             }
             
             /* L'identifiant est forcément valide dans ce cas */
             if (lettreIdentifiant == 'E') { // Exposition
-                
+                    
                 if (!donnees[2].matches("^\\d+$") // PériodeDeb
                     || !donnees[3].matches("^\\d+$") // PériodeFin
                     || !donnees[4].matches("^\\d+$") // nombre
