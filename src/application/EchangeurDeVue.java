@@ -160,7 +160,7 @@ public class EchangeurDeVue {
                 cacheFXMLLoader.put(nomVue, loader);
                 parentVue = loader.load();
                 cacheVue.put(nomVue, parentVue);
-            } catch (IOException | IllegalStateException e) {
+            } catch (IOException e) {
                 lancerErreurChargementVue(nomVue);
             }
         }
@@ -215,7 +215,7 @@ public class EchangeurDeVue {
                     cacheFXMLLoader.put(nomVuePopUp, loader);
                     parentVue = loader.load();
                     cacheVue.put(nomVuePopUp, parentVue);
-                } catch (IOException | IllegalStateException e) {
+                } catch (IOException e) {
                     lancerErreurChargementVue(nomVuePopUp);
                 }
             }
