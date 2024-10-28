@@ -135,6 +135,10 @@ class TestImportationCSV {
             ImportationCSV.importerDonnees(
                     CHEMIN_EXPOSITIONS+"expositions_invalides14.csv");
         });
+        assertThrows(FichierDonneesInvalides.class, () -> {
+            ImportationCSV.importerDonnees(
+                    CHEMIN_EXPOSITIONS+"expositions_invalides15.csv");
+        });
         
         // Fichiers Conférenciers avec données incorrectes
         assertThrows(FichierDonneesInvalides.class, () -> {
@@ -169,6 +173,10 @@ class TestImportationCSV {
             ImportationCSV.importerDonnees(
                     CHEMIN_CONFERENCIERS+"conferencier_invalide8.csv");
         });
+        assertThrows(FichierDonneesInvalides.class, () -> {
+            ImportationCSV.importerDonnees(
+                    CHEMIN_CONFERENCIERS+"conferencier_invalide9.csv");
+        });
         
         // Fichiers Employés avec données incorrectes
         assertThrows(FichierDonneesInvalides.class, () -> {
@@ -186,6 +194,10 @@ class TestImportationCSV {
         assertThrows(FichierDonneesInvalides.class, () -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_EMPLOYES+"employes_invalides4.csv");
+        });
+        assertThrows(FichierDonneesInvalides.class, () -> {
+            ImportationCSV.importerDonnees(
+                    CHEMIN_EMPLOYES+"employes_invalides5.csv");
         });
         
         // Fichiers Visites avec données incorrectes
@@ -220,6 +232,10 @@ class TestImportationCSV {
         assertThrows(FichierDonneesInvalides.class, () -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_VISITES+"visites_invalides8.csv");
+        });
+        assertThrows(FichierDonneesInvalides.class, () -> {
+            ImportationCSV.importerDonnees(
+                    CHEMIN_VISITES+"visites_invalides9.csv");
         });
         
     }

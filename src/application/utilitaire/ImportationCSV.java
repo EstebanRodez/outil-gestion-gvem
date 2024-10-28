@@ -7,7 +7,6 @@ package application.utilitaire;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
@@ -229,16 +228,16 @@ public class ImportationCSV {
             
             /* L'identifiant est forcément valide dans ce cas */
             if (lettreIdentifiant == 'E') { // Exposition
-                    
-                if (!donnees[2].matches("^\\d+$") // PériodeDeb
+                
+                if (donnees.length < 7 // Manque de valeurs
+                    || !donnees[2].matches("^\\d+$") // PériodeDeb
                     || !donnees[3].matches("^\\d+$") // PériodeFin
                     || !donnees[4].matches("^\\d+$") // nombre
                     || !donnees[5].matches("^#.*#$") // motClé
-                    || donnees.length > 7
+                    || donnees.length >= 9
                        && (!donnees[7].matches(FORMAT_DATE_FR) // Début
-                           || !isNombresDateValides(donnees[7]))
-                    || donnees.length > 7 
-                       && (!donnees[8].matches(FORMAT_DATE_FR) // Fin
+                           || !isNombresDateValides(donnees[7])
+                           || !donnees[8].matches(FORMAT_DATE_FR) // Fin
                            || !isNombresDateValides(donnees[8]))
                     ) {
                     
@@ -247,7 +246,8 @@ public class ImportationCSV {
                 
             } else if (lettreIdentifiant == 'R') { // Visite
                 
-                if (!donnees[1].matches("^E(\\d){6}$") // Exposition
+                if (donnees.length < 8 // Manque de valeurs
+                    || !donnees[1].matches("^E(\\d){6}$") // Exposition
                     || !donnees[2].matches("^C(\\d){6}$") // Conférencier
                     || !donnees[3].matches("^N(\\d){6}$") // Employé
                     || !donnees[4].matches(FORMAT_DATE_FR) // date
@@ -260,8 +260,9 @@ public class ImportationCSV {
                 }
             } else if (lettreIdentifiant == 'N') { // Employé
                 
-                if (!donnees[3].isBlank() 
-                    && !donnees[3].matches("^(\\d){4}$") // Telephone
+                if (donnees.length < 3 // Manque de valeurs
+                    || !donnees[3].isBlank() 
+                       && !donnees[3].matches("^(\\d){4}$") // Telephone
                     ) {
                     
                     return false;
@@ -277,7 +278,8 @@ public class ImportationCSV {
                      indiceVerif++) 
                     ; // empty body
                 
-                if (!donnees[3].matches("^#.*#$") // Spécialité
+                if (donnees.length < 6 // Manque de valeurs
+                    || !donnees[3].matches("^#.*#$") // Spécialité
                     || !donnees[4].matches("^(\\d){10}$") // Telephone
                     || !donnees[5].matches("^(?i)(oui|non)$") // Employe
                     || indiceVerif != donnees.length // Indisponibilite
