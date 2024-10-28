@@ -124,12 +124,14 @@ public class ImportationCSV {
     }
 
     /**
-     * Parcours un fichier CSV.
-     * Vérifie la validité de toutes les lignes avant d'enregistrer
-     * toutes les lignes en mémoire du fichier CSV
-     * 
-     * @param fichierCSV le fichier CSV ouvert
-     * @throws IOException
+     * Parcourt un fichier CSV pour valider et charger les lignes de
+     * données en mémoire. Toutes les lignes sont vérifiées pour leur
+     * validité avant d'être enregistrées en mémoire.<br>
+     * Si une ou plusieurs lignes sont invalides, une exception est
+     * levée.
+     *
+     * @param fichierCSV le lecteur de fichier CSV ouvert pour lecture
+     * @throws IOException en cas de problème de lecture du fichier
      * @throws FichierDonneesInvalides si les données du fichier sont
      *                                 invalides pour une extraction
      */
@@ -154,10 +156,13 @@ public class ImportationCSV {
     }
 
     /**
-     * Enregistre les lignes en mémoire en fonction de l'identifiant
-     * donné dans la première ligne.
-     * 
-     * @param lignes les lignes où on doit récupérer les données
+     * Enregistre les lignes de données en mémoire en fonction de la
+     * classe spécifié par l'identifiant dans la première ligne de
+     * données. Les lignes sont ensuite passées à des méthodes
+     * spécifiques de création selon la classe :
+     * Exposition, Visite, Employé ou Conférencier.
+     *
+     * @param donneesLignes les lignes de données à enregistrer
      */
     private static void enregistrerLignes(ArrayList<String[]> donneesLignes) {
         
@@ -174,10 +179,15 @@ public class ImportationCSV {
     }
 
     /**
-     * Vérifie le format des lignes d'un fichier CSV pour une
-     * potentielle extraction des données dans les lignes.
-     * 
-     * @param lignes les lignes à vérifier
+     * Vérifie le format des lignes de données CSV pour déterminer si
+     * elles sont valides pour une extraction. Les données sont
+     * validées en fonction de l'identifiant de la classe en première
+     * ligne (ex. "E" pour Exposition, "R" pour Visite, etc.) et en
+     * fonction de règles spécifiques à chaque classe.
+     *
+     * @param donneesLignes les lignes de données à vérifier
+     * @return true si toutes les lignes respectent le format
+     *         attendu, false sinon
      */
     private static boolean verifierLignes(ArrayList<String[]> donneesLignes) {
         
