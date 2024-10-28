@@ -233,6 +233,11 @@ class TestImportationCSV {
     @Test
     void testImporterDonneesValide() {
         
+        // Test utile pour 100% couverture
+        assertDoesNotThrow(() -> {
+            new ImportationCSV();
+        });
+        
         // Fichiers Expositions avec données correctes
         assertDoesNotThrow(() -> {
             ImportationCSV.importerDonnees(
