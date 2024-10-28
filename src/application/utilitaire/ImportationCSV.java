@@ -227,9 +227,11 @@ public class ImportationCSV {
                     || !donnees[4].matches("^\\d+$") // nombre
                     || !donnees[5].matches("^#.*#$") // motClé
                     || donnees.length > 7
-                       && !donnees[7].matches(FORMAT_DATE_FR) // Début
+                       && (!donnees[7].matches(FORMAT_DATE_FR) // Début
+                           || !isNombresDateValides(donnees[7]))
                     || donnees.length > 7 
-                       && !donnees[8].matches(FORMAT_DATE_FR) // Fin
+                       && (!donnees[8].matches(FORMAT_DATE_FR) // Fin
+                           || !isNombresDateValides(donnees[8]))
                     ) {
                     
                     return false;
@@ -241,6 +243,7 @@ public class ImportationCSV {
                     || !donnees[2].matches("^C(\\d){6}$") // Conférencier
                     || !donnees[3].matches("^N(\\d){6}$") // Employé
                     || !donnees[4].matches(FORMAT_DATE_FR) // date
+                    || !isNombresDateValides(donnees[4])
                     || !donnees[5].matches("^(\\d){2}h(\\d){2}$") // heureDebut
                     || !donnees[7].matches("^(\\d){10}$") // Telephone
                     ) {
@@ -260,7 +263,9 @@ public class ImportationCSV {
                 /* On vérifie les format des indisponibilités */
                 for (indiceVerif = 6;
                      indiceVerif < donnees.length 
-                     && donnees[indiceVerif].matches(FORMAT_DATE_FR);
+                     && (donnees[indiceVerif].matches(FORMAT_DATE_FR)
+                         && isNombresDateValides(donnees[indiceVerif])
+                         || donnees[indiceVerif].isBlank());
                      indiceVerif++) 
                     ; // empty body
                 
@@ -277,4 +282,37 @@ public class ImportationCSV {
         
         return true;
     }   
+    
+    /**
+     * Vérifie si une date donnée au format "jour/mois/année" est
+     * valide.<br>
+     * La méthode détermine si le jour est cohérent avec le mois et
+     * l'année fournis, en prenant en compte les années bissextiles
+     * pour le mois de février.
+     *
+     * @param date la date sous forme de chaîne de caractères au
+     *             format "jour/mois/année"
+     * @return true si la date est valide, false sinon
+     */
+    private static boolean isNombresDateValides(String date) {
+        
+        String[] nombres = date.split("/");
+        int mois = Integer.parseInt(nombres[1]);
+        if (mois > 12 || mois <= 0) {
+           return false; 
+        }
+        
+        int annee = Integer.parseInt(nombres[2]);
+        int nombreJour;
+        if (mois == 2) {
+            nombreJour = annee % 4 == 0 && annee % 100 != 0 
+                         || annee % 400 == 0 ? 29 : 28;
+        } else if (mois < 8) {
+            nombreJour = mois % 2 == 1 ? 31 : 30;
+        } else {
+            nombreJour = mois % 2 == 0 ? 31 : 30;
+        }
+        
+        return Integer.parseInt(nombres[0]) <= nombreJour;
+    }
 }
