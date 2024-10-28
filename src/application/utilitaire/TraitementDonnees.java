@@ -66,12 +66,12 @@ public class TraitementDonnees {
     /**
      * Crée des objets Exposition ou ExpositionTemporaire à partir
      * des données CSV et les ajoute à la liste des expositions.
-     * @param lignes La liste des données CSV représentant des
-     *               expositions
+     * @param donneesLignes La liste des données CSV représentant des
+     *                      expositions
      * @throws IllegalArgumentException si le nombre d'argument d'une
      *                                  ligne est incorrect
      */
-    public static void creerExpositions(ArrayList<String> lignes) {
+    public static void creerExpositions(ArrayList<String[]> donneesLignes) {
         
         String identifiant;
         String intitule;
@@ -85,12 +85,8 @@ public class TraitementDonnees {
 
         Exposition expo;
         ExpositionTemporaire expoTemporaire;
-        
-        String[] donnees;
 
-        for (String ligne : lignes) {
-            
-            donnees = ligne.split(";");
+        for (String[] donnees : donneesLignes) {
             
             // Vérifier si la ligne n'est pas vide
             if (donnees.length > 0) {
@@ -131,12 +127,12 @@ public class TraitementDonnees {
     /**
      * Crée des objets Employe  à partir des données CSV et les
      * ajoute à la liste des employés.
-     * @param lignes La liste des données CSV représentant des
-     *               employés
+     * @param donneesLignes La liste des données CSV représentant des
+     *                      employés
      * @throws IllegalArgumentException si le nombre d'argument d'une
      *                                  ligne est incorrect
      */
-    public static void creerEmployes(ArrayList<String> lignes) {
+    public static void creerEmployes(ArrayList<String[]> donneesLignes) {
         
         String identifiant, 
                nom,
@@ -145,11 +141,7 @@ public class TraitementDonnees {
 
         Employe employe;
 
-        String[] donnees;
-
-        for (String ligne : lignes) {
-
-            donnees = ligne.split(";");
+        for (String[] donnees : donneesLignes) {
 
             // Vérifier si la ligne n'est pas vide
             if (donnees.length > 0) {
@@ -176,12 +168,12 @@ public class TraitementDonnees {
      * Crée des objets Conferencier  à partir des données CSV et les
      * ajoute à la liste des conferenciers.
      * 
-     * @param lignes La liste des données CSV représentant des
-     *               conferenciers
+     * @param donneesLignes La liste des données CSV représentant des
+     *                      conferenciers
      * @throws IllegalArgumentException si le nombre d'argument d'une
      *                                  ligne est incorrect
      */
-    public static void creerConferenciers(ArrayList<String> lignes) {
+    public static void creerConferenciers(ArrayList<String[]> donneesLignes) {
         
          String identifiant,
                 nom,
@@ -193,11 +185,7 @@ public class TraitementDonnees {
          Conferencier conferencier;
          Indisponibilite[] indisponibilites;
          
-         String[] donnees;
-         
-         for (String ligne : lignes) {
-             
-             donnees = ligne.split(";");
+         for (String[] donnees : donneesLignes) {
 
              // Vérifier si la ligne n'est pas vide
              if (donnees.length > 0) {
@@ -233,12 +221,12 @@ public class TraitementDonnees {
     /**
      * Crée des objets Viste  à partir des données CSV et les
      * ajoute à la liste des visites.
-     * @param lignes La liste des données CSV représentant des
-     *               visite
+     * @param donneesLignes La liste des données CSV représentant des
+     *                      visite
      * @throws IllegalArgumentException si le nombre d'argument d'une
      *                                  ligne est incorrect
      */
-    public static void creerVisites(ArrayList<String> lignes) {
+    public static void creerVisites(ArrayList<String[]> donneesLignes) {
         
         String identifiant;
         int heureDebut;
@@ -254,11 +242,7 @@ public class TraitementDonnees {
         Conferencier conferencier;
         Visite visite;
 
-        String[] donnees;
-
-        for (String ligne : lignes) {
-            
-            donnees = ligne.split(";");
+        for (String[] donnees : donneesLignes) {
             
             // Vérifier si la ligne n'est pas vide
             if (donnees.length > 0) {

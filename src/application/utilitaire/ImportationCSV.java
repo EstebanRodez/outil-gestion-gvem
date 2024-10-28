@@ -137,17 +137,17 @@ public class ImportationCSV {
              throws IOException, FichierDonneesInvalides {
         
         String ligne;
-        ArrayList<String> lignes = new ArrayList<>();
+        ArrayList<String[]> donnees = new ArrayList<>();
         
         ligne = fichierCSV.readLine();
         while (ligne != null && !ligne.matches("^;*")) {
-            lignes.add(ligne);
+            donnees.add(ligne.split(";"));
             ligne = fichierCSV.readLine();
         }
         fichierCSV.close();
         
-        if (verifierLignes(lignes)) {
-            enregistrerLignes(lignes);
+        if (verifierLignes(donnees)) {
+            enregistrerLignes(donnees);
         } else {
             throw new FichierDonneesInvalides(ERREUR_DONNEES_INCORRECTES);
         }
@@ -159,17 +159,17 @@ public class ImportationCSV {
      * 
      * @param lignes les lignes où on doit récupérer les données
      */
-    private static void enregistrerLignes(ArrayList<String> lignes) {
+    private static void enregistrerLignes(ArrayList<String[]> donneesLignes) {
         
-        char lettreIdentifiant = lignes.get(0).split(";")[0].charAt(0);
+        char lettreIdentifiant = donneesLignes.get(0)[0].charAt(0);
         if (lettreIdentifiant == 'E') { // Exposition
-            TraitementDonnees.creerExpositions(lignes);
+            TraitementDonnees.creerExpositions(donneesLignes);
         } else if (lettreIdentifiant == 'R') { // Visite
-            TraitementDonnees.creerVisites(lignes);
+            TraitementDonnees.creerVisites(donneesLignes);
         } else if (lettreIdentifiant == 'N') { // Employé
-            TraitementDonnees.creerEmployes(lignes);
+            TraitementDonnees.creerEmployes(donneesLignes);
         } else { // Forcément Conférencier
-            TraitementDonnees.creerConferenciers(lignes);
+            TraitementDonnees.creerConferenciers(donneesLignes);
         }
     }
 
@@ -179,11 +179,11 @@ public class ImportationCSV {
      * 
      * @param lignes les lignes à vérifier
      */
-    private static boolean verifierLignes(ArrayList<String> lignes) {
+    private static boolean verifierLignes(ArrayList<String[]> donneesLignes) {
         
         char lettreIdentifiant;
-        String premiereLigne = lignes.get(0);
-        String deuxiemeLigne = lignes.get(1);
+        String premierIdentifiant = donneesLignes.get(0)[0];
+        String deuxiemeIdentifiant = donneesLignes.get(1)[0];
         
         /*
          * On récupère le type de données grâce à l'identifiant de la
@@ -191,11 +191,11 @@ public class ImportationCSV {
          * Si on rencontre l'entête c'est forcément la ligne en
          * dessous
          */
-        if (premiereLigne.matches("^Ident.*")) {
-            lettreIdentifiant = deuxiemeLigne.split(";")[0].charAt(0);
-            lignes.remove(0); // on supprime l'entête
+        if (premierIdentifiant.matches("^Ident$")) {
+            lettreIdentifiant = deuxiemeIdentifiant.charAt(0);
+            donneesLignes.remove(0); // on supprime l'entête
         } else {
-            lettreIdentifiant = premiereLigne.split(";")[0].charAt(0);
+            lettreIdentifiant = premierIdentifiant.charAt(0);
         }
         
         int indiceVerif;
@@ -209,9 +209,8 @@ public class ImportationCSV {
             return false;
         }
         
-        for (String ligne : lignes) {
+        for (String[] donnees : donneesLignes) {
             
-            String[] donnees = ligne.split(";");
             String identifiant = donnees[0];
             if (!identifiant.matches(
                     String.format(FORMAT_IDENTIFIANT, lettreIdentifiant))) {
