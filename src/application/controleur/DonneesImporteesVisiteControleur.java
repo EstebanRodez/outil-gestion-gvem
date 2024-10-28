@@ -20,7 +20,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.stage.Stage;
 
 /**
  * Contrôleur pour la gestion des données importées des visites.
@@ -39,17 +38,7 @@ import javafx.stage.Stage;
  */
 public class DonneesImporteesVisiteControleur {
     
-    private Stage fenetreAppli;
-    
     private static ArrayList<Visite> visites = TraitementDonnees.getVisites();
-    
-    /**
-     * Définit la fenêtre de l'application.
-     * @param fenetreAppli
-     */
-    public void setFenetreAppli(Stage fenetreAppli) {
-      this.fenetreAppli = fenetreAppli;
-    }
     
     @FXML
     private Button btnRetour;
@@ -136,7 +125,7 @@ public class DonneesImporteesVisiteControleur {
 
     @FXML
     void quitterAction(ActionEvent event) {
-        fenetreAppli.hide();
+        EchangeurDeVue.getFenetreAppli().hide();
     }
 
     @FXML

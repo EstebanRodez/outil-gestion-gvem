@@ -24,7 +24,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
 import javafx.util.Callback;
 
 /**
@@ -43,8 +42,6 @@ import javafx.util.Callback;
  * @version 1.0
  */
 public class DonneesImporteesExpositionControleur {
-    
-    private Stage fenetreAppli;
     
     private static ArrayList<Exposition> expositions
     = TraitementDonnees.getExpositions();
@@ -173,14 +170,6 @@ public class DonneesImporteesExpositionControleur {
     private static String toStringMotsCles(String[] motsCles) {
         return motsCles != null ? String.join(", ", motsCles) : "";
     }
-    
-    /**
-     * Définit la fenêtre de l'application.
-     * @param fenetreAppli
-     */
-    public void setFenetreAppli(Stage fenetreAppli) {
-        this.fenetreAppli = fenetreAppli;
-    }
 
     @FXML
     void retourAccueilAction(ActionEvent event) {
@@ -189,7 +178,7 @@ public class DonneesImporteesExpositionControleur {
 
     @FXML
     void quitterAction(ActionEvent event) {
-        fenetreAppli.hide();
+        EchangeurDeVue.getFenetreAppli().hide();
     }
 
     @FXML

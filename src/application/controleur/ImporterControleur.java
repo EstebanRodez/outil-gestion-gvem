@@ -21,7 +21,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 
 /**
  * Contrôleur pour la gestion de l'importation des données.
@@ -38,16 +37,6 @@ import javafx.stage.Stage;
  * @version 1.0
  */
 public class ImporterControleur {
-    
-    private Stage fenetreAppli;
-    
-    /**
-     * Définit la fenêtre de l'application.
-     * @param fenetreAppli
-     */
-    public void setFenetreAppli(Stage fenetreAppli) {
-      this.fenetreAppli = fenetreAppli;
-    }
     
     // Chemin du dossier où les fichiers importés seront stockés
     private static final String DOSSIER_IMPORTATION = "fichiersImportees";
@@ -92,7 +81,7 @@ public class ImporterControleur {
         
         // Ouvrir le dialogue pour choisir un fichier
         List<File> fichierSelectionne
-        = fileChooser.showOpenMultipleDialog(fenetreAppli);
+        = fileChooser.showOpenMultipleDialog(EchangeurDeVue.getFenetreAppli());
         
         // Vérifier si un fichier a été sélectionné
         if (fichierSelectionne != null && !fichierSelectionne.isEmpty()) {

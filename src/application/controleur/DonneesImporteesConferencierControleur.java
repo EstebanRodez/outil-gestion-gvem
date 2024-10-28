@@ -22,7 +22,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
 
 /**
  * Contrôleur pour la gestion des données importées des conférenciers.
@@ -40,16 +39,6 @@ import javafx.stage.Stage;
  * @version 1.0
  */
 public class DonneesImporteesConferencierControleur {
-    
-    private Stage fenetreAppli;
-    
-    /**
-     * Définit la fenêtre de l'application.
-     * @param fenetreAppli
-     */
-    public void setFenetreAppli(Stage fenetreAppli) {
-      this.fenetreAppli = fenetreAppli;
-    }
     
     private static ArrayList<Conferencier> conferenciers
     = TraitementDonnees.getConferenciers();
@@ -129,7 +118,7 @@ public class DonneesImporteesConferencierControleur {
 
     @FXML
     void quitterAction(ActionEvent event) {
-        fenetreAppli.hide();
+        EchangeurDeVue.getFenetreAppli().hide();
     }
 
     @FXML
