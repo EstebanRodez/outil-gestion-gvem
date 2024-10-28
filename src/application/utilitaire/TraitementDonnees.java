@@ -27,9 +27,6 @@ import application.modele.Visite;
  */
 public class TraitementDonnees {
     
-    private static final String ERREUR_NOMBRE_ARGUMENTS 
-    = "Erreur: Le nombre de colonne est incorrect.";
-    
     private static final String ERREUR_CONFERENCIER_INTROUVABLE 
     = " Erreur : Aucun conferencier n'est associé a l'identifiant indiqué";
     
@@ -71,7 +68,7 @@ public class TraitementDonnees {
      * @throws IllegalArgumentException si le nombre d'argument d'une
      *                                  ligne est incorrect
      */
-    public static void creerExpositions(ArrayList<String[]> donneesLignes) {
+    protected static void creerExpositions(ArrayList<String[]> donneesLignes) {
         
         String identifiant;
         String intitule;
@@ -88,38 +85,33 @@ public class TraitementDonnees {
 
         for (String[] donnees : donneesLignes) {
             
-            // Vérifier si la ligne n'est pas vide
-            if (donnees.length > 0) {
-                identifiant = donnees[0];
-                intitule = donnees[1];
-                periodeDebut = Integer.parseInt(donnees[2]);
-                periodeFin = Integer.parseInt(donnees[3]);
-                nbOeuvre = Integer.parseInt(donnees[4]);
-                motsCles = donnees[5].replace("#", "").split(", ");
-                resume = donnees[6];
+            identifiant = donnees[0];
+            intitule = donnees[1];
+            periodeDebut = Integer.parseInt(donnees[2]);
+            periodeFin = Integer.parseInt(donnees[3]);
+            nbOeuvre = Integer.parseInt(donnees[4]);
+            motsCles = donnees[5].replace("#", "").split(", ");
+            resume = donnees[6];
 
-                if (donnees.length == 7) { // Exposition normale
+            if (donnees.length == 7) { // Exposition normale
 
-                    expo = new Exposition(identifiant, intitule, periodeDebut, 
-                            periodeFin, nbOeuvre, motsCles,
-                            resume);
-                    expositions.add(expo);
+                expo = new Exposition(identifiant, intitule, periodeDebut, 
+                        periodeFin, nbOeuvre, motsCles,
+                        resume);
+                expositions.add(expo);
 
-                } else if (donnees.length == 9 ) { // Exposition temporaire
-                    
-                    dateDebut = LocalDate.parse(donnees[7], FORMATTER_DATE_FR);
-                    dateFin = LocalDate.parse(donnees[8], FORMATTER_DATE_FR);
+            } else { // Exposition temporaire
+                
+                dateDebut = LocalDate.parse(donnees[7], FORMATTER_DATE_FR);
+                dateFin = LocalDate.parse(donnees[8], FORMATTER_DATE_FR);
 
-                    expoTemporaire 
-                    = new ExpositionTemporaire(identifiant, intitule,
-                                               periodeDebut, periodeFin,
-                                               nbOeuvre, motsCles, resume,
-                                               dateDebut, dateFin);
+                expoTemporaire 
+                = new ExpositionTemporaire(identifiant, intitule,
+                                           periodeDebut, periodeFin,
+                                           nbOeuvre, motsCles, resume,
+                                           dateDebut, dateFin);
 
-                    expositions.add(expoTemporaire);
-                } else {
-                    throw new IllegalArgumentException(ERREUR_NOMBRE_ARGUMENTS); 
-                }
+                expositions.add(expoTemporaire);
             }
         }
     }
@@ -132,7 +124,7 @@ public class TraitementDonnees {
      * @throws IllegalArgumentException si le nombre d'argument d'une
      *                                  ligne est incorrect
      */
-    public static void creerEmployes(ArrayList<String[]> donneesLignes) {
+    protected static void creerEmployes(ArrayList<String[]> donneesLignes) {
         
         String identifiant, 
                nom,
@@ -143,23 +135,18 @@ public class TraitementDonnees {
 
         for (String[] donnees : donneesLignes) {
 
-            // Vérifier si la ligne n'est pas vide
-            if (donnees.length > 0) {
-                identifiant = donnees[0];
-                nom = donnees[1];
-                prenom = donnees[2];
-                if (donnees.length == 3 || donnees[3].isBlank()) { 
-                    
-                    employe = new Employe(identifiant, nom, prenom);
-                    employes.add(employe);
-                } else if (donnees.length == 4) { 
-                    
-                    numTel = donnees[3];
-                    employe = new Employe(identifiant, nom, prenom, numTel);
-                    employes.add(employe);
-                } else {
-                    throw new IllegalArgumentException(ERREUR_NOMBRE_ARGUMENTS); 
-                }       
+            identifiant = donnees[0];
+            nom = donnees[1];
+            prenom = donnees[2];
+            if (donnees.length == 3 || donnees[3].isBlank()) { 
+                
+                employe = new Employe(identifiant, nom, prenom);
+                employes.add(employe);
+            } else { 
+                
+                numTel = donnees[3];
+                employe = new Employe(identifiant, nom, prenom, numTel);
+                employes.add(employe);      
             }
         }     
     }
@@ -173,7 +160,7 @@ public class TraitementDonnees {
      * @throws IllegalArgumentException si le nombre d'argument d'une
      *                                  ligne est incorrect
      */
-    public static void creerConferenciers(ArrayList<String[]> donneesLignes) {
+    protected static void creerConferenciers(ArrayList<String[]> donneesLignes) {
         
          String identifiant,
                 nom,
@@ -187,33 +174,29 @@ public class TraitementDonnees {
          
          for (String[] donnees : donneesLignes) {
 
-             // Vérifier si la ligne n'est pas vide
-             if (donnees.length > 0) {
-                 identifiant = donnees[0];
-                 nom = donnees[1];
-                 prenom = donnees[2];
-                 specialites = donnees[3].replace("#", "").split(", ");
-                 numTel = donnees[4]; 
-                 estInterne = donnees[5].equalsIgnoreCase("oui");
+             identifiant = donnees[0];
+             nom = donnees[1];
+             prenom = donnees[2];
+             specialites = donnees[3].replace("#", "").split(", ");
+             numTel = donnees[4]; 
+             estInterne = donnees[5].equalsIgnoreCase("oui");
+             
+             if (donnees.length == 6 
+                 || donnees[6].isBlank()
+                 || donnees[7].isBlank()) {
                  
+                 conferencier = new Conferencier(identifiant, nom, prenom, 
+                                                 specialites, numTel,
+                                                 estInterne);
+                 conferenciers.add(conferencier);
+             } else {                     
                  
-                 if (donnees.length == 6) { 
-                     conferencier = new Conferencier(identifiant, nom, prenom, 
-                                                     specialites, numTel,
-                                                     estInterne);
-                     conferenciers.add(conferencier);
-                 } else if (donnees.length > 6){                     
-                     
-                     indisponibilites = creeIndisponibilité(donnees);
-                     conferencier = new Conferencier(identifiant, nom, prenom, 
-                                                     specialites, numTel, 
-                                                     estInterne, 
-                                                     indisponibilites);
-                     conferenciers.add(conferencier);
-                 } else {
-                     throw new IllegalArgumentException(
-                             ERREUR_NOMBRE_ARGUMENTS); 
-                 }       
+                 indisponibilites = creeIndisponibilité(donnees);
+                 conferencier = new Conferencier(identifiant, nom, prenom, 
+                                                 specialites, numTel, 
+                                                 estInterne, 
+                                                 indisponibilites);
+                 conferenciers.add(conferencier);    
              }
          }
     }
@@ -226,7 +209,7 @@ public class TraitementDonnees {
      * @throws IllegalArgumentException si le nombre d'argument d'une
      *                                  ligne est incorrect
      */
-    public static void creerVisites(ArrayList<String[]> donneesLignes) {
+    protected static void creerVisites(ArrayList<String[]> donneesLignes) {
         
         String identifiant;
         int heureDebut;
@@ -244,42 +227,37 @@ public class TraitementDonnees {
 
         for (String[] donnees : donneesLignes) {
             
-            // Vérifier si la ligne n'est pas vide
-            if (donnees.length > 0) {
-                identifiant = donnees[0];
-                date = LocalDate.parse(donnees[4], FORMATTER_DATE_FR); 
+            identifiant = donnees[0];
+            date = LocalDate.parse(donnees[4], FORMATTER_DATE_FR); 
 
-                decoupageHeureDebut = donnees[5].split("h");
-                heureDebut = Integer.parseInt(decoupageHeureDebut[0]) * 60 
-                        + Integer.parseInt(decoupageHeureDebut[1]);
+            decoupageHeureDebut = donnees[5].split("h");
+            heureDebut = Integer.parseInt(decoupageHeureDebut[0]) * 60 
+                    + Integer.parseInt(decoupageHeureDebut[1]);
 
-                // Chercher l'exposition par son identifiant
-                exposition = chercherExposition(donnees[1]);
-                // Chercher le conférencier par son identifiant
-                conferencier = chercherConferencier(donnees[2]);
-                // Chercher l'employé par son identifiant
-                employe = chercherEmploye(donnees[3]);
+            // Chercher l'exposition par son identifiant
+            exposition = chercherExposition(donnees[1]);
+            // Chercher le conférencier par son identifiant
+            conferencier = chercherConferencier(donnees[2]);
+            // Chercher l'employé par son identifiant
+            employe = chercherEmploye(donnees[3]);
 
-                // Extraire l'intitulé et le numéro de téléphone
-                intitule = donnees[6];
-                numTel = donnees[7];
+            // Extraire l'intitulé et le numéro de téléphone
+            intitule = donnees[6];
+            numTel = donnees[7];
 
-                // Vérifier si le client existe déjà
-                client = trouverClient(intitule, numTel);
-                if (client == null) {
-                    // Si le client n'existe pas, en créer un nouveau
-                    client = new Client(intitule, numTel);
-                    clients.add(client); // Ajoute le nouveau client à la liste
-                }
-
-                // Créer l'objet Visite
-                visite = new Visite(identifiant, heureDebut, date, client,
-                        exposition, employe, conferencier);
-
-                visites.add(visite);        
-            } else {
-                throw new IllegalArgumentException(ERREUR_NOMBRE_ARGUMENTS); 
+            // Vérifier si le client existe déjà
+            client = trouverClient(intitule, numTel);
+            if (client == null) {
+                // Si le client n'existe pas, en créer un nouveau
+                client = new Client(intitule, numTel);
+                clients.add(client); // Ajoute le nouveau client à la liste
             }
+
+            // Créer l'objet Visite
+            visite = new Visite(identifiant, heureDebut, date, client,
+                    exposition, employe, conferencier);
+
+            visites.add(visite);        
         }
     }
     
@@ -290,39 +268,42 @@ public class TraitementDonnees {
      */
     private static Indisponibilite[] creeIndisponibilité(String[] donnees) {
         
-        int nombreIndisponibilites;
+        int nbIndisponibilites,
+            indice;
         
         LocalDate dateDebut,
                   dateFin;
         
         Indisponibilite[] indisponibilites;
         
-        nombreIndisponibilites = (donnees.length - 6) / 2;
-        indisponibilites = new Indisponibilite[nombreIndisponibilites];
-
-        for (int i = 0, debutIndex = 6;
-             i < nombreIndisponibilites && !donnees[debutIndex].isBlank(); 
-             i++, debutIndex += i * 2) {
+        for (nbIndisponibilites = 0, indice = 6;
+             indice+1 < donnees.length
+             && !donnees[indice].isBlank()
+             && !donnees[indice+1].isBlank();
+             nbIndisponibilites++, indice += 2)
+            ; // empty body
+        
+        indisponibilites = new Indisponibilite[nbIndisponibilites];
+        for (int i = 0, indiceDebut = 6;
+             i < nbIndisponibilites;
+             i++, indiceDebut += 2) {
             
-            dateDebut = LocalDate.parse(donnees[debutIndex],
+            dateDebut = LocalDate.parse(donnees[indiceDebut],
                                         FORMATTER_DATE_FR);
 
             // Si une date de fin est fournie
-            if (debutIndex + 1 < donnees.length 
-                    && !donnees[debutIndex + 1].isEmpty() 
-                    && !donnees[debutIndex]
-                            .equals(donnees[debutIndex + 1])) {
+            if (!donnees[indiceDebut].equals(donnees[indiceDebut + 1])) {
                 
-                dateFin = LocalDate.parse(donnees[debutIndex + 1],
+                dateFin = LocalDate.parse(donnees[indiceDebut + 1],
                                           FORMATTER_DATE_FR);
-                indisponibilites[i] 
-                 = new Indisponibilite(dateDebut, dateFin);
+                indisponibilites[i] = new Indisponibilite(dateDebut, dateFin);
             } else {
+                
                 // Ajouter seulement la date de début
-                indisponibilites[i] 
-                  = new Indisponibilite(dateDebut);
+                indisponibilites[i] = new Indisponibilite(dateDebut);
             }
         }
+        
         return indisponibilites;
     }
     

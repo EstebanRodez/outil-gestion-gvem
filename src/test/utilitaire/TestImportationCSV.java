@@ -7,7 +7,10 @@ package test.utilitaire;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
 import application.utilitaire.FichierDonneesInvalides;
 import application.utilitaire.ImportationCSV;
@@ -18,6 +21,7 @@ import application.utilitaire.ImportationCSV;
  * @author Esteban Vroemen
  * @version 1.0
  */
+@TestMethodOrder(OrderAnnotation.class)
 class TestImportationCSV {
     
     private final String CHEMIN_RACINE_TEST
@@ -42,7 +46,38 @@ class TestImportationCSV {
      * Cas uniquement invalides
      */
     @Test
+    @Order(1)
     void testImporterDonneesInvalide() {
+        
+        // Exception car Identifiant Exposition non trouvé
+        assertThrows(IllegalArgumentException.class, () -> {
+            ImportationCSV.importerDonnees(
+                    CHEMIN_VISITES+"visites_valides1.csv");
+        });
+        
+        // On insère des expositions valides pour éviter cette exception
+        assertDoesNotThrow(() -> {
+            ImportationCSV.importerDonnees(
+                    CHEMIN_EXPOSITIONS+"expositions_valides1.csv");
+        });
+        
+        // Exception car Identifiant Conférencier non trouvé
+        assertThrows(IllegalArgumentException.class, () -> {
+            ImportationCSV.importerDonnees(
+                    CHEMIN_VISITES+"visites_valides2.csv");
+        });
+        
+        // On insère des conférenciers valides pour éviter cette exception
+        assertDoesNotThrow(() -> {
+            ImportationCSV.importerDonnees(
+                    CHEMIN_CONFERENCIERS+"conferencier_valide1.csv");
+        });
+        
+        // Exception car Identifiant Employé non trouvé
+        assertThrows(IllegalArgumentException.class, () -> {
+            ImportationCSV.importerDonnees(
+                    CHEMIN_VISITES+"visites_valides_sans_entete.csv");
+        });
         
         assertThrows(IllegalArgumentException.class, () -> {
             ImportationCSV.importerDonnees(null);
@@ -55,18 +90,6 @@ class TestImportationCSV {
         });
         assertThrows(FichierDonneesInvalides.class, () -> {
             ImportationCSV.importerDonnees(
-                    "ressources/tests/CSV/fichier_invalide1.csv");
-        });
-        assertThrows(FichierDonneesInvalides.class, () -> {
-            ImportationCSV.importerDonnees(
-                    "ressources/tests/CSV/fichier_invalide2.csv");
-        });
-        assertThrows(FichierDonneesInvalides.class, () -> {
-            ImportationCSV.importerDonnees(
-                    "ressources/tests/CSV/fichier_vide.csv");
-        });
-        assertThrows(FichierDonneesInvalides.class, () -> {
-            ImportationCSV.importerDonnees(
                     "ressources/tests/CSV/fichier_vide_avec_entete.csv");
         });
         assertThrows(IllegalArgumentException.class, () -> {
@@ -76,6 +99,19 @@ class TestImportationCSV {
         assertThrows(IllegalArgumentException.class, () -> {
             ImportationCSV.importerDonnees(
                     "ressources/tests/fichier_inexistant");
+        });
+        
+        assertThrows(FichierDonneesInvalides.class, () -> {
+            ImportationCSV.importerDonnees(
+                    "ressources/tests/CSV/fichier_invalide1.csv");
+        });
+        assertThrows(FichierDonneesInvalides.class, () -> {
+            ImportationCSV.importerDonnees(
+                    "ressources/tests/CSV/fichier_invalide2.csv");
+        });
+        assertThrows(FichierDonneesInvalides.class, () -> {
+            ImportationCSV.importerDonnees(
+                    "ressources/tests/CSV/fichier_vide.csv");
         });
         
         // Fichiers Expositions avec données incorrectes
@@ -247,6 +283,7 @@ class TestImportationCSV {
      * Cas uniquement valides
      */
     @Test
+    @Order(2)
     void testImporterDonneesValide() {
         
         // Test utile pour 100% couverture
@@ -291,6 +328,14 @@ class TestImportationCSV {
         });
         assertDoesNotThrow(() -> {
             ImportationCSV.importerDonnees(
+                    CHEMIN_CONFERENCIERS+"conferencier_valide5.csv");
+        });
+        assertDoesNotThrow(() -> {
+            ImportationCSV.importerDonnees(
+                    CHEMIN_CONFERENCIERS+"conferencier_valide6.csv");
+        });
+        assertDoesNotThrow(() -> {
+            ImportationCSV.importerDonnees(
                     CHEMIN_CONFERENCIERS+"conferencier_valide_sans_entete.csv");
         });
         
@@ -309,6 +354,10 @@ class TestImportationCSV {
         });
         assertDoesNotThrow(() -> {
             ImportationCSV.importerDonnees(
+                    CHEMIN_EMPLOYES+"employes_valides4.csv");
+        });
+        assertDoesNotThrow(() -> {
+            ImportationCSV.importerDonnees(
                     CHEMIN_EMPLOYES+"employes_valides_sans_entete.csv");
         });
         
@@ -321,6 +370,10 @@ class TestImportationCSV {
         assertDoesNotThrow(() -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_VISITES+"visites_valides2.csv");
+        });
+        assertDoesNotThrow(() -> {
+            ImportationCSV.importerDonnees(
+                    CHEMIN_VISITES+"visites_valides3.csv");
         });
         assertDoesNotThrow(() -> {
             ImportationCSV.importerDonnees(

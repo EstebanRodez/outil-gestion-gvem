@@ -13,7 +13,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 
-
 /**
  * La classe ImportationCSV permet d'importer et de verifier des
  * données à partir d'un fichier CSV.
