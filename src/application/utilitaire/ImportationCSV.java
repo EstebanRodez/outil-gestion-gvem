@@ -191,9 +191,12 @@ public class ImportationCSV {
      */
     private static boolean verifierLignes(ArrayList<String[]> donneesLignes) {
         
+        if (donneesLignes.size() == 0) {
+            return false;
+        }
+        
         char lettreIdentifiant;
         String premierIdentifiant = donneesLignes.get(0)[0];
-        String deuxiemeIdentifiant = donneesLignes.get(1)[0];
         
         /*
          * On récupère le type de données grâce à l'identifiant de la
@@ -202,7 +205,12 @@ public class ImportationCSV {
          * dessous
          */
         if (premierIdentifiant.matches("^Ident$")) {
-            lettreIdentifiant = deuxiemeIdentifiant.charAt(0);
+            
+            if (donneesLignes.size() == 1) {
+                return false;
+            }
+            
+            lettreIdentifiant = donneesLignes.get(1)[0].charAt(0);
             donneesLignes.remove(0); // on supprime l'entête
         } else {
             lettreIdentifiant = premierIdentifiant.charAt(0);

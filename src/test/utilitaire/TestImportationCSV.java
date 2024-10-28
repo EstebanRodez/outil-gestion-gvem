@@ -53,9 +53,25 @@ class TestImportationCSV {
         assertThrows(IllegalArgumentException.class, () -> {
             ImportationCSV.importerDonnees("ressources/tests/texte.txt");
         });
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(FichierDonneesInvalides.class, () -> {
+            ImportationCSV.importerDonnees(
+                    "ressources/tests/CSV/fichier_invalide1.csv");
+        });
+        assertThrows(FichierDonneesInvalides.class, () -> {
+            ImportationCSV.importerDonnees(
+                    "ressources/tests/CSV/fichier_invalide2.csv");
+        });
+        assertThrows(FichierDonneesInvalides.class, () -> {
             ImportationCSV.importerDonnees(
                     "ressources/tests/CSV/fichier_vide.csv");
+        });
+        assertThrows(FichierDonneesInvalides.class, () -> {
+            ImportationCSV.importerDonnees(
+                    "ressources/tests/CSV/fichier_vide_avec_entete.csv");
+        });
+        assertThrows(IllegalArgumentException.class, () -> {
+            ImportationCSV.importerDonnees(
+                    "ressources/tests/CSV/fichier_taille_zero.csv");
         });
         assertThrows(IllegalArgumentException.class, () -> {
             ImportationCSV.importerDonnees(
