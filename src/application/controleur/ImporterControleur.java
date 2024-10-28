@@ -76,7 +76,7 @@ public class ImporterControleur {
     }
 
     @FXML
-    void btnImporterLocalAction(ActionEvent event) throws IOException {
+    void btnImporterLocalAction(ActionEvent event) {
      // Créer le dossier d'importation s'il n'existe pas
         File dossierImportation = new File(DOSSIER_IMPORTATION);
         if (!dossierImportation.exists()) {
@@ -118,11 +118,22 @@ public class ImporterControleur {
                     = new Alert(Alert.AlertType.ERROR, 
                                 "Les données du fichier " + fichier.getName() 
                                 + " sont incorrectes.", ButtonType.OK);
-
                     boiteErreurDonneesInvalides.setTitle("Erreur fichier");
                     boiteErreurDonneesInvalides.setHeaderText(
                             "Erreur données fichier");
                     boiteErreurDonneesInvalides.showAndWait();
+                } catch (IOException e) {
+                
+                    Alert boiteErreurCopie
+                    = new Alert(Alert.AlertType.ERROR, 
+                                "Le fichier " + fichier.getName() 
+                                + " n'a pas pu être copié dans le répertoire de"
+                                + " copie des fichiers importés.",
+                                ButtonType.OK);
+                    boiteErreurCopie.setTitle("Erreur fichier");
+                    boiteErreurCopie.setHeaderText(
+                            "Erreur copie fichier");
+                    boiteErreurCopie.showAndWait();
                 }
                 
             }
