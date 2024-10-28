@@ -261,7 +261,8 @@ public class ImportationCSV {
             } else if (lettreIdentifiant == 'N') { // Employé
                 
                 if (donnees.length < 3 // Manque de valeurs
-                    || !donnees[3].isBlank() 
+                    || donnees.length >= 4 
+                       && !donnees[3].isBlank() 
                        && !donnees[3].matches("^(\\d){4}$") // Telephone
                     ) {
                     
