@@ -31,12 +31,6 @@ public class ImportationCSV {
     Le fichier est invalide pour une extraction de données CSV.
     """;
     
-    private static final String ERREUR_FICHIER_INTROUVABLE =
-    """
-    Erreur de fichier inexistant.
-    Le fichier est introuvable.
-    """;
-    
     private static final String ERREUR_FICHIER_ACCES =
     """
     Erreur d'accès fichier.
@@ -85,9 +79,6 @@ public class ImportationCSV {
             BufferedReader fichierCSV = new BufferedReader(inputStreamReader);
                 
             parcourirFichier(fichierCSV);
-        } catch (FileNotFoundException e) {
-
-            throw new IllegalArgumentException(ERREUR_FICHIER_INTROUVABLE);
         } catch (IOException e) {
 
             throw new IllegalArgumentException(ERREUR_FICHIER_ACCES);
