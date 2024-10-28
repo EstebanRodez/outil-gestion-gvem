@@ -19,7 +19,9 @@ import application.modele.Visite;
 
 /**
  * Classe responsable du traitement des données importées depuis des
- * fichiers CSV.
+ * fichiers CSV pour créer des objets représentant des expositions,
+ * employés, conférenciers, clients, et visites, et pour gérer leurs
+ * listes.
  * 
  * @author Ayoub Laluti
  * @author Esteban Vroemen
@@ -50,23 +52,13 @@ public class TraitementDonnees {
     private static ArrayList<Visite> visites = new ArrayList<>();
 
     /**
-     * Importe les données d'un fichier CSV et les stocke 
-     * sous forme de liste de tableaux de chaînes.
-     * 
-     * @param lienFichier Le chemin vers le fichier CSV à importer
-     * @return Une liste de tableaux de chaînes représentant les
-     *         données du CSV
-     * @throws IOException si une erreur survient lors 
-     *         de la lecture du fichier
-     */
-
-    /**
      * Crée des objets Exposition ou ExpositionTemporaire à partir
-     * des données CSV et les ajoute à la liste des expositions.
-     * @param donneesLignes La liste des données CSV représentant des
-     *                      expositions
-     * @throws IllegalArgumentException si le nombre d'argument d'une
-     *                                  ligne est incorrect
+     * des données fournies et les ajoute à la liste des expositions.
+     * 
+     * @param donneesLignes Une liste de tableaux de chaînes, chaque
+     *                      tableau représentant une ligne CSV
+     *                      contenant les informations d'une
+     *                      exposition ou exposition temporaire.
      */
     protected static void creerExpositions(ArrayList<String[]> donneesLignes) {
         
@@ -117,12 +109,12 @@ public class TraitementDonnees {
     }
     
     /**
-     * Crée des objets Employe  à partir des données CSV et les
+     * Crée des objets Employe à partir des données fournies et les
      * ajoute à la liste des employés.
-     * @param donneesLignes La liste des données CSV représentant des
-     *                      employés
-     * @throws IllegalArgumentException si le nombre d'argument d'une
-     *                                  ligne est incorrect
+     * 
+     * @param donneesLignes Une liste de tableaux de chaînes, chaque
+     *                      tableau représentant une ligne CSV
+     *                      contenant les informations d'un employé.
      */
     protected static void creerEmployes(ArrayList<String[]> donneesLignes) {
         
@@ -152,13 +144,13 @@ public class TraitementDonnees {
     }
     
     /**
-     * Crée des objets Conferencier  à partir des données CSV et les
-     * ajoute à la liste des conferenciers.
+     * Crée des objets Conferencier à partir des données fournies et
+     * les ajoute à la liste des conférenciers.
      * 
-     * @param donneesLignes La liste des données CSV représentant des
-     *                      conferenciers
-     * @throws IllegalArgumentException si le nombre d'argument d'une
-     *                                  ligne est incorrect
+     * @param donneesLignes Une liste de tableaux de chaînes, chaque
+     *                      tableau représentant une ligne CSV
+     *                      contenant les informations d'un
+     *                      conférencier.
      */
     protected static void creerConferenciers(ArrayList<String[]> donneesLignes) {
         
@@ -202,12 +194,12 @@ public class TraitementDonnees {
     }
     
     /**
-     * Crée des objets Viste  à partir des données CSV et les
+     * Crée des objets Visite à partir des données fournies et les
      * ajoute à la liste des visites.
-     * @param donneesLignes La liste des données CSV représentant des
-     *                      visite
-     * @throws IllegalArgumentException si le nombre d'argument d'une
-     *                                  ligne est incorrect
+     * 
+     * @param donneesLignes Une liste de tableaux de chaînes, chaque
+     *                      tableau représentant une ligne CSV
+     *                      contenant les informations d'une visite
      */
     protected static void creerVisites(ArrayList<String[]> donneesLignes) {
         
@@ -262,9 +254,13 @@ public class TraitementDonnees {
     }
     
     /**
-     * Crée un tableau de l'objet Indiponibilité
+     * Crée un tableau d'objets Indisponibilite à partir des données
+     * fournies.
      * 
-     * @param la ligne du tableau csv qui contient des indisponiblitées
+     * @param donnees Un tableau de chaînes représentant les
+     *                indisponibilités, avec des paires de dates de
+     *                début et de fin.
+     * @return Un tableau d'objets Indisponibilite.
      */
     private static Indisponibilite[] creeIndisponibilité(String[] donnees) {
         
@@ -308,10 +304,14 @@ public class TraitementDonnees {
     }
     
     /**
-     * Méthode pour chercher une Exposition par son identifiant
-     * @param idExposition
-     * @return l'objet Exposition
-     * @throws IllegalArgumentException si aucune exposition n'est trouvée
+     * Cherche une exposition dans la liste des expositions par son
+     * identifiant.
+     * 
+     * @param idExposition L'identifiant unique de l'exposition
+     *                     recherchée.
+     * @return L'objet Exposition correspondant à l'identifiant.
+     * @throws IllegalArgumentException si aucune exposition avec cet
+     *                                  identifiant n'est trouvée.
      */
     private static Exposition chercherExposition(String idExposition) {
         for (Exposition expo : expositions) {
@@ -323,10 +323,14 @@ public class TraitementDonnees {
     }
     
     /**
-     * Méthode pour chercher un conferencier par son identifiant
-     * @param idConferencier
-     * @return l'objet Conferencier
-     * @throws IllegalArgumentException si aucun conferencier n'est trouvé
+     * Cherche un conférencier dans la liste des conférenciers par
+     * son identifiant.
+     * 
+     * @param idConferencier L'identifiant unique du conférencier
+     *                       recherché.
+     * @return L'objet Conferencier correspondant à l'identifiant.
+     * @throws IllegalArgumentException si aucun conférencier avec
+     *                                  cet identifiant n'est trouvé.
      */
     private static Conferencier chercherConferencier(String idConferencier) {
         for (Conferencier conf : conferenciers) {
@@ -338,10 +342,12 @@ public class TraitementDonnees {
     }
     
     /**
-     * Méthode pour chercher un Employé par son identifiant
-     * @param idEmploye
-     * @return l'objet Employé
-     * @throws IllegalArgumentException si aucun employé n'est trouvé
+     * Cherche un employé dans la liste des employés par son identifiant.
+     * 
+     * @param idEmploye L'identifiant unique de l'employé recherché.
+     * @return L'objet Employe correspondant à l'identifiant.
+     * @throws IllegalArgumentException si aucun employé avec cet identifiant
+     *                                  n'est trouvé.
      */
     private static Employe chercherEmploye(String idEmploye) {
         for (Employe employe : employes) {
@@ -353,11 +359,13 @@ public class TraitementDonnees {
     }
     
     /**
-     * Trouve un client existant dans la liste des clients.
+     * Cherche un client existant dans la liste des clients en
+     * fonction de son intitule (nom) et de son numéro de téléphone.
      * 
-     * @param intitule le nom ou la désignation du client
-     * @param numTel le numéro de téléphone du client
-     * @return l'objet Client si trouvé, sinon null
+     * @param intitule Le nom ou la désignation du client.
+     * @param numTel Le numéro de téléphone du client.
+     * @return L'objet Client si un client correspondant est trouvé,
+     *         sinon null.
      */
     private static Client trouverClient(String intitule, String numTel) {
         for (Client client : clients) {
@@ -379,7 +387,7 @@ public class TraitementDonnees {
     }
     
     /**
-     * Récupère la liste des employes traitées.
+     * Récupère la liste des employés traitées.
      * 
      * @return Une liste d'objets Employe
      */
@@ -388,7 +396,7 @@ public class TraitementDonnees {
     }
     
     /**
-     * Récupère la liste des conferenciers traitées.
+     * Récupère la liste des conférenciers traitées.
      * 
      * @return Une liste d'objets Conferencier
      */
