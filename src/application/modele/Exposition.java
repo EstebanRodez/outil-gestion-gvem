@@ -24,6 +24,7 @@ package application.modele;
  * au 21 juin 2025.
  * @author Romain Augé
  * @author Esteban Vroemen
+ * @author Baptiste Thenieres
  * @version 1.0
  */
 public class Exposition {

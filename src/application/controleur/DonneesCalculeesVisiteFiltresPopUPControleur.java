@@ -107,11 +107,22 @@ public class DonneesCalculeesVisiteFiltresPopUPControleur {
     void btnValiderAction(ActionEvent event) {
         CritereFiltre critere = new CritereFiltre();
         
-        // Récupérer les valeurs des champs de filtre et les assigner au modèle CritereFiltre
-        critere.setTypeExposition(typeExpo.getSelectedToggle() == radioPermanente ? "Permanente" : "Temporaire");
-        critere.setConferencier(listeConf.getValue());
+        // Vérifier et récupérer le type d'exposition uniquement s'il est sélectionné
+        if (typeExpo.getSelectedToggle() != null) {
+            critere.setTypeExposition(typeExpo.getSelectedToggle() == radioPermanente ? "permanente" : "temporaire");
+        }
+
+        // Récupérer le conférencier seulement s'il est sélectionné
+        if (listeConf.getValue() != null) {
+            critere.setConferencier(listeConf.getValue());
+        }
         
-        // Si les champs de date sont présents
+        // Récupérer l'exposition seulement s'il est sélectionné
+        if (listeExpo.getValue() != null) {
+            critere.setExposition(listeExpo.getValue());
+        }
+        
+        // Si les champs de date sont remplis
         if (!labelJour.getText().isEmpty() && !labelMois.getText().isEmpty() && !labelAnnees.getText().isEmpty()) {
             critere.setDateDebut(LocalDate.of(
                 Integer.parseInt(labelAnnees.getText()), 
@@ -119,14 +130,13 @@ public class DonneesCalculeesVisiteFiltresPopUPControleur {
                 Integer.parseInt(labelJour.getText())
             ));
         }
-        
+
         // Passer le critère de filtre au contrôleur principal via EchangeurDeVue
         DonneesCalculeesVisiteControleur controleurPrincipal = EchangeurDeVue.getFXMLLoader("donneesCalculeesVisiteVue").getController();
         controleurPrincipal.appliquerFiltre(critere);
         
         // Fermer la popup
-        boitePopUp.close();
-        
+        EchangeurDeVue.fermerPopUp("donneesCalculeesVisiteFiltresPopUP");
     }
 
 }

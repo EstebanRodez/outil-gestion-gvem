@@ -21,7 +21,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.stage.Stage;
 
 /**
  * Contrôleur pour la gestion des données importées des visites.
@@ -83,7 +82,7 @@ public class DonneesCalculeesVisiteControleur {
 
         conferencier.setCellValueFactory(cellData -> {
             Visite visite = cellData.getValue();
-            return new SimpleStringProperty(visite.getConferencier().getIdentifiant()); 
+            return new SimpleStringProperty(visite.getConferencier().getNom()); 
         });
         
         date.setCellValueFactory(
@@ -91,12 +90,12 @@ public class DonneesCalculeesVisiteControleur {
         
         employe.setCellValueFactory(cellData -> {
             Visite visite = cellData.getValue();
-            return new SimpleStringProperty(visite.getEmploye().getIdentifiant()); 
+            return new SimpleStringProperty(visite.getEmploye().getNom()); 
         });
         
         exposition.setCellValueFactory(cellData -> {
             Visite visite = cellData.getValue();
-            return new SimpleStringProperty(visite.getExposition().getIdentifiant()); 
+            return new SimpleStringProperty(visite.getExposition().getIntitule()); 
         });
         
         horaireDebut.setCellValueFactory(cellData -> {
@@ -145,15 +144,7 @@ public class DonneesCalculeesVisiteControleur {
     
     @FXML
     void btnFiltresAction(ActionEvent event) {
-        EchangeurDeVue.changerVue("donneesCalculeesVisiteFiltresPopUP");
-        Stage filtresPopUP = new Stage();
-        // Défini la fenêtre principale comme "owner" de la popup
-        filtresPopUP.initOwner(EchangeurDeVue.getFenetreAppli()); 
-        filtresPopUP.setScene(EchangeurDeVue.getSceneAppli());
-        filtresPopUP.show(); // Afficher la popup
-        DonneesCalculeesVisiteFiltresPopUPControleur controleur
-        = EchangeurDeVue.getFXMLLoader("donneesCalculeesVisiteFiltresPopUP").getController();
-        controleur.setPopUp(filtresPopUP);
+        EchangeurDeVue.creerPopUp("donneesCalculeesVisiteFiltresPopUP");
     }
 
     /**
@@ -166,30 +157,40 @@ public class DonneesCalculeesVisiteControleur {
 
         for (Visite visite : visites) {
             boolean match = true;
-            
+
             // Filtrer par type d'exposition
             if (critere.getTypeExposition() != null 
-                    && !visite.getExposition().getType().equals(critere.getTypeExposition())) {
+                && !visite.getExposition().getType().equals(critere.getTypeExposition())) {
                 match = false;
             }
 
             // Filtrer par conférencier
             if (critere.getConferencier() != null 
-                    && !visite.getConferencier().getIdentifiant().equals(critere.getConferencier())) {
+                && !visite.getConferencier().getNom().equals(critere.getConferencier())) { 
+                match = false;
+            }
+            
+            // Filtrer par exposition
+            if (critere.getExposition() != null 
+                && !visite.getExposition().getIntitule().equals(critere.getExposition())) { 
                 match = false;
             }
 
             // Filtrer par date de visite
-            if (critere.getDateDebut() != null 
-                    && (visite.getDate().isBefore(critere.getDateDebut()) 
-                    || visite.getDate().isAfter(critere.getDateFin()))) {
-                match = false;
+            if (critere.getDateDebut() != null) {
+                // Vérifier aussi que la date de fin est bien initialisée dans le critère
+                LocalDate dateFin = critere.getDateFin() != null ? critere.getDateFin() : critere.getDateDebut();
+                if (visite.getDate().isBefore(critere.getDateDebut()) 
+                    || visite.getDate().isAfter(dateFin)) {
+                    match = false;
+                }
             }
 
             if (match) {
                 visitesFiltrees.add(visite);
             }
         }
+
         
         tableExposition.setItems(visitesFiltrees);
         

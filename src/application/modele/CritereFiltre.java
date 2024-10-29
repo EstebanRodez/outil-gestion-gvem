@@ -14,6 +14,7 @@ public class CritereFiltre {
     
     private String typeExposition;
     private String conferencier;
+    private String exposition;
     private LocalDate dateDebut;
     private LocalDate dateFin;
     
@@ -48,7 +49,24 @@ public class CritereFiltre {
      */
     public void setConferencier(String conferencier) { 
         this.conferencier = conferencier; 
-        }
+    }
+    
+    /**
+     * TODO commenter le rôle de cette méthode (SRP)
+     * @return le nom du conférencier
+     */
+    
+    public String getExposition() { 
+        return exposition; 
+    }
+            
+    /**
+     * TODO commenter le rôle de cette méthode (SRP)
+     * @param exposition 
+     */
+    public void setExposition(String exposition) { 
+        this.exposition = exposition; 
+    }
 
     /**
      * TODO commenter le rôle de cette méthode (SRP)
