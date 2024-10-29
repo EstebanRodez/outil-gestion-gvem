@@ -338,6 +338,10 @@ class TestImportationCSV {
             ImportationCSV.importerDonnees(
                     CHEMIN_CONFERENCIERS+"conferencier_valide_sans_entete.csv");
         });
+        assertDoesNotThrow(() -> {
+            ImportationCSV.importerDonnees(
+                    CHEMIN_CONFERENCIERS+"conferencier_valide_beaucoup.csv");
+        });
         
         // Fichiers Employés avec données correctes
         assertDoesNotThrow(() -> {
