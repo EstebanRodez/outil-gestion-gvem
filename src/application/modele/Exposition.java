@@ -216,5 +216,13 @@ public class Exposition {
     public String getResume() {
         return resume;
     }
+    
+    /**
+     * TODO commenter le rôle de cette méthode (SRP)
+     * @return le type de l'exposition
+     */
+    public String getType() {
+        return "permanente";
+    }
 
 }

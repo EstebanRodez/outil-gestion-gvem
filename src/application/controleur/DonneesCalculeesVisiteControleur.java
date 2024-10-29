@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.cell.PropertyValueFactory;
 import application.EchangeurDeVue;
+import application.modele.CritereFiltre;
 import application.modele.Visite;
 import application.utilitaire.TraitementDonnees;
 import javafx.collections.FXCollections;
@@ -153,6 +154,45 @@ public class DonneesCalculeesVisiteControleur {
         DonneesCalculeesVisiteFiltresPopUPControleur controleur
         = EchangeurDeVue.getFXMLLoader("donneesCalculeesVisiteFiltresPopUP").getController();
         controleur.setPopUp(filtresPopUP);
+    }
+
+    /**
+     * TODO commenter le rôle de cette méthode (SRP)
+     * @param critere
+     */
+    public void appliquerFiltre(CritereFiltre critere) {
+        // Filtrer la liste des visites en fonction des critères reçus
+        ObservableList<Visite> visitesFiltrees = FXCollections.observableArrayList();
+
+        for (Visite visite : visites) {
+            boolean match = true;
+            
+            // Filtrer par type d'exposition
+            if (critere.getTypeExposition() != null 
+                    && !visite.getExposition().getType().equals(critere.getTypeExposition())) {
+                match = false;
+            }
+
+            // Filtrer par conférencier
+            if (critere.getConferencier() != null 
+                    && !visite.getConferencier().getIdentifiant().equals(critere.getConferencier())) {
+                match = false;
+            }
+
+            // Filtrer par date de visite
+            if (critere.getDateDebut() != null 
+                    && (visite.getDate().isBefore(critere.getDateDebut()) 
+                    || visite.getDate().isAfter(critere.getDateFin()))) {
+                match = false;
+            }
+
+            if (match) {
+                visitesFiltrees.add(visite);
+            }
+        }
+        
+        tableExposition.setItems(visitesFiltrees);
+        
     }
 
 }
