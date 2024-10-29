@@ -48,19 +48,34 @@ public class DonneesCalculeesVisiteFiltresPopUPControleur {
     private Button btnValider;
 
     @FXML
-    private TextField labelAnnees;
+    private TextField labelAnneesDebut;
 
     @FXML
-    private TextField labelHeure;
+    private TextField labelAnneesFin;
 
     @FXML
-    private TextField labelJour;
+    private TextField labelHeureDebut;
 
     @FXML
-    private TextField labelMinute;
+    private TextField labelHeureFin;
 
     @FXML
-    private TextField labelMois;
+    private TextField labelJourDebut;
+
+    @FXML
+    private TextField labelJourFin;
+
+    @FXML
+    private TextField labelMinuteDebut;
+
+    @FXML
+    private TextField labelMinuteFin;
+
+    @FXML
+    private TextField labelMoisDebut;
+
+    @FXML
+    private TextField labelMoisFin;
 
     @FXML
     private ChoiceBox<String> listeConf;
@@ -105,6 +120,9 @@ public class DonneesCalculeesVisiteFiltresPopUPControleur {
 
     @FXML
     void btnValiderAction(ActionEvent event) {
+        LocalDate dateDebut = null;
+        LocalDate dateFin = null;
+        
         CritereFiltre critere = new CritereFiltre();
         
         // Vérifier et récupérer le type d'exposition uniquement s'il est sélectionné
@@ -122,13 +140,24 @@ public class DonneesCalculeesVisiteFiltresPopUPControleur {
             critere.setExposition(listeExpo.getValue());
         }
         
-        // Si les champs de date sont remplis
-        if (!labelJour.getText().isEmpty() && !labelMois.getText().isEmpty() && !labelAnnees.getText().isEmpty()) {
-            critere.setDateDebut(LocalDate.of(
-                Integer.parseInt(labelAnnees.getText()), 
-                Integer.parseInt(labelMois.getText()), 
-                Integer.parseInt(labelJour.getText())
-            ));
+        // Vérifier si les champs de date de début sont remplis
+        if (!labelJourDebut.getText().isEmpty() && !labelMoisDebut.getText().isEmpty() && !labelAnneesDebut.getText().isEmpty()) {
+            dateDebut = LocalDate.of(
+                Integer.parseInt(labelAnneesDebut.getText()), 
+                Integer.parseInt(labelMoisDebut.getText()), 
+                Integer.parseInt(labelJourDebut.getText())
+            );
+            critere.setDateDebut(dateDebut);
+        }
+
+        // Vérifier si les champs de date de fin sont remplis
+        if (!labelJourFin.getText().isEmpty() && !labelMoisFin.getText().isEmpty() && !labelAnneesFin.getText().isEmpty()) {
+            dateFin = LocalDate.of(
+                Integer.parseInt(labelAnneesFin.getText()), 
+                Integer.parseInt(labelMoisFin.getText()), 
+                Integer.parseInt(labelJourFin.getText())
+            );
+            critere.setDateFin(dateFin);
         }
 
         // Passer le critère de filtre au contrôleur principal via EchangeurDeVue
