@@ -98,6 +98,10 @@ public class DonneesCalculeesVisiteFiltresPopUPControleur {
     @FXML
     public void initialize() {
         
+        // Possibilité de ne rien choisir
+        listeExpositions.add(null);
+        listeConferenciers.add(null);
+        
         // Extraire les intitulés des expositions et des conférenciers
         for (Visite visite : visites) {
             String expo = visite.getExposition().getIntitule();
