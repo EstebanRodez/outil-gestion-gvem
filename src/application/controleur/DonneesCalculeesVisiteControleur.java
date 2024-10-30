@@ -99,7 +99,8 @@ public class DonneesCalculeesVisiteControleur {
         
         exposition.setCellValueFactory(cellData -> {
             Visite visite = cellData.getValue();
-            return new SimpleStringProperty(visite.getExposition().getIntitule()); 
+            return new SimpleStringProperty(visite.getExposition()
+                                                   .getIntitule()); 
         });
         
         horaireDebut.setCellValueFactory(cellData -> {
@@ -152,38 +153,53 @@ public class DonneesCalculeesVisiteControleur {
     }
 
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
-     * @param critere
+     * Applique les critères de filtrage sur la liste des visites.
+     * Parcourt la liste des visites et les filtre en fonction des
+     * critères spécifiés dans l'objet CritereFiltre.
+     * Les visites qui correspondent à tous les critères 
+     * (type d'exposition, conférencier, exposition, dates 
+     * et horaires)
+     *  sont ajoutées à la liste des visites filtrées.
+     *
+     * @param critere objet contenant les critères de filtrage à 
+     *                appliquer
      */
     public void appliquerFiltre(CritereFiltre critere) {
         // Filtrer la liste des visites en fonction des critères reçus
-        ObservableList<Visite> visitesFiltrees = FXCollections.observableArrayList();
+        ObservableList<Visite> visitesFiltrees = FXCollections
+                                                 .observableArrayList();
 
         for (Visite visite : visites) {
             boolean match = true;
 
             // Filtrer par type d'exposition
             if (critere.getTypeExposition() != null 
-                && !visite.getExposition().getType().equals(critere.getTypeExposition())) {
+                && !visite.getExposition().getType()
+                                           .equals(critere
+                                                   .getTypeExposition())) {
                 match = false;
             }
 
             // Filtrer par conférencier
             if (critere.getConferencier() != null 
-                && !visite.getConferencier().getNom().equals(critere.getConferencier())) { 
+                && !visite.getConferencier().getNom()
+                                             .equals(critere
+                                                     .getConferencier())) { 
                 match = false;
             }
             
             // Filtrer par exposition
             if (critere.getExposition() != null 
-                && !visite.getExposition().getIntitule().equals(critere.getExposition())) { 
+                && !visite.getExposition().getIntitule()
+                                           .equals(critere.getExposition())) { 
                 match = false;
             }
 
             // Filtrer par date de visite
             if (critere.getDateDebut() != null) {
-                // Vérifie que la date de fin est bien initialisée dans le critère
-                LocalDate dateFin = critere.getDateFin() != null ? critere.getDateFin() : critere.getDateDebut();
+                LocalDate dateFin;
+                dateFin = critere.getDateFin() != null ? critere.getDateFin() 
+                                                       : critere.getDateDebut();
                 if (visite.getDate().isBefore(critere.getDateDebut()) 
                     || visite.getDate().isAfter(dateFin)) {
                     match = false;
@@ -192,7 +208,10 @@ public class DonneesCalculeesVisiteControleur {
             
             // Filtrer par plage horaire
             if (critere.getHoraireDebut() != 0) {
-                int horaireFin = critere.getHoraireFin() != 0 ? critere.getHoraireFin() : critere.getHoraireDebut();
+                int horaireFin;
+                horaireFin = critere.getHoraireFin() != 0 
+                                                    ? critere.getHoraireFin() 
+                                                    : critere.getHoraireDebut();
                 if (visite.getHoraireDebut() < critere.getHoraireDebut() 
                     || visite.getHoraireDebut() > horaireFin) {
                     match = false;
@@ -206,7 +225,8 @@ public class DonneesCalculeesVisiteControleur {
         
         tableExposition.setItems(visitesFiltrees);
         
-        LabelResultat.setText("Nombre de visite correspondant aux filtres : " + visitesFiltrees.size());
+        LabelResultat.setText("Nombre de visite correspondant aux filtres : " 
+                               + visitesFiltrees.size());
         
     }
 

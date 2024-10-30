@@ -8,7 +8,9 @@ package application.modele;
 import java.time.LocalDate;
 
 /**
- * TODO commenter la responsabilité de cette class (SRP)
+ * Représente les critères de filtrage pour les visites.
+ * Elle contient des informations sur le type d'exposition, le conférencier,
+ * l'exposition, ainsi que les dates de début et de fin, et les horaires.
  */
 public class CritereFiltre {
     
@@ -21,7 +23,7 @@ public class CritereFiltre {
     private int horaireFin;
 
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
+     * Récupère le type d'exposition.
      * @return le type d'exposition
      */
     public String getTypeExposition() { 
@@ -29,106 +31,104 @@ public class CritereFiltre {
     }
     
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
-     * @param typeExposition
+     * Définit le type d'exposition.
+     * @param typeExposition le type d'exposition à définir
      */
     public void setTypeExposition(String typeExposition) {
         this.typeExposition = typeExposition;
     }
 
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
+     * Récupère le nom du conférencier.
      * @return le nom du conférencier
      */
-    
     public String getConferencier() { 
         return conferencier; 
     }
             
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
-     * @param conferencier
+     * Définit le nom du conférencier.
+     * @param conferencier le nom du conférencier à définir
      */
     public void setConferencier(String conferencier) { 
         this.conferencier = conferencier; 
     }
     
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
-     * @return le nom du conférencier
+     * Récupère le nom de l'exposition.
+     * @return le nom de l'exposition
      */
-    
     public String getExposition() { 
         return exposition; 
     }
             
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
-     * @param exposition 
+     * Définit le nom de l'exposition.
+     * @param exposition le nom de l'exposition à définir
      */
     public void setExposition(String exposition) { 
         this.exposition = exposition; 
     }
 
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
-     * @return la date de debut 
+     * Récupère la date de début.
+     * @return la date de début
      */
     public LocalDate getDateDebut() { 
         return dateDebut; 
     }
     
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
-     * @param dateDebut
+     * Définit la date de début.
+     * @param dateDebut la date de début à définir
      */
     public void setDateDebut(LocalDate dateDebut) { 
         this.dateDebut = dateDebut; 
-        }
+    }
 
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
-     * @return la date de fin 
+     * Récupère la date de fin.
+     * @return la date de fin
      */
     public LocalDate getDateFin() { 
         return dateFin; 
     }
     
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
-     * @param dateFin
+     * Définit la date de fin.
+     * @param dateFin la date de fin à définir
      */
     public void setDateFin(LocalDate dateFin) { 
         this.dateFin = dateFin; 
     }
     
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
-     * @return la date de fin 
+     * Récupère l'horaire de début.
+     * @return l'horaire de début
      */
     public int getHoraireDebut() { 
         return horaireDebut; 
     }
     
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
-     * @param horaireDebut 
+     * Définit l'horaire de début.
+     * @param horaireDebut l'horaire de début à définir
      */
     public void setHoraireDebut(int horaireDebut) { 
         this.horaireDebut = horaireDebut; 
     }
     
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
-     * @return la date de fin 
+     * Récupère l'horaire de fin.
+     * @return l'horaire de fin
      */
     public int getHoraireFin() { 
         return horaireFin; 
     }
     
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
-     * @param horaireFin 
+     * Définit l'horaire de fin.
+     * @param horaireFin l'horaire de fin à définir
      */
     public void setHoraireFin(int horaireFin) { 
         this.horaireFin = horaireFin; 

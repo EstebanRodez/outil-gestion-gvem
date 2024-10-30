@@ -102,17 +102,17 @@ public class DonneesCalculeesVisiteFiltresPopUPControleur {
         for (Visite visite : visites) {
             String expo = visite.getExposition().getIntitule();
             String conf = visite.getConferencier().getNom();
-            if (!listeExpositions.contains(expo) && !listeConferenciers.contains(conf)) { // Éviter les doublons
+            // Éviter les doublons
+            if (!listeExpositions.contains(expo) && !listeConferenciers
+                                                     .contains(conf)) { 
                 listeExpositions.add(expo);
                 listeConferenciers.add(conf);
             }
         }
 
-        // Convertir en tableau String[] et assigner à expositions
         expositions = listeExpositions.toArray(new String[0]);
         conferenciers = listeConferenciers.toArray(new String[0]);
 
-        // Mettre à jour la ChoiceBox listeExpo avec les intitulés
         listeExpo.setItems(FXCollections.observableArrayList(expositions));
         listeConf.setItems(FXCollections.observableArrayList(conferenciers));
     }
@@ -126,7 +126,9 @@ public class DonneesCalculeesVisiteFiltresPopUPControleur {
         CritereFiltre critere = new CritereFiltre();
         
         if (typeExpo.getSelectedToggle() != null) {
-            critere.setTypeExposition(typeExpo.getSelectedToggle() == radioPermanente ? "permanente" : "temporaire");
+            critere.setTypeExposition(typeExpo.getSelectedToggle() 
+                                      == radioPermanente ? "permanente" 
+                                                         : "temporaire");
         }
 
         if (listeConf.getValue() != null) {
@@ -137,7 +139,9 @@ public class DonneesCalculeesVisiteFiltresPopUPControleur {
             critere.setExposition(listeExpo.getValue());
         }
         
-        if (!labelJourDebut.getText().isEmpty() && !labelMoisDebut.getText().isEmpty() && !labelAnneesDebut.getText().isEmpty()) {
+        if (!labelJourDebut.getText().isEmpty() 
+            && !labelMoisDebut.getText().isEmpty() 
+            && !labelAnneesDebut.getText().isEmpty()) {
             dateDebut = LocalDate.of(
                 Integer.parseInt(labelAnneesDebut.getText()), 
                 Integer.parseInt(labelMoisDebut.getText()), 
@@ -146,7 +150,9 @@ public class DonneesCalculeesVisiteFiltresPopUPControleur {
             critere.setDateDebut(dateDebut);
         }
 
-        if (!labelJourFin.getText().isEmpty() && !labelMoisFin.getText().isEmpty() && !labelAnneesFin.getText().isEmpty()) {
+        if (!labelJourFin.getText().isEmpty() 
+            && !labelMoisFin.getText().isEmpty() 
+            && !labelAnneesFin.getText().isEmpty()) {
             dateFin = LocalDate.of(
                 Integer.parseInt(labelAnneesFin.getText()), 
                 Integer.parseInt(labelMoisFin.getText()), 
@@ -155,16 +161,25 @@ public class DonneesCalculeesVisiteFiltresPopUPControleur {
             critere.setDateFin(dateFin);
         }
         
-        if(!labelHeureDebut.getText().isEmpty() && !labelMinuteDebut.getText().isEmpty()) {
-            critere.setHoraireDebut(Integer.parseInt(labelHeureDebut.getText()) * 60 + Integer.parseInt(labelMinuteDebut.getText()));
+        if(!labelHeureDebut.getText().isEmpty() 
+           && !labelMinuteDebut.getText().isEmpty()) {
+            critere.setHoraireDebut(Integer.parseInt(labelHeureDebut.getText()) 
+                                    * 60 + Integer.parseInt(labelMinuteDebut
+                                                             .getText()));
         }
         
-        if(!labelHeureFin.getText().isEmpty() && !labelMinuteFin.getText().isEmpty()) {
-            critere.setHoraireFin(Integer.parseInt(labelHeureFin.getText()) * 60 + Integer.parseInt(labelMinuteFin.getText()));
+        if(!labelHeureFin.getText().isEmpty() 
+           && !labelMinuteFin.getText().isEmpty()) {
+            critere.setHoraireFin(Integer.parseInt(labelHeureFin.getText()) 
+                                  * 60 + Integer.parseInt(labelMinuteFin
+                                                           .getText()));
         }
 
         // Passer le critère de filtre au contrôleur principal via EchangeurDeVue
-        DonneesCalculeesVisiteControleur controleurPrincipal = EchangeurDeVue.getFXMLLoader("donneesCalculeesVisiteVue").getController();
+        DonneesCalculeesVisiteControleur controleurPrincipal;
+        controleurPrincipal = EchangeurDeVue
+                               .getFXMLLoader("donneesCalculeesVisiteVue")
+                                .getController();
         controleurPrincipal.appliquerFiltre(critere);
         
         // Fermer la popup
