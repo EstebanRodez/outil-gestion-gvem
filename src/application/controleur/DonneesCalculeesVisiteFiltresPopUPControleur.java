@@ -125,22 +125,18 @@ public class DonneesCalculeesVisiteFiltresPopUPControleur {
         
         CritereFiltre critere = new CritereFiltre();
         
-        // Vérifier et récupérer le type d'exposition uniquement s'il est sélectionné
         if (typeExpo.getSelectedToggle() != null) {
             critere.setTypeExposition(typeExpo.getSelectedToggle() == radioPermanente ? "permanente" : "temporaire");
         }
 
-        // Récupérer le conférencier seulement s'il est sélectionné
         if (listeConf.getValue() != null) {
             critere.setConferencier(listeConf.getValue());
         }
         
-        // Récupérer l'exposition seulement s'il est sélectionné
         if (listeExpo.getValue() != null) {
             critere.setExposition(listeExpo.getValue());
         }
         
-        // Vérifier si les champs de date de début sont remplis
         if (!labelJourDebut.getText().isEmpty() && !labelMoisDebut.getText().isEmpty() && !labelAnneesDebut.getText().isEmpty()) {
             dateDebut = LocalDate.of(
                 Integer.parseInt(labelAnneesDebut.getText()), 
@@ -150,7 +146,6 @@ public class DonneesCalculeesVisiteFiltresPopUPControleur {
             critere.setDateDebut(dateDebut);
         }
 
-        // Vérifier si les champs de date de fin sont remplis
         if (!labelJourFin.getText().isEmpty() && !labelMoisFin.getText().isEmpty() && !labelAnneesFin.getText().isEmpty()) {
             dateFin = LocalDate.of(
                 Integer.parseInt(labelAnneesFin.getText()), 
@@ -158,6 +153,14 @@ public class DonneesCalculeesVisiteFiltresPopUPControleur {
                 Integer.parseInt(labelJourFin.getText())
             );
             critere.setDateFin(dateFin);
+        }
+        
+        if(!labelHeureDebut.getText().isEmpty() && !labelMinuteDebut.getText().isEmpty()) {
+            critere.setHoraireDebut(Integer.parseInt(labelHeureDebut.getText()) * 60 + Integer.parseInt(labelMinuteDebut.getText()));
+        }
+        
+        if(!labelHeureFin.getText().isEmpty() && !labelMinuteFin.getText().isEmpty()) {
+            critere.setHoraireFin(Integer.parseInt(labelHeureFin.getText()) * 60 + Integer.parseInt(labelMinuteFin.getText()));
         }
 
         // Passer le critère de filtre au contrôleur principal via EchangeurDeVue

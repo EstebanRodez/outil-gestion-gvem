@@ -182,10 +182,19 @@ public class DonneesCalculeesVisiteControleur {
 
             // Filtrer par date de visite
             if (critere.getDateDebut() != null) {
-                // Vérifier aussi que la date de fin est bien initialisée dans le critère
+                // Vérifie que la date de fin est bien initialisée dans le critère
                 LocalDate dateFin = critere.getDateFin() != null ? critere.getDateFin() : critere.getDateDebut();
                 if (visite.getDate().isBefore(critere.getDateDebut()) 
                     || visite.getDate().isAfter(dateFin)) {
+                    match = false;
+                }
+            }
+            
+            // Filtrer par plage horaire
+            if (critere.getHoraireDebut() != 0) {
+                int horaireFin = critere.getHoraireFin() != 0 ? critere.getHoraireFin() : critere.getHoraireDebut();
+                if (visite.getHoraireDebut() < critere.getHoraireDebut() 
+                    || visite.getHoraireDebut() > horaireFin) {
                     match = false;
                 }
             }
@@ -194,7 +203,6 @@ public class DonneesCalculeesVisiteControleur {
                 visitesFiltrees.add(visite);
             }
         }
-
         
         tableExposition.setItems(visitesFiltrees);
         

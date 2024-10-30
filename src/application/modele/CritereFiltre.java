@@ -17,7 +17,9 @@ public class CritereFiltre {
     private String exposition;
     private LocalDate dateDebut;
     private LocalDate dateFin;
-    
+    private int horaireDebut;
+    private int horaireFin;
+
     /**
      * TODO commenter le rôle de cette méthode (SRP)
      * @return le type d'exposition
@@ -98,5 +100,37 @@ public class CritereFiltre {
      */
     public void setDateFin(LocalDate dateFin) { 
         this.dateFin = dateFin; 
+    }
+    
+    /**
+     * TODO commenter le rôle de cette méthode (SRP)
+     * @return la date de fin 
+     */
+    public int getHoraireDebut() { 
+        return horaireDebut; 
+    }
+    
+    /**
+     * TODO commenter le rôle de cette méthode (SRP)
+     * @param horaireDebut 
+     */
+    public void setHoraireDebut(int horaireDebut) { 
+        this.horaireDebut = horaireDebut; 
+    }
+    
+    /**
+     * TODO commenter le rôle de cette méthode (SRP)
+     * @return la date de fin 
+     */
+    public int getHoraireFin() { 
+        return horaireFin; 
+    }
+    
+    /**
+     * TODO commenter le rôle de cette méthode (SRP)
+     * @param horaireFin 
+     */
+    public void setHoraireFin(int horaireFin) { 
+        this.horaireFin = horaireFin; 
     }
 }
