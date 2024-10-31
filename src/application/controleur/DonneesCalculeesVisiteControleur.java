@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.cell.PropertyValueFactory;
 import application.EchangeurDeVue;
-import application.modele.CritereFiltre;
+import application.modele.CritereFiltreVisite;
 import application.modele.Visite;
 import application.utilitaire.TraitementDonnees;
 import javafx.collections.FXCollections;
@@ -164,7 +164,7 @@ public class DonneesCalculeesVisiteControleur {
      * @param critere objet contenant les critères de filtrage à 
      *                appliquer
      */
-    public void appliquerFiltre(CritereFiltre critere) {
+    public void appliquerFiltre(CritereFiltreVisite critere) {
         // Filtrer la liste des visites en fonction des critères reçus
         ObservableList<Visite> visitesFiltrees = FXCollections
                                                  .observableArrayList();

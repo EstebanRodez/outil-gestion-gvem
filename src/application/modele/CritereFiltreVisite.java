@@ -12,7 +12,7 @@ import java.time.LocalDate;
  * Elle contient des informations sur le type d'exposition, le conférencier,
  * l'exposition, ainsi que les dates de début et de fin, et les horaires.
  */
-public class CritereFiltre {
+public class CritereFiltreVisite {
     
     private String typeExposition;
     private String conferencier;

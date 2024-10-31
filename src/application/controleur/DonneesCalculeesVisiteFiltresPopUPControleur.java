@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import application.EchangeurDeVue;
-import application.modele.CritereFiltre;
+import application.modele.CritereFiltreVisite;
 import application.modele.Visite;
 import application.utilitaire.TraitementDonnees;
 import javafx.collections.FXCollections;
@@ -127,7 +127,7 @@ public class DonneesCalculeesVisiteFiltresPopUPControleur {
         LocalDate dateDebut = null;
         LocalDate dateFin = null;
         
-        CritereFiltre critere = new CritereFiltre();
+        CritereFiltreVisite critere = new CritereFiltreVisite();
         
         if (typeExpo.getSelectedToggle() != null) {
             critere.setTypeExposition(typeExpo.getSelectedToggle() 
