@@ -20,6 +20,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
@@ -49,9 +50,28 @@ public class DonneesCalculeesExpositionControleur {
     // Format pour les dates au format jj/MM/aaaa
     private static final DateTimeFormatter DATE_FORMAT 
     = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    
+    private static String[] choix = {"exposition qui n’ont aucune visite",
+                                     "exposition et leur nombre moyen de " 
+                                     + "visites programmées chaque jour",
+                                     "exposition et leur nombre moyen de "
+                                     + "visites programmées chaque semaine",
+                                     " exposition et leur nombre moyen de "
+                                     + "visites prévues chaque jour",
+                                     " exposition et leur nombre moyen de "
+                                     + "visites prévues chaque semaine"};
+
+    @FXML
+    private Button btnFiltres;
 
     @FXML
     private Button btnRetour;
+
+    @FXML
+    private Button btnValider;
+    
+    @FXML
+    private ChoiceBox<String> listePhrase;
     
     @FXML
     private TableColumn<Exposition, String> dateDebut;
@@ -88,6 +108,8 @@ public class DonneesCalculeesExpositionControleur {
      */
     @FXML
     public void initialize() {
+        
+        listePhrase.setItems(FXCollections.observableArrayList(choix));
         
         dateDebut.setCellValueFactory(
                 new Callback<CellDataFeatures<Exposition, String>, 
@@ -169,6 +191,16 @@ public class DonneesCalculeesExpositionControleur {
      */
     private static String toStringMotsCles(String[] motsCles) {
         return motsCles != null ? String.join(", ", motsCles) : "";
+    }
+    
+    @FXML
+    void btnFiltresAction(ActionEvent event) {
+
+    }
+    
+    @FXML
+    void btnValiderAction(ActionEvent event) {
+
     }
 
     @FXML
