@@ -11,8 +11,10 @@ import java.util.ArrayList;
 
 import application.utilitaire.TraitementDonnees;
 import application.EchangeurDeVue;
+import application.modele.CritereFiltreVisite;
 import application.modele.Exposition;
 import application.modele.ExpositionTemporaire;
+import application.modele.Visite;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -44,8 +46,8 @@ import javafx.util.Callback;
  */
 public class DonneesCalculeesExpositionControleur {
     
-    private static ArrayList<Exposition> expositions
-    = TraitementDonnees.getExpositions();
+    private static ArrayList<Visite> visites
+    = TraitementDonnees.getVisites();
     
     // Format pour les dates au format jj/MM/aaaa
     private static final DateTimeFormatter DATE_FORMAT 
@@ -60,7 +62,7 @@ public class DonneesCalculeesExpositionControleur {
                                      + "visites prévues chaque jour",
                                      " exposition et leur nombre moyen de "
                                      + "visites prévues chaque semaine"};
-
+    
     @FXML
     private Button btnFiltres;
 
@@ -69,39 +71,21 @@ public class DonneesCalculeesExpositionControleur {
 
     @FXML
     private Button btnValider;
+
+    @FXML
+    private TableColumn<Visite, String> aucuneVisite;
     
+    @FXML
+    private TableColumn<Visite, LocalDate> date;
+    
+    @FXML
+    private TableColumn<Visite, String> horaireDebut;
+
     @FXML
     private ChoiceBox<String> listePhrase;
-    
-    @FXML
-    private TableColumn<Exposition, String> dateDebut;
 
     @FXML
-    private TableColumn<Exposition, String> dateFin;
-
-    @FXML
-    private TableColumn<Exposition, String> identifiant;
-
-    @FXML
-    private TableColumn<Exposition, String> intitule;
-
-    @FXML
-    private TableColumn<Exposition, String> motsCles;
-
-    @FXML
-    private TableColumn<Exposition, Integer> nbOeuvre;
-
-    @FXML
-    private TableColumn<Exposition, Integer> periodeDebut;
-
-    @FXML
-    private TableColumn<Exposition, Integer> periodeFin;
-
-    @FXML
-    private TableColumn<Exposition, String> resume;
-
-    @FXML
-    private TableView<Exposition> tableExposition;
+    private TableView<Visite> tableExposition;
     
     /**
      * 
@@ -109,65 +93,28 @@ public class DonneesCalculeesExpositionControleur {
     @FXML
     public void initialize() {
         
-        listePhrase.setItems(FXCollections.observableArrayList(choix));
+        listePhrase.getItems().addAll(choix);
         
-        dateDebut.setCellValueFactory(
-                new Callback<CellDataFeatures<Exposition, String>, 
-                             ObservableValue<String>>() {
-                    
-            public ObservableValue<String> call(
-                    CellDataFeatures<Exposition, String> ligne) {
-                
-                /* La date de début n'existe pas */
-                if (!(ligne.getValue() instanceof ExpositionTemporaire)) {
-                    return null;
-                }
-                
-                ExpositionTemporaire expoTempo 
-                = (ExpositionTemporaire) ligne.getValue();
-                return new SimpleStringProperty(
-                        formatDate(expoTempo.getDateDebut()));
-            }
+        // défini la valeur par défaut
+        listePhrase.setValue(choix[0]);
+        
+        aucuneVisite.setCellValueFactory(cellData -> {
+            Visite visite = cellData.getValue();
+            return new SimpleStringProperty(visite.getExposition()
+                                                   .getIntitule()); 
         });
         
-        dateFin.setCellValueFactory(
-                new Callback<CellDataFeatures<Exposition, String>, 
-                             ObservableValue<String>>() {
-                    
-            public ObservableValue<String> call(
-                    CellDataFeatures<Exposition, String> ligne) {
-                
-                /* La date de fin n'existe pas */
-                if (!(ligne.getValue() instanceof ExpositionTemporaire)) {
-                    return null;
-                }
-                
-                ExpositionTemporaire expoTempo 
-                = (ExpositionTemporaire) ligne.getValue();
-                return new SimpleStringProperty(
-                        formatDate(expoTempo.getDateFin()));
-            }
-        });
-
-        identifiant.setCellValueFactory(
-                new PropertyValueFactory<>("identifiant"));
-        intitule.setCellValueFactory(new PropertyValueFactory<>("intitule"));
-        periodeDebut.setCellValueFactory(
-                new PropertyValueFactory<>("periodeDebut"));
-        periodeFin.setCellValueFactory(
-                new PropertyValueFactory<>("periodeFin"));
-        nbOeuvre.setCellValueFactory(new PropertyValueFactory<>("nbOeuvre"));
-        resume.setCellValueFactory(new PropertyValueFactory<>("resume"));
+        date.setCellValueFactory(
+                new PropertyValueFactory<>("date"));
         
-        // Pour motscles, convertie le tableau en chaîne de caractère
-        motsCles.setCellValueFactory(
-                cellData -> new SimpleStringProperty(
-                        toStringMotsCles(cellData.getValue().getMotsCles()))
-        );
-    
+        horaireDebut.setCellValueFactory(cellData -> {
+            Visite visite = cellData.getValue();
+            return new SimpleStringProperty(visite.toStringHoraireDebut()); 
+        });
+        
         // Populate the table with the imported exhibitions
-        ObservableList<Exposition> exposListe
-        = FXCollections.observableArrayList(expositions);
+        ObservableList<Visite> exposListe
+        = FXCollections.observableArrayList(visites);
         tableExposition.setItems(exposListe);
     }
     
@@ -195,7 +142,7 @@ public class DonneesCalculeesExpositionControleur {
     
     @FXML
     void btnFiltresAction(ActionEvent event) {
-
+        EchangeurDeVue.creerPopUp("donneesCalculeesExpositionFiltresPopUP");
     }
     
     @FXML
@@ -222,4 +169,53 @@ public class DonneesCalculeesExpositionControleur {
     void btnRetourAction(ActionEvent event) {
         EchangeurDeVue.changerVue("menuDonneesCalculeesVue");
     }
+    
+    /**
+     * Applique les critères de filtrage inversés sur la liste des visites.
+     * Parcourt la liste des visites et affiche celles qui ne correspondent
+     * pas aux critères spécifiés dans l'objet CritereFiltre.
+     * Les visites qui ne respectent pas au moins un des critères 
+     * (type d'exposition, conférencier, exposition, dates et horaires)
+     * sont ajoutées à la liste des visites filtrées.
+     *
+     * @param critere objet contenant les critères de filtrage à 
+     *                appliquer
+     */
+    public void appliquerFiltreInverse(CritereFiltreVisite critere) {
+        ObservableList<Visite> visitesNonCorrespondantes = FXCollections.observableArrayList();
+
+        for (Visite visite : visites) {
+            boolean match = false; 
+
+            // Vérifie si la visite est hors de la plage de dates spécifiée
+            if (critere.getDateDebut() != null) {
+                LocalDate dateDebut = critere.getDateDebut();
+                LocalDate dateFin = critere.getDateFin() != null ? critere.getDateFin() : critere.getDateDebut();
+                
+                // Si la date de la visite est avant la date de début ou après la date de fin, elle ne correspond pas
+                if (visite.getDate().isBefore(dateDebut) || visite.getDate().isAfter(dateFin)) {
+                    match = true;  // Hors de la plage de dates, donc non correspondant
+                }
+            }
+
+            // Vérifie si la visite est hors de la plage horaire spécifiée
+            if (critere.getHoraireDebut() != 0) {
+                int horaireDebut = critere.getHoraireDebut();
+                int horaireFin = critere.getHoraireFin() != 0 ? critere.getHoraireFin() : critere.getHoraireDebut();
+                
+                // Si l'horaire de la visite est avant l'horaire de début ou après l'horaire de fin, elle ne correspond pas
+                if (visite.getHoraireDebut() < horaireDebut || visite.getHoraireDebut() > horaireFin) {
+                    match = true;  // Hors de la plage horaire, donc non correspondant
+                }
+            }
+
+            // Si l'une des conditions de non-correspondance est vraie, ajouter la visite à la liste
+            if (match) {
+                visitesNonCorrespondantes.add(visite);
+            }
+        }
+        tableExposition.setItems(visitesNonCorrespondantes);
+    }
+
+
 }
