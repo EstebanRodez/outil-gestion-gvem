@@ -56,7 +56,6 @@ public class ImporterControleur {
 
     @FXML
     void btnAideAction(ActionEvent event) {
-
         AccueilControleur.lancerAide();
     }
 
@@ -69,9 +68,6 @@ public class ImporterControleur {
     void btnImporterLocalAction(ActionEvent event) {
      // Créer le dossier d'importation s'il n'existe pas
         File dossierImportation = new File(DOSSIER_IMPORTATION);
-        if (!dossierImportation.exists()) {
-            dossierImportation.mkdir(); // Crée le dossier
-        }
         
         // Créer une instance de FileChooser
         FileChooser fileChooser = new FileChooser();
@@ -97,6 +93,9 @@ public class ImporterControleur {
                     ImportationCSV.importerDonnees(fichier.getAbsolutePath());
 
                     // Déplacer le fichier importé dans le dossier
+                    if (!dossierImportation.exists()) {
+                        dossierImportation.mkdir(); // Crée le dossier
+                    }
                     Path destination = new File(dossierImportation, fichier.getName()).toPath();
                     Files.copy(fichier.toPath(), destination, StandardCopyOption.REPLACE_EXISTING);
                     
@@ -128,16 +127,30 @@ public class ImporterControleur {
                 
             }
             
-            // Afficher une alerte avec les noms des fichiers sélectionnés
-            Alert boiteInformationSucces
-            = new Alert(Alert.AlertType.INFORMATION, 
-                        "Les fichiers suivants ont été sélectionnés :\n"
-                        + nomsFichiers.toString(), ButtonType.OK);
+            if (nomsFichiers.isEmpty()) {
+                
+                Alert boiteInformationImportation
+                = new Alert(Alert.AlertType.INFORMATION, 
+                            "Aucun fichier que vous avez sélectionné n'a pas "
+                            + "pu être importés.", ButtonType.OK);
 
-            boiteInformationSucces.setTitle("Fichiers importés avec succès");
-            boiteInformationSucces.setHeaderText(
-                    "Fichiers importés avec succès");
-            boiteInformationSucces.showAndWait();
+                boiteInformationImportation.setTitle("Importation");
+                boiteInformationImportation.setHeaderText(
+                        "Échec de l'importation des fichiers");
+                boiteInformationImportation.showAndWait();
+            } else {
+                
+                // Afficher une alerte avec les noms des fichiers sélectionnés
+                Alert boiteInformationImportation
+                = new Alert(Alert.AlertType.INFORMATION, 
+                            "Les fichiers suivants ont été sélectionnés :\n"
+                            + nomsFichiers.toString(), ButtonType.OK);
+
+                boiteInformationImportation.setTitle("Importation");
+                boiteInformationImportation.setHeaderText(
+                        "Fichiers importés avec succès");
+                boiteInformationImportation.showAndWait();
+            }
         } else {
             
             // Afficher une alerte si aucun fichier n'a été sélectionné
