@@ -112,7 +112,6 @@ public class DonneesCalculeesExpositionControleur {
             return new SimpleStringProperty(visite.toStringHoraireDebut()); 
         });
         
-        // Populate the table with the imported exhibitions
         ObservableList<Visite> exposListe
         = FXCollections.observableArrayList(visites);
         tableExposition.setItems(exposListe);
@@ -147,7 +146,18 @@ public class DonneesCalculeesExpositionControleur {
     
     @FXML
     void btnValiderAction(ActionEvent event) {
-
+        
+        if (listePhrase.getValue().equals(choix[1])) {
+            EchangeurDeVue.changerVue("donneesCalculeesExpositionMoyenneJourVue");
+        }
+        
+        if (listePhrase.getValue().equals(choix[2])) {
+            System.out.println("choix 3 ");
+        }
+        
+        if (listePhrase.getValue().equals(choix[3])) {
+            System.out.println("choix 4 ");
+        }
     }
 
     @FXML

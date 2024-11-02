@@ -1,6 +1,6 @@
 /*
- * DonneesCalculeesExpositionFiltresPopUPControleur.java                           
- * 1 nov. 2024
+ * donneesCalculeesExpositionMoyenneJourFiltreControleur.java                           
+ * 2 nov. 2024
  * IUT de Rodez, pas de copyright
  */
 package application.controleur;
@@ -13,13 +13,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 /**
  * TODO commenter la responsabilité de cette class (SRP)
  */
-public class DonneesCalculeesExpositionFiltresPopUPControleur {
-        
+public class DonneesCalculeesExpositionMoyenneJourFiltreControleur {
+    
     @FXML
     private Button btnValider;
 
@@ -30,22 +29,10 @@ public class DonneesCalculeesExpositionFiltresPopUPControleur {
     private TextField labelAnneesFin;
 
     @FXML
-    private TextField labelHeureDebut;
-
-    @FXML
-    private TextField labelHeureFin;
-
-    @FXML
     private TextField labelJourDebut;
 
     @FXML
     private TextField labelJourFin;
-
-    @FXML
-    private TextField labelMinuteDebut;
-
-    @FXML
-    private TextField labelMinuteFin;
 
     @FXML
     private TextField labelMoisDebut;
@@ -71,7 +58,7 @@ public class DonneesCalculeesExpositionFiltresPopUPControleur {
                 critere.setDateDebut(dateDebut);
             }
 
-            if (!labelJourFin.getText().isEmpty() 
+        if (!labelJourFin.getText().isEmpty() 
                 && !labelMoisFin.getText().isEmpty() 
                 && !labelAnneesFin.getText().isEmpty()) {
                 dateFin = LocalDate.of(
@@ -82,29 +69,15 @@ public class DonneesCalculeesExpositionFiltresPopUPControleur {
                 critere.setDateFin(dateFin);
             }
             
-            if(!labelHeureDebut.getText().isEmpty() 
-               && !labelMinuteDebut.getText().isEmpty()) {
-                critere.setHoraireDebut(Integer.parseInt(labelHeureDebut.getText()) 
-                                        * 60 + Integer.parseInt(labelMinuteDebut
-                                                                 .getText()));
-            }
-            
-            if(!labelHeureFin.getText().isEmpty() 
-               && !labelMinuteFin.getText().isEmpty()) {
-                critere.setHoraireFin(Integer.parseInt(labelHeureFin.getText()) 
-                                      * 60 + Integer.parseInt(labelMinuteFin
-                                                               .getText()));
-            }
-            
             // Passer le critère de filtre au contrôleur principal via EchangeurDeVue
-            DonneesCalculeesExpositionControleur controleurPrincipal;
+            DonneesCalculeesExpositionMoyenneJourControleur controleurPrincipal;
             controleurPrincipal = EchangeurDeVue
-                                   .getFXMLLoader("donneesCalculeesExpositionVue")
+                                   .getFXMLLoader("donneesCalculeesExpositionMoyenneJourVue")
                                     .getController();
-            controleurPrincipal.appliquerFiltreInverse(critere);
+            controleurPrincipal.appliquerFiltreMoyenneJour(critere);
             
         // Fermer la popup
-        EchangeurDeVue.fermerPopUp("donneesCalculeesExpositionFiltresPopUP");
+        EchangeurDeVue.fermerPopUp("donneesCalculeesExpositionMoyenneJourFiltrePopUp");
     }
 
 }
