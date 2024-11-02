@@ -29,10 +29,10 @@ public class ImporterDistantControleur {
     private Stage fenetreAppli;
 
     private static final String[] CHEMIN_FICHIER_CSV_RECU = {
-        "recu/expositions 28_08_24 17_26.bin",
-        "recu/employes 28_08_24 17_26.bin",
-        "recu/conferencier 28_08_24 17_26.bin", 
-        "recu/visites 28_08_24 17_26.bin"
+        "C:\\programecole\\annee2\\SAES3\\saeMusee\\ressources\\fichierscsv\\vigenere_encrypted_expositions 28_08_24 17_26.bin",
+        "C:\\programecole\\annee2\\SAES3\\saeMusee\\ressources\\fichierscsv\\vigenere_encrypted_employes 28_08_24 17_26.bin",
+        "C:\\programecole\\annee2\\SAES3\\saeMusee\\ressources\\fichierscsv\\vigenere_encrypted_conferencier 28_08_24 17_26.bin", 
+        "C:\\programecole\\annee2\\SAES3\\saeMusee\\ressources\\fichierscsv\\vigenere_encrypted_visites 28_08_24 17_26.bin"
     };
 
     public void setFenetreAppli(Stage fenetreAppli) {
@@ -41,15 +41,10 @@ public class ImporterDistantControleur {
 
     private boolean isValidIPAddress(String ip) {
         String ipPattern = "^([0-9]{1,3}\\.){3}[0-9]{1,3}$";
-        if (!ip.matches(ipPattern)) {
-            return false;
-        }
-        String[] segments = ip.split("\\.");
-        for (String segment : segments) {
+        if (!ip.matches(ipPattern)) return false;
+        for (String segment : ip.split("\\.")) {
             int value = Integer.parseInt(segment);
-            if (value < 0 || value > 255) {
-                return false;
-            }
+            if (value < 0 || value > 255) return false;
         }
         return true;
     }
@@ -65,15 +60,23 @@ public class ImporterDistantControleur {
 
     private void decrypterFichierVigenere(File fichier, GestionDeFichier gestionFichiers, String key) throws Exception {
         String contenuCrypte = gestionFichiers.readFile(fichier.getAbsolutePath());
+        if (contenuCrypte == null || contenuCrypte.isEmpty()) {
+            throw new IOException("Le contenu du fichier est vide ou introuvable : " + fichier.getAbsolutePath());
+        }
+        
         DecryptageVigenere dechiffreurVigenere = new DecryptageVigenere(key);
         String contenuDecrypte = dechiffreurVigenere.decrypt(contenuCrypte);
 
         String cheminFichierDecrypte = fichier.getParent() + File.separator + "dechiffre_" + fichier.getName().replace(".bin", ".csv");
         gestionFichiers.writeFile(cheminFichierDecrypte, contenuDecrypte);
+
+        // Vérification si le fichier a été écrit correctement
+        if (!new File(cheminFichierDecrypte).exists()) {
+            throw new IOException("Erreur d'écriture du fichier déchiffré : " + cheminFichierDecrypte);
+        }
     }
 
     private void showInvalidInputAlert(String ipServeur, String port) {
-        Alert boiteAlerte;
         String message;
         String title;
 
@@ -88,10 +91,7 @@ public class ImporterDistantControleur {
             title = "Erreur sur le port";
         }
 
-        boiteAlerte = new Alert(Alert.AlertType.ERROR, message, ButtonType.OK);
-        boiteAlerte.setTitle(title);
-        boiteAlerte.setHeaderText(title);
-        boiteAlerte.showAndWait();
+        new Alert(Alert.AlertType.ERROR, message, ButtonType.OK).showAndWait();
     }
 
     @FXML
@@ -144,7 +144,7 @@ public class ImporterDistantControleur {
                     ImportationCSV.traitementDonnees(donnees);
 
                 } catch (Exception e) {
-                    Logger.getLogger(ImporterDistantControleur.class.getName()).log(Level.SEVERE, null, e);
+                    Logger.getLogger(ImporterDistantControleur.class.getName()).log(Level.SEVERE, "Erreur lors du traitement du fichier : " + cheminFichier, e);
                 }
             }
         } else {

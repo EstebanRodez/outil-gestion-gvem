@@ -6,12 +6,14 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 import application.modele.Client;
@@ -73,13 +75,15 @@ public class ImportationCSV {
      */
     public static void importerDonnees(String cheminFichier) {
         try {
-            if (!isFichierValide(cheminFichier)) {
-                throw new IllegalArgumentException(ERREUR_LECTURE_FICHIER);
+            BufferedReader fichierCSV;
+            if (isFichierBinaire(cheminFichier)) {
+                String contenuDecrypte = decrypterFichierBinaire(cheminFichier);
+                fichierCSV = new BufferedReader(new StringReader(contenuDecrypte));
+            } else {
+                fichierCSV = new BufferedReader(new FileReader(cheminFichier));
             }
-
-            BufferedReader fichierCSV = new BufferedReader(new FileReader(cheminFichier));
             parcourirFichier(fichierCSV);
-            fichierCSV.close(); // Assurez-vous de fermer le fichier après utilisation
+            fichierCSV.close();
         } catch (FileNotFoundException e) {
             throw new IllegalArgumentException("Erreur : Fichier non trouvé.", e);
         } catch (IOException e) {
@@ -100,7 +104,12 @@ public class ImportationCSV {
                 && Files.size(Path.of(cheminFichier)) != 0
                 && isExtensionCSV(cheminFichier);
     }
+    
 
+    private static boolean isFichierBinaire(String cheminFichier) throws IOException {
+        // Vérification simple pour un fichier binaire crypté par taille et contenu
+        return Files.size(Path.of(cheminFichier)) > 0 && cheminFichier.endsWith(".bin");
+    }
     /**
      * Vérifie si un fichier contient l'extension .csv
      * 
@@ -109,6 +118,16 @@ public class ImportationCSV {
      */
     private static boolean isExtensionCSV(String cheminFichier) {
         return cheminFichier.endsWith(".csv");
+    }
+    
+    private static String decrypterFichierBinaire(String cheminFichier) throws IOException {
+        try (FileInputStream fis = new FileInputStream(cheminFichier)) {
+            byte[] bytes = fis.readAllBytes();
+            byte[] decryptedBytes = Base64.getDecoder().decode(bytes);
+            return new String(decryptedBytes, StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            throw new IOException("Erreur lors du décryptage du fichier binaire.", e);
+        }
     }
 
     /**
@@ -160,43 +179,26 @@ public class ImportationCSV {
      * @throws IOException si une erreur survient lors 
      *         de la lecture du fichier
      */
-    public static ArrayList<String[]> importer(String lienFichier)
-            throws IOException {
-
+    public static ArrayList<String[]> importer(String lienFichier) throws IOException {
         ArrayList<String[]> data = new ArrayList<>();
         BufferedReader fichierCSV;
-        FileInputStream fileInputStream;
-        InputStreamReader inputStreamReader;
-        
-        String ligne;
-        String[] valeur;
-        String entete;
-
-        try {
-            fileInputStream = new FileInputStream(lienFichier);
-            inputStreamReader 
-                = new InputStreamReader(fileInputStream, 
-                                        StandardCharsets.ISO_8859_1);
-            fichierCSV = new BufferedReader(inputStreamReader);
-            entete = fichierCSV.readLine();
-            if (!entete.substring(0,5).equals("Ident") && entete != null) {
-                valeur = entete.split(";");
-                data.add(valeur);
-            } // else, on saute la ligne
-
-            while ((ligne = fichierCSV.readLine()) != null) {
-                valeur = ligne.split(";");
-                data.add(valeur);
-            }
-
-            fichierCSV.close();        
-
-        } catch (IOException pbLecture) {
-            throw new IOException(ERREUR_LECTURE_FICHIER, pbLecture);
+        if (isFichierBinaire(lienFichier)) {
+            String contenuDecrypte = decrypterFichierBinaire(lienFichier);
+            fichierCSV = new BufferedReader(new StringReader(contenuDecrypte));
+        } else {
+            fichierCSV = new BufferedReader(new InputStreamReader(new FileInputStream(lienFichier), StandardCharsets.ISO_8859_1));
         }
-
+        String ligne;
+        String entete = fichierCSV.readLine();
+        if (entete != null && !entete.startsWith("Ident")) {
+            data.add(entete.split(";"));
+        }
+        while ((ligne = fichierCSV.readLine()) != null) {
+            data.add(ligne.split(";"));
+        }
+        fichierCSV.close();
         return data;
-    } 
+    }
 
     /**
      * Traite les données importées en fonction de leur type 
@@ -207,21 +209,13 @@ public class ImportationCSV {
      *                                  l'identifiant est incorrect
      */
     public static void traitementDonnees(List<String[]> donnee) {
-
-        char typeCSV;
-
-        typeCSV = donnee.get(0)[0].charAt(0);
-
-        if (typeCSV == 'E') { // Exposition
-            creerExposition(donnee);
-        } else if (typeCSV == 'R') { // Visite
-            creerVisite(donnee);
-        } else if (typeCSV == 'N') { // Employé
-            creerEmploye(donnee);
-        } else if (typeCSV == 'C') { // Conférencier
-            creerConferencier(donnee);
-        } else {
-            throw new IllegalArgumentException(ERREUR_CONTENU_FICHIER);
+        char typeCSV = donnee.get(0)[0].charAt(0);
+        switch (typeCSV) {
+            case 'E' -> creerExposition(donnee);
+            case 'R' -> creerVisite(donnee);
+            case 'N' -> creerEmploye(donnee);
+            case 'C' -> creerConferencier(donnee);
+            default -> throw new IllegalArgumentException(ERREUR_CONTENU_FICHIER);
         }
     }
 

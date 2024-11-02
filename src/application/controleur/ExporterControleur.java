@@ -17,6 +17,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 import application.utilitaire.CryptageVigenere;
+import application.utilitaire.DecryptageVigenere;
 import application.utilitaire.GestionDeFichier;
 import application.utilitaire.Serveur;
 import javafx.event.ActionEvent;
@@ -39,6 +40,7 @@ import javafx.stage.Stage;
  * la validation des entrées et l'affichage des erreurs éventuelles.
  * 
  * @author Baptiste Thenieres
+ * @author Romain Augé
  * @version 1.0
  */
 public class ExporterControleur {
@@ -60,6 +62,17 @@ public class ExporterControleur {
 
         String cheminFichierCrypte = fichier.getParent() + File.separator + "vigenere_encrypted_" + fichier.getName().replace(".csv", ".bin");
         gestionFichiers.writeFile(cheminFichierCrypte, contenuCrypte);
+        System.out.println("Fichier crypté avec succès : " + cheminFichierCrypte);
+    }
+    
+    private void decrypterFichierVigenere(File fichier, GestionDeFichier gestionFichiers, String key) throws Exception {
+        String contenuCrypte = gestionFichiers.readFile(fichier.getAbsolutePath());
+        DecryptageVigenere dechiffreurVigenere = new DecryptageVigenere(key);
+        String contenuDecrypte = dechiffreurVigenere.decrypt(contenuCrypte);
+
+        String cheminFichierDecrypte = fichier.getParent() + File.separator + "vigenere_decrypted_" + fichier.getName().replace(".bin", ".csv");
+        gestionFichiers.writeFile(cheminFichierDecrypte, contenuDecrypte);
+        System.out.println("Fichier décrypté avec succès : " + cheminFichierDecrypte);
     }
     
     @FXML
@@ -100,16 +113,13 @@ public class ExporterControleur {
     
     @FXML
     void btnExporterAction(ActionEvent event) {
-        // Utilisation de FileChooser pour permettre à l'utilisateur de sélectionner des fichiers CSV
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Choisir des fichiers CSV à exporter");
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Fichiers CSV", "*.csv"));
+        fileChooser.setTitle("Choisir des fichiers CSV ou BIN à exporter");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Fichiers CSV ou BIN", "*.csv", "*.bin"));
         
-        // Ouverture de la fenêtre de sélection de fichiers
         List<File> fichiersSelectionnes = fileChooser.showOpenMultipleDialog(fenetreAppli);
         
         if (fichiersSelectionnes == null || fichiersSelectionnes.isEmpty()) {
-            // Aucune sélection, affichez un message et quittez la méthode
             Alert alert = new Alert(Alert.AlertType.WARNING, "Aucun fichier sélectionné.", ButtonType.OK);
             alert.setTitle("Alerte");
             alert.setHeaderText("Aucun fichier sélectionné");
@@ -123,16 +133,24 @@ public class ExporterControleur {
         
         for (File fichier : fichiersSelectionnes) {
             try {
-                // Crypter le fichier
-                crypterFichierVigenere(fichier, gestionFichiers, key);
+                if (fichier.getName().endsWith(".bin")) {
+                    // Décryptage si le fichier est en .bin
+                    decrypterFichierVigenere(fichier, gestionFichiers, key);
+                } else {
+                    // Cryptage si le fichier est en .csv
+                    crypterFichierVigenere(fichier, gestionFichiers, key);
+                }
             } catch (Exception e) {
                 Logger.getLogger(ExporterControleur.class.getName()).log(Level.SEVERE, null, e);
             }
         }
         
-        // Envoyer les fichiers cryptés (vous pouvez modifier cette ligne selon vos besoins)
+        // Envoi des fichiers cryptés
         for (File fichier : fichiersSelectionnes) {
-            Serveur.envoyerFichiers(65432, new String[]{fichier.getParent() + "/vigenere_encrypted_" + fichier.getName().replace(".csv", ".bin")});
+            String cheminFichier = fichier.getParent() + (fichier.getName().endsWith(".csv") 
+                ? "/vigenere_encrypted_" + fichier.getName().replace(".csv", ".bin")
+                : "/vigenere_decrypted_" + fichier.getName().replace(".bin", ".csv"));
+            Serveur.envoyerFichiers(65432, new String[]{cheminFichier});
         }
     }
 
@@ -144,4 +162,4 @@ public class ExporterControleur {
         controleur.setFenetreAppli(fenetreAppli);
         fenetreAppli.setScene(new Scene(accueilVue));
     }
-}
+} 
