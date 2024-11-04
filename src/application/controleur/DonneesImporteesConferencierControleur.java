@@ -81,8 +81,10 @@ public class DonneesImporteesConferencierControleur {
         identifiant.setCellValueFactory(new PropertyValueFactory<>("identifiant"));
 
 
-        indisponibilites.setCellValueFactory(cellData -> 
-        new SimpleStringProperty(getIndisponibilitesAsString(cellData.getValue().getIndisponibilites())));
+        indisponibilites.setCellValueFactory(
+            cellData -> new SimpleStringProperty(
+                    toStringIndisponibilites(cellData.getValue()
+                                                     .getIndisponibilites())));
         
         nom.setCellValueFactory(new PropertyValueFactory<>("nom"));
         numTel.setCellValueFactory(new PropertyValueFactory<>("numTel"));
@@ -101,14 +103,20 @@ public class DonneesImporteesConferencierControleur {
         return estInterne != null && estInterne ? "Oui" : "Non";
     }
     
-    private static String getIndisponibilitesAsString(Indisponibilite[] indisponibilitesArray) {
-        if (indisponibilitesArray != null && indisponibilitesArray.length > 0) {
-            return Arrays.stream(indisponibilitesArray)
-                         .map(Indisponibilite::toString)
-                         .collect(Collectors.joining(", "));
-        } else {
+    private static String toStringIndisponibilites(
+            Indisponibilite[] indisponibilites) {
+        
+        if (indisponibilites == null || indisponibilites.length == 0) {
             return "Aucune indisponibilité";
         }
+        
+        String[] indisponibilitesTextes = new String[indisponibilites.length];
+        
+        for (int i = 0; i < indisponibilites.length; i++) {
+            indisponibilitesTextes[i] = indisponibilites[i].toString();
+        }
+        
+        return String.join(", ", indisponibilitesTextes);
     }
 
 
