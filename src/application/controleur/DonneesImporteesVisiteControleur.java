@@ -78,7 +78,7 @@ public class DonneesImporteesVisiteControleur {
 
         conferencier.setCellValueFactory(cellData -> {
             Visite visite = cellData.getValue();
-            return new SimpleStringProperty(visite.getConferencier().getIdentifiant()); 
+            return new SimpleStringProperty(visite.getConferencier().getNom()); 
         });
         
         date.setCellValueFactory(
@@ -86,12 +86,12 @@ public class DonneesImporteesVisiteControleur {
         
         employe.setCellValueFactory(cellData -> {
             Visite visite = cellData.getValue();
-            return new SimpleStringProperty(visite.getEmploye().getIdentifiant()); 
+            return new SimpleStringProperty(visite.getEmploye().getNom()); 
         });
         
         exposition.setCellValueFactory(cellData -> {
             Visite visite = cellData.getValue();
-            return new SimpleStringProperty(visite.getExposition().getIdentifiant()); 
+            return new SimpleStringProperty(visite.getExposition().getIntitule()); 
         });
         
         horaireDebut.setCellValueFactory(cellData -> {
