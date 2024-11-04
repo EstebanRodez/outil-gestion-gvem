@@ -10,9 +10,12 @@ import java.util.ArrayList;
 
 import application.EchangeurDeVue;
 import application.utilitaire.Serveur;
+import javafx.animation.RotateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
+import javafx.util.Duration; 
 
 /**
  * TODO commenter la responsabilité de cette class (SRP)
@@ -32,6 +35,9 @@ public class ChargementPopUpControleur {
     
     @FXML
     private Button btnQuitter;
+    
+    @FXML
+    private ImageView spinner;
     
     @FXML
     void initialize() {
@@ -71,6 +77,21 @@ public class ChargementPopUpControleur {
         });
 
         attente.start();
+        
+     // Faire tourner l'image
+        startImageRotation();
+    }
+    
+    /**
+     * Lance une animation de rotation infinie pour l'image affichée.
+     * Fait tourner l'image de 360 degrés en 2 secondes.
+     */
+    private void startImageRotation() {
+        RotateTransition rotateTransition;
+        rotateTransition = new RotateTransition(Duration.seconds(2), spinner);
+        rotateTransition.setByAngle(360); // Rotation de 360 degrés
+        rotateTransition.setCycleCount(RotateTransition.INDEFINITE); 
+        rotateTransition.play(); // Lancer l'animation
     }
 
     @FXML

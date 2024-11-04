@@ -34,7 +34,7 @@
             <Insets />
          </VBox.margin>
          <children>
-            <ImageView fitHeight="56.0" fitWidth="87.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="spinner" fitHeight="56.0" fitWidth="87.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../image/chargement.png" />
                </image>
