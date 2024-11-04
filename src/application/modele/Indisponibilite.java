@@ -5,6 +5,7 @@
  */
 package application.modele;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -19,7 +20,10 @@ import java.util.Objects;
  * @author Esteban Vroemen
  * @version 1.0
  */
-public class Indisponibilite implements Comparable<Indisponibilite> {
+public class Indisponibilite implements Comparable<Indisponibilite>,
+                                        Serializable {
+    
+    private static final long serialVersionUID = 1L;
     
     private static final String ERREUR_DATE_DEBUT_INVALIDE =
     """

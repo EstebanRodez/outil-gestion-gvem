@@ -28,6 +28,8 @@ import java.time.LocalDate;
  */
 public class ExpositionTemporaire extends Exposition {
     
+    private static final long serialVersionUID = 1L;
+    
     private static final String ERREUR_DATE_DEBUT_INVALIDE =
     """
     Impossible de créer une exposition temporaire.
