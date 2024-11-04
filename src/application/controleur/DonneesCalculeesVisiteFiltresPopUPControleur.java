@@ -17,6 +17,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
@@ -45,13 +46,13 @@ public class DonneesCalculeesVisiteFiltresPopUPControleur {
     }
     
     @FXML
+    private DatePicker dateDebut;
+    
+    @FXML
+    private DatePicker dateFin;
+    
+    @FXML
     private Button btnValider;
-
-    @FXML
-    private TextField labelAnneesDebut;
-
-    @FXML
-    private TextField labelAnneesFin;
 
     @FXML
     private TextField labelHeureDebut;
@@ -60,22 +61,10 @@ public class DonneesCalculeesVisiteFiltresPopUPControleur {
     private TextField labelHeureFin;
 
     @FXML
-    private TextField labelJourDebut;
-
-    @FXML
-    private TextField labelJourFin;
-
-    @FXML
     private TextField labelMinuteDebut;
 
     @FXML
     private TextField labelMinuteFin;
-
-    @FXML
-    private TextField labelMoisDebut;
-
-    @FXML
-    private TextField labelMoisFin;
 
     @FXML
     private ChoiceBox<String> listeConf;
@@ -123,9 +112,12 @@ public class DonneesCalculeesVisiteFiltresPopUPControleur {
 
 
     @FXML
-    void btnValiderAction(ActionEvent event) {
-        LocalDate dateDebut = null;
-        LocalDate dateFin = null;
+    void btnValiderAction(ActionEvent event) {  
+        LocalDate dateDebutSelectionne,
+                  dateFinSelectionne;
+        
+        dateDebutSelectionne = dateDebut.getValue();
+        dateFinSelectionne = dateFin.getValue();
         
         CritereFiltreVisite critere = new CritereFiltreVisite();
         
@@ -143,28 +135,14 @@ public class DonneesCalculeesVisiteFiltresPopUPControleur {
             critere.setExposition(listeExpo.getValue());
         }
         
-        if (!labelJourDebut.getText().isEmpty() 
-            && !labelMoisDebut.getText().isEmpty() 
-            && !labelAnneesDebut.getText().isEmpty()) {
-            dateDebut = LocalDate.of(
-                Integer.parseInt(labelAnneesDebut.getText()), 
-                Integer.parseInt(labelMoisDebut.getText()), 
-                Integer.parseInt(labelJourDebut.getText())
-            );
-            critere.setDateDebut(dateDebut);
+        if (dateDebutSelectionne != null){  
+            critere.setDateDebut(dateDebutSelectionne);
         }
 
-        if (!labelJourFin.getText().isEmpty() 
-            && !labelMoisFin.getText().isEmpty() 
-            && !labelAnneesFin.getText().isEmpty()) {
-            dateFin = LocalDate.of(
-                Integer.parseInt(labelAnneesFin.getText()), 
-                Integer.parseInt(labelMoisFin.getText()), 
-                Integer.parseInt(labelJourFin.getText())
-            );
-            critere.setDateFin(dateFin);
+        if (dateFinSelectionne != null){  
+            critere.setDateFin(dateFinSelectionne);
         }
-        
+
         if(!labelHeureDebut.getText().isEmpty() 
            && !labelMinuteDebut.getText().isEmpty()) {
             critere.setHoraireDebut(Integer.parseInt(labelHeureDebut.getText()) 

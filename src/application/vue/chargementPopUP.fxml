@@ -19,7 +19,7 @@
    <children>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Exportation en cours...">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Attente d'une connexion...">
                <font>
                   <Font name="System Bold" size="25.0" />
                </font>
