@@ -194,6 +194,8 @@ public class ImporterDistantControleur {
                         ImportationCSV.importerDonnees(
                                 fichier.getAbsolutePath());
                     } catch (Exception e) {
+                        
+                        // TODO Améliorer la capture de chaque erreur
                     }
                 }
             }

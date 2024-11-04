@@ -6,6 +6,7 @@
 package application.controleur;
 
 import java.io.File;
+import java.io.IOError;
 import java.io.IOException;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -85,7 +86,7 @@ public class ExporterControleur {
     } 
 
     private void crypterFichierVigenere(File fichier,
-            GestionDeFichier gestionFichiers, String key) throws Exception {
+            GestionDeFichier gestionFichiers, String key) throws IOException {
         
         String contenu = gestionFichiers.readFile(fichier.getAbsolutePath());
         CryptageVigenere chiffreurVigenere = new CryptageVigenere(key);
@@ -100,7 +101,7 @@ public class ExporterControleur {
     }
 
     private void decrypterFichierVigenere(File fichier,
-            GestionDeFichier gestionFichiers, String key) throws Exception {
+            GestionDeFichier gestionFichiers, String key) throws IOException {
         
         String contenuCrypte
         = gestionFichiers.readFile(fichier.getAbsolutePath());
@@ -157,7 +158,7 @@ public class ExporterControleur {
                     // Cryptage si le fichier est en .csv
                     crypterFichierVigenere(fichier, gestionFichiers, key);
                 }
-            } catch (Exception e) {
+            } catch (IOException e) {
                 Logger.getLogger(
                     ExporterControleur.class.getName()).log(Level.SEVERE,
                                                             null, e);
