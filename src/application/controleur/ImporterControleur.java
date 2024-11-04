@@ -5,24 +5,22 @@
  */
 package application.controleur;
 
-import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 
+import application.EchangeurDeVue;
+import application.utilitaire.FichierDonneesInvalides;
 import application.utilitaire.ImportationCSV;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 
 /**
  * Contrôleur pour la gestion de l'importation des données.
@@ -32,20 +30,16 @@ import javafx.stage.Stage;
  * Elle gère également les interactions liées à l'aide et au retour 
  * vers l'interface d'accueil.
  * 
+ * @author Romain Augé
+ * @author Ayoub Laluti
  * @author Baptiste Thenieres
+ * @author Esteban Vroemen
  * @version 1.0
  */
 public class ImporterControleur {
     
-    private Stage fenetreAppli;
-    
-    /**
-     * Définit la fenêtre de l'application.
-     * @param fenetreAppli
-     */
-    public void setFenetreAppli(Stage fenetreAppli) {
-      this.fenetreAppli = fenetreAppli;
-    }
+    // Chemin du dossier où les fichiers importés seront stockés
+    private static final String DOSSIER_IMPORTATION = "fichiersImportees";
     
     @FXML
     private Button btnAide;
@@ -61,44 +55,33 @@ public class ImporterControleur {
 
     @FXML
     void btnAideAction(ActionEvent event) {
-    	final String LIEN_REGLES
-        = "https://drive.google.com/file/d/1DmblRvNDZ0PTUA0iGn9vQYf74aj1lMUH/view?usp=sharing";
 
-        Desktop desktop = Desktop.getDesktop();
-        try {
-            desktop.browse(new URI(LIEN_REGLES));
-        } catch (IOException | URISyntaxException e) {
-            Alert boiteErreurInconnueOuverture =
-                    new Alert(Alert.AlertType.ERROR, 
-                              "impossible d'ouvrir le fichier d'aide",
-                              ButtonType.OK);
+        AccueilControleur.lancerAide();
+    }
 
-            boiteErreurInconnueOuverture.setTitle("Erreur d'affichage aide");
-            boiteErreurInconnueOuverture.setHeaderText("Erreur d'affichage aide");
+    @FXML
+    void btnImporterDistantAction(ActionEvent event) {
+        EchangeurDeVue.changerVue("importerDistantVue");
+    }
 
-            boiteErreurInconnueOuverture.showAndWait();
+    @FXML
+    void btnImporterLocalAction(ActionEvent event) {
+     // Créer le dossier d'importation s'il n'existe pas
+        File dossierImportation = new File(DOSSIER_IMPORTATION);
+        if (!dossierImportation.exists()) {
+            dossierImportation.mkdir(); // Crée le dossier
         }
-    }
-
-    @FXML
-    void btnImporterDistantAction(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/vue/importerDistantVue.fxml"));
-        Parent importerDistantVue = loader.load();
-        ImporterDistantControleur controleur = loader.getController();
-        controleur.setFenetreAppli(fenetreAppli);
-        fenetreAppli.setScene(new Scene(importerDistantVue));
-    }
-
-    @FXML
-    void btnImporterLocalAction(ActionEvent event) throws IOException {
+        
         // Créer une instance de FileChooser
         FileChooser fileChooser = new FileChooser();
         
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Fichiers données (*.csv)", "*.csv");
+        FileChooser.ExtensionFilter extFilter
+        = new FileChooser.ExtensionFilter("Fichiers données (*.csv)", "*.csv");
         fileChooser.getExtensionFilters().add(extFilter);
         
         // Ouvrir le dialogue pour choisir un fichier
-        List<File> fichierSelectionne = fileChooser.showOpenMultipleDialog(fenetreAppli);
+        List<File> fichierSelectionne
+        = fileChooser.showOpenMultipleDialog(EchangeurDeVue.getFenetreAppli());
         
         // Vérifier si un fichier a été sélectionné
         if (fichierSelectionne != null && !fichierSelectionne.isEmpty()) {
@@ -106,47 +89,72 @@ public class ImporterControleur {
             StringBuilder nomsFichiers = new StringBuilder();
             
             for (File fichier : fichierSelectionne) {
-                List<String[]> donnee;
-                donnee = ImportationCSV.importer(fichier.getAbsolutePath());
-                ImportationCSV.traitementDonnees(donnee);
+
+                try {
+                    
+                    // Importer les données
+                    ImportationCSV.importerDonnees(fichier.getAbsolutePath());
+
+                    // Déplacer le fichier importé dans le dossier
+                    Path destination = new File(dossierImportation, fichier.getName()).toPath();
+                    Files.copy(fichier.toPath(), destination, StandardCopyOption.REPLACE_EXISTING);
+                    
+                    // Ajouter le nom du fichier (sans le chemin) à la liste
+                    nomsFichiers.append(fichier.getName()).append("\n");
+                } catch (FichierDonneesInvalides e) {
+                    
+                    Alert boiteErreurDonneesInvalides
+                    = new Alert(Alert.AlertType.ERROR, 
+                                "Les données du fichier " + fichier.getName() 
+                                + " sont incorrectes.", ButtonType.OK);
+                    boiteErreurDonneesInvalides.setTitle("Erreur fichier");
+                    boiteErreurDonneesInvalides.setHeaderText(
+                            "Erreur données fichier");
+                    boiteErreurDonneesInvalides.showAndWait();
+                } catch (IOException e) {
                 
-                // Ajouter le nom du fichier (sans le chemin) à la liste
-                nomsFichiers.append(fichier.getName()).append("\n");
+                    Alert boiteErreurCopie
+                    = new Alert(Alert.AlertType.ERROR, 
+                                "Le fichier " + fichier.getName() 
+                                + " n'a pas pu être copié dans le répertoire de"
+                                + " copie des fichiers importés.",
+                                ButtonType.OK);
+                    boiteErreurCopie.setTitle("Erreur fichier");
+                    boiteErreurCopie.setHeaderText(
+                            "Erreur copie fichier");
+                    boiteErreurCopie.showAndWait();
+                }
+                
             }
             
             // Afficher une alerte avec les noms des fichiers sélectionnés
-            Alert boiteInformationSucces =
-                    new Alert(Alert.AlertType.INFORMATION, 
-                              "Les fichiers suivants ont été sélectionnés :"
-                            + "\n" + nomsFichiers.toString(),
-                              ButtonType.OK);
+            Alert boiteInformationSucces
+            = new Alert(Alert.AlertType.INFORMATION, 
+                        "Les fichiers suivants ont été sélectionnés :\n"
+                        + nomsFichiers.toString(), ButtonType.OK);
 
             boiteInformationSucces.setTitle("Fichiers importés avec succès");
-            boiteInformationSucces.setHeaderText("Fichiers importés avec succès");
-
+            boiteInformationSucces.setHeaderText(
+                    "Fichiers importés avec succès");
             boiteInformationSucces.showAndWait();
         } else {
+            
             // Afficher une alerte si aucun fichier n'a été sélectionné
-            Alert boiteErreurInconnueOuverture =
-                    new Alert(Alert.AlertType.ERROR, 
-                              "Aucun fichier sélectionné",
-                              ButtonType.OK);
+            Alert boiteErreurInconnueOuverture
+            = new Alert(Alert.AlertType.ERROR, "Aucun fichier sélectionné",
+                        ButtonType.OK);
 
             boiteErreurInconnueOuverture.setTitle("Erreur fichier");
-            boiteErreurInconnueOuverture.setHeaderText("Erreur récupération fichier");
-
+            boiteErreurInconnueOuverture.setHeaderText(
+                    "Erreur récupération fichier");
             boiteErreurInconnueOuverture.showAndWait();
         }
     }
 
 
     @FXML
-    void btnRetourAction(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/vue/accueilVue.fxml"));
-        Parent accueuilVue = loader.load();
-        AccueilControleur controleur = loader.getController();
-        controleur.setFenetreAppli(fenetreAppli);
-        fenetreAppli.setScene(new Scene(accueuilVue));
+    void btnRetourAction(ActionEvent event) {
+        EchangeurDeVue.changerVue("accueilVue");
     }
 
 }

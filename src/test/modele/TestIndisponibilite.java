@@ -479,14 +479,14 @@ class TestIndisponibilite {
          * (année & 0xFFFFF800) ^ ((année << 11) + (mois << 6) + (jour)
          */
         
-        assertEquals(4106588, INDISPONIBILITES_VALIDES[0].hashCode());
-        assertEquals(4106453, INDISPONIBILITES_VALIDES[1].hashCode());
-        assertEquals(4106766, INDISPONIBILITES_VALIDES[2].hashCode());
-        assertEquals(4106964, INDISPONIBILITES_VALIDES[3].hashCode());
-        assertEquals(8213240, INDISPONIBILITES_VALIDES[4].hashCode());
-        assertEquals(8212970, INDISPONIBILITES_VALIDES[5].hashCode());
-        assertEquals(8213596, INDISPONIBILITES_VALIDES[6].hashCode());
-        assertEquals(8213992, INDISPONIBILITES_VALIDES[7].hashCode());
+        assertEquals(127305189, INDISPONIBILITES_VALIDES[0].hashCode());
+        assertEquals(127301004, INDISPONIBILITES_VALIDES[1].hashCode());
+        assertEquals(127310707, INDISPONIBILITES_VALIDES[2].hashCode());
+        assertEquals(127316845, INDISPONIBILITES_VALIDES[3].hashCode());
+        assertEquals(131411841, INDISPONIBILITES_VALIDES[4].hashCode());
+        assertEquals(131407521, INDISPONIBILITES_VALIDES[5].hashCode());
+        assertEquals(131417537, INDISPONIBILITES_VALIDES[6].hashCode());
+        assertEquals(131423873, INDISPONIBILITES_VALIDES[7].hashCode());
         
         assertNotEquals(0, INDISPONIBILITES_VALIDES[0].hashCode());
         assertNotEquals(0, INDISPONIBILITES_VALIDES[1].hashCode());
@@ -504,30 +504,30 @@ class TestIndisponibilite {
         assertNotEquals("", INDISPONIBILITES_VALIDES[5].hashCode());
         assertNotEquals("", INDISPONIBILITES_VALIDES[6].hashCode());
         assertNotEquals("", INDISPONIBILITES_VALIDES[7].hashCode());
-        assertNotEquals(-4106588, INDISPONIBILITES_VALIDES[0].hashCode());
-        assertNotEquals(-4106453, INDISPONIBILITES_VALIDES[1].hashCode());
-        assertNotEquals(-4106766, INDISPONIBILITES_VALIDES[2].hashCode());
-        assertNotEquals(-4106964, INDISPONIBILITES_VALIDES[3].hashCode());
-        assertNotEquals(-8213240, INDISPONIBILITES_VALIDES[4].hashCode());
-        assertNotEquals(-8212970, INDISPONIBILITES_VALIDES[5].hashCode());
-        assertNotEquals(-8213596, INDISPONIBILITES_VALIDES[6].hashCode());
-        assertNotEquals(-8213992, INDISPONIBILITES_VALIDES[7].hashCode());
-        assertNotEquals(4106589, INDISPONIBILITES_VALIDES[0].hashCode());
-        assertNotEquals(4106454, INDISPONIBILITES_VALIDES[1].hashCode());
-        assertNotEquals(4106767, INDISPONIBILITES_VALIDES[2].hashCode());
-        assertNotEquals(4106965, INDISPONIBILITES_VALIDES[3].hashCode());
-        assertNotEquals(8213241, INDISPONIBILITES_VALIDES[4].hashCode());
-        assertNotEquals(8212971, INDISPONIBILITES_VALIDES[5].hashCode());
-        assertNotEquals(8213597, INDISPONIBILITES_VALIDES[6].hashCode());
-        assertNotEquals(8213993, INDISPONIBILITES_VALIDES[7].hashCode());
-        assertNotEquals(4106587, INDISPONIBILITES_VALIDES[0].hashCode());
-        assertNotEquals(4106452, INDISPONIBILITES_VALIDES[1].hashCode());
-        assertNotEquals(4106765, INDISPONIBILITES_VALIDES[2].hashCode());
-        assertNotEquals(4106963, INDISPONIBILITES_VALIDES[3].hashCode());
-        assertNotEquals(8213239, INDISPONIBILITES_VALIDES[4].hashCode());
-        assertNotEquals(8212969, INDISPONIBILITES_VALIDES[5].hashCode());
-        assertNotEquals(8213595, INDISPONIBILITES_VALIDES[6].hashCode());
-        assertNotEquals(8213991, INDISPONIBILITES_VALIDES[7].hashCode());
+        assertNotEquals(-127305189, INDISPONIBILITES_VALIDES[0].hashCode());
+        assertNotEquals(-127301004, INDISPONIBILITES_VALIDES[1].hashCode());
+        assertNotEquals(-127310707, INDISPONIBILITES_VALIDES[2].hashCode());
+        assertNotEquals(-127316845, INDISPONIBILITES_VALIDES[3].hashCode());
+        assertNotEquals(-131411841, INDISPONIBILITES_VALIDES[4].hashCode());
+        assertNotEquals(-131407521, INDISPONIBILITES_VALIDES[5].hashCode());
+        assertNotEquals(-131417537, INDISPONIBILITES_VALIDES[6].hashCode());
+        assertNotEquals(-131423873, INDISPONIBILITES_VALIDES[7].hashCode());
+        assertNotEquals(127305188, INDISPONIBILITES_VALIDES[0].hashCode());
+        assertNotEquals(127301003, INDISPONIBILITES_VALIDES[1].hashCode());
+        assertNotEquals(127310706, INDISPONIBILITES_VALIDES[2].hashCode());
+        assertNotEquals(127316844, INDISPONIBILITES_VALIDES[3].hashCode());
+        assertNotEquals(131411840, INDISPONIBILITES_VALIDES[4].hashCode());
+        assertNotEquals(131407520, INDISPONIBILITES_VALIDES[5].hashCode());
+        assertNotEquals(131417536, INDISPONIBILITES_VALIDES[6].hashCode());
+        assertNotEquals(131423872, INDISPONIBILITES_VALIDES[7].hashCode());
+        assertNotEquals(127305190, INDISPONIBILITES_VALIDES[0].hashCode());
+        assertNotEquals(127301005, INDISPONIBILITES_VALIDES[1].hashCode());
+        assertNotEquals(127310708, INDISPONIBILITES_VALIDES[2].hashCode());
+        assertNotEquals(127316846, INDISPONIBILITES_VALIDES[3].hashCode());
+        assertNotEquals(131411842, INDISPONIBILITES_VALIDES[4].hashCode());
+        assertNotEquals(131407522, INDISPONIBILITES_VALIDES[5].hashCode());
+        assertNotEquals(131417538, INDISPONIBILITES_VALIDES[6].hashCode());
+        assertNotEquals(131423874, INDISPONIBILITES_VALIDES[7].hashCode());
     }
     
     /**

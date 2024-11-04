@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+
+<?import javafx.scene.paint.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -8,8 +15,8 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" style="-fx-background-color: #9FCFF3;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-		fx:controller="application.controleur.ExporterValideControleur">
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" style="-fx-background-color: #9FCFF3;" stylesheets="@css/vue.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controleur.ExporterValideControleur">
    <children>
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
@@ -34,24 +41,27 @@
       </HBox>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Label prefHeight="35.0" style="-fx-background-color: #ffffff;" text="Connexion etablie avec le serveur">
+            <Label prefHeight="35.0" style="-fx-background-color: #ffffff;" text="Les fichiers ont bien été envoyé !">
                <font>
                   <Font size="25.0" />
                </font>
                <HBox.margin>
                   <Insets />
                </HBox.margin>
+               <padding>
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+               </padding>
             </Label>
          </children>
       </HBox>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="723.0">
          <children>
-            <Button fx:id="btnEnvoyer" mnemonicParsing="false" onAction="#btnEnvoyerAction" prefHeight="50.0" prefWidth="264.0" style="-fx-background-color: #29CA5E;" text="Envoyer">
+            <Button fx:id="btnEnvoyer" mnemonicParsing="false" onAction="#btnEnvoyerAction" prefHeight="55.0" prefWidth="264.0" style="-fx-background-color: #29CA5E;" styleClass="btnMenu" text="Envoyer" textFill="WHITE">
                <HBox.margin>
-                  <Insets top="100.0" />
+                  <Insets top="40.0" />
                </HBox.margin>
                <font>
-                  <Font size="18.0" />
+                  <Font name="System Bold" size="18.0" />
                </font>
             </Button>
          </children>
@@ -61,9 +71,9 @@
       </HBox>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="723.0">
          <children>
-            <Button fx:id="btnRetour" mnemonicParsing="false" onAction="#btnRetourAction" prefHeight="40.0" prefWidth="264.0" style="-fx-background-color: #ffffff;" text="Retour">
+            <Button fx:id="btnRetour" mnemonicParsing="false" onAction="#btnRetourAction" prefHeight="55.0" prefWidth="264.0" style="-fx-background-color: #ffffff;" styleClass="btnMenu" text="Retour">
                <HBox.margin>
-                  <Insets top="-40.0" />
+                  <Insets bottom="20.0" />
                </HBox.margin>
                <font>
                   <Font size="18.0" />

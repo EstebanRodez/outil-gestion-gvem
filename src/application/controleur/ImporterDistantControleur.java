@@ -1,61 +1,78 @@
 package application.controleur;
 
-import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
+import java.util.ArrayList;
+import application.EchangeurDeVue;
 import application.utilitaire.Client;
 import application.utilitaire.DecryptageVigenere;
 import application.utilitaire.GestionDeFichier;
 import application.utilitaire.ImportationCSV;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
+/**
+ * Contrôleur pour la gestion de l'importation de données à distance.
+ * 
+ * Cette classe permet à l'utilisateur de spécifier une adresse IP et
+ * un port pour se connecter à un serveur distant. Elle inclut
+ * également des fonctionnalités pour afficher des règles
+ * d'utilisation via un lien.
+ * 
+ * @author Romain Augé
+ * @author Ayoub Laluti
+ * @author Baptiste Thenieres
+ * @author Esteban Vroemen
+ * @version 1.0
+ */
 public class ImporterDistantControleur {
-
-    private Stage fenetreAppli;
-
+    
+    private static final String DOSSIER_IMPORTATION = "fichiersImporteesRecu";
+    
     private static final String[] CHEMIN_FICHIER_CSV_RECU = {
-        "C:\\programecole\\annee2\\SAES3\\saeMusee\\ressources\\fichierscsv\\vigenere_encrypted_expositions 28_08_24 17_26.bin",
-        "C:\\programecole\\annee2\\SAES3\\saeMusee\\ressources\\fichierscsv\\vigenere_encrypted_employes 28_08_24 17_26.bin",
-        "C:\\programecole\\annee2\\SAES3\\saeMusee\\ressources\\fichierscsv\\vigenere_encrypted_conferencier 28_08_24 17_26.bin", 
-        "C:\\programecole\\annee2\\SAES3\\saeMusee\\ressources\\fichierscsv\\vigenere_encrypted_visites 28_08_24 17_26.bin"
+        "vigenere_encrypted_expositions 28_08_24 17_26.bin",
+        "vigenere_encrypted_employes 28_08_24 17_26.bin",
+        "vigenere_encrypted_conferencier 28_08_24 17_26.bin", 
+        "vigenere_encrypted_visites 28_08_24 17_26.bin"
     };
 
-    public void setFenetreAppli(Stage fenetreAppli) {
-        this.fenetreAppli = fenetreAppli;
-    }
+    /**
+     * Vérifie si une adresse IP est valide
+     * @param ip Adresse IP sous forme de chaîne
+     * @return true si l'adresse est valide, sinon false
+     */
+    private static boolean isValideAdresseIP(String ip) {
+        // Expression régulière pour vérifier une adresse IPv4
+        String ipPattern = 
+            "^([0-9]{1,3}\\.){3}[0-9]{1,3}$";
+        
+        if (!ip.matches(ipPattern)) {
+            return false;
+        }
 
-    private boolean isValidIPAddress(String ip) {
-        String ipPattern = "^([0-9]{1,3}\\.){3}[0-9]{1,3}$";
-        if (!ip.matches(ipPattern)) return false;
-        for (String segment : ip.split("\\.")) {
+        String[] segments = ip.split("\\.");
+        for (String segment : segments) {
             int value = Integer.parseInt(segment);
-            if (value < 0 || value > 255) return false;
+            if (value < 0 || value > 255) {
+                return false;
+            }
         }
         return true;
     }
-
-    private boolean isValidPort(String port) {
-        try {
-            int portValue = Integer.parseInt(port);
-            return portValue >= 0 && portValue <= 65535;
-        } catch (NumberFormatException e) {
-            return false;
-        }
+    
+    /**
+     * Vérifie si le port est valide
+     * @param port Chaîne représentant le port
+     * @return true si le port est un entier valide entre 0 et 65535,
+     *         sinon false
+     */
+    private static boolean isPortValide(String port) {
+        return port.matches("(\\d){1,5}") && Integer.parseInt(port) >= 0
+               && Integer.parseInt(port) <= 65535;
     }
 
     private void decrypterFichierVigenere(File fichier, GestionDeFichier gestionFichiers, String key) throws Exception {
@@ -80,17 +97,17 @@ public class ImporterDistantControleur {
         String message;
         String title;
 
-        if (!isValidIPAddress(ipServeur) && !isValidPort(port)) {
+        if (!isValideAdresseIP(ipServeur) && !isPortValide(port)) {
             message = "Veuillez respecter la norme d'écriture d'une adresse IP (ex : 192.168.2.3) et d'un port (entre 0 et 65535).";
             title = "Erreur d'adresse IP et de port";
-        } else if (!isValidIPAddress(ipServeur)) {
+        } else if (!isValideAdresseIP(ipServeur)) {
             message = "Veuillez respecter la norme d'écriture d'une adresse IP (ex : 192.168.2.3).";
             title = "Erreur sur l'adresse IP";
         } else {
             message = "Veuillez respecter la norme d'écriture d'un port (entre 0 et 65535).";
             title = "Erreur sur le port";
         }
-
+        //TODO ajouter un header et un title
         new Alert(Alert.AlertType.ERROR, message, ButtonType.OK).showAndWait();
     }
 
@@ -111,40 +128,48 @@ public class ImporterDistantControleur {
 
     @FXML
     void btnAideAction(ActionEvent event) {
-        final String LIEN_REGLES = "https://docs.google.com/document/d/1wA1ytqySDYe1D-2ZL1M0mLKMvUmv9SCtS0uORFgoRIY/edit?usp=sharing";
-
-        try {
-            Desktop.getDesktop().browse(new URI(LIEN_REGLES));
-        } catch (IOException | URISyntaxException e) {
-            new Alert(Alert.AlertType.ERROR, "Impossible d'ouvrir le fichier d'aide", ButtonType.OK).showAndWait();
-        }
+        AccueilControleur.lancerAide();
     }
 
     @FXML
-    void btnConnexionAction(ActionEvent event) throws IOException {
+    void btnConnexionAction(ActionEvent event) {
+        
         String ipServeur = txtFieldIPServeur.getText().trim();
         String port = txtFieldPort.getText().trim();
 
-        if (isValidIPAddress(ipServeur) && isValidPort(port)) {
-            Client.recevoirFichiers(ipServeur, Integer.parseInt(port), CHEMIN_FICHIER_CSV_RECU);
+        if (isValideAdresseIP(ipServeur) && isPortValide(port)) {
+        	
+            Client.recevoirFichiers(ipServeur, Integer.parseInt(port), CHEMIN_FICHIER_CSV_RECU, DOSSIER_IMPORTATION);
 
             GestionDeFichier gestionFichiers = new GestionDeFichier();
             String key = javax.swing.JOptionPane.showInputDialog("Entrez la clé de décryptage Vigenère :");
+                
+            // Créer le dossier d'importation s'il n'existe pas
+            File dossierImportes = new File(DOSSIER_IMPORTATION);
+            if (!dossierImportes.exists()) {
+                dossierImportes.mkdir(); // Créer le dossier
+            }
+            
+            ArrayList<File> fichiersSelectionnes = new ArrayList<>();
+            for (String nomFichier : CHEMIN_FICHIER_CSV_RECU) {
+                fichiersSelectionnes.add(new File(dossierImportes, nomFichier));
+            }
 
-            for (String cheminFichier : CHEMIN_FICHIER_CSV_RECU) {
-                File fichier = new File(cheminFichier);
+            // Réception des fichiers depuis le serveur
+            Client.recevoirFichiers(ipServeur, Integer.parseInt(port), CHEMIN_FICHIER_CSV_RECU, DOSSIER_IMPORTATION);
 
-                try {
-                    if (fichier.getName().endsWith(".bin")) {
-                        decrypterFichierVigenere(fichier, gestionFichiers, key);
-                        fichier = new File(fichier.getParent() + "/dechiffre_" + fichier.getName().replace(".bin", ".csv"));
+            // Vérification si les fichiers ont été sélectionnés et traitement
+            if (!fichiersSelectionnes.isEmpty()) {
+                StringBuilder nomsFichiers = new StringBuilder();
+                for (File fichier : fichiersSelectionnes) {
+                	try {
+                        if (fichier.getName().endsWith(".bin")) {
+                            decrypterFichierVigenere(fichier, gestionFichiers, key);
+                            fichier = new File(fichier.getParent() + "/dechiffre_" + fichier.getName().replace(".bin", ".csv"));
+                        }
+                        ImportationCSV.importerDonnees(fichier.getAbsolutePath());
+                    } catch (Exception e) {
                     }
-
-                    List<String[]> donnees = ImportationCSV.importer(fichier.getAbsolutePath());
-                    ImportationCSV.traitementDonnees(donnees);
-
-                } catch (Exception e) {
-                    Logger.getLogger(ImporterDistantControleur.class.getName()).log(Level.SEVERE, "Erreur lors du traitement du fichier : " + cheminFichier, e);
                 }
             }
         } else {
@@ -153,11 +178,7 @@ public class ImporterDistantControleur {
     }
 
     @FXML
-    void btnRetourAction(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/vue/importerVue.fxml"));
-        Parent importerVue = loader.load();
-        ImporterControleur controleur = loader.getController();
-        controleur.setFenetreAppli(fenetreAppli);
-        fenetreAppli.setScene(new Scene(importerVue));
+    void btnRetourAction(ActionEvent event) {
+        EchangeurDeVue.changerVue("importerVue");
     }
 }
