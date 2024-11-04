@@ -228,13 +228,5 @@ public class Exposition {
     public String toStringMotsCles() {
         return String.join(", ", motsCles);
     }
-    
-    /**
-     * TODO commenter le rôle de cette méthode (SRP)
-     * @return le type de l'exposition
-     */
-    public String getType() {
-        return "permanente";
-    }
 
 }

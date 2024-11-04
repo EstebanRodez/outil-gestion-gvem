@@ -111,9 +111,12 @@ public class DonneesCalculeesVisiteFiltresPopUPControleur {
         CritereFiltreVisite critere = new CritereFiltreVisite();
         
         if (typeExpo.getSelectedToggle() != null) {
-            critere.setTypeExposition(typeExpo.getSelectedToggle() 
-                                      == radioPermanente ? "permanente" 
-                                                         : "temporaire");
+
+            if (typeExpo.getSelectedToggle() == radioPermanente) {
+                critere.setExpositionPermanente(true);
+            } else {
+                critere.setExpositionTemporaire(true);
+            }
         }
 
         if (listeConf.getValue() != null) {

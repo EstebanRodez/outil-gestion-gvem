@@ -124,13 +124,5 @@ public class ExpositionTemporaire extends Exposition {
     public LocalDate getDateFin() {
         return dateFin;
     }
-    
-    /**
-     * TODO commenter le rôle de cette méthode (SRP)
-     * @return le type de l'exposition
-     */
-    public String getType() {
-        return "temporaire";
-    }
 
 }

@@ -12,6 +12,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.cell.PropertyValueFactory;
 import application.EchangeurDeVue;
 import application.modele.CritereFiltreVisite;
+import application.modele.ExpositionTemporaire;
 import application.modele.Visite;
 import application.utilitaire.TraitementDonnees;
 import javafx.collections.FXCollections;
@@ -172,26 +173,32 @@ public class DonneesCalculeesVisiteControleur {
         for (Visite visite : visites) {
             boolean match = true;
 
-            // Filtrer par type d'exposition
-            if (critere.getTypeExposition() != null 
-                && !visite.getExposition().getType()
-                                           .equals(critere
-                                                   .getTypeExposition())) {
+            // Filtrer par exposition temporaire
+            if (critere.getExpositionTemporaire()
+                && !(visite.getExposition() instanceof ExpositionTemporaire)) {
+                
+                match = false;
+            }
+            
+            // Filtrer par exposition permanente
+            if (critere.getExpositionPermanente()
+                && visite.getExposition() instanceof ExpositionTemporaire) {
+                
                 match = false;
             }
 
             // Filtrer par conférencier
             if (critere.getConferencier() != null 
                 && !visite.getConferencier().getNom()
-                                             .equals(critere
-                                                     .getConferencier())) { 
+                                            .equals(critere
+                                                    .getConferencier())) { 
                 match = false;
             }
             
             // Filtrer par exposition
             if (critere.getExposition() != null 
                 && !visite.getExposition().getIntitule()
-                                           .equals(critere.getExposition())) { 
+                                          .equals(critere.getExposition())) { 
                 match = false;
             }
 
