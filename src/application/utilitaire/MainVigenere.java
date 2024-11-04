@@ -1,6 +1,7 @@
 package application.utilitaire;
 
-import java.awt.*;
+import java.awt.FileDialog;
+import java.awt.Frame;
 import java.io.File;
 
 public class MainVigenere {

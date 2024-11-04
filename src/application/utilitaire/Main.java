@@ -1,8 +1,9 @@
 package application.utilitaire;
 
-import javax.swing.*;
 import java.io.File;
 import java.util.Random;
+
+import javax.swing.JFileChooser;
 
 public class Main {
     /**
