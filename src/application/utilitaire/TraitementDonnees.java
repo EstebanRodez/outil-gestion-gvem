@@ -254,6 +254,17 @@ public class TraitementDonnees {
     }
     
     /**
+     * Indique si les données stockées en mémoire sont vides
+     * 
+     * @return true si les données en mémoire sont vides sinon false
+     */
+    public static boolean isDonneesVides() {
+        
+        return expositions.size() == 0 && visites.size() == 0
+               && conferenciers.size() == 0 && employes.size() == 0;
+    }
+    
+    /**
      * Crée un tableau d'objets Indisponibilite à partir des données
      * fournies.
      * 
