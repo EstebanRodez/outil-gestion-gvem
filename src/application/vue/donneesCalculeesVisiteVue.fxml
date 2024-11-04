@@ -35,17 +35,17 @@
          <children>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label fx:id="LabelResultat" style="-fx-background-color: #ffffff;">
+                  <Label fx:id="LabelResultat" prefHeight="30.0" prefWidth="0.0" style="-fx-background-color: #ffffff;">
                      <HBox.margin>
-                        <Insets left="250.0" top="15.0" />
+                        <Insets bottom="5.0" left="250.0" top="10.0" />
                      </HBox.margin>
                      <font>
-                        <Font size="24.0" />
+                        <Font size="20.0" />
                      </font>
                   </Label>
                </children>
                <VBox.margin>
-                  <Insets />
+                  <Insets bottom="20.0" />
                </VBox.margin>
             </HBox>
             <HBox alignment="CENTER" prefHeight="480.0" prefWidth="960.0">
@@ -55,7 +55,7 @@
                         <Insets bottom="250.0" left="-15.0" right="15.0" />
                      </HBox.margin>
                   </Button>
-                  <TableView fx:id="tableExposition" prefHeight="409.0" prefWidth="800.0">
+                  <TableView fx:id="tableExposition" prefHeight="403.0" prefWidth="800.0">
                      <columns>
                         <TableColumn fx:id="identifiant" prefWidth="82.0" text="Identifiant" />
                         <TableColumn fx:id="exposition" minWidth="0.0" prefWidth="75.0" text="Exposition" />

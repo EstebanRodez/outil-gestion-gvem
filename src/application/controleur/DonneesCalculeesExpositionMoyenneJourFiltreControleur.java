@@ -12,6 +12,7 @@ import application.modele.CritereFiltreVisite;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 
 /**
@@ -23,58 +24,35 @@ public class DonneesCalculeesExpositionMoyenneJourFiltreControleur {
     private Button btnValider;
 
     @FXML
-    private TextField labelAnneesDebut;
-
+    private DatePicker dateDebut;
+    
     @FXML
-    private TextField labelAnneesFin;
-
-    @FXML
-    private TextField labelJourDebut;
-
-    @FXML
-    private TextField labelJourFin;
-
-    @FXML
-    private TextField labelMoisDebut;
-
-    @FXML
-    private TextField labelMoisFin;
+    private DatePicker dateFin;
 
     @FXML
     void btnValiderAction(ActionEvent event) {
-        LocalDate dateDebut = null;
-        LocalDate dateFin = null;
+        LocalDate dateDebutSelectionne,
+        dateFinSelectionne;
+
+        dateDebutSelectionne = dateDebut.getValue();
+        dateFinSelectionne = dateFin.getValue();
         
         CritereFiltreVisite critere = new CritereFiltreVisite();
         
-        if (!labelJourDebut.getText().isEmpty() 
-                && !labelMoisDebut.getText().isEmpty() 
-                && !labelAnneesDebut.getText().isEmpty()) {
-                dateDebut = LocalDate.of(
-                    Integer.parseInt(labelAnneesDebut.getText()), 
-                    Integer.parseInt(labelMoisDebut.getText()), 
-                    Integer.parseInt(labelJourDebut.getText())
-                );
-                critere.setDateDebut(dateDebut);
-            }
+        if (dateDebutSelectionne != null){  
+            critere.setDateDebut(dateDebutSelectionne);
+        }
 
-        if (!labelJourFin.getText().isEmpty() 
-                && !labelMoisFin.getText().isEmpty() 
-                && !labelAnneesFin.getText().isEmpty()) {
-                dateFin = LocalDate.of(
-                    Integer.parseInt(labelAnneesFin.getText()), 
-                    Integer.parseInt(labelMoisFin.getText()), 
-                    Integer.parseInt(labelJourFin.getText())
-                );
-                critere.setDateFin(dateFin);
-            }
+        if (dateFinSelectionne != null){  
+            critere.setDateFin(dateFinSelectionne);
+        }
             
-            // Passer le critère de filtre au contrôleur principal via EchangeurDeVue
-            DonneesCalculeesExpositionMoyenneJourControleur controleurPrincipal;
-            controleurPrincipal = EchangeurDeVue
-                                   .getFXMLLoader("donneesCalculeesExpositionMoyenneJourVue")
-                                    .getController();
-            controleurPrincipal.appliquerFiltreMoyenneJour(critere);
+        // Passer le critère de filtre au contrôleur principal via EchangeurDeVue
+        DonneesCalculeesExpositionMoyenneJourControleur controleurPrincipal;
+        controleurPrincipal = EchangeurDeVue
+                               .getFXMLLoader("donneesCalculeesExpositionMoyenneJourVue")
+                                .getController();
+        controleurPrincipal.appliquerFiltreMoyenneJour(critere);
             
         // Fermer la popup
         EchangeurDeVue.fermerPopUp("donneesCalculeesExpositionMoyenneJourFiltrePopUp");

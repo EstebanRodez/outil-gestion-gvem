@@ -109,7 +109,6 @@ public class CritereFiltreVisite {
      */
     public void setDateDebut(LocalDate dateDebut) { 
         this.dateDebut = dateDebut; 
-        System.out.println(this.dateDebut);
     }
 
     /**
