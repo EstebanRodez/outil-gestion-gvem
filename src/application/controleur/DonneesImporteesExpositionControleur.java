@@ -137,10 +137,9 @@ public class DonneesImporteesExpositionControleur {
         nbOeuvre.setCellValueFactory(new PropertyValueFactory<>("nbOeuvre"));
         resume.setCellValueFactory(new PropertyValueFactory<>("resume"));
         
-        // Pour motscles, convertie le tableau en chaîne de caractère
         motsCles.setCellValueFactory(
-                cellData -> new SimpleStringProperty(
-                        toStringMotsCles(cellData.getValue().getMotsCles()))
+            cellData -> new SimpleStringProperty(cellData.getValue()
+                                                         .toStringMotsCles())
         );
     
         // Populate the table with the imported exhibitions
@@ -157,18 +156,6 @@ public class DonneesImporteesExpositionControleur {
      */
     private static String formatDate(LocalDate date) {
         return date != null ? date.format(DATE_FORMAT) : "";
-    }
-
-    
-    /**
-     * Transforme le tableau des mots clés en une chaîne de caractère
-     * plus visible.
-     * 
-     * @param motsCles la liste des mots clés
-     * @return la chaîne de caractère contenant les mots clés
-     */
-    private static String toStringMotsCles(String[] motsCles) {
-        return motsCles != null ? String.join(", ", motsCles) : "";
     }
 
     @FXML

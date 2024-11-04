@@ -100,18 +100,6 @@ public class DonneesCalculeesExpositionMoyenneJourControleur {
     private static String formatDate(LocalDate date) {
         return date != null ? date.format(DATE_FORMAT) : "";
     }
-
-    
-    /**
-     * Transforme le tableau des mots clés en une chaîne de caractère
-     * plus visible.
-     * 
-     * @param motsCles la liste des mots clés
-     * @return la chaîne de caractère contenant les mots clés
-     */
-    private static String toStringMotsCles(String[] motsCles) {
-        return motsCles != null ? String.join(", ", motsCles) : "";
-    }
     
     @FXML
     void btnFiltresAction(ActionEvent event) {

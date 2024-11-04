@@ -87,8 +87,10 @@ public class DonneesImporteesConferencierControleur {
         nom.setCellValueFactory(new PropertyValueFactory<>("nom"));
         numTel.setCellValueFactory(new PropertyValueFactory<>("numTel"));
         prenom.setCellValueFactory(new PropertyValueFactory<>("prenom"));
-        specialites.setCellValueFactory(cellData -> 
-        new SimpleStringProperty(String.join(", ", cellData.getValue().getSpecialites())));
+        specialites.setCellValueFactory(
+            cellData -> new SimpleStringProperty(cellData.getValue()
+                                                         .toStringSpecialites())
+        );
         
         ObservableList<Conferencier> conferenciersListe 
         = FXCollections.observableArrayList(conferenciers);
