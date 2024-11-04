@@ -73,6 +73,7 @@ public class ChargementPopUpControleur {
                 }
             } finally {
                 running = false;
+                EchangeurDeVue.fermerPopUp("chargementPopUp");
             }
         });
 
