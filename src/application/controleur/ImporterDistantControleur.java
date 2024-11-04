@@ -180,7 +180,6 @@ public class ImporterDistantControleur {
             // Vérification si les fichiers ont été sélectionnés et traitement
             if (!fichiersSelectionnes.isEmpty()) {
 
-                StringBuilder nomsFichiers = new StringBuilder();
                 for (File fichier : fichiersSelectionnes) {
                     try {
                         if (fichier.getName().endsWith(".bin")) {
