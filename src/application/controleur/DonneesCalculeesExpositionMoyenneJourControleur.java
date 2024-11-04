@@ -7,6 +7,7 @@ package application.controleur;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -184,7 +185,7 @@ public class DonneesCalculeesExpositionMoyenneJourControleur {
         }
 
         // Calculer le nombre total de jours global entre dateDebutGlobal et dateFinGlobal
-        long totalJours = java.time.temporal.ChronoUnit.DAYS.between(dateDebutGlobal, dateFinGlobal) + 1;
+        long totalJours = ChronoUnit.DAYS.between(dateDebutGlobal, dateFinGlobal) + 1;
         System.out.println("Nombre total de jours global : " + totalJours);
 
         // Création d'une Map pour compter les visites par exposition
