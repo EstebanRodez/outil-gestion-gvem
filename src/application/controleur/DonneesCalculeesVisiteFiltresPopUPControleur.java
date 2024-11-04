@@ -21,14 +21,11 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
-import javafx.stage.Stage;
 
 /**
  * TODO commenter la responsabilité de cette class (SRP)
  */
 public class DonneesCalculeesVisiteFiltresPopUPControleur {
-    
-    private Stage boitePopUp;
     
     private String[] expositions;
     private String[] conferenciers;
@@ -36,14 +33,6 @@ public class DonneesCalculeesVisiteFiltresPopUPControleur {
     private ArrayList<Visite> visites = TraitementDonnees.getVisites();
     private ArrayList<String> listeExpositions = new ArrayList<>();
     private ArrayList<String> listeConferenciers = new ArrayList<>();
-    
-    /**
-     * Définit la fenêtre de l'application.
-     * @param boitePopUp 
-     */
-    public void setPopUp(Stage boitePopUp) {
-      this.boitePopUp = boitePopUp;
-    }
     
     @FXML
     private DatePicker dateDebut;
