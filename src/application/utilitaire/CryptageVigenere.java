@@ -1,14 +1,27 @@
 package application.utilitaire;
 
+/**
+ * TODO commenter le fonctionnement
+ */
 public class CryptageVigenere {
+    
     private final String key;
     private static final String CRYPTED_IDENTIFIER = "CRYPTED";
 
+    /**
+     * TODO commenter l'état initial
+     * @param key
+     */
     public CryptageVigenere(String key) {
         this.key = key;
     }
 
     // Méthode pour chiffrer un texte avec identifiant
+    /**
+     * TODO commenter le rôle de la méthode
+     * @param text
+     * @return le texte crypté
+     */
     public String cryptage(String text) {
         StringBuilder textCrypter = new StringBuilder(CRYPTED_IDENTIFIER + "\n");
         int keyLength = key.length();

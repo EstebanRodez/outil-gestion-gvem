@@ -15,11 +15,20 @@ public class CryptageCesar {
     private final int decalage;
 
     // Constructeur qui initialise le décalage pour le cryptage
+    /**
+     * TODO commenter l'état initial
+     * @param decalage
+     */
     public CryptageCesar(int decalage) {
         this.decalage = decalage;
     }
 
     // Méthode pour crypter le texte en modifiant les bits de chaque caractère
+    /**
+     * TODO commenter le rôle de la méthode
+     * @param texte
+     * @return le texte crypté
+     */
     public String encrypt(String texte) {
         StringBuilder texteCrypte = new StringBuilder();
 

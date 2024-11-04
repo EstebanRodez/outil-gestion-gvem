@@ -10,11 +10,20 @@ public class DecryptageCesar {
     private final int decalage;
 
     // Constructeur qui initialise le décalage utilisé pour décrypter
+    /**
+     * TODO commenter l'état initial
+     * @param decalage
+     */
     public DecryptageCesar(int decalage) {
         this.decalage = decalage;
     }
 
     // Méthode pour décrypter le texte binaire crypté
+    /**
+     * TODO commenter le rôle de la méthode
+     * @param encryptedData
+     * @return le texte décrypté
+     */
     public String decrypt(String encryptedData) {
         StringBuilder texteDecrypte = new StringBuilder();
 

@@ -4,7 +4,15 @@ import java.awt.FileDialog;
 import java.awt.Frame;
 import java.io.File;
 
+/**
+ * TODO commenter le fonctionnement
+ */
 public class MainVigenere {
+    
+    /**
+     * TODO commenter le rôle de la méthode
+     * @param args
+     */
     public static void main(String[] args) {
         String key = javax.swing.JOptionPane.showInputDialog("Entrez la clé de chiffrement Vigenère :");
 

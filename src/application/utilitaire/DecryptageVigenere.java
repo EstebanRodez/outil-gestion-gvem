@@ -1,14 +1,26 @@
 package application.utilitaire;
 
+/**
+ * TODO commenter le fonctionnement
+ */
 public class DecryptageVigenere {
     private final String key;
     private static final String CRYPTED_IDENTIFIER = "CRYPTED";
 
+    /**
+     * TODO commenter l'état initial
+     * @param key
+     */
     public DecryptageVigenere(String key) {
         this.key = key;
     }
 
     // Méthode pour déchiffrer un texte
+    /**
+     * TODO commenter le rôle de la méthode
+     * @param textCrypter
+     * @return le texte décrypté
+     */
     public String decrypt(String textCrypter) {
         if (!textCrypter.startsWith(CRYPTED_IDENTIFIER)) {
             throw new IllegalArgumentException("Le fichier n'est pas crypté avec Vigenère.");

@@ -5,12 +5,17 @@ import java.util.Random;
 
 import javax.swing.JFileChooser;
 
+/**
+ * TODO commenter le fonctionnement
+ */
 public class Main {
+    
     /**
      * Classe principale qui détecte automatiquement si plusieurs fichiers sont cryptés ou non,
      * et les décrypte ou crypte en conséquence.
      * @author Romain Augé
      * @version 1.3
+     * @param args 
      */
     public static void main(String[] args) {
         // Demande à l'utilisateur de sélectionner plusieurs fichiers CSV
