@@ -5,7 +5,6 @@
  */
 package application.modele;
 
-import java.util.Arrays;
 import java.util.TreeSet;
 
 /**
@@ -316,8 +315,8 @@ public class Conferencier {
         }
         
         return "identifiant : " + identifiant + ", nom : " + nom
-               + ", prenom : " + prenom + ", specialites : " 
-               + Arrays.toString(specialites) + ", numéro de téléphone : "
+               + ", prenom : " + prenom + ", specialites : [" 
+               + toStringSpecialites() + "], numéro de téléphone : "
                + numTel + ", status(interne ou externe) : " + estInterne 
                + (indisponibilites == null ? ""
                                            : ", liste des indisponibilites : "
@@ -381,5 +380,15 @@ public class Conferencier {
                 ? indisponibilites.toArray(
                         new Indisponibilite[indisponibilites.size()])
                 : null);
+    }
+    
+    /**
+     * Renvoie la liste des spécialités en une chaîne de caractères,
+     * chaque mot clé est séparé par une virgule.
+     * 
+     * @return la chaîne de caractères contenant les spécialités
+     */
+    public String toStringSpecialites() {
+        return String.join(", ", specialites);
     }
 }

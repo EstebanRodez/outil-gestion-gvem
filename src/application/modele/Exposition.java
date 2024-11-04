@@ -220,6 +220,16 @@ public class Exposition {
     }
     
     /**
+     * Renvoie la liste des mots clés en une chaîne de caractères,
+     * chaque mot clé est séparé par une virgule.
+     * 
+     * @return la chaîne de caractères contenant les mots clés
+     */
+    public String toStringMotsCles() {
+        return String.join(", ", motsCles);
+    }
+    
+    /**
      * TODO commenter le rôle de cette méthode (SRP)
      * @return le type de l'exposition
      */
