@@ -96,8 +96,10 @@ public class ImporterControleur {
                     ImportationCSV.importerDonnees(fichier.getAbsolutePath());
 
                     // Déplacer le fichier importé dans le dossier
-                    Path destination = new File(dossierImportation, fichier.getName()).toPath();
-                    Files.copy(fichier.toPath(), destination, StandardCopyOption.REPLACE_EXISTING);
+                    Path destination
+                    = new File(dossierImportation, fichier.getName()).toPath();
+                    Files.copy(fichier.toPath(), destination,
+                               StandardCopyOption.REPLACE_EXISTING);
                     
                     // Ajouter le nom du fichier (sans le chemin) à la liste
                     nomsFichiers.append(fichier.getName()).append("\n");

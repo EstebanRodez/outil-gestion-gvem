@@ -75,38 +75,51 @@ public class ImporterDistantControleur {
                && Integer.parseInt(port) <= 65535;
     }
 
-    private void decrypterFichierVigenere(File fichier, GestionDeFichier gestionFichiers, String key) throws Exception {
-        String contenuCrypte = gestionFichiers.readFile(fichier.getAbsolutePath());
+    private void decrypterFichierVigenere(File fichier,
+            GestionDeFichier gestionFichiers, String key) throws Exception {
+        
+        String contenuCrypte
+        = gestionFichiers.readFile(fichier.getAbsolutePath());
+        
         if (contenuCrypte == null || contenuCrypte.isEmpty()) {
-            throw new IOException("Le contenu du fichier est vide ou introuvable : " + fichier.getAbsolutePath());
+            throw new IOException(
+                    "Le contenu du fichier est vide ou introuvable : "
+                    + fichier.getAbsolutePath());
         }
         
         DecryptageVigenere dechiffreurVigenere = new DecryptageVigenere(key);
         String contenuDecrypte = dechiffreurVigenere.decrypt(contenuCrypte);
 
-        String cheminFichierDecrypte = fichier.getParent() + File.separator + "dechiffre_" + fichier.getName().replace(".bin", ".csv");
+        String cheminFichierDecrypte
+        = fichier.getParent() + File.separator + "dechiffre_"
+          + fichier.getName().replace(".bin", ".csv");
         gestionFichiers.writeFile(cheminFichierDecrypte, contenuDecrypte);
 
         // Vérification si le fichier a été écrit correctement
         if (!new File(cheminFichierDecrypte).exists()) {
-            throw new IOException("Erreur d'écriture du fichier déchiffré : " + cheminFichierDecrypte);
+            throw new IOException("Erreur d'écriture du fichier déchiffré : "
+                                  + cheminFichierDecrypte);
         }
     }
 
     private void showInvalidInputAlert(String ipServeur, String port) {
+        
         String message;
         String title;
-
         if (!isValideAdresseIP(ipServeur) && !isPortValide(port)) {
-            message = "Veuillez respecter la norme d'écriture d'une adresse IP (ex : 192.168.2.3) et d'un port (entre 0 et 65535).";
+            message = "Veuillez respecter la norme d'écriture d'une adresse IP "
+                      + "(ex : 192.168.2.3) et d'un port (entre 0 et 65535).";
             title = "Erreur d'adresse IP et de port";
         } else if (!isValideAdresseIP(ipServeur)) {
-            message = "Veuillez respecter la norme d'écriture d'une adresse IP (ex : 192.168.2.3).";
+            message = "Veuillez respecter la norme d'écriture d'une adresse IP "
+                      + "(ex : 192.168.2.3).";
             title = "Erreur sur l'adresse IP";
         } else {
-            message = "Veuillez respecter la norme d'écriture d'un port (entre 0 et 65535).";
+            message = "Veuillez respecter la norme d'écriture d'un port (entre "
+                      + "0 et 65535).";
             title = "Erreur sur le port";
         }
+        
         //TODO ajouter un header et un title
         new Alert(Alert.AlertType.ERROR, message, ButtonType.OK).showAndWait();
     }
@@ -139,10 +152,14 @@ public class ImporterDistantControleur {
 
         if (isValideAdresseIP(ipServeur) && isPortValide(port)) {
         	
-            Client.recevoirFichiers(ipServeur, Integer.parseInt(port), CHEMIN_FICHIER_CSV_RECU, DOSSIER_IMPORTATION);
+            Client.recevoirFichiers(ipServeur, Integer.parseInt(port),
+                                    CHEMIN_FICHIER_CSV_RECU,
+                                    DOSSIER_IMPORTATION);
 
             GestionDeFichier gestionFichiers = new GestionDeFichier();
-            String key = javax.swing.JOptionPane.showInputDialog("Entrez la clé de décryptage Vigenère :");
+            String key
+            = javax.swing.JOptionPane.showInputDialog(
+                    "Entrez la clé de décryptage Vigenère :");
                 
             // Créer le dossier d'importation s'il n'existe pas
             File dossierImportes = new File(DOSSIER_IMPORTATION);
@@ -156,18 +173,27 @@ public class ImporterDistantControleur {
             }
 
             // Réception des fichiers depuis le serveur
-            Client.recevoirFichiers(ipServeur, Integer.parseInt(port), CHEMIN_FICHIER_CSV_RECU, DOSSIER_IMPORTATION);
+            Client.recevoirFichiers(ipServeur, Integer.parseInt(port),
+                                    CHEMIN_FICHIER_CSV_RECU,
+                                    DOSSIER_IMPORTATION);
 
             // Vérification si les fichiers ont été sélectionnés et traitement
             if (!fichiersSelectionnes.isEmpty()) {
+
                 StringBuilder nomsFichiers = new StringBuilder();
                 for (File fichier : fichiersSelectionnes) {
-                	try {
+                    try {
                         if (fichier.getName().endsWith(".bin")) {
-                            decrypterFichierVigenere(fichier, gestionFichiers, key);
-                            fichier = new File(fichier.getParent() + "/dechiffre_" + fichier.getName().replace(".bin", ".csv"));
+                            decrypterFichierVigenere(fichier, gestionFichiers,
+                                                     key);
+                            fichier
+                            = new File(fichier.getParent() + "/dechiffre_"
+                                       + fichier.getName().replace(".bin",
+                                                                   ".csv"));
                         }
-                        ImportationCSV.importerDonnees(fichier.getAbsolutePath());
+                        
+                        ImportationCSV.importerDonnees(
+                                fichier.getAbsolutePath());
                     } catch (Exception e) {
                     }
                 }
