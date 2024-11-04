@@ -19,7 +19,8 @@ import java.time.LocalDate;
  * pourrait être un nom et un prénom et/ou le nom d’un organisme
  * (par exemple « M.Jacques Dupont » ou « Les amis des musées de
  * Rodez » ou encore « M. Jacques Dupont pour les amis des musées
- * de Rodez »)
+ * de Rodez »).
+ * 
  * @author Esteban Vroemen
  * @version 1.0
  */

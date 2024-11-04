@@ -23,6 +23,7 @@ import java.util.TreeSet;
  * aussi avoir des indisponibilités connues à l’avance et décrites
  * sous la même forme que pour les employés. Les conférenciers
  * internes et externes sont clairement différenciés.
+ * 
  * @author Romain Augé
  * @author Esteban Vroemen
  * @version 1.0

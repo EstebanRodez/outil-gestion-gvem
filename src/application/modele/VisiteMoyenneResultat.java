@@ -7,6 +7,9 @@ package application.modele;
 
 /**
  * TODO commenter la responsabilité de cette class (SRP)
+ * 
+ * @author Baptiste Thenieres
+ * @version 1.0
  */
 public class VisiteMoyenneResultat {
     

@@ -11,6 +11,9 @@ import java.time.LocalDate;
  * Représente les critères de filtrage pour les visites.
  * Elle contient des informations sur le type d'exposition, le conférencier,
  * l'exposition, ainsi que les dates de début et de fin, et les horaires.
+ * 
+ * @author Baptiste Thenieres
+ * @version 1.0
  */
 public class CritereFiltreVisite {
     
