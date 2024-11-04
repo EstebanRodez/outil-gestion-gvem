@@ -1,3 +1,8 @@
+/*
+ * GestionDeFichier.java
+ * 23 oct. 2024
+ * IUT de Rodez, pas de copyright
+ */
 package application.utilitaire;
 
 import java.io.BufferedReader;
@@ -19,6 +24,7 @@ public class GestionDeFichier {
      * @throws IOException
      */
     public String readFile(String path) throws IOException {
+        
         StringBuilder contenu = new StringBuilder();
         try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
             String line;

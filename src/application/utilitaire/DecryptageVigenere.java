@@ -1,9 +1,15 @@
+/**
+ * DecryptageVigenere.java
+ * 25 oct. 2024
+ * IUT de Rodez, pas de copyright
+ */
 package application.utilitaire;
 
 /**
  * TODO commenter le fonctionnement
  */
 public class DecryptageVigenere {
+    
     private final String key;
     private static final String CRYPTED_IDENTIFIER = "CRYPTED";
 

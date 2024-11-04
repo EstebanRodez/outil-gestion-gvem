@@ -1,3 +1,8 @@
+/**
+ * CryptageVigenere.java
+ * 25 oct. 2024
+ * IUT de Rodez, pas de copyright
+ */
 package application.utilitaire;
 
 /**

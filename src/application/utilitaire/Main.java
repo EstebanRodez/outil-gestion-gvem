@@ -1,3 +1,8 @@
+/*
+ * Main.java
+ * 23 oct. 2024
+ * IUT de Rodez, pas de copyright
+ */
 package application.utilitaire;
 
 import java.io.File;
