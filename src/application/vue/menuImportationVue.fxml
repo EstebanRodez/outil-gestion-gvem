@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" stylesheets="@css/vue.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controleur.DonneesImporteesVisiteControleur">
+<VBox prefHeight="400.0" prefWidth="640.0" stylesheets="@css/vue.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controleur.MenuImportationControleur">
    <children>
       <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" style="-fx-background-color: #9FCFF3;">
          <children>
@@ -37,7 +37,7 @@
             </HBox>
             <HBox prefHeight="70.0" prefWidth="960.0">
                <children>
-                  <Label fx:id="labelIp" alignment="CENTER" prefHeight="40.0" prefWidth="492.0" style="-fx-background-color: #ffffff;">
+                  <Label fx:id="labelEmplacementUn" alignment="CENTER" prefHeight="40.0" prefWidth="492.0" style="-fx-background-color: #ffffff;">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -45,7 +45,7 @@
                         <Insets left="150.0" top="15.0" />
                      </HBox.margin>
                   </Label>
-                  <Button fx:id="btnParcourir" mnemonicParsing="false" prefHeight="39.0" prefWidth="90.0" style="-fx-background-color: #ffffff;" text="Parcourir">
+                  <Button fx:id="btnParcourirUn" mnemonicParsing="false" prefHeight="39.0" prefWidth="90.0" style="-fx-background-color: #ffffff;" text="Parcourir">
                      <HBox.margin>
                         <Insets left="50.0" top="15.0" />
                      </HBox.margin>
@@ -53,7 +53,7 @@
                         <Font size="16.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnSupprimer" mnemonicParsing="false" prefHeight="39.0" prefWidth="56.0" style="-fx-background-color: #ffffff;">
+                  <Button fx:id="btnSupprimerUn" mnemonicParsing="false" prefHeight="39.0" prefWidth="56.0" style="-fx-background-color: #ffffff;">
                      <HBox.margin>
                         <Insets left="15.0" top="15.0" />
                      </HBox.margin>
@@ -69,7 +69,7 @@
             </HBox>
             <HBox prefHeight="70.0" prefWidth="960.0">
                <children>
-                  <Label fx:id="labelIp1" alignment="CENTER" prefHeight="40.0" prefWidth="492.0" style="-fx-background-color: #ffffff;">
+                  <Label fx:id="labelEmplacementDeux" alignment="CENTER" prefHeight="40.0" prefWidth="492.0" style="-fx-background-color: #ffffff;">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -77,7 +77,7 @@
                         <Insets left="150.0" top="15.0" />
                      </HBox.margin>
                   </Label>
-                  <Button fx:id="btnParcourir" mnemonicParsing="false" prefHeight="39.0" prefWidth="90.0" style="-fx-background-color: #ffffff;" text="Parcourir">
+                  <Button fx:id="btnParcourirDeux" mnemonicParsing="false" prefHeight="39.0" prefWidth="90.0" style="-fx-background-color: #ffffff;" text="Parcourir">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -85,7 +85,7 @@
                         <Insets left="50.0" top="15.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="btnSupprimer" mnemonicParsing="false" prefHeight="39.0" prefWidth="56.0" style="-fx-background-color: #ffffff;">
+                  <Button fx:id="btnSupprimerDeux" mnemonicParsing="false" prefHeight="39.0" prefWidth="56.0" style="-fx-background-color: #ffffff;">
                      <graphic>
                         <ImageView fitHeight="30.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -101,7 +101,7 @@
             </HBox>
             <HBox prefHeight="70.0" prefWidth="960.0">
                <children>
-                  <Label fx:id="labelIp2" alignment="CENTER" prefHeight="40.0" prefWidth="492.0" style="-fx-background-color: #ffffff;">
+                  <Label fx:id="labelEmplacementTrois" alignment="CENTER" prefHeight="40.0" prefWidth="492.0" style="-fx-background-color: #ffffff;">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -109,7 +109,7 @@
                         <Insets left="150.0" top="15.0" />
                      </HBox.margin>
                   </Label>
-                  <Button fx:id="btnParcourir" mnemonicParsing="false" prefHeight="39.0" prefWidth="90.0" style="-fx-background-color: #ffffff;" text="Parcourir">
+                  <Button fx:id="btnParcourirTrois" mnemonicParsing="false" prefHeight="39.0" prefWidth="90.0" style="-fx-background-color: #ffffff;" text="Parcourir">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -117,7 +117,7 @@
                         <Insets left="50.0" top="15.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="btnSupprimer" mnemonicParsing="false" prefHeight="39.0" prefWidth="56.0" style="-fx-background-color: #ffffff;">
+                  <Button fx:id="btnSupprimerTrois" mnemonicParsing="false" prefHeight="39.0" prefWidth="56.0" style="-fx-background-color: #ffffff;">
                      <graphic>
                         <ImageView fitHeight="30.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -133,7 +133,7 @@
             </HBox>
             <HBox prefHeight="70.0" prefWidth="960.0">
                <children>
-                  <Label fx:id="labelIp3" alignment="CENTER" prefHeight="40.0" prefWidth="492.0" style="-fx-background-color: #ffffff;">
+                  <Label fx:id="labelEmplacementQuatre" alignment="CENTER" prefHeight="40.0" prefWidth="492.0" style="-fx-background-color: #ffffff;">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -141,7 +141,7 @@
                         <Insets left="150.0" top="15.0" />
                      </HBox.margin>
                   </Label>
-                  <Button fx:id="btnParcourir" mnemonicParsing="false" prefHeight="39.0" prefWidth="90.0" style="-fx-background-color: #ffffff;" text="Parcourir">
+                  <Button fx:id="btnParcourirQuatre" mnemonicParsing="false" prefHeight="39.0" prefWidth="90.0" style="-fx-background-color: #ffffff;" text="Parcourir">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -149,9 +149,9 @@
                         <Insets left="50.0" top="15.0" />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="39.0" prefWidth="56.0" style="-fx-background-color: #ffffff;">
+                  <Button fx:id="btnSupprimerQuatre" mnemonicParsing="false" prefHeight="39.0" prefWidth="56.0" style="-fx-background-color: #ffffff;">
                      <graphic>
-                        <ImageView fx:id="btnSupprimer" fitHeight="30.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="30.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../image/poubelle.png" />
                            </image>
