@@ -7,11 +7,15 @@ package application.controleur;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.nio.file.Path;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import application.EchangeurDeVue;
@@ -22,9 +26,11 @@ import application.utilitaire.TraitementDonnees;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+
 
 /**
  * Contrôleur pour la gestion de l'exportation des données.
@@ -52,6 +58,14 @@ public class ExporterControleur {
     @FXML
     private Label labelPort;
 
+    private static final String FORMAT_NOM_SAUVEGARDE
+    = "Partie %d-%d-%d %dh%dm%ds";
+    
+    private static final String NOM_DOSSIER_TEMPORAIRE
+    = "Dossier données";
+    private static final String NOM_DOSSIER_FINAL
+    = "Dossier données cryptée";
+    
     /**
      * Méthode d'initialisation appelée après le chargement de 
      * l'interface utilisateur.
@@ -77,15 +91,37 @@ public class ExporterControleur {
         String key = JOptionPane.showInputDialog("Entrez la clé de cryptage Vigenère :");
 
         // Chemins des fichiers temporaire et final
-        String fichierTemp = "donnees_temp.dat";
-        String fichierFinal = "donnees_chiffrees.dat";
+        ZonedDateTime tempsActuel;
+        
+        tempsActuel = ZonedDateTime.now();
+        
+        Path fichierTemp;
+        Path fichierFinal;
+        fichierTemp = Path.of(NOM_DOSSIER_TEMPORAIRE, 
+                			String.format(FORMAT_NOM_SAUVEGARDE,
+                					tempsActuel.getDayOfMonth(),
+                					tempsActuel.getMonthValue(),
+                					tempsActuel.getYear(),
+                					tempsActuel.getHour(),
+                					tempsActuel.getMinute(),
+                					tempsActuel.getSecond()));
+        
+        fichierFinal = Path.of(NOM_DOSSIER_FINAL, 
+    						String.format(FORMAT_NOM_SAUVEGARDE,
+    								tempsActuel.getDayOfMonth(),
+    								tempsActuel.getMonthValue(),
+    								tempsActuel.getYear(),
+    								tempsActuel.getHour(),
+    								tempsActuel.getMinute(),
+    								tempsActuel.getSecond()));
 
         try {
+        	
             // Enregistrement des données formatées dans le fichier temporaire
             sauvegarderDonneesFormatees(fichierTemp);
             
             // Chiffrement du fichier temporaire et écriture dans le fichier final
-            crypterDonneesVigenere(fichierTemp, fichierFinal, key);
+            crypterDonneesVigenere(fichierTemp.toString(), fichierFinal.toString(), key);
             
             System.out.println("Données chiffrées exportées dans " + fichierFinal);
         } catch (IOException e) {
@@ -97,30 +133,44 @@ public class ExporterControleur {
     /**
      * Sauvegarde les données formatées des ArrayLists dans un fichier temporaire.
      */
-    private void sauvegarderDonneesFormatees(String nomFichier) throws IOException {
-        File fichier = new File(nomFichier);
+    private void sauvegarderDonneesFormatees(Path fichierTemp) throws IOException {
+    	
+        File fichier = new File(fichierTemp.toString());
         if (!fichier.exists()) {
             if (!fichier.createNewFile()) {
-                throw new IOException("Échec de la création du fichier temporaire : " + nomFichier);
+                throw new IOException("Échec de la création du fichier temporaire : " + fichierTemp);
             }
         }
         
-        try (FileWriter writer = new FileWriter(fichier)) {
+        try {
+        	ObjectOutputStream fluxEcriture 
+            = new ObjectOutputStream(
+                  new FileOutputStream(fichierTemp.toString())
+              );
             // Sauvegarde de chaque liste formatée dans le fichier
-            ecrireListeFormattee(writer, TraitementDonnees.getExpositions());
-            ecrireListeFormattee(writer, TraitementDonnees.getEmployes());
-            ecrireListeFormattee(writer, TraitementDonnees.getConferenciers());
-            ecrireListeFormattee(writer, TraitementDonnees.getClients());
-            ecrireListeFormattee(writer, TraitementDonnees.getVisites());
-        }
-    }
-
-    /**
-     * Écrit chaque élément d'une liste formatée dans le fichier.
-     */
-    private void ecrireListeFormattee(FileWriter writer, ArrayList<?> liste) throws IOException {
-        for (Object objet : liste) {
-            writer.write(objet.toString() + "\n");  // Conversion en texte formaté et ajout de saut de ligne
+        	fluxEcriture.writeObject(TraitementDonnees.getExpositions());
+        	fluxEcriture.writeObject(TraitementDonnees.getEmployes());
+        	fluxEcriture.writeObject(TraitementDonnees.getConferenciers());
+        	fluxEcriture.writeObject(TraitementDonnees.getClients());
+        	fluxEcriture.writeObject(TraitementDonnees.getVisites());
+        	
+        	fluxEcriture.close();
+            
+            Alert alertInfo = new Alert(AlertType.INFORMATION);
+            alertInfo.setTitle("Information");
+            alertInfo.setHeaderText(null);
+            alertInfo.setContentText(
+                "Le fichier de sauvegarde de votre partie a bien été sauvegardé"
+                + " :\n" + fichierTemp.toString());
+            alertInfo.show();
+        } catch (IOException erreur) {
+            erreur.printStackTrace();
+            
+            Alert alertErreur = new Alert(AlertType.ERROR);
+            alertErreur.setTitle("Erreur");
+            alertErreur.setHeaderText(null);
+            alertErreur.setContentText(erreur.getMessage());
+            alertErreur.show();
         }
     }
     
