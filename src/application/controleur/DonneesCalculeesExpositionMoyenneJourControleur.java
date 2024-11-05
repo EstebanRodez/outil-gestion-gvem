@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,20 +32,26 @@ import javafx.scene.control.TableView;
 
 /**
  * TODO commenter la responsabilité de cette class (SRP)
+ * 
+ * @author Romain Augé
+ * @author Ayoub Laluti
+ * @author Baptiste Thenieres
+ * @author Esteban Vroemen
+ * @version 1.0
  */
 public class DonneesCalculeesExpositionMoyenneJourControleur {
     
-    private static ArrayList<Visite> visites
+    private static LinkedHashMap<String, Visite> visites
     = TraitementDonnees.getVisites();
     
-    private static String[] choix = {"expositions qui n’ont aucune visite",
-                                    "expositions et leur nombre moyen de " 
+    private static String[] choix = {"exposition qui n’ont aucune visite",
+                                    "exposition et leur nombre moyen de " 
                                     + "visites programmées chaque jour",
-                                    "expositions et leur nombre moyen de "
+                                    "exposition et leur nombre moyen de "
                                     + "visites programmées chaque semaine",
-                                    "l’esembles des expositions et leur nombre moyen de "
+                                    " exposition et leur nombre moyen de "
                                     + "visites prévues chaque jour",
-                                    "l’esembles des expositions et leur nombre moyen de "
+                                    " exposition et leur nombre moyen de "
                                     + "visites prévues chaque semaine"};
     
     @FXML
@@ -79,9 +86,13 @@ public class DonneesCalculeesExpositionMoyenneJourControleur {
         // défini la valeur par défaut
         listePhrase.setValue(choix[1]);
         
-        Exposition.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getIntituleExposition()));
+        Exposition.setCellValueFactory(
+            cellData -> new SimpleStringProperty(
+                    cellData.getValue().getIntituleExposition()));
         
-        nbMoyen.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getMoyenneVisites()).asObject());
+        nbMoyen.setCellValueFactory(
+            cellData -> new SimpleDoubleProperty(
+                    cellData.getValue().getMoyenneVisites()).asObject());
         
         calculerMoyenneVisitesParExposition(visites);
     }
@@ -137,14 +148,16 @@ public class DonneesCalculeesExpositionMoyenneJourControleur {
      * 
      * @param visites la liste des visites à utiliser pour le calcul
      */
-    private void calculerMoyenneVisitesParExposition(List<Visite> visites) {
+    private void calculerMoyenneVisitesParExposition(
+            LinkedHashMap<String, Visite> visites) {
+        
         // Initialiser les dates globales de début et de fin
         LocalDate dateDebutGlobal = LocalDate.MAX;
         LocalDate dateFinGlobal = LocalDate.MIN;
 
         // Parcourir toutes les visites pour trouver les dates globales min et max
-        for (Visite visite : visites) {
-            LocalDate dateVisite = visite.getDate();
+        for (Map.Entry<String, Visite> paire : visites.entrySet()) {
+            LocalDate dateVisite = paire.getValue().getDate();
 
             if (dateVisite.isBefore(dateDebutGlobal)) {
                 dateDebutGlobal = dateVisite;
@@ -159,16 +172,22 @@ public class DonneesCalculeesExpositionMoyenneJourControleur {
         System.out.println("dateFinGlobal : " + dateFinGlobal);
         
         // Calculer le nombre total de jours global entre dateDebutGlobal et dateFinGlobal
-        long totalJours = ChronoUnit.DAYS.between(dateDebutGlobal, dateFinGlobal) + 1;
+        long totalJours
+        = ChronoUnit.DAYS.between(dateDebutGlobal, dateFinGlobal) + 1;
         System.out.println("Nombre total de jours global : " + totalJours);
 
         // Création d'une Map pour compter les visites par exposition
         Map<String, Integer> visitesParExposition = new HashMap<>();
 
         // Compter les visites pour chaque exposition
-        for (Visite visite : visites) {
-            String intituleExposition = visite.getExposition().getIntitule();
-            visitesParExposition.put(intituleExposition, visitesParExposition.getOrDefault(intituleExposition, 0) + 1);
+        for (Map.Entry<String, Visite> paire : visites.entrySet()) {
+            
+            String intituleExposition
+            = paire.getValue().getExposition().getIntitule();
+            visitesParExposition.put(
+                intituleExposition,
+                visitesParExposition.getOrDefault(intituleExposition, 0) + 1
+            );
         }
 
         // Calculer la moyenne de visites pour chaque exposition
@@ -189,7 +208,8 @@ public class DonneesCalculeesExpositionMoyenneJourControleur {
         }
 
         // Mettre à jour le tableau avec les résultats
-        ObservableList<VisiteMoyenneResultat> exposListe = FXCollections.observableArrayList(resultats);
+        ObservableList<VisiteMoyenneResultat> exposListe
+        = FXCollections.observableArrayList(resultats);
         tableExposition.setItems(exposListe);
     }
 
@@ -208,21 +228,27 @@ public class DonneesCalculeesExpositionMoyenneJourControleur {
      *                appliquer
      */
     public void appliquerFiltreMoyenneJour(CritereFiltreVisite critere) {
-        List<Visite> visitesFiltrees = new ArrayList<>();
+ 
+        LinkedHashMap<String, Visite> visitesFiltrees = new LinkedHashMap<>();
 
-        for (Visite visite : visites) {
+        for (Map.Entry<String, Visite> paire : visites.entrySet()) {
+
             boolean match = true; 
 
             // Filtrer par date de visite
             if (critere.getDateDebut() != null) {
-                LocalDate dateFin = critere.getDateFin() != null ? critere.getDateFin() : critere.getDateDebut();
-                if (visite.getDate().isBefore(critere.getDateDebut()) || visite.getDate().isAfter(dateFin)) {
+             
+                LocalDate dateFin
+                = critere.getDateFin() != null ? critere.getDateFin()
+                                               : critere.getDateDebut();
+                if (paire.getValue().getDate().isBefore(critere.getDateDebut())
+                    || paire.getValue().getDate().isAfter(dateFin)) {
                     match = false;
                 }
             }
       
             if (match) {
-                visitesFiltrees.add(visite);
+                visitesFiltrees.putLast(paire.getKey(), paire.getValue());
             }
         }
 

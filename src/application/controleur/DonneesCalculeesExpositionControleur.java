@@ -7,7 +7,9 @@ package application.controleur;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import application.EchangeurDeVue;
 import application.modele.CritereFiltreVisite;
@@ -23,7 +25,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 
 /**
  * Contrôleur pour la gestion des données importées des expositions.
@@ -42,7 +44,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
  */
 public class DonneesCalculeesExpositionControleur {
     
-    private static ArrayList<Visite> visites
+    private static LinkedHashMap<String, Visite> visites
     = TraitementDonnees.getVisites();
     
     // Format pour les dates au format jj/MM/aaaa
@@ -69,19 +71,19 @@ public class DonneesCalculeesExpositionControleur {
     private Button btnValider;
 
     @FXML
-    private TableColumn<Visite, String> aucuneVisite;
+    private TableColumn<Map.Entry<String, Visite>, String> aucuneVisite;
     
     @FXML
-    private TableColumn<Visite, LocalDate> date;
+    private TableColumn<Map.Entry<String, Visite>, String> date;
     
     @FXML
-    private TableColumn<Visite, String> horaireDebut;
+    private TableColumn<Map.Entry<String, Visite>, String> horaireDebut;
 
     @FXML
     private ChoiceBox<String> listePhrase;
 
     @FXML
-    private TableView<Visite> tableExposition;
+    private TableView<Map.Entry<String, Visite>> tableExposition;
     
     /**
      * 
@@ -95,32 +97,29 @@ public class DonneesCalculeesExpositionControleur {
         listePhrase.setValue(choix[0]);
         
         aucuneVisite.setCellValueFactory(cellData -> {
-            Visite visite = cellData.getValue();
-            return new SimpleStringProperty(visite.getExposition()
-                                                   .getIntitule()); 
+            return new SimpleStringProperty(
+                    getVisite(cellData).getExposition().getIntitule()); 
         });
         
-        date.setCellValueFactory(
-                new PropertyValueFactory<>("date"));
+        date.setCellValueFactory(cellData -> {
+            return new SimpleStringProperty(
+                    getVisite(cellData).getDate().format(DATE_FORMAT)); 
+        });
         
         horaireDebut.setCellValueFactory(cellData -> {
-            Visite visite = cellData.getValue();
-            return new SimpleStringProperty(visite.toStringHoraireDebut()); 
+            return new SimpleStringProperty(
+                    getVisite(cellData).toStringHoraireDebut()); 
         });
         
-        ObservableList<Visite> exposListe
-        = FXCollections.observableArrayList(visites);
+        ObservableList<Map.Entry<String, Visite>> exposListe
+        = FXCollections.observableArrayList(visites.entrySet());
         tableExposition.setItems(exposListe);
     }
     
-    /**
-     * Formatte une date en chaîne de caractère en format française.
-     * 
-     * @param date la date à convertir
-     * @return la data convertie dans le format français
-     */
-    private static String formatDate(LocalDate date) {
-        return date != null ? date.format(DATE_FORMAT) : "";
+    private static Visite getVisite(
+            CellDataFeatures<Entry<String, Visite>, String> celluleDonnees) {
+        
+        return celluleDonnees.getValue().getValue();
     }
     
     @FXML
@@ -180,36 +179,47 @@ public class DonneesCalculeesExpositionControleur {
      *                appliquer
      */
     public void appliquerFiltreInverse(CritereFiltreVisite critere) {
-        ObservableList<Visite> visitesNonCorrespondantes = FXCollections.observableArrayList();
+        
+        ObservableList<Map.Entry<String, Visite>> visitesNonCorrespondantes
+        = FXCollections.observableArrayList();
 
-        for (Visite visite : visites) {
+        for (Map.Entry<String, Visite> paire : visites.entrySet()) {
+            
             boolean match = false; 
 
             // Vérifie si la visite est hors de la plage de dates spécifiée
             if (critere.getDateDebut() != null) {
+                
                 LocalDate dateDebut = critere.getDateDebut();
-                LocalDate dateFin = critere.getDateFin() != null ? critere.getDateFin() : critere.getDateDebut();
+                LocalDate dateFin
+                = critere.getDateFin() != null ? critere.getDateFin()
+                                               : critere.getDateDebut();
                 
                 // Si la date de la visite est avant la date de début ou après la date de fin, elle ne correspond pas
-                if (visite.getDate().isBefore(dateDebut) || visite.getDate().isAfter(dateFin)) {
+                if (paire.getValue().getDate().isBefore(dateDebut)
+                    || paire.getValue().getDate().isAfter(dateFin)) {
                     match = true;  // Hors de la plage de dates, donc non correspondant
                 }
             }
 
             // Vérifie si la visite est hors de la plage horaire spécifiée
             if (critere.getHoraireDebut() != 0) {
+                
                 int horaireDebut = critere.getHoraireDebut();
-                int horaireFin = critere.getHoraireFin() != 0 ? critere.getHoraireFin() : critere.getHoraireDebut();
+                int horaireFin
+                = critere.getHoraireFin() != 0 ? critere.getHoraireFin()
+                                               : critere.getHoraireDebut();
                 
                 // Si l'horaire de la visite est avant l'horaire de début ou après l'horaire de fin, elle ne correspond pas
-                if (visite.getHoraireDebut() < horaireDebut || visite.getHoraireDebut() > horaireFin) {
+                if (paire.getValue().getHoraireDebut() < horaireDebut
+                    || paire.getValue().getHoraireDebut() > horaireFin) {
                     match = true;  // Hors de la plage horaire, donc non correspondant
                 }
             }
 
             // Si l'une des conditions de non-correspondance est vraie, ajouter la visite à la liste
             if (match) {
-                visitesNonCorrespondantes.add(visite);
+                visitesNonCorrespondantes.add(paire);
             }
         }
         tableExposition.setItems(visitesNonCorrespondantes);

@@ -6,7 +6,10 @@
 package application.controleur;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.time.format.DateTimeFormatter;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import application.EchangeurDeVue;
 import application.modele.CritereFiltreVisite;
@@ -23,7 +26,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 
 /**
  * Contrôleur pour la gestion des données importées des visites.
@@ -42,7 +45,12 @@ import javafx.scene.control.cell.PropertyValueFactory;
  */
 public class DonneesCalculeesVisiteControleur {
     
-    private static ArrayList<Visite> visites = TraitementDonnees.getVisites();
+    private static LinkedHashMap<String, Visite> visites
+    = TraitementDonnees.getVisites();
+    
+    // Format pour les dates au format jj/MM/aaaa
+    private static final DateTimeFormatter DATE_FORMAT 
+    = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     
     @FXML
     private Label LabelResultat;
@@ -54,31 +62,31 @@ public class DonneesCalculeesVisiteControleur {
     private Button btnFiltres;
     
     @FXML
-    private TableColumn<Visite, String> conferencier;
+    private TableColumn<Map.Entry<String, Visite>, String> conferencier;
 
     @FXML
-    private TableColumn<Visite, LocalDate> date;
+    private TableColumn<Map.Entry<String, Visite>, String> date;
 
     @FXML
-    private TableColumn<Visite, String> employe;
+    private TableColumn<Map.Entry<String, Visite>, String> employe;
 
     @FXML
-    private TableColumn<Visite, String> exposition;
+    private TableColumn<Map.Entry<String, Visite>, String> exposition;
 
     @FXML
-    private TableColumn<Visite, String> horaireDebut;
+    private TableColumn<Map.Entry<String, Visite>, String> horaireDebut;
 
     @FXML
-    private TableColumn<Visite, String> identifiant;
+    private TableColumn<Map.Entry<String, Visite>, String> identifiant;
 
     @FXML
-    private TableColumn<Visite, String> intitule;
+    private TableColumn<Map.Entry<String, Visite>, String> intitule;
 
     @FXML
-    private TableColumn<Visite, String> numTel;
+    private TableColumn<Map.Entry<String, Visite>, String> numTel;
 
     @FXML
-    private TableView<Visite> tableExposition;
+    private TableView<Map.Entry<String, Visite>> tableExposition;
     
     /**
      * 
@@ -87,46 +95,53 @@ public class DonneesCalculeesVisiteControleur {
     public void initialize() {
 
         conferencier.setCellValueFactory(cellData -> {
-            Visite visite = cellData.getValue();
-            return new SimpleStringProperty(visite.getConferencier().getNom()); 
+            return new SimpleStringProperty(
+                    getVisite(cellData).getConferencier().getNom()); 
         });
         
-        date.setCellValueFactory(
-                new PropertyValueFactory<>("date"));
+        date.setCellValueFactory(cellData -> {
+            return new SimpleStringProperty(
+                    getVisite(cellData).getDate().format(DATE_FORMAT)); 
+        });
         
         employe.setCellValueFactory(cellData -> {
-            Visite visite = cellData.getValue();
-            return new SimpleStringProperty(visite.getEmploye().getNom()); 
+            return new SimpleStringProperty(
+                    getVisite(cellData).getEmploye().getNom()); 
         });
         
         exposition.setCellValueFactory(cellData -> {
-            Visite visite = cellData.getValue();
-            return new SimpleStringProperty(visite.getExposition()
-                                                   .getIntitule()); 
+            return new SimpleStringProperty(
+                    getVisite(cellData).getExposition().getIntitule()); 
         });
         
         horaireDebut.setCellValueFactory(cellData -> {
-            Visite visite = cellData.getValue();
-            return new SimpleStringProperty(visite.toStringHoraireDebut()); 
+            return new SimpleStringProperty(
+                    getVisite(cellData).toStringHoraireDebut()); 
         });
         
-        identifiant.setCellValueFactory(
-                new PropertyValueFactory<>("identifiant"));
+        identifiant.setCellValueFactory(cellData -> {
+            return new SimpleStringProperty(cellData.getValue().getKey()); 
+        });
         
         intitule.setCellValueFactory(cellData -> {
-            Visite visite = cellData.getValue();
-            return new SimpleStringProperty(visite.getClient().getIntitule()); 
+            return new SimpleStringProperty(
+                    getVisite(cellData).getClient().getIntitule()); 
         });
         
         numTel.setCellValueFactory(cellData -> {
-            Visite visite = cellData.getValue();
-            return new SimpleStringProperty(visite.getClient().getNumTel()); 
+            return new SimpleStringProperty(
+                    getVisite(cellData).getClient().getNumTel()); 
         });
         
-        
-        ObservableList<Visite> visitesListe
-        = FXCollections.observableArrayList(visites);
+        ObservableList<Map.Entry<String, Visite>> visitesListe
+        = FXCollections.observableArrayList(visites.entrySet());
         tableExposition.setItems(visitesListe);
+    }
+    
+    private static Visite getVisite(
+            CellDataFeatures<Entry<String, Visite>, String> celluleDonnees) {
+        
+        return celluleDonnees.getValue().getValue();
     }
 
     @FXML
@@ -167,13 +182,15 @@ public class DonneesCalculeesVisiteControleur {
      *                appliquer
      */
     public void appliquerFiltre(CritereFiltreVisite critere) {
+        
         // Filtrer la liste des visites en fonction des critères reçus
-        ObservableList<Visite> visitesFiltrees = FXCollections
+        ObservableList<Map.Entry<String, Visite>> visitesFiltrees = FXCollections
                                                  .observableArrayList();
 
-        for (Visite visite : visites) {
+        for (Map.Entry<String, Visite> paire : visites.entrySet()) {
+            
+            Visite visite = paire.getValue();
             boolean match = true;
-
             // Filtrer par exposition temporaire
             if (critere.getExpositionTemporaire()
                 && !(visite.getExposition() instanceof ExpositionTemporaire)) {
@@ -227,7 +244,7 @@ public class DonneesCalculeesVisiteControleur {
             }
 
             if (match) {
-                visitesFiltrees.add(visite);
+                visitesFiltrees.add(paire);
             }
         }
         

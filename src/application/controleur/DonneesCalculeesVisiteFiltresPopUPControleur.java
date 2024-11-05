@@ -7,6 +7,8 @@ package application.controleur;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import application.EchangeurDeVue;
 import application.modele.CritereFiltreVisite;
@@ -35,10 +37,14 @@ import javafx.scene.control.ToggleGroup;
 public class DonneesCalculeesVisiteFiltresPopUPControleur {
     
     private String[] expositions;
+    
     private String[] conferenciers;
     
-    private ArrayList<Visite> visites = TraitementDonnees.getVisites();
+    private LinkedHashMap<String, Visite> visites
+    = TraitementDonnees.getVisites();
+    
     private ArrayList<String> listeExpositions = new ArrayList<>();
+    
     private ArrayList<String> listeConferenciers = new ArrayList<>();
     
     @FXML
@@ -88,12 +94,15 @@ public class DonneesCalculeesVisiteFiltresPopUPControleur {
         listeConferenciers.add(null);
         
         // Extraire les intitulés des expositions et des conférenciers
-        for (Visite visite : visites) {
-            String expo = visite.getExposition().getIntitule();
-            String conf = visite.getConferencier().getNom();
+        for (Map.Entry<String, Visite> paire  : visites.entrySet()) {
+            
+            String expo = paire.getValue().getExposition().getIntitule();
+            String conf = paire.getValue().getConferencier().getNom();
+            
             // Éviter les doublons
-            if (!listeExpositions.contains(expo) && !listeConferenciers
-                                                     .contains(conf)) { 
+            if (!listeExpositions.contains(expo)
+                && !listeConferenciers.contains(conf)) {
+                
                 listeExpositions.add(expo);
                 listeConferenciers.add(conf);
             }
@@ -108,7 +117,8 @@ public class DonneesCalculeesVisiteFiltresPopUPControleur {
 
 
     @FXML
-    void btnValiderAction(ActionEvent event) {  
+    void btnValiderAction(ActionEvent event) {
+        
         LocalDate dateDebutSelectionne,
                   dateFinSelectionne;
         
@@ -144,6 +154,7 @@ public class DonneesCalculeesVisiteFiltresPopUPControleur {
 
         if(!labelHeureDebut.getText().isEmpty() 
            && !labelMinuteDebut.getText().isEmpty()) {
+            
             critere.setHoraireDebut(Integer.parseInt(labelHeureDebut.getText()) 
                                     * 60 + Integer.parseInt(labelMinuteDebut
                                                              .getText()));
@@ -151,6 +162,7 @@ public class DonneesCalculeesVisiteFiltresPopUPControleur {
         
         if(!labelHeureFin.getText().isEmpty() 
            && !labelMinuteFin.getText().isEmpty()) {
+            
             critere.setHoraireFin(Integer.parseInt(labelHeureFin.getText()) 
                                   * 60 + Integer.parseInt(labelMinuteFin
                                                            .getText()));
@@ -163,7 +175,6 @@ public class DonneesCalculeesVisiteFiltresPopUPControleur {
                                 .getController();
         controleurPrincipal.appliquerFiltre(critere);
         
-        // Fermer la popup
         EchangeurDeVue.fermerPopUp("donneesCalculeesVisiteFiltresPopUP");
     }
 

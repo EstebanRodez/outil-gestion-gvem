@@ -5,7 +5,9 @@
  */
 package application.controleur;
 
-import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import application.EchangeurDeVue;
 import application.modele.Conferencier;
@@ -19,8 +21,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
  * Contrôleur pour la gestion des données importées des conférenciers.
@@ -39,35 +41,35 @@ import javafx.scene.control.cell.PropertyValueFactory;
  */
 public class DonneesImporteesConferencierControleur {
     
-    private static ArrayList<Conferencier> conferenciers
+    private static LinkedHashMap<String, Conferencier> conferenciers
     = TraitementDonnees.getConferenciers();
     
     @FXML
     private Button btnRetour;
     
     @FXML
-    private TableColumn<Conferencier, String> estInterne;
+    private TableColumn<Map.Entry<String, Conferencier>, String> estInterne;
 
     @FXML
-    private TableColumn<Conferencier, String> identifiant;
+    private TableColumn<Map.Entry<String, Conferencier>, String> identifiant;
 
     @FXML
-    private TableColumn<Conferencier, String> indisponibilites;
+    private TableColumn<Map.Entry<String, Conferencier>, String> indisponibilites;
 
     @FXML
-    private TableColumn<Conferencier, String> nom;
+    private TableColumn<Map.Entry<String, Conferencier>, String> nom;
 
     @FXML
-    private TableColumn<Conferencier, String> numTel;
+    private TableColumn<Map.Entry<String, Conferencier>, String> numTel;
 
     @FXML
-    private TableColumn<Conferencier, String> prenom;
+    private TableColumn<Map.Entry<String, Conferencier>, String> prenom;
 
     @FXML
-    private TableColumn<Conferencier, String> specialites;
+    private TableColumn<Map.Entry<String, Conferencier>, String> specialites;
 
     @FXML
-    private TableView<Conferencier> tableExposition;
+    private TableView<Map.Entry<String, Conferencier>> tableExposition;
     
     /**
      * 
@@ -75,27 +77,44 @@ public class DonneesImporteesConferencierControleur {
     @FXML
     public void initialize() {
         
-        estInterne.setCellValueFactory(cellData -> 
-        new SimpleStringProperty(getEstInterneAsString(cellData.getValue().estInterne())));
-        identifiant.setCellValueFactory(new PropertyValueFactory<>("identifiant"));
-
-
+        estInterne.setCellValueFactory(
+            cellData -> new SimpleStringProperty(getEstInterneAsString(
+                    getConferencier(cellData).estInterne()))
+        );
+        identifiant.setCellValueFactory(
+            cellData -> new SimpleStringProperty(cellData.getValue().getKey())
+        );
         indisponibilites.setCellValueFactory(
             cellData -> new SimpleStringProperty(
-                    toStringIndisponibilites(cellData.getValue()
-                                                     .getIndisponibilites())));
-        
-        nom.setCellValueFactory(new PropertyValueFactory<>("nom"));
-        numTel.setCellValueFactory(new PropertyValueFactory<>("numTel"));
-        prenom.setCellValueFactory(new PropertyValueFactory<>("prenom"));
+                    toStringIndisponibilites(getConferencier(cellData)
+                            .getIndisponibilites()))
+        );
+        nom.setCellValueFactory(
+            cellData -> new SimpleStringProperty(
+                    getConferencier(cellData).getNom())
+        );
+        numTel.setCellValueFactory(
+            cellData -> new SimpleStringProperty(
+                    getConferencier(cellData).getNumTel())
+        );
+        prenom.setCellValueFactory(
+            cellData -> new SimpleStringProperty(
+                    getConferencier(cellData).getPrenom())
+        );
         specialites.setCellValueFactory(
-            cellData -> new SimpleStringProperty(cellData.getValue()
-                                                         .toStringSpecialites())
+            cellData -> new SimpleStringProperty(
+                    getConferencier(cellData).toStringSpecialites())
         );
         
-        ObservableList<Conferencier> conferenciersListe 
-        = FXCollections.observableArrayList(conferenciers);
+        ObservableList<Map.Entry<String, Conferencier>> conferenciersListe
+        = FXCollections.observableArrayList(conferenciers.entrySet());
         tableExposition.setItems(conferenciersListe);
+    }
+    
+    private static Conferencier getConferencier(
+            CellDataFeatures<Entry<String, Conferencier>, String> celluleDonnees) {
+        
+        return celluleDonnees.getValue().getValue();
     }
     
     private static String getEstInterneAsString(Boolean estInterne) {
