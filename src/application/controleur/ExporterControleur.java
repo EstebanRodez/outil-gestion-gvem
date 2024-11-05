@@ -59,7 +59,7 @@ public class ExporterControleur {
     private Label labelPort;
 
     private static final String FORMAT_NOM_SAUVEGARDE
-    = "Partie %d-%d-%d %dh%dm%ds";
+    = "données %d-%d-%d %dh%dm%ds";
     
     private static final String NOM_DOSSIER_TEMPORAIRE
     = "Dossier données";
@@ -121,7 +121,7 @@ public class ExporterControleur {
             sauvegarderDonneesFormatees(fichierTemp);
             
             // Chiffrement du fichier temporaire et écriture dans le fichier final
-            crypterDonneesVigenere(fichierTemp.toString(), fichierFinal.toString(), key);
+            crypterDonneesVigenere(fichierTemp, fichierFinal, key);
             
             System.out.println("Données chiffrées exportées dans " + fichierFinal);
         } catch (IOException e) {
@@ -134,38 +134,40 @@ public class ExporterControleur {
      * Sauvegarde les données formatées des ArrayLists dans un fichier temporaire.
      */
     private void sauvegarderDonneesFormatees(Path fichierTemp) throws IOException {
-    	
-        File fichier = new File(fichierTemp.toString());
+        // Créez le répertoire temporaire s'il n'existe pas
+        File dossierTemporaire = new File(NOM_DOSSIER_TEMPORAIRE);
+        if (!dossierTemporaire.exists()) {
+            if (!dossierTemporaire.mkdirs()) {  // Crée tous les répertoires nécessaires
+                throw new IOException("Échec de la création du dossier temporaire : " + NOM_DOSSIER_TEMPORAIRE);
+            }
+        }
+
+        // Créez le fichier dans le dossier temporaire
+        File fichier = fichierTemp.toFile();
         if (!fichier.exists()) {
             if (!fichier.createNewFile()) {
                 throw new IOException("Échec de la création du fichier temporaire : " + fichierTemp);
             }
         }
-        
+
         try {
-        	ObjectOutputStream fluxEcriture 
-            = new ObjectOutputStream(
-                  new FileOutputStream(fichierTemp.toString())
-              );
+            ObjectOutputStream fluxEcriture = new ObjectOutputStream(new FileOutputStream(fichier));
             // Sauvegarde de chaque liste formatée dans le fichier
-        	fluxEcriture.writeObject(TraitementDonnees.getExpositions());
-        	fluxEcriture.writeObject(TraitementDonnees.getEmployes());
-        	fluxEcriture.writeObject(TraitementDonnees.getConferenciers());
-        	fluxEcriture.writeObject(TraitementDonnees.getClients());
-        	fluxEcriture.writeObject(TraitementDonnees.getVisites());
-        	
-        	fluxEcriture.close();
-            
+            fluxEcriture.writeObject(TraitementDonnees.getExpositions());
+            fluxEcriture.writeObject(TraitementDonnees.getEmployes());
+            fluxEcriture.writeObject(TraitementDonnees.getConferenciers());
+            fluxEcriture.writeObject(TraitementDonnees.getClients());
+            fluxEcriture.writeObject(TraitementDonnees.getVisites());
+            fluxEcriture.close();
+
             Alert alertInfo = new Alert(AlertType.INFORMATION);
             alertInfo.setTitle("Information");
             alertInfo.setHeaderText(null);
-            alertInfo.setContentText(
-                "Le fichier de sauvegarde de votre partie a bien été sauvegardé"
-                + " :\n" + fichierTemp.toString());
+            alertInfo.setContentText("Le fichier de sauvegarde de votre partie a bien été sauvegardé :\n" + fichierTemp.toString());
             alertInfo.show();
         } catch (IOException erreur) {
             erreur.printStackTrace();
-            
+
             Alert alertErreur = new Alert(AlertType.ERROR);
             alertErreur.setTitle("Erreur");
             alertErreur.setHeaderText(null);
@@ -177,18 +179,27 @@ public class ExporterControleur {
     /**
      * Lit le fichier temporaire, chiffre son contenu, et l'enregistre dans le fichier final.
      */
-    private void crypterDonneesVigenere(String fichierSource, String fichierDestination, String key) throws IOException {
-        CryptageVigenere chiffreurVigenere = new CryptageVigenere(key);
-
-        File fichierChiffre = new File(fichierDestination);
-        if (!fichierChiffre.exists()) {
-            if (!fichierChiffre.createNewFile()) {
-                throw new IOException("Échec de la création du fichier chiffré : " + fichierDestination);
+    private void crypterDonneesVigenere(Path fichierTemp, Path fichierFinal, String key) throws IOException {
+        // Créez le répertoire pour le fichier final s'il n'existe pas
+        File dossierFinal = new File(NOM_DOSSIER_FINAL);
+        if (!dossierFinal.exists()) {
+            if (!dossierFinal.mkdirs()) {  // Crée tous les répertoires nécessaires
+                throw new IOException("Échec de la création du dossier final : " + NOM_DOSSIER_FINAL);
             }
         }
 
+        // Créez le fichier final
+        File fichierChiffre = fichierFinal.toFile();
+        if (!fichierChiffre.exists()) {
+            if (!fichierChiffre.createNewFile()) {
+                throw new IOException("Échec de la création du fichier chiffré : " + fichierFinal);
+            }
+        }
+
+        CryptageVigenere chiffreurVigenere = new CryptageVigenere(key);
+
         try (
-            BufferedReader reader = new BufferedReader(new FileReader(fichierSource));
+            BufferedReader reader = new BufferedReader(new FileReader(fichierTemp.toFile()));
             FileWriter writer = new FileWriter(fichierChiffre)
         ) {
             String ligne;
