@@ -165,7 +165,7 @@ public class TraitementDonnees {
          Indisponibilite[] indisponibilites;
          
          for (String[] donnees : donneesLignes) {
-
+             
              identifiant = donnees[0];
              nom = donnees[1];
              prenom = donnees[2];
@@ -431,5 +431,18 @@ public class TraitementDonnees {
      */
     public static ArrayList<Visite> getVisites() {
         return visites;
+    }
+    
+    /**
+     * Supprime les données stockées en mémoire.
+     * Opération irréversible.
+     */
+    public static void supprimerDonnees() {
+        
+        expositions.clear();
+        employes.clear();
+        conferenciers.clear();
+        clients.clear();
+        visites.clear();
     }
 }
