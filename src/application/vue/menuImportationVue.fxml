@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox prefHeight="400.0" prefWidth="640.0" stylesheets="@css/vue.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controleur.DonneesImporteesVisiteControleur">
+   <children>
+      <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" style="-fx-background-color: #9FCFF3;">
+         <children>
+            <HBox alignment="CENTER" prefHeight="93.0" prefWidth="960.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Menu importation fichier" textAlignment="CENTER" wrappingWidth="611.9892578125">
+                     <font>
+                        <Font name="System Bold" size="35.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Text>
+               </children>
+            </HBox>
+            <HBox prefHeight="37.0" prefWidth="960.0">
+               <children>
+                  <Label fx:id="labelMessageErr" textFill="RED">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="408.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="70.0" prefWidth="960.0">
+               <children>
+                  <Label fx:id="labelIp" alignment="CENTER" prefHeight="40.0" prefWidth="492.0" style="-fx-background-color: #ffffff;">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="150.0" top="15.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Button fx:id="btnParcourir" mnemonicParsing="false" prefHeight="39.0" prefWidth="90.0" style="-fx-background-color: #ffffff;" text="Parcourir">
+                     <HBox.margin>
+                        <Insets left="50.0" top="15.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnSupprimer" mnemonicParsing="false" prefHeight="39.0" prefWidth="56.0" style="-fx-background-color: #ffffff;">
+                     <HBox.margin>
+                        <Insets left="15.0" top="15.0" />
+                     </HBox.margin>
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../image/poubelle.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox prefHeight="70.0" prefWidth="960.0">
+               <children>
+                  <Label fx:id="labelIp1" alignment="CENTER" prefHeight="40.0" prefWidth="492.0" style="-fx-background-color: #ffffff;">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="150.0" top="15.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Button fx:id="btnParcourir" mnemonicParsing="false" prefHeight="39.0" prefWidth="90.0" style="-fx-background-color: #ffffff;" text="Parcourir">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="50.0" top="15.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="btnSupprimer" mnemonicParsing="false" prefHeight="39.0" prefWidth="56.0" style="-fx-background-color: #ffffff;">
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../image/poubelle.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <HBox.margin>
+                        <Insets left="15.0" top="15.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox prefHeight="70.0" prefWidth="960.0">
+               <children>
+                  <Label fx:id="labelIp2" alignment="CENTER" prefHeight="40.0" prefWidth="492.0" style="-fx-background-color: #ffffff;">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="150.0" top="15.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Button fx:id="btnParcourir" mnemonicParsing="false" prefHeight="39.0" prefWidth="90.0" style="-fx-background-color: #ffffff;" text="Parcourir">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="50.0" top="15.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="btnSupprimer" mnemonicParsing="false" prefHeight="39.0" prefWidth="56.0" style="-fx-background-color: #ffffff;">
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../image/poubelle.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <HBox.margin>
+                        <Insets left="15.0" top="15.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox prefHeight="70.0" prefWidth="960.0">
+               <children>
+                  <Label fx:id="labelIp3" alignment="CENTER" prefHeight="40.0" prefWidth="492.0" style="-fx-background-color: #ffffff;">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="150.0" top="15.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Button fx:id="btnParcourir" mnemonicParsing="false" prefHeight="39.0" prefWidth="90.0" style="-fx-background-color: #ffffff;" text="Parcourir">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="50.0" top="15.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" prefHeight="39.0" prefWidth="56.0" style="-fx-background-color: #ffffff;">
+                     <graphic>
+                        <ImageView fx:id="btnSupprimer" fitHeight="30.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../image/poubelle.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <HBox.margin>
+                        <Insets left="15.0" top="15.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox prefHeight="37.0" prefWidth="960.0" />
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="btnRetour" mnemonicParsing="false" onAction="#btnImporterAction" prefHeight="59.0" prefWidth="128.0" style="-fx-background-color: #ffffff;" styleClass="btnMenu" text="Retour">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="45.0" right="5.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="btnValider" mnemonicParsing="false" onAction="#btnExporterAction" prefHeight="59.0" prefWidth="128.0" style="-fx-background-color: #29CA5E;" styleClass="btnMenu" text="Valider" textFill="WHITE">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="45.0" left="130.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</VBox>
