@@ -220,7 +220,8 @@ public class ImportationCSV {
             
             String identifiant = donnees[0];
             if (!identifiant.matches(
-                    String.format(FORMAT_IDENTIFIANT, lettreIdentifiant))) {
+                    String.format(FORMAT_IDENTIFIANT, lettreIdentifiant))
+                || !TraitementDonnees.isIdentifiantUnique(identifiant)) {
                 
                 return false;
             }

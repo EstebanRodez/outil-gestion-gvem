@@ -447,6 +447,28 @@ public class TraitementDonnees {
     }
     
     /**
+     * Vérifie si un identifiant donné est unique dans sa catégorie
+     * d'éléments.
+     * 
+     * @param identifiant à vérifier
+     * @return true si l'identifiant est unique dans sa liste
+     *         correspondante sinon false
+     */
+    protected static boolean isIdentifiantUnique(String identifiant) {
+        
+        char lettreIdentifiant = identifiant.charAt(0);
+        if (lettreIdentifiant == 'E') { // Exposition
+            return !expositions.containsKey(identifiant);
+        } else if (lettreIdentifiant == 'R') { // Visite
+            return !visites.containsKey(identifiant);
+        } else if (lettreIdentifiant == 'N') { // Employé
+            return !employes.containsKey(identifiant);
+        } else { // Forcément Conférencier
+            return !conferenciers.containsKey(identifiant);
+        }
+    }
+    
+    /**
      * Supprime les données stockées en mémoire.
      * Opération irréversible.
      */
