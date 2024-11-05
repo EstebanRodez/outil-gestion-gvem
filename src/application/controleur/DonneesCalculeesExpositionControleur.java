@@ -13,6 +13,7 @@ import application.EchangeurDeVue;
 import application.modele.CritereFiltreVisite;
 import application.modele.Visite;
 import application.utilitaire.TraitementDonnees;
+
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

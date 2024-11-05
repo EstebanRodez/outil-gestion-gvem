@@ -9,11 +9,11 @@ import java.time.LocalDate;
 
 import application.EchangeurDeVue;
 import application.modele.CritereFiltreVisite;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
 
 /**
  * TODO commenter la responsabilité de cette class (SRP)

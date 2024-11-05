@@ -8,13 +8,13 @@ package application.controleur;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import javafx.beans.property.SimpleStringProperty;
-import javafx.scene.control.cell.PropertyValueFactory;
 import application.EchangeurDeVue;
 import application.modele.CritereFiltreVisite;
 import application.modele.ExpositionTemporaire;
 import application.modele.Visite;
 import application.utilitaire.TraitementDonnees;
+
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -23,6 +23,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
  * Contrôleur pour la gestion des données importées des visites.

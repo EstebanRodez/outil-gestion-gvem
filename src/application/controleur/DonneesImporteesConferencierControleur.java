@@ -6,13 +6,12 @@
 package application.controleur;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.stream.Collectors;
 
 import application.EchangeurDeVue;
 import application.modele.Conferencier;
 import application.modele.Indisponibilite;
 import application.utilitaire.TraitementDonnees;
+
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

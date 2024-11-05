@@ -12,6 +12,7 @@ import application.EchangeurDeVue;
 import application.modele.CritereFiltreVisite;
 import application.modele.Visite;
 import application.utilitaire.TraitementDonnees;
+
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

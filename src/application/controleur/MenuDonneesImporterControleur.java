@@ -5,8 +5,8 @@
  */
 package application.controleur;
 
-
 import application.EchangeurDeVue;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

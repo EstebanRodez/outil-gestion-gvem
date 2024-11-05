@@ -9,10 +9,11 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-import application.utilitaire.TraitementDonnees;
 import application.EchangeurDeVue;
 import application.modele.Exposition;
 import application.modele.ExpositionTemporaire;
+import application.utilitaire.TraitementDonnees;
+
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
