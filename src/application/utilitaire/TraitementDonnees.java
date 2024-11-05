@@ -154,43 +154,42 @@ public class TraitementDonnees {
      */
     protected static void creerConferenciers(ArrayList<String[]> donneesLignes) {
         
-         String identifiant,
-                nom,
-                prenom;
-         String[] specialites;
-         String numTel;
-         boolean estInterne;
-         
-         Conferencier conferencier;
-         Indisponibilite[] indisponibilites;
-         
-         for (String[] donnees : donneesLignes) {
-             
-             identifiant = donnees[0];
-             nom = donnees[1];
-             prenom = donnees[2];
-             specialites = donnees[3].replace("#", "").split(", ");
-             numTel = donnees[4]; 
-             estInterne = donnees[5].equalsIgnoreCase("oui");
-             
-             if (donnees.length == 6 
-                 || donnees[6].isBlank()
-                 || donnees[7].isBlank()) {
-                 
-                 conferencier = new Conferencier(identifiant, nom, prenom, 
-                                                 specialites, numTel,
-                                                 estInterne);
-                 conferenciers.add(conferencier);
-             } else {                     
-                 
-                 indisponibilites = creeIndisponibilité(donnees);
-                 conferencier = new Conferencier(identifiant, nom, prenom, 
-                                                 specialites, numTel, 
-                                                 estInterne, 
-                                                 indisponibilites);
-                 conferenciers.add(conferencier);    
-             }
-         }
+        String identifiant,
+               nom,
+               prenom;
+        String[] specialites;
+        String numTel;
+        boolean estInterne;
+
+        Conferencier conferencier;
+        Indisponibilite[] indisponibilites;
+
+        for (String[] donnees : donneesLignes) {
+
+            identifiant = donnees[0];
+            nom = donnees[1];
+            prenom = donnees[2];
+            specialites = donnees[3].replace("#", "").split(", ");
+            numTel = donnees[4]; 
+            estInterne = donnees[5].equalsIgnoreCase("oui");
+
+            if (donnees.length == 6 
+                || donnees[6].isBlank()
+                || donnees[7].isBlank()) {
+
+                conferencier = new Conferencier(identifiant, nom, prenom, 
+                                                specialites, numTel,
+                                                estInterne);
+                conferenciers.add(conferencier);
+            } else {                     
+
+                indisponibilites = creeIndisponibilité(donnees);
+                conferencier = new Conferencier(identifiant, nom, prenom, 
+                                                specialites, numTel, 
+                                                estInterne, indisponibilites);
+                conferenciers.add(conferencier);    
+            }
+        }
     }
     
     /**
@@ -224,7 +223,7 @@ public class TraitementDonnees {
 
             decoupageHeureDebut = donnees[5].split("h");
             heureDebut = Integer.parseInt(decoupageHeureDebut[0]) * 60 
-                    + Integer.parseInt(decoupageHeureDebut[1]);
+                         + Integer.parseInt(decoupageHeureDebut[1]);
 
             // Chercher l'exposition par son identifiant
             exposition = chercherExposition(donnees[1]);
