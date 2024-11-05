@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" stylesheets="@css/vue.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controleur.DonneesCalculeesExpositionControleur">
+<VBox prefHeight="400.0" prefWidth="640.0" stylesheets="@css/vue.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controleur.donneesCalculeesExpositionEnsembleJourControleur">
    <children>
       <MenuBar VBox.vgrow="NEVER">
          <menus>
@@ -46,9 +46,6 @@
                      </HBox.margin>
                   </Button>
                </children>
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
             </HBox>
             <HBox alignment="CENTER" prefHeight="427.0" prefWidth="960.0">
                <children>
@@ -66,9 +63,8 @@
                   </VBox>
                   <TableView fx:id="tableExposition" prefHeight="376.0" prefWidth="800.0">
                      <columns>
-                        <TableColumn fx:id="aucuneVisite" prefWidth="266.0" text="Exposition n'ayant aucune visite" />
-                        <TableColumn fx:id="date" prefWidth="266.0" text="Date" />
-                        <TableColumn fx:id="horaireDebut" prefWidth="267.0" text="Heure début" />
+                        <TableColumn fx:id="Exposition" prefWidth="400.0" text="Exposition" />
+                        <TableColumn fx:id="nbMoyen" prefWidth="400.0" text="Nombre moyen de visites prévues" />
                      </columns>
                      <HBox.margin>
                         <Insets />
@@ -79,7 +75,7 @@
                   <Insets bottom="-15.0" />
                </VBox.margin>
             </HBox>
-            <HBox prefHeight="80.0" prefWidth="960.0" styleClass="btnMenu">
+            <HBox prefHeight="80.0" prefWidth="960.0">
                <children>
                   <Button fx:id="btnRetour" mnemonicParsing="false" onAction="#btnRetourAction" prefHeight="30.0" prefWidth="100.0" style="-fx-text-fill: black; -fx-background-color: white;" styleClass="btnMenu" text="Retour">
                      <font>

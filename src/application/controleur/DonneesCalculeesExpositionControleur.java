@@ -49,14 +49,14 @@ public class DonneesCalculeesExpositionControleur {
     private static final DateTimeFormatter DATE_FORMAT 
     = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     
-    private static String[] choix = {"exposition qui n’ont aucune visite",
-                                     "exposition et leur nombre moyen de " 
+    private static String[] choix = {"expositions qui n’ont aucune visite",
+                                     "expositions et leur nombre moyen de " 
                                      + "visites programmées chaque jour",
-                                     "exposition et leur nombre moyen de "
+                                     "expositions et leur nombre moyen de "
                                      + "visites programmées chaque semaine",
-                                     " exposition et leur nombre moyen de "
+                                     "l’esembles des expositions et leur nombre moyen de "
                                      + "visites prévues chaque jour",
-                                     " exposition et leur nombre moyen de "
+                                     "l’esembles des expositions et leur nombre moyen de "
                                      + "visites prévues chaque semaine"};
     
     @FXML
@@ -131,12 +131,16 @@ public class DonneesCalculeesExpositionControleur {
     @FXML
     void btnValiderAction(ActionEvent event) {
         
+        if (listePhrase.getValue().equals(choix[0])) {
+            EchangeurDeVue.changerVue("donneesCalculeesExpositionVue");
+        }
+        
         if (listePhrase.getValue().equals(choix[1])) {
             EchangeurDeVue.changerVue("donneesCalculeesExpositionMoyenneJourVue");
         }
         
         if (listePhrase.getValue().equals(choix[2])) {
-            System.out.println("choix 3 ");
+            EchangeurDeVue.changerVue("donneesCalculeesExpositionEnsembleJourVue");
         }
         
         if (listePhrase.getValue().equals(choix[3])) {
