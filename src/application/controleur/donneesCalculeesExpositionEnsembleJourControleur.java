@@ -31,7 +31,7 @@ import javafx.scene.control.TableView;
 /**
  * TODO commenter la responsabilité de cette class (SRP)
  */
-public class donneesCalculeesExpositionEnsembleJourControleur {
+public class DonneesCalculeesExpositionEnsembleJourControleur {
     
     private static ArrayList<Visite> visites
     = TraitementDonnees.getVisites();
@@ -87,7 +87,7 @@ public class donneesCalculeesExpositionEnsembleJourControleur {
     
     @FXML
     void btnFiltresAction(ActionEvent event) {
-        EchangeurDeVue.creerPopUp("donneesCalculeesExpositionMoyenneJourFiltrePopUp");
+        EchangeurDeVue.creerPopUp("donneesCalculeesExpositionEnsembleJourFiltrePopUp");
     }
     
     @FXML
