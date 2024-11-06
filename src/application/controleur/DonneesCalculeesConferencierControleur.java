@@ -143,7 +143,7 @@ public class DonneesCalculeesConferencierControleur {
         }
         
         if (listePhrase.getValue().equals(choix[3])) {
-            System.out.println("choix 4 ");
+        	EchangeurDeVue.changerVue("donneesCalculeesConferencierEnsembleJourVue");
         }
     }
 
