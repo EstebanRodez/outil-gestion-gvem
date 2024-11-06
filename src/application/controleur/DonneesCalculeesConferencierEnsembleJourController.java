@@ -32,7 +32,7 @@ import javafx.scene.control.TableView;
 /**
  * TODO commenter la responsabilité de cette class (SRP)
  */
-public class DonneesCalculerConferencierEnsembleJourController {
+public class DonneesCalculeesConferencierEnsembleJourController {
     
     private static LinkedHashMap<String, Visite> visites
     = TraitementDonnees.getVisites();

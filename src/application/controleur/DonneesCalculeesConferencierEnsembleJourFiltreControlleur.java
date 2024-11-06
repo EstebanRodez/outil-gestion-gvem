@@ -46,7 +46,7 @@ public class DonneesCalculeesConferencierEnsembleJourFiltreControlleur {
         }
             
         // Passer le critère de filtre au contrôleur principal via EchangeurDeVue
-        DonneesCalculerConferencierEnsembleJourController controleurPrincipal;
+        DonneesCalculeesConferencierEnsembleJourController controleurPrincipal;
         controleurPrincipal = EchangeurDeVue
                                .getFXMLLoader("donneesCalculeesConferencierEnsembleJourVue")
                                 .getController();
