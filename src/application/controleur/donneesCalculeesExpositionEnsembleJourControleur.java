@@ -1,6 +1,6 @@
 /*
- * DonneesCalculeesExpositionMoyenneJourControleur.java                           
- * 1 nov. 2024
+ * donneesCalculeesExpositionEnsembleJourControleur.java                           
+ * 5 nov. 2024
  * IUT de Rodez, pas de copyright
  */
 package application.controleur;
@@ -18,7 +18,6 @@ import application.modele.CritereFiltreVisite;
 import application.modele.Visite;
 import application.modele.VisiteMoyenneResultat;
 import application.utilitaire.TraitementDonnees;
-
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -32,26 +31,20 @@ import javafx.scene.control.TableView;
 
 /**
  * TODO commenter la responsabilité de cette class (SRP)
- * 
- * @author Romain Augé
- * @author Ayoub Laluti
- * @author Baptiste Thenieres
- * @author Esteban Vroemen
- * @version 1.0
  */
-public class DonneesCalculeesExpositionMoyenneJourControleur {
+public class DonneesCalculeesExpositionEnsembleJourControleur {
     
     private static LinkedHashMap<String, Visite> visites
     = TraitementDonnees.getVisites();
     
-    private static String[] choix = {"exposition qui n’ont aucune visite",
-                                    "exposition et leur nombre moyen de " 
+    private static String[] choix = {"expositions qui n’ont aucune visite",
+                                    "expositions et leur nombre moyen de " 
                                     + "visites programmées chaque jour",
-                                    "exposition et leur nombre moyen de "
+                                    "expositions et leur nombre moyen de "
                                     + "visites programmées chaque semaine",
-                                    " exposition et leur nombre moyen de "
+                                    "l’esembles des expositions et leur nombre moyen de "
                                     + "visites prévues chaque jour",
-                                    " exposition et leur nombre moyen de "
+                                    "l’esembles des expositions et leur nombre moyen de "
                                     + "visites prévues chaque semaine"};
     
     @FXML
@@ -84,22 +77,18 @@ public class DonneesCalculeesExpositionMoyenneJourControleur {
         listePhrase.getItems().addAll(choix);
         
         // défini la valeur par défaut
-        listePhrase.setValue(choix[1]);
+        listePhrase.setValue(choix[2]);
         
-        Exposition.setCellValueFactory(
-            cellData -> new SimpleStringProperty(
-                    cellData.getValue().getIntituleExposition()));
+        Exposition.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getIntituleExposition()));
         
-        nbMoyen.setCellValueFactory(
-            cellData -> new SimpleDoubleProperty(
-                    cellData.getValue().getMoyenneVisites()).asObject());
+        nbMoyen.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getMoyenneVisites()).asObject());
         
-        calculerMoyenneVisitesParExposition(visites);
+        calculerMoyenneVisitesEnsembleExposition(visites);
     }
     
     @FXML
     void btnFiltresAction(ActionEvent event) {
-        EchangeurDeVue.creerPopUp("donneesCalculeesExpositionMoyenneJourFiltrePopUp");
+        EchangeurDeVue.creerPopUp("donneesCalculeesExpositionEnsembleJourFiltrePopUp");
     }
     
     @FXML
@@ -114,7 +103,7 @@ public class DonneesCalculeesExpositionMoyenneJourControleur {
         }
         
         if (listePhrase.getValue().equals(choix[2])) {
-            EchangeurDeVue.changerVue("donneesCalculeesExpositionEnsembleJourVue");
+            System.out.println("choix 3");
         }
         
         if (listePhrase.getValue().equals(choix[3])) {
@@ -152,14 +141,13 @@ public class DonneesCalculeesExpositionMoyenneJourControleur {
      * 
      * @param visites la liste des visites à utiliser pour le calcul
      */
-    private void calculerMoyenneVisitesParExposition(
+    private void calculerMoyenneVisitesEnsembleExposition(
             LinkedHashMap<String, Visite> visites) {
-        
         // Initialiser les dates globales de début et de fin
         LocalDate dateDebutGlobal = LocalDate.MAX;
         LocalDate dateFinGlobal = LocalDate.MIN;
 
-        // Parcourir toutes les visites pour trouver les dates globales min et max
+        // Trouver les dates globales min et max
         for (Map.Entry<String, Visite> paire : visites.entrySet()) {
             LocalDate dateVisite = paire.getValue().getDate();
 
@@ -172,53 +160,28 @@ public class DonneesCalculeesExpositionMoyenneJourControleur {
             }
         }
 
-        System.out.println("dateDebutGlobal : " + dateDebutGlobal);
-        System.out.println("dateFinGlobal : " + dateFinGlobal);
-        
         // Calculer le nombre total de jours global entre dateDebutGlobal et dateFinGlobal
-        long totalJours
-        = ChronoUnit.DAYS.between(dateDebutGlobal, dateFinGlobal) + 1;
+        long totalJours = ChronoUnit.DAYS.between(dateDebutGlobal, dateFinGlobal) + 1;
         System.out.println("Nombre total de jours global : " + totalJours);
 
-        // Création d'une Map pour compter les visites par exposition
-        Map<String, Integer> visitesParExposition = new HashMap<>();
+        // Calculer le nombre total de visites
+        int totalVisitesGlobal = visites.size();
 
-        // Compter les visites pour chaque exposition
-        for (Map.Entry<String, Visite> paire : visites.entrySet()) {
-            
-            String intituleExposition
-            = paire.getValue().getExposition().getIntitule();
-            visitesParExposition.put(
-                intituleExposition,
-                visitesParExposition.getOrDefault(intituleExposition, 0) + 1
-            );
-        }
-
-        // Calculer la moyenne de visites pour chaque exposition
+        // Calculer la moyenne globale
+        double moyenneGlobale = totalJours > 0 ? (double) totalVisitesGlobal / totalJours : 0;
+        
+        System.out.println("totalVisitesGlobal : " + totalVisitesGlobal);
+        System.out.println("totalJours : " + totalJours + "\n");
+        
+        // Créer la liste de résultats avec une seule entrée pour la moyenne globale
         List<VisiteMoyenneResultat> resultats = new ArrayList<>();
+        resultats.add(new VisiteMoyenneResultat("Toutes les expositions", moyenneGlobale));
 
-        for (Map.Entry<String, Integer> entry : visitesParExposition.entrySet()) {
-            String intituleExposition = entry.getKey();
-            int totalVisites = entry.getValue();
-
-            // Calculer la moyenne des visites pour cette exposition
-            double moyenneVisites = totalJours > 0 ? (double) totalVisites / totalJours : 0;
-            
-            System.out.println("totalVisites : " + totalVisites);
-            System.out.println("totalJours : " + totalJours + "\n");
-
-            // Ajouter le résultat à la liste
-            resultats.add(new VisiteMoyenneResultat(intituleExposition, moyenneVisites));
-        }
-
-        // Mettre à jour le tableau avec les résultats
-        ObservableList<VisiteMoyenneResultat> exposListe
-        = FXCollections.observableArrayList(resultats);
+        // Mettre à jour le tableau avec le résultat
+        ObservableList<VisiteMoyenneResultat> exposListe = FXCollections.observableArrayList(resultats);
         tableExposition.setItems(exposListe);
+        
     }
-
-
-
     
     /**
      * Applique les critères de filtrage inversés sur la liste des visites.
@@ -232,20 +195,17 @@ public class DonneesCalculeesExpositionMoyenneJourControleur {
      *                appliquer
      */
     public void appliquerFiltreMoyenneJour(CritereFiltreVisite critere) {
- 
         LinkedHashMap<String, Visite> visitesFiltrees = new LinkedHashMap<>();
 
         for (Map.Entry<String, Visite> paire : visites.entrySet()) {
-
             boolean match = true; 
 
             // Filtrer par date de visite
             if (critere.getDateDebut() != null) {
-             
-                LocalDate dateFin
-                = critere.getDateFin() != null ? critere.getDateFin()
+                LocalDate dateFin 
+                = critere.getDateFin() != null ? critere.getDateFin() 
                                                : critere.getDateDebut();
-                if (paire.getValue().getDate().isBefore(critere.getDateDebut())
+                if (paire.getValue().getDate().isBefore(critere.getDateDebut()) 
                     || paire.getValue().getDate().isAfter(dateFin)) {
                     match = false;
                 }
@@ -256,10 +216,8 @@ public class DonneesCalculeesExpositionMoyenneJourControleur {
             }
         }
 
-        // Maintenant, calculez les moyennes en utilisant la liste filtrée
-        calculerMoyenneVisitesParExposition(visitesFiltrees);
+        // Maintenant, calculez la moyenne global en utilisant la liste filtrée
+        calculerMoyenneVisitesEnsembleExposition(visitesFiltrees);
     }
 
-
 }
-

@@ -8,6 +8,7 @@ package application.utilitaire;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 import application.modele.Client;
 import application.modele.Conferencier;
@@ -41,15 +42,20 @@ public class TraitementDonnees {
     private final static DateTimeFormatter FORMATTER_DATE_FR
     = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    private static ArrayList<Exposition> expositions = new ArrayList<>();
+    private static LinkedHashMap<String, Exposition> expositions
+    = new LinkedHashMap<>();
     
-    private static ArrayList<Employe> employes = new ArrayList<>();
+    private static LinkedHashMap<String, Employe> employes
+    = new LinkedHashMap<>();
     
-    private static ArrayList<Conferencier> conferenciers = new ArrayList<>();
+    private static LinkedHashMap<String, Conferencier> conferenciers
+    = new LinkedHashMap<>();
     
-    private static ArrayList<Client> clients = new ArrayList<>();
+    private static ArrayList<Client> clients
+    = new ArrayList<>();
     
-    private static ArrayList<Visite> visites = new ArrayList<>();
+    private static LinkedHashMap<String, Visite> visites
+    = new LinkedHashMap<>();
 
     /**
      * Crée des objets Exposition ou ExpositionTemporaire à partir
@@ -73,7 +79,6 @@ public class TraitementDonnees {
         LocalDate dateFin;
 
         Exposition expo;
-        ExpositionTemporaire expoTemporaire;
 
         for (String[] donnees : donneesLignes) {
             
@@ -84,27 +89,24 @@ public class TraitementDonnees {
             nbOeuvre = Integer.parseInt(donnees[4]);
             motsCles = donnees[5].replace("#", "").split(", ");
             resume = donnees[6];
-
-            if (donnees.length == 7) { // Exposition normale
+            
+            if (donnees.length == 7) { // Exposition permanente
 
                 expo = new Exposition(identifiant, intitule, periodeDebut, 
-                        periodeFin, nbOeuvre, motsCles,
-                        resume);
-                expositions.add(expo);
+                                      periodeFin, nbOeuvre, motsCles,
+                                      resume);
 
             } else { // Exposition temporaire
                 
                 dateDebut = LocalDate.parse(donnees[7], FORMATTER_DATE_FR);
                 dateFin = LocalDate.parse(donnees[8], FORMATTER_DATE_FR);
 
-                expoTemporaire 
-                = new ExpositionTemporaire(identifiant, intitule,
-                                           periodeDebut, periodeFin,
-                                           nbOeuvre, motsCles, resume,
-                                           dateDebut, dateFin);
-
-                expositions.add(expoTemporaire);
+                expo = new ExpositionTemporaire(identifiant, intitule,
+                                                periodeDebut, periodeFin,
+                                                nbOeuvre, motsCles, resume,
+                                                dateDebut, dateFin);
             }
+            expositions.putLast(identifiant, expo);
         }
     }
     
@@ -133,13 +135,12 @@ public class TraitementDonnees {
             if (donnees.length == 3 || donnees[3].isBlank()) { 
                 
                 employe = new Employe(identifiant, nom, prenom);
-                employes.add(employe);
             } else { 
                 
                 numTel = donnees[3];
-                employe = new Employe(identifiant, nom, prenom, numTel);
-                employes.add(employe);      
+                employe = new Employe(identifiant, nom, prenom, numTel);   
             }
+            employes.putLast(identifiant, employe);
         }     
     }
     
@@ -154,43 +155,41 @@ public class TraitementDonnees {
      */
     protected static void creerConferenciers(ArrayList<String[]> donneesLignes) {
         
-         String identifiant,
-                nom,
-                prenom;
-         String[] specialites;
-         String numTel;
-         boolean estInterne;
-         
-         Conferencier conferencier;
-         Indisponibilite[] indisponibilites;
-         
-         for (String[] donnees : donneesLignes) {
+        String identifiant,
+               nom,
+               prenom;
+        String[] specialites;
+        String numTel;
+        boolean estInterne;
 
-             identifiant = donnees[0];
-             nom = donnees[1];
-             prenom = donnees[2];
-             specialites = donnees[3].replace("#", "").split(", ");
-             numTel = donnees[4]; 
-             estInterne = donnees[5].equalsIgnoreCase("oui");
-             
-             if (donnees.length == 6 
-                 || donnees[6].isBlank()
-                 || donnees[7].isBlank()) {
-                 
-                 conferencier = new Conferencier(identifiant, nom, prenom, 
-                                                 specialites, numTel,
-                                                 estInterne);
-                 conferenciers.add(conferencier);
-             } else {                     
-                 
-                 indisponibilites = creeIndisponibilité(donnees);
-                 conferencier = new Conferencier(identifiant, nom, prenom, 
-                                                 specialites, numTel, 
-                                                 estInterne, 
-                                                 indisponibilites);
-                 conferenciers.add(conferencier);    
-             }
-         }
+        Conferencier conferencier;
+        Indisponibilite[] indisponibilites;
+
+        for (String[] donnees : donneesLignes) {
+
+            identifiant = donnees[0];
+            nom = donnees[1];
+            prenom = donnees[2];
+            specialites = donnees[3].replace("#", "").split(", ");
+            numTel = donnees[4]; 
+            estInterne = donnees[5].equalsIgnoreCase("oui");
+
+            if (donnees.length == 6 
+                || donnees[6].isBlank()
+                || donnees[7].isBlank()) {
+
+                conferencier = new Conferencier(identifiant, nom, prenom, 
+                                                specialites, numTel,
+                                                estInterne);
+            } else {                     
+
+                indisponibilites = creeIndisponibilité(donnees);
+                conferencier = new Conferencier(identifiant, nom, prenom, 
+                                                specialites, numTel, 
+                                                estInterne, indisponibilites);   
+            }
+            conferenciers.putLast(identifiant, conferencier);
+        }
     }
     
     /**
@@ -224,14 +223,27 @@ public class TraitementDonnees {
 
             decoupageHeureDebut = donnees[5].split("h");
             heureDebut = Integer.parseInt(decoupageHeureDebut[0]) * 60 
-                    + Integer.parseInt(decoupageHeureDebut[1]);
+                         + Integer.parseInt(decoupageHeureDebut[1]);
 
             // Chercher l'exposition par son identifiant
-            exposition = chercherExposition(donnees[1]);
+            exposition = expositions.get(donnees[1]);
+            if (exposition == null) {
+                throw new IllegalArgumentException(
+                        ERREUR_EXPOSITION_INTROUVABLE);
+            }
+            
             // Chercher le conférencier par son identifiant
-            conferencier = chercherConferencier(donnees[2]);
+            conferencier = conferenciers.get(donnees[2]);
+            if (conferencier == null) {
+                throw new IllegalArgumentException(
+                        ERREUR_CONFERENCIER_INTROUVABLE);
+            }
+            
             // Chercher l'employé par son identifiant
-            employe = chercherEmploye(donnees[3]);
+            employe = employes.get(donnees[3]);
+            if (employe == null) {
+                throw new IllegalArgumentException(ERREUR_EMPLOYE_INTROUVABLE);
+            }
 
             // Extraire l'intitulé et le numéro de téléphone
             intitule = donnees[6];
@@ -240,17 +252,29 @@ public class TraitementDonnees {
             // Vérifier si le client existe déjà
             client = trouverClient(intitule, numTel);
             if (client == null) {
+                
                 // Si le client n'existe pas, en créer un nouveau
                 client = new Client(intitule, numTel);
-                clients.add(client); // Ajoute le nouveau client à la liste
+                clients.add(client);
             }
 
             // Créer l'objet Visite
             visite = new Visite(identifiant, heureDebut, date, client,
                     exposition, employe, conferencier);
 
-            visites.add(visite);        
+            visites.putLast(identifiant, visite);        
         }
+    }
+    
+    /**
+     * Indique si les données stockées en mémoire sont vides
+     * 
+     * @return true si les données en mémoire sont vides sinon false
+     */
+    public static boolean isDonneesVides() {
+        
+        return expositions.size() == 0 && visites.size() == 0
+               && conferenciers.size() == 0 && employes.size() == 0;
     }
     
     /**
@@ -313,14 +337,14 @@ public class TraitementDonnees {
      * @throws IllegalArgumentException si aucune exposition avec cet
      *                                  identifiant n'est trouvée.
      */
-    private static Exposition chercherExposition(String idExposition) {
-        for (Exposition expo : expositions) {
-            if (expo.getIdentifiant().equals(idExposition)) {
-                return expo;
-            }
-        }
-        throw new IllegalArgumentException(ERREUR_EXPOSITION_INTROUVABLE);
-    }
+//    private static Exposition chercherExposition(String idExposition) {
+//        for (Exposition expo : expositions) {
+//            if (expo.getIdentifiant().equals(idExposition)) {
+//                return expo;
+//            }
+//        }
+//        throw new IllegalArgumentException(ERREUR_EXPOSITION_INTROUVABLE);
+//    }
     
     /**
      * Cherche un conférencier dans la liste des conférenciers par
@@ -332,14 +356,14 @@ public class TraitementDonnees {
      * @throws IllegalArgumentException si aucun conférencier avec
      *                                  cet identifiant n'est trouvé.
      */
-    private static Conferencier chercherConferencier(String idConferencier) {
-        for (Conferencier conf : conferenciers) {
-            if (conf.getIdentifiant().equals(idConferencier)) {
-                return conf;
-            }
-        }
-        throw new IllegalArgumentException(ERREUR_CONFERENCIER_INTROUVABLE);
-    }
+//    private static Conferencier chercherConferencier(String idConferencier) {
+//        for (Conferencier conf : conferenciers) {
+//            if (conf.getIdentifiant().equals(idConferencier)) {
+//                return conf;
+//            }
+//        }
+//        throw new IllegalArgumentException(ERREUR_CONFERENCIER_INTROUVABLE);
+//    }
     
     /**
      * Cherche un employé dans la liste des employés par son identifiant.
@@ -349,14 +373,14 @@ public class TraitementDonnees {
      * @throws IllegalArgumentException si aucun employé avec cet identifiant
      *                                  n'est trouvé.
      */
-    private static Employe chercherEmploye(String idEmploye) {
-        for (Employe employe : employes) {
-            if (employe.getIdentifiant().equals(idEmploye)) {
-                return employe;
-            }
-        }
-        throw new IllegalArgumentException(ERREUR_EMPLOYE_INTROUVABLE);
-    }
+//    private static Employe chercherEmploye(String idEmploye) {
+//        for (Employe employe : employes) {
+//            if (employe.getIdentifiant().equals(idEmploye)) {
+//                return employe;
+//            }
+//        }
+//        throw new IllegalArgumentException(ERREUR_EMPLOYE_INTROUVABLE);
+//    }
     
     /**
      * Cherche un client existant dans la liste des clients en
@@ -382,7 +406,7 @@ public class TraitementDonnees {
      * 
      * @return Une liste d'objets Exposition
      */
-    public static ArrayList<Exposition> getExpositions() {
+    public static LinkedHashMap<String, Exposition> getExpositions() {
         return expositions;
     }
     
@@ -391,7 +415,7 @@ public class TraitementDonnees {
      * 
      * @return Une liste d'objets Employe
      */
-    public static ArrayList<Employe> getEmployes() {
+    public static LinkedHashMap<String, Employe> getEmployes() {
         return employes;
     }
     
@@ -400,7 +424,7 @@ public class TraitementDonnees {
      * 
      * @return Une liste d'objets Conferencier
      */
-    public static ArrayList<Conferencier> getConferenciers() {
+    public static LinkedHashMap<String, Conferencier> getConferenciers() {
         return conferenciers;
     }
     
@@ -418,7 +442,42 @@ public class TraitementDonnees {
      * 
      * @return Une liste d'objets Visite
      */
-    public static ArrayList<Visite> getVisites() {
+    public static LinkedHashMap<String, Visite> getVisites() {
         return visites;
+    }
+    
+    /**
+     * Vérifie si un identifiant donné est unique dans sa catégorie
+     * d'éléments.
+     * 
+     * @param identifiant à vérifier
+     * @return true si l'identifiant est unique dans sa liste
+     *         correspondante sinon false
+     */
+    protected static boolean isIdentifiantUnique(String identifiant) {
+        
+        char lettreIdentifiant = identifiant.charAt(0);
+        if (lettreIdentifiant == 'E') { // Exposition
+            return !expositions.containsKey(identifiant);
+        } else if (lettreIdentifiant == 'R') { // Visite
+            return !visites.containsKey(identifiant);
+        } else if (lettreIdentifiant == 'N') { // Employé
+            return !employes.containsKey(identifiant);
+        } else { // Forcément Conférencier
+            return !conferenciers.containsKey(identifiant);
+        }
+    }
+    
+    /**
+     * Supprime les données stockées en mémoire.
+     * Opération irréversible.
+     */
+    public static void supprimerDonnees() {
+        
+        expositions.clear();
+        employes.clear();
+        conferenciers.clear();
+        clients.clear();
+        visites.clear();
     }
 }

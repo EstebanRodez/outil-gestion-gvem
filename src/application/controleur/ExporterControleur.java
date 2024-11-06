@@ -20,11 +20,13 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import application.EchangeurDeVue;
+
 import application.utilitaire.Cryptage;
 import application.utilitaire.CryptageVigenere;
 import application.utilitaire.DecryptageVigenere;
 import application.utilitaire.Serveur;
 import application.utilitaire.TraitementDonnees;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;

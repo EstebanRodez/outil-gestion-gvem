@@ -17,6 +17,7 @@ import java.util.Objects;
  * Si la date de fin n'est pas renseignée, la période
  * d'indisponibilité sera basée uniquement sur la date du début
  * (= 1 jour d'indisponibilité).
+ * 
  * @author Esteban Vroemen
  * @version 1.0
  */

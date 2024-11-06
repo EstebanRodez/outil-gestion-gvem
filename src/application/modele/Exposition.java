@@ -24,9 +24,10 @@ import java.io.Serializable;
  * on connaîtra, en plus des éléments précédents, la date de début
  * et la date de fin de celle-ci. Par exemple, du 17 mars 2025
  * au 21 juin 2025.
+ * 
  * @author Romain Augé
- * @author Esteban Vroemen
  * @author Baptiste Thenieres
+ * @author Esteban Vroemen
  * @version 1.0
  */
 public class Exposition implements Serializable {
@@ -223,11 +224,13 @@ public class Exposition implements Serializable {
     }
     
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
-     * @return le type de l'exposition
+     * Renvoie la liste des mots clés en une chaîne de caractères,
+     * chaque mot clé est séparé par une virgule.
+     * 
+     * @return la chaîne de caractères contenant les mots clés
      */
-    public String getType() {
-        return "permanente";
+    public String toStringMotsCles() {
+        return String.join(", ", motsCles);
     }
 
 }

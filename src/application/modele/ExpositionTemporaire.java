@@ -25,6 +25,10 @@ import java.time.LocalDate;
  * on connaîtra, en plus des éléments précédents, la date de début
  * et la date de fin de celle-ci. Par exemple, du 17 mars 2025
  * au 21 juin 2025.
+ * 
+ * @author Baptiste Thenieres
+ * @author Esteban Vroemen
+ * @version 1.0
  */
 public class ExpositionTemporaire extends Exposition {
     
@@ -121,14 +125,6 @@ public class ExpositionTemporaire extends Exposition {
      */
     public LocalDate getDateFin() {
         return dateFin;
-    }
-    
-    /**
-     * TODO commenter le rôle de cette méthode (SRP)
-     * @return le type de l'exposition
-     */
-    public String getType() {
-        return "temporaire";
     }
 
 }

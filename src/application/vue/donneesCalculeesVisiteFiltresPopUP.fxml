@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
@@ -11,81 +16,47 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="351.0" prefWidth="624.0" style="-fx-background-color: #0D99FF;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controleur.DonneesCalculeesVisiteFiltresPopUPControleur">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="351.0" prefWidth="664.0" style="-fx-background-color: #72b8ed;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controleur.DonneesCalculeesVisiteFiltresPopUPControleur">
    <children>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+      <HBox alignment="CENTER" prefHeight="124.0" prefWidth="664.0">
          <children>
-            <Label prefHeight="30.0" style="-fx-background-color: #ffffff;" text="Filtrer sur une période de l’année :">
+            <Label prefHeight="30.0" style="-fx-background-color: #ffffff;" text="Période personnalisée :">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
                <font>
                   <Font size="15.0" />
                </font>
+               <padding>
+                  <Insets left="5.0" right="5.0" />
+               </padding>
             </Label>
-            <Label alignment="CENTER" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #ffffff;" text="du">
+            <Label alignment="CENTER" prefHeight="29.0" prefWidth="29.0" style="-fx-background-color: #ffffff;" text="De">
                <font>
                   <Font size="13.0" />
                </font>
                <HBox.margin>
-                  <Insets left="5.0" />
+                  <Insets left="30.0" />
                </HBox.margin>
             </Label>
-            <TextField fx:id="labelJourDebut" prefHeight="30.0" prefWidth="30.0" promptText="..." style="-fx-background-color: #ffffff;">
-               <font>
-                  <Font size="13.0" />
-               </font></TextField>
-            <Label prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #ffffff;" text="/">
-               <font>
-                  <Font size="13.0" />
-               </font>
-            </Label>
-            <TextField fx:id="labelMoisDebut" prefHeight="30.0" prefWidth="30.0" promptText="..." style="-fx-background-color: #ffffff;">
-               <font>
-                  <Font size="13.0" />
-               </font></TextField>
-            <Label prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #ffffff;" text="/">
-               <font>
-                  <Font size="13.0" />
-               </font>
-            </Label>
-            <TextField fx:id="labelAnneesDebut" prefHeight="30.0" prefWidth="30.0" promptText="..." style="-fx-background-color: #ffffff;">
-               <font>
-                  <Font size="13.0" />
-               </font></TextField>
-            <Label alignment="CENTER" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #ffffff;" text="au">
+            <DatePicker fx:id="dateDebut" prefHeight="30.0" prefWidth="110.0" promptText="01/01/2024">
+               <HBox.margin>
+                  <Insets left="5.0" />
+               </HBox.margin>
+            </DatePicker>
+            <Label alignment="CENTER" prefHeight="29.0" prefWidth="30.0" style="-fx-background-color: #ffffff;" text="A">
                <font>
                   <Font size="13.0" />
                </font>
                <HBox.margin>
-                  <Insets left="5.0" />
+                  <Insets left="20.0" />
                </HBox.margin>
             </Label>
-            <TextField fx:id="labelJourFin" prefHeight="30.0" prefWidth="30.0" promptText="..." style="-fx-background-color: #ffffff;">
-               <font>
-                  <Font size="13.0" />
-               </font>
-            </TextField>
-            <Label prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #ffffff;" text="/">
-               <font>
-                  <Font size="13.0" />
-               </font>
-            </Label>
-            <TextField fx:id="labelMoisFin" prefHeight="30.0" prefWidth="30.0" promptText="..." style="-fx-background-color: #ffffff;">
-               <font>
-                  <Font size="13.0" />
-               </font>
-            </TextField>
-            <Label prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #ffffff;" text="/">
-               <font>
-                  <Font size="13.0" />
-               </font>
-            </Label>
-            <TextField fx:id="labelAnneesFin" prefHeight="30.0" prefWidth="30.0" promptText="..." style="-fx-background-color: #ffffff;">
-               <font>
-                  <Font size="13.0" />
-               </font>
-            </TextField>
+            <DatePicker fx:id="dateFin" prefHeight="30.0" prefWidth="110.0" promptText="01/01/2025">
+               <HBox.margin>
+                  <Insets left="5.0" />
+               </HBox.margin>
+            </DatePicker>
          </children>
       </HBox>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="723.0">
@@ -93,73 +64,109 @@
             <Insets />
          </VBox.margin>
          <children>
-            <Label prefHeight="30.0" style="-fx-background-color: #ffffff;" text="Filtrer sur une plage horaire :">
+            <Label prefHeight="30.0" style="-fx-background-color: #ffffff;" text="Plage horaire personnalisée :">
                <font>
                   <Font size="15.0" />
                </font>
                <HBox.margin>
                   <Insets />
                </HBox.margin>
+               <padding>
+                  <Insets left="5.0" right="5.0" />
+               </padding>
             </Label>
-            <Label alignment="CENTER" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #ffffff;" text="entre">
+            <Label alignment="CENTER" prefHeight="30.0" prefWidth="42.0" style="-fx-background-color: #ffffff;" text="Entre">
                <font>
                   <Font size="13.0" />
                </font>
                <HBox.margin>
-                  <Insets left="5.0" />
+                  <Insets left="30.0" />
                </HBox.margin>
+               <padding>
+                  <Insets left="1.0" />
+               </padding>
             </Label>
-            <TextField fx:id="labelHeureDebut" prefHeight="30.0" prefWidth="30.0" promptText="..." style="-fx-background-color: #ffffff;" />
-            <Label style="-fx-background-color: #ffffff;" text="h">
-               <font>
-                  <Font size="20.0" />
-               </font>
+            <TextField fx:id="labelHeureDebut" prefHeight="30.0" prefWidth="30.0" promptText="..." style="-fx-background-color: #ffffff;">
+               <HBox.margin>
+                  <Insets left="-5.0" />
+               </HBox.margin></TextField>
+            <Label maxHeight="30.0" style="-fx-background-color: #ffffff;" text="h">
+               <HBox.margin>
+                  <Insets left="-5.0" />
+               </HBox.margin>
+               <padding>
+                  <Insets right="4.0" />
+               </padding>
             </Label>
-            <TextField fx:id="labelMinuteDebut" prefHeight="30.0" prefWidth="30.0" promptText="..." style="-fx-background-color: #ffffff;" />
-            <Label style="-fx-background-color: #ffffff;" text="min">
-               <font>
-                  <Font size="20.0" />
-               </font>
+            <TextField fx:id="labelMinuteDebut" prefHeight="30.0" prefWidth="30.0" promptText="..." style="-fx-background-color: #ffffff;">
+               <HBox.margin>
+                  <Insets left="-5.0" />
+               </HBox.margin></TextField>
+            <Label maxHeight="30.0" style="-fx-background-color: #ffffff;" text="min">
+               <HBox.margin>
+                  <Insets left="-5.0" />
+               </HBox.margin>
+               <padding>
+                  <Insets right="5.0" />
+               </padding>
             </Label>
-            <Label alignment="CENTER" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #ffffff;" text="et">
+            <Label alignment="CENTER" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #ffffff;" text="Et">
                <font>
                   <Font size="13.0" />
                </font>
                <HBox.margin>
-                  <Insets left="5.0" />
+                  <Insets left="15.0" />
                </HBox.margin>
             </Label>
-            <TextField fx:id="labelHeureFin" prefHeight="30.0" prefWidth="30.0" promptText="..." style="-fx-background-color: #ffffff;" />
-            <Label style="-fx-background-color: #ffffff;" text="h">
-               <font>
-                  <Font size="20.0" />
-               </font>
+            <TextField fx:id="labelHeureFin" prefHeight="30.0" prefWidth="30.0" promptText="..." style="-fx-background-color: #ffffff;">
+               <HBox.margin>
+                  <Insets left="-5.0" />
+               </HBox.margin></TextField>
+            <Label maxHeight="30.0" style="-fx-background-color: #ffffff;" text="h">
+               <padding>
+                  <Insets left="1.0" right="4.0" />
+               </padding>
+               <HBox.margin>
+                  <Insets left="-5.0" />
+               </HBox.margin>
             </Label>
-            <TextField fx:id="labelMinuteFin" prefHeight="30.0" prefWidth="30.0" promptText="..." style="-fx-background-color: #ffffff;" />
-            <Label style="-fx-background-color: #ffffff;" text="min">
-               <font>
-                  <Font size="20.0" />
-               </font>
+            <TextField fx:id="labelMinuteFin" prefHeight="30.0" prefWidth="30.0" promptText="..." style="-fx-background-color: #ffffff;">
+               <HBox.margin>
+                  <Insets left="-5.0" />
+               </HBox.margin></TextField>
+            <Label maxHeight="30.0" style="-fx-background-color: #ffffff;" text="min">
+               <HBox.margin>
+                  <Insets left="-5.0" />
+               </HBox.margin>
+               <padding>
+                  <Insets right="5.0" />
+               </padding>
             </Label>
          </children>
       </HBox>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Label prefWidth="210.0" style="-fx-background-color: #ffffff;" text="Exposition :">
+            <Label prefHeight="27.0" prefWidth="101.0" style="-fx-background-color: #ffffff;" text="Exposition :">
                <font>
                   <Font size="18.0" />
                </font>
                <HBox.margin>
                   <Insets />
                </HBox.margin>
+               <padding>
+                  <Insets left="5.0" />
+               </padding>
             </Label>
-            <ChoiceBox fx:id="listeExpo" prefWidth="150.0" style="-fx-background-color: #ffffff;" />
+            <ChoiceBox fx:id="listeExpo" maxHeight="26.0" prefHeight="26.0" prefWidth="231.0" style="-fx-background-color: #ffffff;">
+               <HBox.margin>
+                  <Insets left="-5.0" />
+               </HBox.margin></ChoiceBox>
          </children></HBox>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
          <children>
-            <RadioButton fx:id="radioPermanente" mnemonicParsing="false" style="-fx-background-color: #ffffff;" text="Permanente">
+            <RadioButton fx:id="radioPermanente" mnemonicParsing="false" prefHeight="31.0" prefWidth="144.0" style="-fx-background-color: #ffffff;" text="Permanente">
                <HBox.margin>
-                  <Insets right="110.0" />
+                  <Insets right="50.0" />
                </HBox.margin>
                <font>
                   <Font size="18.0" />
@@ -167,32 +174,47 @@
                <toggleGroup>
                   <ToggleGroup fx:id="typeExpo" />
                </toggleGroup>
+               <padding>
+                  <Insets bottom="2.0" left="5.0" right="5.0" top="2.0" />
+               </padding>
             </RadioButton>
             <RadioButton fx:id="radioTemporaire" mnemonicParsing="false" style="-fx-background-color: #ffffff;" text="Temporaire" toggleGroup="$typeExpo">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </RadioButton>
-         </children>
-      </HBox>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-         <children>
-            <Label prefWidth="210.0" style="-fx-background-color: #ffffff;" text="Conférencier :">
                <font>
                   <Font size="18.0" />
                </font>
                <HBox.margin>
                   <Insets />
                </HBox.margin>
+               <padding>
+                  <Insets bottom="2.0" left="5.0" right="5.0" top="2.0" />
+               </padding>
+            </RadioButton>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Label prefHeight="27.0" prefWidth="133.0" style="-fx-background-color: #ffffff;" text="Conférencier :">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <padding>
+                  <Insets left="5.0" />
+               </padding>
             </Label>
-            <ChoiceBox fx:id="listeConf" prefWidth="150.0" style="-fx-background-color: #ffffff;" />
+            <ChoiceBox fx:id="listeConf" maxHeight="26.0" prefHeight="26.0" prefWidth="200.0" style="-fx-background-color: #ffffff;">
+               <HBox.margin>
+                  <Insets bottom="1.0" left="-5.0" />
+               </HBox.margin></ChoiceBox>
          </children>
       </HBox>
       <HBox prefHeight="89.0" prefWidth="480.0">
          <children>
             <Button fx:id="btnValider" alignment="CENTER" mnemonicParsing="false" onAction="#btnValiderAction" prefHeight="25.0" prefWidth="90.0" text="Valider">
                <HBox.margin>
-                  <Insets left="370.0" />
+                  <Insets left="277.0" />
                </HBox.margin>
                <font>
                   <Font size="15.0" />

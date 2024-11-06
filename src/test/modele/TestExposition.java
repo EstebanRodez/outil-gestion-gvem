@@ -213,6 +213,7 @@ class TestExposition {
      */
     @Test
     void testGetIdentifiant() {
+        
         assertEquals("N000001", EXPO_VALIDES[0].getIdentifiant());
         assertEquals("N000002", EXPO_VALIDES[1].getIdentifiant());
 
@@ -243,6 +244,7 @@ class TestExposition {
      */
     @Test
     void testGetPeriodeDebut() {
+        
         assertEquals(1725, EXPO_VALIDES[0].getPeriodeDebut());
         assertEquals(1800, EXPO_VALIDES[1].getPeriodeDebut());
         
@@ -261,6 +263,7 @@ class TestExposition {
      */
     @Test
     void testGetPeriodeFin() {
+        
         assertEquals(1850, EXPO_VALIDES[0].getPeriodeFin());
         assertEquals(1900, EXPO_VALIDES[1].getPeriodeFin());
         
@@ -279,6 +282,7 @@ class TestExposition {
      */
     @Test
     void testGetNbOeuvre() {
+        
         assertEquals(15, EXPO_VALIDES[0].getNbOeuvre());
         assertEquals(45, EXPO_VALIDES[1].getNbOeuvre());
 
@@ -294,6 +298,7 @@ class TestExposition {
      */
     @Test
     void testGetMotsCles() {
+        
         assertArrayEquals(new String[] {"Romain", "Ayoub", "Esteban", 
                                         "Baptiste", "paysage", "mars"}, 
                           EXPO_VALIDES[0].getMotsCles());
@@ -318,6 +323,7 @@ class TestExposition {
      */
     @Test
     void testGetResume() {
+        
         assertEquals("Une grande exposition sur des paysages originaux et"
                      + " audacieux",
                      EXPO_VALIDES[0].getResume());
@@ -327,5 +333,23 @@ class TestExposition {
         assertNotEquals("Exposition moderne", EXPO_VALIDES[1].getResume());
         assertNotEquals("", EXPO_VALIDES[0].getResume());
         assertNotEquals(null, EXPO_VALIDES[1].getResume());
+    }
+    
+    /**
+     * Méthode de test pour 
+     * {@link application.modele.Exposition#toStringMotsCles()}.
+     */
+    @Test
+    void testToStringMotsCles() {
+        
+        assertEquals("Romain, Ayoub, Esteban, Baptiste, paysage, mars",
+                     EXPO_VALIDES[0].toStringMotsCles());
+        assertEquals("cubisme, oeuvre, abstrait, art moderne",
+                     EXPO_VALIDES[1].toStringMotsCles());
+
+        assertNotNull(EXPO_VALIDES[0].toStringMotsCles());
+        assertNotNull(EXPO_VALIDES[1].toStringMotsCles());
+        assertNotEquals("", EXPO_VALIDES[0].toStringMotsCles());
+        assertNotEquals("", EXPO_VALIDES[1].toStringMotsCles());
     }
 }

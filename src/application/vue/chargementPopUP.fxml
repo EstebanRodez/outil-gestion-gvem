@@ -19,7 +19,7 @@
    <children>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Exportation en cours...">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Attente d'une connexion...">
                <font>
                   <Font name="System Bold" size="25.0" />
                </font>
@@ -34,7 +34,7 @@
             <Insets />
          </VBox.margin>
          <children>
-            <ImageView fitHeight="56.0" fitWidth="87.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="spinner" fitHeight="56.0" fitWidth="87.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../image/chargement.png" />
                </image>

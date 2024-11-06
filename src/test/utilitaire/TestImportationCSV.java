@@ -14,6 +14,7 @@ import org.junit.jupiter.api.TestMethodOrder;
 
 import application.utilitaire.FichierDonneesInvalides;
 import application.utilitaire.ImportationCSV;
+import application.utilitaire.TraitementDonnees;
 
 /**
  * Classe de Test pour {@link application.utilitaire.ImportationCSV}
@@ -78,6 +79,8 @@ class TestImportationCSV {
             ImportationCSV.importerDonnees(
                     CHEMIN_VISITES+"visites_valides_sans_entete.csv");
         });
+        
+        TraitementDonnees.supprimerDonnees();
         
         assertThrows(IllegalArgumentException.class, () -> {
             ImportationCSV.importerDonnees(null);
@@ -296,94 +299,141 @@ class TestImportationCSV {
             ImportationCSV.importerDonnees(
                     CHEMIN_EXPOSITIONS+"expositions_valides1.csv");
         });
+        TraitementDonnees.supprimerDonnees();
         assertDoesNotThrow(() -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_EXPOSITIONS+"expositions_valides2.csv");
         });
+        TraitementDonnees.supprimerDonnees();
         assertDoesNotThrow(() -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_EXPOSITIONS+"expositions_valides3.csv");
         });
+        TraitementDonnees.supprimerDonnees();
         assertDoesNotThrow(() -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_EXPOSITIONS+"expositions_valides_sans_entete.csv");
         });
+        TraitementDonnees.supprimerDonnees();
         
         // Fichiers Conférencier avec données correctes
         assertDoesNotThrow(() -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_CONFERENCIERS+"conferencier_valide1.csv");
         });
+        TraitementDonnees.supprimerDonnees();
         assertDoesNotThrow(() -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_CONFERENCIERS+"conferencier_valide2.csv");
         });
+        TraitementDonnees.supprimerDonnees();
         assertDoesNotThrow(() -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_CONFERENCIERS+"conferencier_valide3.csv");
         });
+        TraitementDonnees.supprimerDonnees();
         assertDoesNotThrow(() -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_CONFERENCIERS+"conferencier_valide4.csv");
         });
+        TraitementDonnees.supprimerDonnees();
         assertDoesNotThrow(() -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_CONFERENCIERS+"conferencier_valide5.csv");
         });
+        TraitementDonnees.supprimerDonnees();
         assertDoesNotThrow(() -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_CONFERENCIERS+"conferencier_valide6.csv");
         });
+        TraitementDonnees.supprimerDonnees();
         assertDoesNotThrow(() -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_CONFERENCIERS+"conferencier_valide_sans_entete.csv");
         });
+        TraitementDonnees.supprimerDonnees();
         assertDoesNotThrow(() -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_CONFERENCIERS+"conferencier_valide_beaucoup.csv");
         });
+        TraitementDonnees.supprimerDonnees();
         
         // Fichiers Employés avec données correctes
         assertDoesNotThrow(() -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_EMPLOYES+"employes_valides1.csv");
         });
+        TraitementDonnees.supprimerDonnees();
         assertDoesNotThrow(() -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_EMPLOYES+"employes_valides2.csv");
         });
+        TraitementDonnees.supprimerDonnees();
         assertDoesNotThrow(() -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_EMPLOYES+"employes_valides3.csv");
         });
+        TraitementDonnees.supprimerDonnees();
         assertDoesNotThrow(() -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_EMPLOYES+"employes_valides4.csv");
         });
+        TraitementDonnees.supprimerDonnees();
         assertDoesNotThrow(() -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_EMPLOYES+"employes_valides_sans_entete.csv");
         });
+        TraitementDonnees.supprimerDonnees();
         
         // Fichiers Visites avec données correctes
-        // A exécuter forcément en dernier
+        insérerDonneesValides();
         assertDoesNotThrow(() -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_VISITES+"visites_valides1.csv");
         });
+        TraitementDonnees.supprimerDonnees();
+        
+        insérerDonneesValides();
         assertDoesNotThrow(() -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_VISITES+"visites_valides2.csv");
         });
+        TraitementDonnees.supprimerDonnees();
+        
+        insérerDonneesValides();
         assertDoesNotThrow(() -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_VISITES+"visites_valides3.csv");
         });
+        TraitementDonnees.supprimerDonnees();
+        
+        insérerDonneesValides();
         assertDoesNotThrow(() -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_VISITES+"visites_valides_sans_entete.csv");
         });
+        TraitementDonnees.supprimerDonnees();
         
+    }
+    
+    /**
+     * Insère des données valides en mémoire pour insérer ensuite des
+     * visites valides
+     */
+    private void insérerDonneesValides() {
+        
+        assertDoesNotThrow(() -> {
+            ImportationCSV.importerDonnees(
+                    CHEMIN_CONFERENCIERS+"conferencier_valide1.csv");
+        });
+        assertDoesNotThrow(() -> {
+            ImportationCSV.importerDonnees(
+                    CHEMIN_EMPLOYES+"employes_valides1.csv");
+        });
+        assertDoesNotThrow(() -> {
+            ImportationCSV.importerDonnees(
+                    CHEMIN_EXPOSITIONS+"expositions_valides1.csv");
+        });
     }
 
 }

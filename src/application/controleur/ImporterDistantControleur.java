@@ -1,7 +1,6 @@
 package application.controleur;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import application.EchangeurDeVue;
@@ -9,6 +8,7 @@ import application.utilitaire.Client;
 import application.utilitaire.DecryptageVigenere;
 import application.utilitaire.ImportationCSV;
 import application.utilitaire.TraitementDonnees;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;

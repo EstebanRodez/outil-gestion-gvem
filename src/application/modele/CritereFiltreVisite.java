@@ -11,31 +11,56 @@ import java.time.LocalDate;
  * Représente les critères de filtrage pour les visites.
  * Elle contient des informations sur le type d'exposition, le conférencier,
  * l'exposition, ainsi que les dates de début et de fin, et les horaires.
+ * 
+ * @author Baptiste Thenieres
+ * @version 1.0
  */
 public class CritereFiltreVisite {
     
-    private String typeExposition;
+    private boolean expositionTemporaire;
+    private boolean expositionPermanente;
+    
     private String conferencier;
     private String exposition;
+    
     private LocalDate dateDebut;
     private LocalDate dateFin;
+    
     private int horaireDebut;
     private int horaireFin;
 
     /**
-     * Récupère le type d'exposition.
-     * @return le type d'exposition
+     * Récupère si l'exposition est permanente ou non.
+     * @return true si l'exposition est permanente sinon false
      */
-    public String getTypeExposition() { 
-        return typeExposition; 
+    public boolean getExpositionPermanente() { 
+        return expositionPermanente; 
     }
     
     /**
-     * Définit le type d'exposition.
-     * @param typeExposition le type d'exposition à définir
+     * Récupère si l'exposition est temporaire ou non.
+     * @return true si l'exposition est temporaire sinon false
      */
-    public void setTypeExposition(String typeExposition) {
-        this.typeExposition = typeExposition;
+    public boolean getExpositionTemporaire() { 
+        return expositionTemporaire; 
+    }
+    
+    /**
+     * Définit si l'exposition est temporaire ou non.
+     * @param expositionTemporaire si l'exposition est temporaire
+     */
+    public void setExpositionTemporaire(boolean expositionTemporaire) {
+        this.expositionTemporaire = expositionTemporaire;
+        this.expositionPermanente = false;
+    }
+    
+    /**
+     * Définit si l'exposition est permanente ou non.
+     * @param expositionPermanente si l'exposition est permanente
+     */
+    public void setExpositionPermanente(boolean expositionPermanente) {
+        this.expositionPermanente = expositionPermanente;
+        this.expositionTemporaire = false;
     }
 
     /**

@@ -12,10 +12,17 @@ import application.modele.CritereFiltreVisite;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 
 /**
  * TODO commenter la responsabilité de cette class (SRP)
+ * 
+ * @author Romain Augé
+ * @author Ayoub Laluti
+ * @author Baptiste Thenieres
+ * @author Esteban Vroemen
+ * @version 1.0
  */
 public class DonneesCalculeesConferencierFiltresPopUPControleur {
     
@@ -23,22 +30,16 @@ public class DonneesCalculeesConferencierFiltresPopUPControleur {
     private Button btnValider;
 
     @FXML
-    private TextField labelAnneesDebut;
-
+    private DatePicker dateDebut;
+    
     @FXML
-    private TextField labelAnneesFin;
-
+    private DatePicker dateFin;
+    
     @FXML
     private TextField labelHeureDebut;
 
     @FXML
     private TextField labelHeureFin;
-
-    @FXML
-    private TextField labelJourDebut;
-
-    @FXML
-    private TextField labelJourFin;
 
     @FXML
     private TextField labelMinuteDebut;
@@ -47,60 +48,43 @@ public class DonneesCalculeesConferencierFiltresPopUPControleur {
     private TextField labelMinuteFin;
 
     @FXML
-    private TextField labelMoisDebut;
-
-    @FXML
-    private TextField labelMoisFin;
-
-    @FXML
     void btnValiderAction(ActionEvent event) {
-        LocalDate dateDebut = null;
-        LocalDate dateFin = null;
+        LocalDate dateDebutSelectionne,
+        dateFinSelectionne;
+
+        dateDebutSelectionne = dateDebut.getValue();
+        dateFinSelectionne = dateFin.getValue();
         
         CritereFiltreVisite critere = new CritereFiltreVisite();
         
-        if (!labelJourDebut.getText().isEmpty() 
-                && !labelMoisDebut.getText().isEmpty() 
-                && !labelAnneesDebut.getText().isEmpty()) {
-                dateDebut = LocalDate.of(
-                    Integer.parseInt(labelAnneesDebut.getText()), 
-                    Integer.parseInt(labelMoisDebut.getText()), 
-                    Integer.parseInt(labelJourDebut.getText())
-                );
-                critere.setDateDebut(dateDebut);
-            }
+        if (dateDebutSelectionne != null){  
+            critere.setDateDebut(dateDebutSelectionne);
+        }
 
-            if (!labelJourFin.getText().isEmpty() 
-                && !labelMoisFin.getText().isEmpty() 
-                && !labelAnneesFin.getText().isEmpty()) {
-                dateFin = LocalDate.of(
-                    Integer.parseInt(labelAnneesFin.getText()), 
-                    Integer.parseInt(labelMoisFin.getText()), 
-                    Integer.parseInt(labelJourFin.getText())
-                );
-                critere.setDateFin(dateFin);
-            }
+        if (dateFinSelectionne != null){  
+            critere.setDateFin(dateFinSelectionne);
+        }
             
-            if(!labelHeureDebut.getText().isEmpty() 
-               && !labelMinuteDebut.getText().isEmpty()) {
-                critere.setHoraireDebut(Integer.parseInt(labelHeureDebut.getText()) 
-                                        * 60 + Integer.parseInt(labelMinuteDebut
-                                                                 .getText()));
-            }
-            
-            if(!labelHeureFin.getText().isEmpty() 
-               && !labelMinuteFin.getText().isEmpty()) {
-                critere.setHoraireFin(Integer.parseInt(labelHeureFin.getText()) 
-                                      * 60 + Integer.parseInt(labelMinuteFin
-                                                               .getText()));
-            }
-            
-            // Passer le critère de filtre au contrôleur principal via EchangeurDeVue
-            DonneesCalculeesConferencierControleur controleurPrincipal;
-            controleurPrincipal = EchangeurDeVue
-                                   .getFXMLLoader("donneesCalculeesConferencierVue")
-                                    .getController();
-            controleurPrincipal.appliquerFiltreInverse(critere);
+        if(!labelHeureDebut.getText().isEmpty() 
+           && !labelMinuteDebut.getText().isEmpty()) {
+            critere.setHoraireDebut(Integer.parseInt(labelHeureDebut.getText()) 
+                                    * 60 + Integer.parseInt(labelMinuteDebut
+                                                             .getText()));
+        }
+        
+        if(!labelHeureFin.getText().isEmpty() 
+           && !labelMinuteFin.getText().isEmpty()) {
+            critere.setHoraireFin(Integer.parseInt(labelHeureFin.getText()) 
+                                  * 60 + Integer.parseInt(labelMinuteFin
+                                                           .getText()));
+        }
+        
+        // Passer le critère de filtre au contrôleur principal via EchangeurDeVue
+        DonneesCalculeesConferencierControleur controleurPrincipal;
+        controleurPrincipal = EchangeurDeVue
+                               .getFXMLLoader("donneesCalculeesConferencierVue")
+                                .getController();
+        controleurPrincipal.appliquerFiltreInverse(critere);
             
         // Fermer la popup
         EchangeurDeVue.fermerPopUp("donneesCalculeesConferencierFiltresPopUP");

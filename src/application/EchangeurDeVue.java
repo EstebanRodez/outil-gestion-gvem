@@ -144,26 +144,9 @@ public class EchangeurDeVue {
             throw new IllegalArgumentException(ERREUR_NOM_VUE_VIDE);
         }
         
-        String lienVue = "/application/vue/" + nomVue;
-        if (!nomVue.matches(".*\\.fxml$")) {
-            lienVue += ".fxml";
-        }
+        String lienVue = getLienVue(nomVue);
         
-        Parent parentVue = null;
-        if (cacheVue.containsKey(nomVue)) {
-            
-            parentVue = cacheVue.get(nomVue);
-        } else {
-            
-            try {
-                FXMLLoader loader = IhmMusee.getFXMLLoader(lienVue);
-                cacheFXMLLoader.put(nomVue, loader);
-                parentVue = loader.load();
-                cacheVue.put(nomVue, parentVue);
-            } catch (IOException e) {
-                lancerErreurChargementVue(nomVue);
-            }
-        }
+        Parent parentVue = getParentVue(nomVue, lienVue);
         
         if (parentVue != null) {
             sceneAppli.setRoot(parentVue);
@@ -193,10 +176,7 @@ public class EchangeurDeVue {
             throw new IllegalArgumentException(ERREUR_NOM_VUE_VIDE);
         }
         
-        String lienPopUp = "/application/vue/" + nomVuePopUp;
-        if (!nomVuePopUp.matches(".*\\.fxml$")) {
-            lienPopUp += ".fxml";
-        }
+        String lienPopUp = getLienVue(nomVuePopUp);
         
         Stage stagePopUp = null;
         if (cachePopUp.containsKey(nomVuePopUp)) {
@@ -204,21 +184,7 @@ public class EchangeurDeVue {
             stagePopUp = cachePopUp.get(nomVuePopUp);
         } else {
             
-            Parent parentVue = null;
-            if (cacheVue.containsKey(nomVuePopUp)) {
-                
-                parentVue = cacheVue.get(nomVuePopUp);
-            } else {
-                
-                try {
-                    FXMLLoader loader = IhmMusee.getFXMLLoader(lienPopUp);
-                    cacheFXMLLoader.put(nomVuePopUp, loader);
-                    parentVue = loader.load();
-                    cacheVue.put(nomVuePopUp, parentVue);
-                } catch (IOException e) {
-                    lancerErreurChargementVue(nomVuePopUp);
-                }
-            }
+            Parent parentVue = getParentVue(nomVuePopUp, lienPopUp);
             
             stagePopUp = new Stage();
             
@@ -248,6 +214,68 @@ public class EchangeurDeVue {
         if (cachePopUp.get(nomVuePopUp) != null) {
             cachePopUp.get(nomVuePopUp).close();
         }
+    }
+    
+    /**
+     * Génère le chemin d'accès complet vers une vue FXML en ajoutant
+     * l'extension .fxml si elle est manquante.
+     * <p>
+     * Cette méthode construit le chemin d'accès à une vue spécifiée
+     * par son nom, en s'assurant que l'extension ".fxml" est bien
+     * présente pour garantir le bon chargement du fichier.
+     * </p>
+     *
+     * @param nomVue Le nom de la vue (sans chemin ni extension).
+     * @return Le chemin d'accès complet vers la vue, incluant
+     *         le dossier et l'extension ".fxml".
+     */
+    private static String getLienVue(String nomVue) {
+        
+        String lienVue = "/application/vue/" + nomVue;
+        if (!nomVue.matches(".*\\.fxml$")) {
+            lienVue += ".fxml";
+        }
+        
+        return lienVue;
+    }
+    
+    /**
+     * Récupère un objet Parent représentant la vue spécifiée, en
+     * utilisant un cache pour optimiser le chargement des vues
+     * déjà utilisées.
+     * <p>
+     * Cette méthode tente de récupérer la vue correspondant au nom
+     * spécifié depuis le cache. Si elle n'est pas en cache, elle
+     * charge la vue à partir du lien fourni, stocke le chargement
+     * dans le cache pour une réutilisation future, et gère les
+     * exceptions de chargement.
+     * </p>
+     *
+     * @param nomVue Le nom de la vue utilisée pour l'identification
+     *               dans le cache.
+     * @param lienVue Le chemin complet du fichier FXML à charger.
+     * @return Un objet Parent représentant la vue, ou null si une
+     *         erreur de chargement se produit.
+     */
+    private static Parent getParentVue(String nomVue, String lienVue) {
+        
+        Parent parentVue = null;
+        if (cacheVue.containsKey(nomVue)) {
+            
+            parentVue = cacheVue.get(nomVue);
+        } else {
+            
+            try {
+                FXMLLoader loader = IhmMusee.getFXMLLoader(lienVue);
+                cacheFXMLLoader.put(nomVue, loader);
+                parentVue = loader.load();
+                cacheVue.put(nomVue, parentVue);
+            } catch (IOException e) {
+                lancerErreurChargementVue(nomVue);
+            }
+        }
+        
+        return parentVue;
     }
     
     /**

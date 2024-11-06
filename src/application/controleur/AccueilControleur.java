@@ -6,12 +6,13 @@
 package application.controleur;
 
 import java.awt.Desktop;
-import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
 import application.EchangeurDeVue;
+import application.utilitaire.TraitementDonnees;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -95,10 +96,8 @@ public class AccueilControleur {
      */
     @FXML
     public void initialize() {
-        File dossier = new File("fichiersImportees");
-        File dossierRecu = new File("fichiersImportees");
         
-        if(!dossier.exists() || !dossierRecu.exists()) {
+        if (TraitementDonnees.isDonneesVides()) {
             btnConsulterDonnees.setDisable(true);
             btnExporter.setDisable(true);
         }

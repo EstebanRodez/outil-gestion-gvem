@@ -7,12 +7,14 @@ package application.controleur;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
-import application.utilitaire.TraitementDonnees;
 import application.EchangeurDeVue;
 import application.modele.Exposition;
 import application.modele.ExpositionTemporaire;
+import application.utilitaire.TraitementDonnees;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -23,7 +25,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 
 /**
@@ -43,7 +44,7 @@ import javafx.util.Callback;
  */
 public class DonneesImporteesExpositionControleur {
     
-    private static ArrayList<Exposition> expositions
+    private static LinkedHashMap<String, Exposition> expositions
     = TraitementDonnees.getExpositions();
     
     // Format pour les dates au format jj/MM/aaaa
@@ -54,34 +55,34 @@ public class DonneesImporteesExpositionControleur {
     private Button btnRetour;
     
     @FXML
-    private TableColumn<Exposition, String> dateDebut;
+    private TableColumn<Map.Entry<String, Exposition>, String> dateDebut;
 
     @FXML
-    private TableColumn<Exposition, String> dateFin;
+    private TableColumn<Map.Entry<String, Exposition>, String> dateFin;
 
     @FXML
-    private TableColumn<Exposition, String> identifiant;
+    private TableColumn<Map.Entry<String, Exposition>, String> identifiant;
 
     @FXML
-    private TableColumn<Exposition, String> intitule;
+    private TableColumn<Map.Entry<String, Exposition>, String> intitule;
 
     @FXML
-    private TableColumn<Exposition, String> motsCles;
+    private TableColumn<Map.Entry<String, Exposition>, String> motsCles;
 
     @FXML
-    private TableColumn<Exposition, Integer> nbOeuvre;
+    private TableColumn<Map.Entry<String, Exposition>, String> nbOeuvre;
 
     @FXML
-    private TableColumn<Exposition, Integer> periodeDebut;
+    private TableColumn<Map.Entry<String, Exposition>, String> periodeDebut;
 
     @FXML
-    private TableColumn<Exposition, Integer> periodeFin;
+    private TableColumn<Map.Entry<String, Exposition>, String> periodeFin;
 
     @FXML
-    private TableColumn<Exposition, String> resume;
+    private TableColumn<Map.Entry<String, Exposition>, String> resume;
 
     @FXML
-    private TableView<Exposition> tableExposition;
+    private TableView<Map.Entry<String, Exposition>> tableExposition;
     
     /**
      * 
@@ -90,62 +91,75 @@ public class DonneesImporteesExpositionControleur {
     public void initialize() {
         
         dateDebut.setCellValueFactory(
-                new Callback<CellDataFeatures<Exposition, String>, 
-                             ObservableValue<String>>() {
+            new Callback<CellDataFeatures<Map.Entry<String, Exposition>, String>, 
+                         ObservableValue<String>>() {
                     
             public ObservableValue<String> call(
-                    CellDataFeatures<Exposition, String> ligne) {
+                    CellDataFeatures<Map.Entry<String, Exposition>,
+                                     String> ligne) {
                 
+                Exposition objet = ligne.getValue().getValue();
                 /* La date de début n'existe pas */
-                if (!(ligne.getValue() instanceof ExpositionTemporaire)) {
+                if (!(objet instanceof ExpositionTemporaire)) {
                     return null;
                 }
                 
-                ExpositionTemporaire expoTempo 
-                = (ExpositionTemporaire) ligne.getValue();
+                ExpositionTemporaire expoTempo = (ExpositionTemporaire) objet;
                 return new SimpleStringProperty(
                         formatDate(expoTempo.getDateDebut()));
             }
         });
         
         dateFin.setCellValueFactory(
-                new Callback<CellDataFeatures<Exposition, String>, 
-                             ObservableValue<String>>() {
+            new Callback<CellDataFeatures<Map.Entry<String, Exposition>, String>, 
+                         ObservableValue<String>>() {
                     
             public ObservableValue<String> call(
-                    CellDataFeatures<Exposition, String> ligne) {
+                    CellDataFeatures<Map.Entry<String, Exposition>,
+                                     String> ligne) {
                 
+                Exposition objet = ligne.getValue().getValue();
                 /* La date de fin n'existe pas */
-                if (!(ligne.getValue() instanceof ExpositionTemporaire)) {
+                if (!(objet instanceof ExpositionTemporaire)) {
                     return null;
                 }
                 
-                ExpositionTemporaire expoTempo 
-                = (ExpositionTemporaire) ligne.getValue();
+                ExpositionTemporaire expoTempo = (ExpositionTemporaire) objet;
                 return new SimpleStringProperty(
                         formatDate(expoTempo.getDateFin()));
             }
         });
 
         identifiant.setCellValueFactory(
-                new PropertyValueFactory<>("identifiant"));
-        intitule.setCellValueFactory(new PropertyValueFactory<>("intitule"));
+            cellData -> new SimpleStringProperty(cellData.getValue().getKey())
+        );
+        intitule.setCellValueFactory(
+            cellData -> new SimpleStringProperty(
+                    getExposition(cellData).getIntitule())
+        );
         periodeDebut.setCellValueFactory(
-                new PropertyValueFactory<>("periodeDebut"));
+            cellData -> new SimpleStringProperty(
+                    Integer.toString(getExposition(cellData).getPeriodeDebut()))
+        );
         periodeFin.setCellValueFactory(
-                new PropertyValueFactory<>("periodeFin"));
-        nbOeuvre.setCellValueFactory(new PropertyValueFactory<>("nbOeuvre"));
-        resume.setCellValueFactory(new PropertyValueFactory<>("resume"));
-        
-        // Pour motscles, convertie le tableau en chaîne de caractère
+            cellData -> new SimpleStringProperty(
+                    Integer.toString(getExposition(cellData).getPeriodeFin()))
+        );
+        nbOeuvre.setCellValueFactory(
+            cellData -> new SimpleStringProperty(
+                    Integer.toString(getExposition(cellData).getNbOeuvre()))
+        );
+        resume.setCellValueFactory(
+            cellData -> new SimpleStringProperty(
+                    getExposition(cellData).getResume())
+        );
         motsCles.setCellValueFactory(
-                cellData -> new SimpleStringProperty(
-                        toStringMotsCles(cellData.getValue().getMotsCles()))
+            cellData -> new SimpleStringProperty(
+                    getExposition(cellData).toStringMotsCles())
         );
     
-        // Populate the table with the imported exhibitions
-        ObservableList<Exposition> exposListe
-        = FXCollections.observableArrayList(expositions);
+        ObservableList<Map.Entry<String, Exposition>> exposListe
+        = FXCollections.observableArrayList(expositions.entrySet());
         tableExposition.setItems(exposListe);
     }
     
@@ -158,17 +172,11 @@ public class DonneesImporteesExpositionControleur {
     private static String formatDate(LocalDate date) {
         return date != null ? date.format(DATE_FORMAT) : "";
     }
-
     
-    /**
-     * Transforme le tableau des mots clés en une chaîne de caractère
-     * plus visible.
-     * 
-     * @param motsCles la liste des mots clés
-     * @return la chaîne de caractère contenant les mots clés
-     */
-    private static String toStringMotsCles(String[] motsCles) {
-        return motsCles != null ? String.join(", ", motsCles) : "";
+    private static Exposition getExposition(
+            CellDataFeatures<Entry<String, Exposition>, String> celluleDonnees) {
+        
+        return celluleDonnees.getValue().getValue();
     }
 
     @FXML

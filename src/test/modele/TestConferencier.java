@@ -910,7 +910,7 @@ class TestConferencier {
             },
             CONFERENCIERS_VALIDES[10].getIndisponibilites()
         );
-        assertEquals(null,CONFERENCIERS_VALIDES[11].getIndisponibilites());
+        assertEquals(null, CONFERENCIERS_VALIDES[11].getIndisponibilites());
         
         assertNotEquals(null, CONFERENCIERS_VALIDES[0].getIndisponibilites());
         assertNotEquals(null, CONFERENCIERS_VALIDES[1].getIndisponibilites());
@@ -974,5 +974,63 @@ class TestConferencier {
                         CONFERENCIERS_VALIDES[10].getIndisponibilites());
         assertNotEquals(new Indisponibilite[0],
                         CONFERENCIERS_VALIDES[11].getIndisponibilites());
+    }
+    
+    /**
+     * Méthode de test pour
+     * {@link application.modele.Conferencier#toStringSpecialites()}.
+     */
+    @Test
+    void testToStringSpecialites() {
+   
+        assertEquals("Art, Histoire",
+                     CONFERENCIERS_VALIDES[0].toStringSpecialites());
+        assertEquals("Art, Histoire",
+                     CONFERENCIERS_VALIDES[1].toStringSpecialites());
+        assertEquals("peinture, impressionnisme, art contemporain",
+                     CONFERENCIERS_VALIDES[2].toStringSpecialites());
+        assertEquals("art moderne",
+                     CONFERENCIERS_VALIDES[3].toStringSpecialites());
+        assertEquals("photo, peinture",
+                     CONFERENCIERS_VALIDES[4].toStringSpecialites());
+        assertEquals("Art, Histoire",
+                     CONFERENCIERS_VALIDES[5].toStringSpecialites());
+        assertEquals("Art, Histoire",
+                     CONFERENCIERS_VALIDES[6].toStringSpecialites());
+        assertEquals("photo, peinture",
+                     CONFERENCIERS_VALIDES[7].toStringSpecialites());
+        assertEquals("Art, Histoire",
+                     CONFERENCIERS_VALIDES[8].toStringSpecialites());
+        assertEquals("Art, Histoire",
+                     CONFERENCIERS_VALIDES[9].toStringSpecialites());
+        assertEquals("Art, Histoire",
+                     CONFERENCIERS_VALIDES[10].toStringSpecialites());
+        assertEquals("Art, Histoire",
+                     CONFERENCIERS_VALIDES[11].toStringSpecialites());
+        
+        assertNotNull(CONFERENCIERS_VALIDES[0].toStringSpecialites());
+        assertNotNull(CONFERENCIERS_VALIDES[1].toStringSpecialites());
+        assertNotNull(CONFERENCIERS_VALIDES[2].toStringSpecialites());
+        assertNotNull(CONFERENCIERS_VALIDES[3].toStringSpecialites());
+        assertNotNull(CONFERENCIERS_VALIDES[4].toStringSpecialites());
+        assertNotNull(CONFERENCIERS_VALIDES[5].toStringSpecialites());
+        assertNotNull(CONFERENCIERS_VALIDES[6].toStringSpecialites());
+        assertNotNull(CONFERENCIERS_VALIDES[7].toStringSpecialites());
+        assertNotNull(CONFERENCIERS_VALIDES[8].toStringSpecialites());
+        assertNotNull(CONFERENCIERS_VALIDES[9].toStringSpecialites());
+        assertNotNull(CONFERENCIERS_VALIDES[10].toStringSpecialites());
+        assertNotNull(CONFERENCIERS_VALIDES[11].toStringSpecialites());
+        assertNotEquals("", CONFERENCIERS_VALIDES[0].toStringSpecialites());
+        assertNotEquals("", CONFERENCIERS_VALIDES[1].toStringSpecialites());
+        assertNotEquals("", CONFERENCIERS_VALIDES[2].toStringSpecialites());
+        assertNotEquals("", CONFERENCIERS_VALIDES[3].toStringSpecialites());
+        assertNotEquals("", CONFERENCIERS_VALIDES[4].toStringSpecialites());
+        assertNotEquals("", CONFERENCIERS_VALIDES[5].toStringSpecialites());
+        assertNotEquals("", CONFERENCIERS_VALIDES[6].toStringSpecialites());
+        assertNotEquals("", CONFERENCIERS_VALIDES[7].toStringSpecialites());
+        assertNotEquals("", CONFERENCIERS_VALIDES[8].toStringSpecialites());
+        assertNotEquals("", CONFERENCIERS_VALIDES[9].toStringSpecialites());
+        assertNotEquals("", CONFERENCIERS_VALIDES[10].toStringSpecialites());
+        assertNotEquals("", CONFERENCIERS_VALIDES[11].toStringSpecialites());
     }
 }
