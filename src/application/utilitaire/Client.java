@@ -45,7 +45,7 @@ public class Client {
      *                     des données sur le disque
      */
     public static void recevoirFichiers(String adresseServeur, int port,
-                                         String[] cheminsFichiers, String dossierDestination) {
+                                        String[] cheminsFichiers, String dossierDestination) {
         
         final int TAILLE_BLOC_DONNEES = 1024;
 
@@ -62,10 +62,10 @@ public class Client {
                 long tailleFichier = dataIn.readLong();
 
                 // Assurez-vous que le dossier de destination existe
-                File dossier = new File(dossierDestination);
-                if (!dossier.exists()) {
-                    dossier.mkdirs(); // Créer les répertoires nécessaires
-                }
+//                File dossier = new File(dossierDestination);
+//                if (!dossier.exists()) {
+//                    dossier.mkdirs(); // Créer les répertoires nécessaires
+//                }
 
                 try (FileOutputStream fileOut = new FileOutputStream(fichier)) {
                     byte[] buffer = new byte[TAILLE_BLOC_DONNEES];

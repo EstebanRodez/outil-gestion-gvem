@@ -1,5 +1,5 @@
 /*
- * GestionDeFichier.java
+ * GestionFichiers.java
  * 23 oct. 2024
  * IUT de Rodez, pas de copyright
  */
@@ -14,22 +14,24 @@ import java.io.IOException;
 /**
  * TODO commenter le fonctionnement
  */
-public class GestionDeFichier {
+public class GestionFichiers {
     
     // Méthode pour lire le contenu d'un fichier texte (ou binaire converti en chaîne)
     /**
      * TODO commenter le rôle de la méthode
-     * @param path
+     * @param chemin
      * @return le contenu du fichier
      * @throws IOException
      */
-    public String readFile(String path) throws IOException {
+    public static String lireFichier(String chemin) throws IOException {
         
         StringBuilder contenu = new StringBuilder();
-        try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                contenu.append(line).append("\n");
+        try (BufferedReader fluxLecture
+             = new BufferedReader(new FileReader(chemin))) {
+            
+            String ligne;
+            while ((ligne = fluxLecture.readLine()) != null) {
+                contenu.append(ligne).append("\n");
             }
         }
         return contenu.toString();
@@ -38,13 +40,17 @@ public class GestionDeFichier {
     // Méthode pour écrire le contenu dans un fichier (utilisée pour .csv et .bin)
     /**
      * TODO commenter le rôle de la méthode
-     * @param path
+     * @param chemin
      * @param contenu
      * @throws IOException
      */
-    public void writeFile(String path, String contenu) throws IOException {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(path))) {
-            writer.write(contenu);
+    public static void ecrireFichier(String chemin, String contenu)
+            throws IOException {
+        
+        try (BufferedWriter fluxEcriture
+             = new BufferedWriter(new FileWriter(chemin))) {
+            
+            fluxEcriture.write(contenu);
         }
     }
 }

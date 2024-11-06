@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import application.EchangeurDeVue;
 import application.utilitaire.Client;
 import application.utilitaire.DecryptageVigenere;
-import application.utilitaire.GestionDeFichier;
 import application.utilitaire.ImportationCSV;
 import application.utilitaire.TraitementDonnees;
 import javafx.event.ActionEvent;
@@ -34,6 +33,9 @@ import javafx.scene.control.TextField;
 public class ImporterDistantControleur {
 
     private static final String DOSSIER_IMPORTATION = "Dossier données cryptée";
+    
+    private static final String NOM_FICHIER_DONNEES_CRYPTEES
+    = "Donnees_cryptees";
 
     // Liste des fichiers .dat chiffrés attendus
     private static final String[] CHEMIN_FICHIER_DAT_RECU = {
@@ -41,32 +43,32 @@ public class ImporterDistantControleur {
         "visites.dat", "clients.dat"
     };
 
-    /**
-     * Décrypte un fichier chiffré par Vigenère et enregistre le contenu déchiffré.
-     * 
-     * @param fichier Le fichier chiffré à déchiffrer.
-     * @param gestionFichiers L'outil de gestion des fichiers.
-     * @param key La clé de déchiffrement.
-     * @throws Exception Si une erreur survient durant le décryptage.
-     */
-    private void decrypterFichierVigenere(File fichier, GestionDeFichier gestionFichiers, String key) throws Exception {
-        String contenuCrypte = gestionFichiers.readFile(fichier.getAbsolutePath());
-
-        if (contenuCrypte == null || contenuCrypte.isEmpty()) {
-            throw new IOException("Le contenu du fichier est vide ou introuvable : " + fichier.getAbsolutePath());
-        }
-
-        DecryptageVigenere dechiffreurVigenere = new DecryptageVigenere(key);
-        String contenuDecrypte = dechiffreurVigenere.decrypt(contenuCrypte);
-
-        // Créer un fichier de sortie pour les données décryptées
-        String cheminFichierDecrypte = fichier.getParent() + File.separator + "dechiffre_" + fichier.getName();
-        gestionFichiers.writeFile(cheminFichierDecrypte, contenuDecrypte);
-
-        if (!new File(cheminFichierDecrypte).exists()) {
-            throw new IOException("Erreur d'écriture du fichier déchiffré : " + cheminFichierDecrypte);
-        }
-    }
+//    /**
+//     * Décrypte un fichier chiffré par Vigenère et enregistre le contenu déchiffré.
+//     * 
+//     * @param fichier Le fichier chiffré à déchiffrer.
+//     * @param gestionFichiers L'outil de gestion des fichiers.
+//     * @param key La clé de déchiffrement.
+//     * @throws Exception Si une erreur survient durant le décryptage.
+//     */
+//    private void decrypterFichierVigenere(File fichier, GestionDeFichier gestionFichiers, String key) throws Exception {
+//        String contenuCrypte = gestionFichiers.readFile(fichier.getAbsolutePath());
+//
+//        if (contenuCrypte == null || contenuCrypte.isEmpty()) {
+//            throw new IOException("Le contenu du fichier est vide ou introuvable : " + fichier.getAbsolutePath());
+//        }
+//
+//        DecryptageVigenere dechiffreurVigenere = new DecryptageVigenere(key);
+//        String contenuDecrypte = dechiffreurVigenere.decrypt(contenuCrypte);
+//
+//        // Créer un fichier de sortie pour les données décryptées
+//        String cheminFichierDecrypte = fichier.getParent() + File.separator + "dechiffre_" + fichier.getName();
+//        gestionFichiers.writeFile(cheminFichierDecrypte, contenuDecrypte);
+//
+//        if (!new File(cheminFichierDecrypte).exists()) {
+//            throw new IOException("Erreur d'écriture du fichier déchiffré : " + cheminFichierDecrypte);
+//        }
+//    }
 
     @FXML
     private Button btnAide;
@@ -144,6 +146,10 @@ public class ImporterDistantControleur {
 //        } else {
 //            showInvalidInputAlert(ipServeur, port);
 //        }
+        
+        String ipServeur = txtFieldIPServeur.getText().trim();
+        String[] fichiersRecus = {NOM_FICHIER_DONNEES_CRYPTEES};
+        Client.recevoirFichiers(ipServeur, 65432, fichiersRecus, null);
     }
 
     @FXML

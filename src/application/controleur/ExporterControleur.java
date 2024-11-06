@@ -19,9 +19,10 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import application.EchangeurDeVue;
+import application.utilitaire.Cryptage;
 import application.utilitaire.CryptageVigenere;
 import application.utilitaire.DecryptageVigenere;
-import application.utilitaire.GestionDeFichier;
+import application.utilitaire.Serveur;
 import application.utilitaire.TraitementDonnees;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -87,47 +88,16 @@ public class ExporterControleur {
 
     @FXML
     void btnExporterAction(ActionEvent event) {
+        
         // Clé de chiffrement
-        String key = JOptionPane.showInputDialog("Entrez la clé de cryptage Vigenère :");
-
-        // Chemins des fichiers temporaire et final
-        ZonedDateTime tempsActuel;
+        // TODO Améliorer la pop up
+        String cle = JOptionPane.showInputDialog("Entrez la clé de cryptage Vigenère :");
         
-        tempsActuel = ZonedDateTime.now();
+        String nomFichierCrypte;
+        nomFichierCrypte = Cryptage.creerFichierDonnees(cle);
+        String[] fichiersCryptes = {nomFichierCrypte};
         
-        Path fichierTemp;
-        Path fichierFinal;
-        fichierTemp = Path.of(NOM_DOSSIER_TEMPORAIRE, 
-                			String.format(FORMAT_NOM_SAUVEGARDE,
-                					tempsActuel.getDayOfMonth(),
-                					tempsActuel.getMonthValue(),
-                					tempsActuel.getYear(),
-                					tempsActuel.getHour(),
-                					tempsActuel.getMinute(),
-                					tempsActuel.getSecond()));
-        
-        fichierFinal = Path.of(NOM_DOSSIER_FINAL, 
-    						String.format(FORMAT_NOM_SAUVEGARDE,
-    								tempsActuel.getDayOfMonth(),
-    								tempsActuel.getMonthValue(),
-    								tempsActuel.getYear(),
-    								tempsActuel.getHour(),
-    								tempsActuel.getMinute(),
-    								tempsActuel.getSecond()));
-
-        try {
-        	
-            // Enregistrement des données formatées dans le fichier temporaire
-            sauvegarderDonneesFormatees(fichierTemp);
-            
-            // Chiffrement du fichier temporaire et écriture dans le fichier final
-            crypterDonneesVigenere(fichierTemp, fichierFinal, key);
-            
-            System.out.println("Données chiffrées exportées dans " + fichierFinal);
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Erreur lors de l'exportation des données.");
-        }
+        Serveur.envoyerFichiers(65432, fichiersCryptes);
     }
     
     /**
@@ -218,27 +188,27 @@ public class ExporterControleur {
      * @param key La clé de déchiffrement Vigenère.
      * @throws IOException En cas d'erreur de lecture ou d'écriture de fichier.
      */
-    private void decrypterFichierVigenere(File fichier, GestionDeFichier gestionFichiers, String key) throws IOException {
-        String contenuCrypte = gestionFichiers.readFile(fichier.getAbsolutePath());
-        if (contenuCrypte.isEmpty()) {
-            System.err.println("Le fichier est vide ou introuvable : " + fichier.getAbsolutePath());
-            return;
-        }
-
-        DecryptageVigenere dechiffreurVigenere = new DecryptageVigenere(key);
-        String contenuDecrypte = dechiffreurVigenere.decrypt(contenuCrypte);
-
-        String cheminFichierDecrypte = fichier.getParent() + File.separator + "decrypted_" 
-                + fichier.getName().replace(".dat", "_decrypted.dat");
-
-        gestionFichiers.writeFile(cheminFichierDecrypte, contenuDecrypte);
-        System.out.println("Fichier décrypté avec succès : " + cheminFichierDecrypte);
-
-        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Fichier décrypté avec succès : " + cheminFichierDecrypte, ButtonType.OK);
-        alert.setTitle("Déchiffrement réussi");
-        alert.setHeaderText(null);
-        alert.showAndWait();
-    }
+//    private void decrypterFichierVigenere(File fichier, GestionDeFichier gestionFichiers, String key) throws IOException {
+//        String contenuCrypte = gestionFichiers.readFile(fichier.getAbsolutePath());
+//        if (contenuCrypte.isEmpty()) {
+//            System.err.println("Le fichier est vide ou introuvable : " + fichier.getAbsolutePath());
+//            return;
+//        }
+//
+//        DecryptageVigenere dechiffreurVigenere = new DecryptageVigenere(key);
+//        String contenuDecrypte = dechiffreurVigenere.decrypt(contenuCrypte);
+//
+//        String cheminFichierDecrypte = fichier.getParent() + File.separator + "decrypted_" 
+//                + fichier.getName().replace(".dat", "_decrypted.dat");
+//
+//        gestionFichiers.writeFile(cheminFichierDecrypte, contenuDecrypte);
+//        System.out.println("Fichier décrypté avec succès : " + cheminFichierDecrypte);
+//
+//        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Fichier décrypté avec succès : " + cheminFichierDecrypte, ButtonType.OK);
+//        alert.setTitle("Déchiffrement réussi");
+//        alert.setHeaderText(null);
+//        alert.showAndWait();
+//    }
 
     @FXML
     void btnAideAction(ActionEvent event) {
