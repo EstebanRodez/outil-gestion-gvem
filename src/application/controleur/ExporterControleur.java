@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
@@ -98,6 +99,11 @@ public class ExporterControleur {
         String[] fichiersCryptes = {nomFichierCrypte};
         
         Serveur.envoyerFichiers(65432, fichiersCryptes);
+        try {
+            Files.delete(Path.of(nomFichierCrypte));
+        } catch (IOException e) {
+            
+        }
     }
     
     /**
