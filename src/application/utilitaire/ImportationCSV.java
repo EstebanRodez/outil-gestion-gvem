@@ -12,6 +12,7 @@ import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  * La classe ImportationCSV permet d'importer et de verifier des
@@ -186,6 +187,7 @@ public class ImportationCSV {
         
         char lettreIdentifiant;
         String premierIdentifiant = donneesLignes.get(0)[0];
+        HashSet<String> listeIdentifiant = new HashSet<>();
         
         /*
          * On récupère le type de données grâce à l'identifiant de la
@@ -221,10 +223,11 @@ public class ImportationCSV {
             String identifiant = donnees[0];
             if (!identifiant.matches(
                     String.format(FORMAT_IDENTIFIANT, lettreIdentifiant))
-                || !TraitementDonnees.isIdentifiantUnique(identifiant)) {
+                || listeIdentifiant.contains(identifiant)) {
                 
                 return false;
             }
+            listeIdentifiant.add(identifiant);
             
             /* L'identifiant est forcément valide dans ce cas */
             if (lettreIdentifiant == 'E') { // Exposition
