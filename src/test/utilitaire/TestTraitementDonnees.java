@@ -147,5 +147,56 @@ class TestTraitementDonnees {
         assertNotNull(TraitementDonnees.getVisites());
         TraitementDonnees.supprimerDonnees();
     }
+    
+    /**
+     * Méthode de test pour
+     * {@link application.utilitaire.TraitementDonnees#isDonneesVides()}.
+     */
+    @Test
+    void testIsDonneesVides() {
+        
+        TraitementDonnees.supprimerDonnees();
+        assertTrue(TraitementDonnees.isDonneesVides());
+        
+        assertDoesNotThrow(() -> {
+            ImportationCSV.importerDonnees(
+                    CHEMIN_EXPOSITIONS+"expositions_valides1.csv");
+        });
+        assertFalse(TraitementDonnees.isDonneesVides());
+        TraitementDonnees.supprimerDonnees();
+        
+        assertDoesNotThrow(() -> {
+            ImportationCSV.importerDonnees(
+                    CHEMIN_EMPLOYES+"employes_valides1.csv");
+        });
+        assertFalse(TraitementDonnees.isDonneesVides());
+        TraitementDonnees.supprimerDonnees();
+        
+        assertDoesNotThrow(() -> {
+            ImportationCSV.importerDonnees(
+                    CHEMIN_CONFERENCIERS+"conferencier_valide1.csv");
+        });
+        assertFalse(TraitementDonnees.isDonneesVides());
+        TraitementDonnees.supprimerDonnees();
+        
+        assertDoesNotThrow(() -> {
+            ImportationCSV.importerDonnees(
+                    CHEMIN_EXPOSITIONS+"expositions_valides1.csv");
+        });
+        assertDoesNotThrow(() -> {
+            ImportationCSV.importerDonnees(
+                    CHEMIN_EMPLOYES+"employes_valides1.csv");
+        });
+        assertDoesNotThrow(() -> {
+            ImportationCSV.importerDonnees(
+                    CHEMIN_CONFERENCIERS+"conferencier_valide1.csv");
+        });
+        assertDoesNotThrow(() -> {
+            ImportationCSV.importerDonnees(
+                    CHEMIN_VISITES+"visites_valides1.csv");
+        });
+        assertFalse(TraitementDonnees.isDonneesVides());
+        TraitementDonnees.supprimerDonnees();
+    }
 
 }
