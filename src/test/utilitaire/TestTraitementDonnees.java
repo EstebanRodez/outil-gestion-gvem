@@ -7,10 +7,7 @@ package test.utilitaire;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
 
 import application.utilitaire.ImportationCSV;
 import application.utilitaire.TraitementDonnees;
@@ -21,7 +18,6 @@ import application.utilitaire.TraitementDonnees;
  * @author Esteban Vroemen
  * @version 1.0
  */
-@TestMethodOrder(OrderAnnotation.class)
 class TestTraitementDonnees {
     
     private final String CHEMIN_RACINE_TEST
@@ -88,7 +84,6 @@ class TestTraitementDonnees {
      * {@link application.utilitaire.TraitementDonnees#getExpositions()}.
      */
     @Test
-    @Order(1)
     void testGetExpositions() {
         
         // Test utile pour 100% couverture
@@ -102,6 +97,7 @@ class TestTraitementDonnees {
         });
         
         assertNotNull(TraitementDonnees.getExpositions());
+        TraitementDonnees.supprimerDonnees();
     }
 
     /**
@@ -109,7 +105,6 @@ class TestTraitementDonnees {
      * {@link application.utilitaire.TraitementDonnees#getEmployes()}.
      */
     @Test
-    @Order(2)
     void testGetEmployes() {
         
         assertDoesNotThrow(() -> {
@@ -118,6 +113,7 @@ class TestTraitementDonnees {
         });
         
         assertNotNull(TraitementDonnees.getEmployes());
+        TraitementDonnees.supprimerDonnees();
     }
 
     /**
@@ -125,7 +121,6 @@ class TestTraitementDonnees {
      * {@link application.utilitaire.TraitementDonnees#getConferenciers()}.
      */
     @Test
-    @Order(3)
     void testGetConferenciers() {
         
         assertDoesNotThrow(() -> {
@@ -134,6 +129,7 @@ class TestTraitementDonnees {
         });
         
         assertNotNull(TraitementDonnees.getConferenciers());
+        TraitementDonnees.supprimerDonnees();
     }
 
     /**
@@ -141,8 +137,21 @@ class TestTraitementDonnees {
      * {@link application.utilitaire.TraitementDonnees#getClients()}.
      */
     @Test
-    @Order(4)
     void testGetClients() {
+        
+        // Données nécessaires
+        assertDoesNotThrow(() -> {
+            ImportationCSV.importerDonnees(
+                    CHEMIN_EXPOSITIONS+"expositions_valides1.csv");
+        });
+        assertDoesNotThrow(() -> {
+            ImportationCSV.importerDonnees(
+                    CHEMIN_EMPLOYES+"employes_valides1.csv");
+        });
+        assertDoesNotThrow(() -> {
+            ImportationCSV.importerDonnees(
+                    CHEMIN_CONFERENCIERS+"conferencier_valide1.csv");
+        });
         
         assertDoesNotThrow(() -> {
             ImportationCSV.importerDonnees(
@@ -150,6 +159,7 @@ class TestTraitementDonnees {
         });
         
         assertNotNull(TraitementDonnees.getClients());
+        TraitementDonnees.supprimerDonnees();
     }
 
     /**
@@ -157,8 +167,21 @@ class TestTraitementDonnees {
      * {@link application.utilitaire.TraitementDonnees#getVisites()}.
      */
     @Test
-    @Order(5)
     void testGetVisites() {
+        
+        // Données nécessaires
+        assertDoesNotThrow(() -> {
+            ImportationCSV.importerDonnees(
+                    CHEMIN_EXPOSITIONS+"expositions_valides1.csv");
+        });
+        assertDoesNotThrow(() -> {
+            ImportationCSV.importerDonnees(
+                    CHEMIN_EMPLOYES+"employes_valides1.csv");
+        });
+        assertDoesNotThrow(() -> {
+            ImportationCSV.importerDonnees(
+                    CHEMIN_CONFERENCIERS+"conferencier_valide1.csv");
+        });
         
         assertDoesNotThrow(() -> {
             ImportationCSV.importerDonnees(
@@ -166,6 +189,7 @@ class TestTraitementDonnees {
         });
         
         assertNotNull(TraitementDonnees.getVisites());
+        TraitementDonnees.supprimerDonnees();
     }
 
 }
