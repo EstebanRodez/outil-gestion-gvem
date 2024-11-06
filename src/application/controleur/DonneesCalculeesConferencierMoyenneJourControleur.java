@@ -107,7 +107,7 @@ public class DonneesCalculeesConferencierMoyenneJourControleur {
         }
         
         if (listePhrase.getValue().equals(choix[3])) {
-            System.out.println("choix 4 ");
+            System.out.println("donneesCalculeesConferencierEnsembleJourVue ");
         }
     }
 
