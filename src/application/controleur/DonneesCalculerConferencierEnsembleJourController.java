@@ -1,5 +1,5 @@
 /*
- * DonneesCalculeesConferencieroyenneJourControleur.java                           
+ * donneesCalculeesConferencierEnsembleJourControleur.java                           
  * 5 nov. 2024
  * IUT de Rodez, pas de copyright
  */
@@ -32,19 +32,19 @@ import javafx.scene.control.TableView;
 /**
  * TODO commenter la responsabilité de cette class (SRP)
  */
-public class DonneesCalculeesConferencierMoyenneJourControleur {
+public class DonneesCalculerConferencierEnsembleJourController {
     
     private static LinkedHashMap<String, Visite> visites
     = TraitementDonnees.getVisites();
     
-    private static String[] choix = {"conférencier qui n’ont aucune visite",
-                                    "conférencier et leur nombre moyen de " 
+    private static String[] choix = {"conférencers qui n’ont aucune visite",
+                                    "conférencers et leur nombre moyen de " 
                                     + "visites programmées chaque jour",
-                                    "conférencier et leur nombre moyen de "
+                                    "conférencers et leur nombre moyen de "
                                     + "visites programmées chaque semaine",
-                                    "l’esembles des conférencier et leur nombre moyen de "
+                                    "l’esembles des conférencers et leur nombre moyen de "
                                     + "visites prévues chaque jour",
-                                    "l’esembles des conférencier et leur nombre moyen de "
+                                    "l’esembles des conférencers et leur nombre moyen de "
                                     + "visites prévues chaque semaine"};
     
     @FXML
@@ -66,7 +66,7 @@ public class DonneesCalculeesConferencierMoyenneJourControleur {
     private ChoiceBox<String> listePhrase;
 
     @FXML
-    private TableView<VisiteMoyenneResultat> tableExposition;
+    private TableView<VisiteMoyenneResultat> tableConferencier;
     
     /**
      * 
@@ -83,12 +83,12 @@ public class DonneesCalculeesConferencierMoyenneJourControleur {
         
         nbMoyen.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getMoyenneVisites()).asObject());
         
-        calculerMoyenneVisitesParConferencier(visites);
+        calculerMoyenneVisitesEnsembleConferencier(visites);
     }
     
     @FXML
     void btnFiltresAction(ActionEvent event) {
-        EchangeurDeVue.creerPopUp("donneesCalculeesConferencierMoyenneJourFiltrePopUp");
+        EchangeurDeVue.creerPopUp("donneesCalculeesConfrencierEnsembleJourFiltrePopUp");
     }
     
     @FXML
@@ -103,11 +103,15 @@ public class DonneesCalculeesConferencierMoyenneJourControleur {
         }
         
         if (listePhrase.getValue().equals(choix[2])) {
-            System.out.println("choix 3 ");
+            System.out.println("choix 3");
         }
         
         if (listePhrase.getValue().equals(choix[3])) {
-            System.out.println("choix 4 ");
+            EchangeurDeVue.changerVue("donneesCalculeesConferencierEnsembleJourVue");
+        }
+        
+        if (listePhrase.getValue().equals(choix[4])) {
+            System.out.println("choix 5");
         }
     }
 
@@ -132,19 +136,18 @@ public class DonneesCalculeesConferencierMoyenneJourControleur {
     }
     
     /**
-     * Calcule la moyenne de visites programmées par jour pour chaque exposition
+     * Calcule la moyenne de visites programmées par jour pour chaque conférencier
      * à partir d'une liste de visites spécifiée.
      * 
      * @param visites la liste des visites à utiliser pour le calcul
      */
-    private void calculerMoyenneVisitesParConferencier(
+    private void calculerMoyenneVisitesEnsembleConferencier(
             LinkedHashMap<String, Visite> visites) {
-        
         // Initialiser les dates globales de début et de fin
         LocalDate dateDebutGlobal = LocalDate.MAX;
         LocalDate dateFinGlobal = LocalDate.MIN;
 
-        // Parcourir toutes les visites pour trouver les dates globales min et max
+        // Trouver les dates globales min et max
         for (Map.Entry<String, Visite> paire : visites.entrySet()) {
             LocalDate dateVisite = paire.getValue().getDate();
 
@@ -157,58 +160,35 @@ public class DonneesCalculeesConferencierMoyenneJourControleur {
             }
         }
 
-        System.out.println("dateDebutGlobal : " + dateDebutGlobal);
-        System.out.println("dateFinGlobal : " + dateFinGlobal);
-        
         // Calculer le nombre total de jours global entre dateDebutGlobal et dateFinGlobal
         long totalJours = ChronoUnit.DAYS.between(dateDebutGlobal, dateFinGlobal) + 1;
         System.out.println("Nombre total de jours global : " + totalJours);
 
-        // Création d'une Map pour compter les visites par exposition
-        Map<String, Integer> visitesParExposition = new HashMap<>();
+        // Calculer le nombre total de visites
+        int totalVisitesGlobal = visites.size();
 
-        // Compter les visites pour chaque exposition
-        for (Map.Entry<String, Visite> paire : visites.entrySet()) {
-            
-            String nomConferencier
-            = paire.getValue().getConferencier().getNom();
-            visitesParExposition.put(
-                nomConferencier,
-                visitesParExposition.getOrDefault(nomConferencier, 0) + 1
-            );
-        }
-
-        // Calculer la moyenne de visites pour chaque exposition
+        // Calculer la moyenne globale
+        double moyenneGlobale = totalJours > 0 ? (double) totalVisitesGlobal / totalJours : 0;
+        
+        System.out.println("totalVisitesGlobal : " + totalVisitesGlobal);
+        System.out.println("totalJours : " + totalJours + "\n");
+        
+        // Créer la liste de résultats avec une seule entrée pour la moyenne globale
         List<VisiteMoyenneResultat> resultats = new ArrayList<>();
+        resultats.add(new VisiteMoyenneResultat("Toutes les conferencier", moyenneGlobale));
 
-        for (Map.Entry<String, Integer> entry : visitesParExposition.entrySet()) {
-            String intituleExposition = entry.getKey();
-            int totalVisites = entry.getValue();
-
-            // Calculer la moyenne des visites pour cette exposition
-            double moyenneVisites = totalJours > 0 ? (double) totalVisites / totalJours : 0;
-            
-            System.out.println("totalVisites : " + totalVisites);
-            System.out.println("totalJours : " + totalJours + "\n");
-
-            // Ajouter le résultat à la liste
-            resultats.add(new VisiteMoyenneResultat(intituleExposition, moyenneVisites));
-        }
-
-        // Mettre à jour le tableau avec les résultats
-        ObservableList<VisiteMoyenneResultat> exposListe = FXCollections.observableArrayList(resultats);
-        tableExposition.setItems(exposListe);
+        // Mettre à jour le tableau avec le résultat
+        ObservableList<VisiteMoyenneResultat> confsListe = FXCollections.observableArrayList(resultats);
+        tableConferencier.setItems(confsListe);
+        
     }
-
-
-
     
     /**
      * Applique les critères de filtrage inversés sur la liste des visites.
      * Parcourt la liste des visites et affiche celles qui ne correspondent
      * pas aux critères spécifiés dans l'objet CritereFiltre.
      * Les visites qui ne respectent pas au moins un des critères 
-     * (type d'exposition, conférencier, exposition, dates et horaires)
+     * (type de conferenicer, conférencier, conférencier, dates et horaires)
      * sont ajoutées à la liste des visites filtrées.
      *
      * @param critere objet contenant les critères de filtrage à 
@@ -236,10 +216,8 @@ public class DonneesCalculeesConferencierMoyenneJourControleur {
             }
         }
 
-        // Maintenant, calculez les moyennes en utilisant la liste filtrée
-        calculerMoyenneVisitesParConferencier(visitesFiltrees);
+        // Maintenant, calculez la moyenne global en utilisant la liste filtrée
+        calculerMoyenneVisitesEnsembleConferencier(visitesFiltrees);
     }
 
-
 }
-
