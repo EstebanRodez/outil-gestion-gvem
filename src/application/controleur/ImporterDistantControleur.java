@@ -17,6 +17,20 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 
+/**
+ * Contrôleur pour la gestion de l'importation de données à distance.
+ * 
+ * Cette classe permet à l'utilisateur de spécifier une adresse IP et
+ * un port pour se connecter à un serveur distant. Elle inclut
+ * également des fonctionnalités pour afficher des règles
+ * d'utilisation via un lien.
+ * 
+ * @author Romain Augé
+ * @author Ayoub Laluti
+ * @author Baptiste Thenieres
+ * @author Esteban Vroemen
+ * @version 1.0
+ */
 public class ImporterDistantControleur {
 
     private static final String DOSSIER_IMPORTATION = "Dossier données cryptée";
@@ -76,58 +90,60 @@ public class ImporterDistantControleur {
 
     @FXML
     void btnConnexionAction(ActionEvent event) {
-        String ipServeur = txtFieldIPServeur.getText().trim();
-        String port = txtFieldPort.getText().trim();
-
-        if (isValideAdresseIP(ipServeur) && isPortValide(port)) {
-            // Réception des fichiers depuis le serveur distant
-            Client.recevoirFichiers(ipServeur, Integer.parseInt(port), CHEMIN_FICHIER_DAT_RECU, DOSSIER_IMPORTATION);
-
-            File dossierImportes = new File(DOSSIER_IMPORTATION);
-            if (!dossierImportes.exists()) {
-                dossierImportes.mkdir();
-            }
-
-            ArrayList<File> fichiersSelectionnes = new ArrayList<>();
-            for (String nomFichier : CHEMIN_FICHIER_DAT_RECU) {
-                fichiersSelectionnes.add(new File(dossierImportes, nomFichier));
-            }
-
-            String key = javax.swing.JOptionPane.showInputDialog("Entrez la clé de décryptage Vigenère :");
-            GestionDeFichier gestionFichiers = new GestionDeFichier();
-
-            if (!fichiersSelectionnes.isEmpty()) {
-                for (File fichier : fichiersSelectionnes) {
-                    try {
-                        if (fichier.exists()) {
-                            decrypterFichierVigenere(fichier, gestionFichiers, key);
-                            File fichierDecrypte = new File(fichier.getParent() + "/dechiffre_" + fichier.getName());
-
-                            // Charger et traiter les données déchiffrées
-                            ArrayList<String[]> donneesLignes = ImportationCSV.importerDonnees(fichierDecrypte.getAbsolutePath());
-
-                            // Traiter chaque fichier pour remplir les listes de données
-                            if (fichier.getName().contains("expositions")) {
-                                TraitementDonnees.creerExpositions(donneesLignes);
-                            } else if (fichier.getName().contains("employes")) {
-                                TraitementDonnees.creerEmployes(donneesLignes);
-                            } else if (fichier.getName().contains("conferenciers")) {
-                                TraitementDonnees.creerConferenciers(donneesLignes);
-                            } else if (fichier.getName().contains("visites")) {
-                                TraitementDonnees.creerVisites(donneesLignes);
-                            } else if (fichier.getName().contains("clients")) {
-                                TraitementDonnees.creerClients(donneesLignes);
-                            }
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        // TODO: Améliorer la gestion des erreurs
-                    }
-                }
-            }
-        } else {
-            showInvalidInputAlert(ipServeur, port);
-        }
+        
+        // TODO A régler
+//        String ipServeur = txtFieldIPServeur.getText().trim();
+//        String port = txtFieldPort.getText().trim();
+//
+//        if (isValideAdresseIP(ipServeur) && isPortValide(port)) {
+//            // Réception des fichiers depuis le serveur distant
+//            Client.recevoirFichiers(ipServeur, Integer.parseInt(port), CHEMIN_FICHIER_DAT_RECU, DOSSIER_IMPORTATION);
+//
+//            File dossierImportes = new File(DOSSIER_IMPORTATION);
+//            if (!dossierImportes.exists()) {
+//                dossierImportes.mkdir();
+//            }
+//
+//            ArrayList<File> fichiersSelectionnes = new ArrayList<>();
+//            for (String nomFichier : CHEMIN_FICHIER_DAT_RECU) {
+//                fichiersSelectionnes.add(new File(dossierImportes, nomFichier));
+//            }
+//
+//            String key = javax.swing.JOptionPane.showInputDialog("Entrez la clé de décryptage Vigenère :");
+//            GestionDeFichier gestionFichiers = new GestionDeFichier();
+//
+//            if (!fichiersSelectionnes.isEmpty()) {
+//                for (File fichier : fichiersSelectionnes) {
+//                    try {
+//                        if (fichier.exists()) {
+//                            decrypterFichierVigenere(fichier, gestionFichiers, key);
+//                            File fichierDecrypte = new File(fichier.getParent() + "/dechiffre_" + fichier.getName());
+//
+//                            // Charger et traiter les données déchiffrées
+//                            ArrayList<String[]> donneesLignes = ImportationCSV.importerDonnees(fichierDecrypte.getAbsolutePath());
+//
+//                            // Traiter chaque fichier pour remplir les listes de données
+//                            if (fichier.getName().contains("expositions")) {
+//                                TraitementDonnees.creerExpositions(donneesLignes);
+//                            } else if (fichier.getName().contains("employes")) {
+//                                TraitementDonnees.creerEmployes(donneesLignes);
+//                            } else if (fichier.getName().contains("conferenciers")) {
+//                                TraitementDonnees.creerConferenciers(donneesLignes);
+//                            } else if (fichier.getName().contains("visites")) {
+//                                TraitementDonnees.creerVisites(donneesLignes);
+//                            } else if (fichier.getName().contains("clients")) {
+//                                TraitementDonnees.creerClients(donneesLignes);
+//                            }
+//                        }
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                        // TODO: Améliorer la gestion des erreurs
+//                    }
+//                }
+//            }
+//        } else {
+//            showInvalidInputAlert(ipServeur, port);
+//        }
     }
 
     @FXML
