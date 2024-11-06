@@ -35,50 +35,6 @@ class TestTraitementDonnees {
     private final String CHEMIN_VISITES
     = CHEMIN_RACINE_TEST + "CSV/visites/";
 
-//    /**
-//     * Méthode de test pour
-//     * {@link application.utilitaire.TraitementDonnees#creerExpositions(
-//     * java.util.ArrayList)}.
-//     */
-//    @Test
-//    void testCreerExpositions() {
-//        
-//        // Méthode protected testée dans TestImportationCSV
-//    }
-//
-//    /**
-//     * Méthode de test pour
-//     * {@link application.utilitaire.TraitementDonnees#creerEmployes(
-//     * java.util.ArrayList)}.
-//     */
-//    @Test
-//    void testCreerEmployes() {
-//        
-//        // Méthode protected testée dans TestImportationCSV
-//    }
-//
-//    /**
-//     * Méthode de test pour
-//     * {@link application.utilitaire.TraitementDonnees#creerConferenciers(
-//     * java.util.ArrayList)}.
-//     */
-//    @Test
-//    void testCreerConferenciers() {
-//        
-//        // Méthode protected testée dans TestImportationCSV
-//    }
-//
-//    /**
-//     * Méthode de test pour
-//     * {@link application.utilitaire.TraitementDonnees#creerVisites(
-//     * java.util.ArrayList)}.
-//     */
-//    @Test
-//    void testCreerVisites() {
-//        
-//        // Méthode protected testée dans TestImportationCSV
-//    }
-
     /**
      * Méthode de test pour
      * {@link application.utilitaire.TraitementDonnees#getExpositions()}.

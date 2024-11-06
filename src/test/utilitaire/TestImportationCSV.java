@@ -7,10 +7,7 @@ package test.utilitaire;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
 
 import application.utilitaire.FichierDonneesInvalides;
 import application.utilitaire.ImportationCSV;
@@ -22,7 +19,6 @@ import application.utilitaire.TraitementDonnees;
  * @author Esteban Vroemen
  * @version 1.0
  */
-@TestMethodOrder(OrderAnnotation.class)
 class TestImportationCSV {
     
     private final String CHEMIN_RACINE_TEST
@@ -47,7 +43,6 @@ class TestImportationCSV {
      * Cas uniquement invalides
      */
     @Test
-    @Order(1)
     void testImporterDonneesInvalide() {
         
         // Exception car Identifiant Exposition non trouvé
@@ -286,7 +281,6 @@ class TestImportationCSV {
      * Cas uniquement valides
      */
     @Test
-    @Order(2)
     void testImporterDonneesValide() {
         
         // Test utile pour 100% couverture
