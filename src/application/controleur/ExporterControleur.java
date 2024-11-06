@@ -94,10 +94,12 @@ public class ExporterControleur {
         
         // Clé de chiffrement
         // TODO Améliorer la pop up
-        String cle = JOptionPane.showInputDialog("Entrez la clé de cryptage Vigenère :");
+        // String cle = JOptionPane.showInputDialog("Entrez la clé de cryptage Vigenère :");
         
+        // TODO Envoyer la clé à distance
+        // Clé de chiffrement : 12
         String nomFichierCrypte;
-        nomFichierCrypte = Cryptage.creerFichierDonnees(cle);
+        nomFichierCrypte = Cryptage.creerFichierDonnees("12");
         String[] fichiersCryptes = {nomFichierCrypte};
         
         Serveur.envoyerFichiers(65432, fichiersCryptes);

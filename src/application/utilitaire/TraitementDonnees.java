@@ -447,6 +447,43 @@ public class TraitementDonnees {
     }
     
     /**
+     * @param expositions
+     */
+    public static void setExpositions(
+            LinkedHashMap<String, Exposition> expositions) {
+        TraitementDonnees.expositions = expositions;
+    }
+
+    /**
+     * @param employes
+     */
+    public static void setEmployes(LinkedHashMap<String, Employe> employes) {
+        TraitementDonnees.employes = employes;
+    }
+
+    /**
+     * @param conferenciers
+     */
+    public static void setConferenciers(
+            LinkedHashMap<String, Conferencier> conferenciers) {
+        TraitementDonnees.conferenciers = conferenciers;
+    }
+
+    /**
+     * @param clients
+     */
+    public static void setClients(ArrayList<Client> clients) {
+        TraitementDonnees.clients = clients;
+    }
+
+    /**
+     * @param visites
+     */
+    public static void setVisites(LinkedHashMap<String, Visite> visites) {
+        TraitementDonnees.visites = visites;
+    }
+
+    /**
      * Vérifie si un identifiant donné est unique dans sa catégorie
      * d'éléments.
      * 

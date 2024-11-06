@@ -1,10 +1,14 @@
 package application.controleur;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 
 import application.EchangeurDeVue;
 import application.utilitaire.Client;
+import application.utilitaire.Decryptage;
 import application.utilitaire.DecryptageVigenere;
 import application.utilitaire.ImportationCSV;
 import application.utilitaire.TraitementDonnees;
@@ -150,6 +154,20 @@ public class ImporterDistantControleur {
         String ipServeur = txtFieldIPServeur.getText().trim();
         String[] fichiersRecus = {NOM_FICHIER_DONNEES_CRYPTEES};
         Client.recevoirFichiers(ipServeur, 65432, fichiersRecus, null);
+        
+        // TODO Recevoir la clé à distance
+        // Clé de chiffrement : 12
+        if (Decryptage.decrypterFichierDonnees("12")) {
+            System.out.println("Données reçues avec succès");
+        } else {
+            System.out.println("Echec");
+        }
+        
+        try {
+            Files.delete(Path.of(NOM_FICHIER_DONNEES_CRYPTEES));
+        } catch (IOException e) {
+            
+        }
     }
 
     @FXML
