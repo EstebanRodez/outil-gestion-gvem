@@ -137,14 +137,16 @@ public class DonneesCalculeesConferencierMoyenneJourControleur {
      * 
      * @param visites la liste des visites à utiliser pour le calcul
      */
-    private void calculerMoyenneVisitesParConferencier(List<Visite> visites) {
+    private void calculerMoyenneVisitesParConferencier(
+            LinkedHashMap<String, Visite> visites) {
+        
         // Initialiser les dates globales de début et de fin
         LocalDate dateDebutGlobal = LocalDate.MAX;
         LocalDate dateFinGlobal = LocalDate.MIN;
 
         // Parcourir toutes les visites pour trouver les dates globales min et max
-        for (Visite visite : visites) {
-            LocalDate dateVisite = visite.getDate();
+        for (Map.Entry<String, Visite> paire : visites.entrySet()) {
+            LocalDate dateVisite = paire.getValue().getDate();
 
             if (dateVisite.isBefore(dateDebutGlobal)) {
                 dateDebutGlobal = dateVisite;
@@ -166,9 +168,14 @@ public class DonneesCalculeesConferencierMoyenneJourControleur {
         Map<String, Integer> visitesParExposition = new HashMap<>();
 
         // Compter les visites pour chaque exposition
-        for (Visite visite : visites) {
-            String nomConferencier = visite.getConferencier().getNom();
-            visitesParExposition.put(nomConferencier, visitesParExposition.getOrDefault(nomConferencier, 0) + 1);
+        for (Map.Entry<String, Visite> paire : visites.entrySet()) {
+            
+            String nomConferencier
+            = paire.getValue().getConferencier().getNom();
+            visitesParExposition.put(
+                nomConferencier,
+                visitesParExposition.getOrDefault(nomConferencier, 0) + 1
+            );
         }
 
         // Calculer la moyenne de visites pour chaque exposition
@@ -208,21 +215,24 @@ public class DonneesCalculeesConferencierMoyenneJourControleur {
      *                appliquer
      */
     public void appliquerFiltreMoyenneJour(CritereFiltreVisite critere) {
-        List<Visite> visitesFiltrees = new ArrayList<>();
+        LinkedHashMap<String, Visite> visitesFiltrees = new LinkedHashMap<>();
 
-        for (Visite visite : visites) {
+        for (Map.Entry<String, Visite> paire : visites.entrySet()) {
             boolean match = true; 
 
             // Filtrer par date de visite
             if (critere.getDateDebut() != null) {
-                LocalDate dateFin = critere.getDateFin() != null ? critere.getDateFin() : critere.getDateDebut();
-                if (visite.getDate().isBefore(critere.getDateDebut()) || visite.getDate().isAfter(dateFin)) {
+                LocalDate dateFin 
+                = critere.getDateFin() != null ? critere.getDateFin() 
+                                               : critere.getDateDebut();
+                if (paire.getValue().getDate().isBefore(critere.getDateDebut()) 
+                    || paire.getValue().getDate().isAfter(dateFin)) {
                     match = false;
                 }
             }
       
             if (match) {
-                visitesFiltrees.add(visite);
+                visitesFiltrees.putLast(paire.getKey(), paire.getValue());
             }
         }
 

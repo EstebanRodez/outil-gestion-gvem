@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -33,7 +34,7 @@ import javafx.scene.control.TableView;
  */
 public class DonneesCalculeesExpositionEnsembleJourControleur {
     
-    private static ArrayList<Visite> visites
+    private static LinkedHashMap<String, Visite> visites
     = TraitementDonnees.getVisites();
     
     private static String[] choix = {"expositions qui n’ont aucune visite",
@@ -140,14 +141,15 @@ public class DonneesCalculeesExpositionEnsembleJourControleur {
      * 
      * @param visites la liste des visites à utiliser pour le calcul
      */
-    private void calculerMoyenneVisitesEnsembleExposition(List<Visite> visites) {
+    private void calculerMoyenneVisitesEnsembleExposition(
+            LinkedHashMap<String, Visite> visites) {
         // Initialiser les dates globales de début et de fin
         LocalDate dateDebutGlobal = LocalDate.MAX;
         LocalDate dateFinGlobal = LocalDate.MIN;
 
         // Trouver les dates globales min et max
-        for (Visite visite : visites) {
-            LocalDate dateVisite = visite.getDate();
+        for (Map.Entry<String, Visite> paire : visites.entrySet()) {
+            LocalDate dateVisite = paire.getValue().getDate();
 
             if (dateVisite.isBefore(dateDebutGlobal)) {
                 dateDebutGlobal = dateVisite;
@@ -193,21 +195,24 @@ public class DonneesCalculeesExpositionEnsembleJourControleur {
      *                appliquer
      */
     public void appliquerFiltreMoyenneJour(CritereFiltreVisite critere) {
-        List<Visite> visitesFiltrees = new ArrayList<>();
+        LinkedHashMap<String, Visite> visitesFiltrees = new LinkedHashMap<>();
 
-        for (Visite visite : visites) {
+        for (Map.Entry<String, Visite> paire : visites.entrySet()) {
             boolean match = true; 
 
             // Filtrer par date de visite
             if (critere.getDateDebut() != null) {
-                LocalDate dateFin = critere.getDateFin() != null ? critere.getDateFin() : critere.getDateDebut();
-                if (visite.getDate().isBefore(critere.getDateDebut()) || visite.getDate().isAfter(dateFin)) {
+                LocalDate dateFin 
+                = critere.getDateFin() != null ? critere.getDateFin() 
+                                               : critere.getDateDebut();
+                if (paire.getValue().getDate().isBefore(critere.getDateDebut()) 
+                    || paire.getValue().getDate().isAfter(dateFin)) {
                     match = false;
                 }
             }
       
             if (match) {
-                visitesFiltrees.add(visite);
+                visitesFiltrees.putLast(paire.getKey(), paire.getValue());
             }
         }
 
