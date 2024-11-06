@@ -139,11 +139,15 @@ public class DonneesCalculeesExpositionControleur {
         }
         
         if (listePhrase.getValue().equals(choix[2])) {
-            EchangeurDeVue.changerVue("donneesCalculeesExpositionEnsembleJourVue");
+            System.out.println("choix 3");
         }
         
         if (listePhrase.getValue().equals(choix[3])) {
-            System.out.println("choix 4 ");
+            EchangeurDeVue.changerVue("donneesCalculeesExpositionEnsembleJourVue");
+        }
+        
+        if (listePhrase.getValue().equals(choix[4])) {
+            System.out.println("choix 5");
         }
     }
 

@@ -55,7 +55,11 @@ public class DonneesCalculeesConferencierControleur {
                                      "conférencier et leur nombre moyen de " 
                                      + "visites programmées chaque jour",
                                      "conférencier et leur nombre moyen de "
-                                     + "visites programmées chaque semaine"};
+                                     + "visites programmées chaque semaine",
+                                     "l’esembles des conférencier et leur nombre moyen de "
+                                     + "visites prévues chaque jour",
+                                     "l’esembles des conférencier et leur nombre moyen de "
+                                     + "visites prévues chaque semaine"};
     
     @FXML
     private Button btnFiltres;
@@ -126,12 +130,20 @@ public class DonneesCalculeesConferencierControleur {
     @FXML
     void btnValiderAction(ActionEvent event) {
         
+        if (listePhrase.getValue().equals(choix[0])) {
+            EchangeurDeVue.changerVue("donneesCalculeesConferencierVue");
+        }
+        
         if (listePhrase.getValue().equals(choix[1])) {
-            System.out.println("choix 2 ");
+            EchangeurDeVue.changerVue("donneesCalculeesConferencierMoyenneJourVue");
         }
         
         if (listePhrase.getValue().equals(choix[2])) {
             System.out.println("choix 3 ");
+        }
+        
+        if (listePhrase.getValue().equals(choix[3])) {
+            System.out.println("choix 4 ");
         }
     }
 

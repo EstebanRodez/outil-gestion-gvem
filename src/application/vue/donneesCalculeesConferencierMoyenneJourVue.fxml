@@ -5,20 +5,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SeparatorMenuItem?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controleur.DonneesCalculeesConferencierControleur">
+<VBox prefHeight="400.0" prefWidth="640.0" stylesheets="@css/vue.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controleur.DonneesCalculeesConferencierMoyenneJourControleur">
    <children>
       <MenuBar VBox.vgrow="NEVER">
          <menus>
@@ -51,9 +39,6 @@
                      </HBox.margin>
                   </Button>
                </children>
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
             </HBox>
             <HBox alignment="CENTER" prefHeight="427.0" prefWidth="960.0">
                <children>
@@ -71,9 +56,8 @@
                   </VBox>
                   <TableView fx:id="tableExposition" prefHeight="376.0" prefWidth="800.0">
                      <columns>
-                        <TableColumn fx:id="aucuneVisite" prefWidth="266.0" text="Conférencier n'ayant aucune visite" />
-                        <TableColumn fx:id="date" prefWidth="266.0" text="Date" />
-                        <TableColumn fx:id="horaireDebut" prefWidth="267.0" text="Heure début" />
+                        <TableColumn fx:id="conferencier" prefWidth="400.0" text="Conferencier" />
+                        <TableColumn fx:id="nbMoyen" prefWidth="400.0" text="Nombre moyen de visites prévues" />
                      </columns>
                      <HBox.margin>
                         <Insets />
@@ -86,7 +70,7 @@
             </HBox>
             <HBox prefHeight="80.0" prefWidth="960.0">
                <children>
-                  <Button fx:id="btnRetour" mnemonicParsing="false" onAction="#btnRetourAction" prefHeight="30.0" prefWidth="100.0" style="-fx-text-fill: black; -fx-background-color: white;" text="Retour">
+                  <Button fx:id="btnRetour" mnemonicParsing="false" onAction="#btnRetourAction" prefHeight="30.0" prefWidth="100.0" style="-fx-text-fill: black; -fx-background-color: white;" styleClass="btnMenu" text="Retour">
                      <font>
                         <Font size="16.0" />
                      </font>

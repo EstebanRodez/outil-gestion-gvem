@@ -118,7 +118,11 @@ public class DonneesCalculeesExpositionMoyenneJourControleur {
         }
         
         if (listePhrase.getValue().equals(choix[3])) {
-            System.out.println("choix 4 ");
+            EchangeurDeVue.changerVue("donneesCalculeesExpositionEnsembleJourVue");
+        }
+        
+        if (listePhrase.getValue().equals(choix[4])) {
+            System.out.println("choix 5");
         }
     }
 
