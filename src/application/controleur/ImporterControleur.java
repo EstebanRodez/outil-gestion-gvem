@@ -66,7 +66,8 @@ public class ImporterControleur {
 
     @FXML
     void btnImporterLocalAction(ActionEvent event) {
-     // Créer le dossier d'importation s'il n'existe pas
+        // EchangeurDeVue.changerVue("menuImportationVue");
+        // Créer le dossier d'importation s'il n'existe pas
         File dossierImportation = new File(DOSSIER_IMPORTATION);
         
         // Créer une instance de FileChooser
