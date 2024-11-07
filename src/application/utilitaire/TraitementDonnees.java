@@ -12,6 +12,7 @@ import java.util.LinkedHashMap;
 
 import application.modele.Client;
 import application.modele.Conferencier;
+import application.modele.Donnees;
 import application.modele.Employe;
 import application.modele.Exposition;
 import application.modele.ExpositionTemporaire;
@@ -42,20 +43,22 @@ public class TraitementDonnees {
     private final static DateTimeFormatter FORMATTER_DATE_FR
     = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    private static LinkedHashMap<String, Exposition> expositions
-    = new LinkedHashMap<>();
+    private static Donnees donnees = new Donnees();
     
-    private static LinkedHashMap<String, Employe> employes
-    = new LinkedHashMap<>();
-    
-    private static LinkedHashMap<String, Conferencier> conferenciers
-    = new LinkedHashMap<>();
-    
-    private static ArrayList<Client> clients
-    = new ArrayList<>();
-    
-    private static LinkedHashMap<String, Visite> visites
-    = new LinkedHashMap<>();
+//    private static LinkedHashMap<String, Exposition> expositions
+//    = new LinkedHashMap<>();
+//    
+//    private static LinkedHashMap<String, Employe> employes
+//    = new LinkedHashMap<>();
+//    
+//    private static LinkedHashMap<String, Conferencier> conferenciers
+//    = new LinkedHashMap<>();
+//    
+//    private static ArrayList<Client> clients
+//    = new ArrayList<>();
+//    
+//    private static LinkedHashMap<String, Visite> visites
+//    = new LinkedHashMap<>();
 
     /**
      * Crée des objets Exposition ou ExpositionTemporaire à partir
@@ -80,17 +83,17 @@ public class TraitementDonnees {
 
         Exposition expo;
 
-        for (String[] donnees : donneesLignes) {
+        for (String[] donneesLigne : donneesLignes) {
             
-            identifiant = donnees[0];
-            intitule = donnees[1];
-            periodeDebut = Integer.parseInt(donnees[2]);
-            periodeFin = Integer.parseInt(donnees[3]);
-            nbOeuvre = Integer.parseInt(donnees[4]);
-            motsCles = donnees[5].replace("#", "").split(", ");
-            resume = donnees[6];
+            identifiant = donneesLigne[0];
+            intitule = donneesLigne[1];
+            periodeDebut = Integer.parseInt(donneesLigne[2]);
+            periodeFin = Integer.parseInt(donneesLigne[3]);
+            nbOeuvre = Integer.parseInt(donneesLigne[4]);
+            motsCles = donneesLigne[5].replace("#", "").split(", ");
+            resume = donneesLigne[6];
             
-            if (donnees.length == 7) { // Exposition permanente
+            if (donneesLigne.length == 7) { // Exposition permanente
 
                 expo = new Exposition(identifiant, intitule, periodeDebut, 
                                       periodeFin, nbOeuvre, motsCles,
@@ -98,15 +101,15 @@ public class TraitementDonnees {
 
             } else { // Exposition temporaire
                 
-                dateDebut = LocalDate.parse(donnees[7], FORMATTER_DATE_FR);
-                dateFin = LocalDate.parse(donnees[8], FORMATTER_DATE_FR);
+                dateDebut = LocalDate.parse(donneesLigne[7], FORMATTER_DATE_FR);
+                dateFin = LocalDate.parse(donneesLigne[8], FORMATTER_DATE_FR);
 
                 expo = new ExpositionTemporaire(identifiant, intitule,
                                                 periodeDebut, periodeFin,
                                                 nbOeuvre, motsCles, resume,
                                                 dateDebut, dateFin);
             }
-            expositions.putLast(identifiant, expo);
+            donnees.getExpositions().putLast(identifiant, expo);
         }
     }
     
@@ -127,20 +130,20 @@ public class TraitementDonnees {
 
         Employe employe;
 
-        for (String[] donnees : donneesLignes) {
+        for (String[] donneesLigne : donneesLignes) {
 
-            identifiant = donnees[0];
-            nom = donnees[1];
-            prenom = donnees[2];
-            if (donnees.length == 3 || donnees[3].isBlank()) { 
+            identifiant = donneesLigne[0];
+            nom = donneesLigne[1];
+            prenom = donneesLigne[2];
+            if (donneesLigne.length == 3 || donneesLigne[3].isBlank()) { 
                 
                 employe = new Employe(identifiant, nom, prenom);
             } else { 
                 
-                numTel = donnees[3];
+                numTel = donneesLigne[3];
                 employe = new Employe(identifiant, nom, prenom, numTel);   
             }
-            employes.putLast(identifiant, employe);
+            donnees.getEmployes().putLast(identifiant, employe);
         }     
     }
     
@@ -165,30 +168,30 @@ public class TraitementDonnees {
         Conferencier conferencier;
         Indisponibilite[] indisponibilites;
 
-        for (String[] donnees : donneesLignes) {
+        for (String[] donneesLigne : donneesLignes) {
 
-            identifiant = donnees[0];
-            nom = donnees[1];
-            prenom = donnees[2];
-            specialites = donnees[3].replace("#", "").split(", ");
-            numTel = donnees[4]; 
-            estInterne = donnees[5].equalsIgnoreCase("oui");
+            identifiant = donneesLigne[0];
+            nom = donneesLigne[1];
+            prenom = donneesLigne[2];
+            specialites = donneesLigne[3].replace("#", "").split(", ");
+            numTel = donneesLigne[4]; 
+            estInterne = donneesLigne[5].equalsIgnoreCase("oui");
 
-            if (donnees.length == 6 
-                || donnees[6].isBlank()
-                || donnees[7].isBlank()) {
+            if (donneesLigne.length == 6 
+                || donneesLigne[6].isBlank()
+                || donneesLigne[7].isBlank()) {
 
                 conferencier = new Conferencier(identifiant, nom, prenom, 
                                                 specialites, numTel,
                                                 estInterne);
             } else {                     
 
-                indisponibilites = creeIndisponibilité(donnees);
+                indisponibilites = creeIndisponibilité(donneesLigne);
                 conferencier = new Conferencier(identifiant, nom, prenom, 
                                                 specialites, numTel, 
                                                 estInterne, indisponibilites);   
             }
-            conferenciers.putLast(identifiant, conferencier);
+            donnees.getConferenciers().putLast(identifiant, conferencier);
         }
     }
     
@@ -216,38 +219,38 @@ public class TraitementDonnees {
         Conferencier conferencier;
         Visite visite;
 
-        for (String[] donnees : donneesLignes) {
+        for (String[] donneesLigne : donneesLignes) {
             
-            identifiant = donnees[0];
-            date = LocalDate.parse(donnees[4], FORMATTER_DATE_FR); 
+            identifiant = donneesLigne[0];
+            date = LocalDate.parse(donneesLigne[4], FORMATTER_DATE_FR); 
 
-            decoupageHeureDebut = donnees[5].split("h");
+            decoupageHeureDebut = donneesLigne[5].split("h");
             heureDebut = Integer.parseInt(decoupageHeureDebut[0]) * 60 
                          + Integer.parseInt(decoupageHeureDebut[1]);
 
             // Chercher l'exposition par son identifiant
-            exposition = expositions.get(donnees[1]);
+            exposition = donnees.getExpositions().get(donneesLigne[1]);
             if (exposition == null) {
                 throw new IllegalArgumentException(
                         ERREUR_EXPOSITION_INTROUVABLE);
             }
             
             // Chercher le conférencier par son identifiant
-            conferencier = conferenciers.get(donnees[2]);
+            conferencier = donnees.getConferenciers().get(donneesLigne[2]);
             if (conferencier == null) {
                 throw new IllegalArgumentException(
                         ERREUR_CONFERENCIER_INTROUVABLE);
             }
             
             // Chercher l'employé par son identifiant
-            employe = employes.get(donnees[3]);
+            employe = donnees.getEmployes().get(donneesLigne[3]);
             if (employe == null) {
                 throw new IllegalArgumentException(ERREUR_EMPLOYE_INTROUVABLE);
             }
 
             // Extraire l'intitulé et le numéro de téléphone
-            intitule = donnees[6];
-            numTel = donnees[7];
+            intitule = donneesLigne[6];
+            numTel = donneesLigne[7];
 
             // Vérifier si le client existe déjà
             client = trouverClient(intitule, numTel);
@@ -255,26 +258,15 @@ public class TraitementDonnees {
                 
                 // Si le client n'existe pas, en créer un nouveau
                 client = new Client(intitule, numTel);
-                clients.add(client);
+                donnees.getClients().add(client);
             }
 
             // Créer l'objet Visite
             visite = new Visite(identifiant, heureDebut, date, client,
                     exposition, employe, conferencier);
 
-            visites.putLast(identifiant, visite);        
+            donnees.getVisites().putLast(identifiant, visite);        
         }
-    }
-    
-    /**
-     * Indique si les données stockées en mémoire sont vides
-     * 
-     * @return true si les données en mémoire sont vides sinon false
-     */
-    public static boolean isDonneesVides() {
-        
-        return expositions.size() == 0 && visites.size() == 0
-               && conferenciers.size() == 0 && employes.size() == 0;
     }
     
     /**
@@ -392,7 +384,7 @@ public class TraitementDonnees {
      *         sinon null.
      */
     private static Client trouverClient(String intitule, String numTel) {
-        for (Client client : clients) {
+        for (Client client : donnees.getClients()) {
             if (client.getIntitule().equals(intitule) 
                 && client.getNumTel().equals(numTel)) {
                 return client; // Client trouvé
@@ -401,86 +393,104 @@ public class TraitementDonnees {
         return null;
     }
 
+//    /**
+//     * Récupère la liste des expositions traitées.
+//     * 
+//     * @return Une liste d'objets Exposition
+//     */
+//    public static LinkedHashMap<String, Exposition> getExpositions() {
+//        return expositions;
+//    }
+//    
+//    /**
+//     * Récupère la liste des employés traitées.
+//     * 
+//     * @return Une liste d'objets Employe
+//     */
+//    public static LinkedHashMap<String, Employe> getEmployes() {
+//        return employes;
+//    }
+//    
+//    /**
+//     * Récupère la liste des conférenciers traitées.
+//     * 
+//     * @return Une liste d'objets Conferencier
+//     */
+//    public static LinkedHashMap<String, Conferencier> getConferenciers() {
+//        return conferenciers;
+//    }
+//    
+//    /**
+//     * Récupère la liste des clients traitées.
+//     * 
+//     * @return Une liste d'objets Client
+//     */
+//    public static ArrayList<Client> getClients() {
+//        return clients;
+//    }
+//    
+//    /**
+//     * Récupère la liste des visites traitées.
+//     * 
+//     * @return Une liste d'objets Visite
+//     */
+//    public static LinkedHashMap<String, Visite> getVisites() {
+//        return visites;
+//    }
+//    
+//    /**
+//     * @param expositions
+//     */
+//    public static void setExpositions(
+//            LinkedHashMap<String, Exposition> expositions) {
+//        TraitementDonnees.expositions = expositions;
+//    }
+//
+//    /**
+//     * @param employes
+//     */
+//    public static void setEmployes(LinkedHashMap<String, Employe> employes) {
+//        TraitementDonnees.employes = employes;
+//    }
+//
+//    /**
+//     * @param conferenciers
+//     */
+//    public static void setConferenciers(
+//            LinkedHashMap<String, Conferencier> conferenciers) {
+//        TraitementDonnees.conferenciers = conferenciers;
+//    }
+//
+//    /**
+//     * @param clients
+//     */
+//    public static void setClients(ArrayList<Client> clients) {
+//        TraitementDonnees.clients = clients;
+//    }
+//
+//    /**
+//     * @param visites
+//     */
+//    public static void setVisites(LinkedHashMap<String, Visite> visites) {
+//        TraitementDonnees.visites = visites;
+//    }
+    
     /**
-     * Récupère la liste des expositions traitées.
+     * Récupère les données stockées en mémoire.
      * 
-     * @return Une liste d'objets Exposition
+     * @return donnees les données de l'application
      */
-    public static LinkedHashMap<String, Exposition> getExpositions() {
-        return expositions;
+    public static Donnees getDonnees() {
+        return donnees;
     }
     
     /**
-     * Récupère la liste des employés traitées.
+     * Définit les données stockées en mémoire.
      * 
-     * @return Une liste d'objets Employe
+     * @param donnees les données à stocker
      */
-    public static LinkedHashMap<String, Employe> getEmployes() {
-        return employes;
-    }
-    
-    /**
-     * Récupère la liste des conférenciers traitées.
-     * 
-     * @return Une liste d'objets Conferencier
-     */
-    public static LinkedHashMap<String, Conferencier> getConferenciers() {
-        return conferenciers;
-    }
-    
-    /**
-     * Récupère la liste des clients traitées.
-     * 
-     * @return Une liste d'objets Client
-     */
-    public static ArrayList<Client> getClients() {
-        return clients;
-    }
-    
-    /**
-     * Récupère la liste des visites traitées.
-     * 
-     * @return Une liste d'objets Visite
-     */
-    public static LinkedHashMap<String, Visite> getVisites() {
-        return visites;
-    }
-    
-    /**
-     * @param expositions
-     */
-    public static void setExpositions(
-            LinkedHashMap<String, Exposition> expositions) {
-        TraitementDonnees.expositions = expositions;
-    }
-
-    /**
-     * @param employes
-     */
-    public static void setEmployes(LinkedHashMap<String, Employe> employes) {
-        TraitementDonnees.employes = employes;
-    }
-
-    /**
-     * @param conferenciers
-     */
-    public static void setConferenciers(
-            LinkedHashMap<String, Conferencier> conferenciers) {
-        TraitementDonnees.conferenciers = conferenciers;
-    }
-
-    /**
-     * @param clients
-     */
-    public static void setClients(ArrayList<Client> clients) {
-        TraitementDonnees.clients = clients;
-    }
-
-    /**
-     * @param visites
-     */
-    public static void setVisites(LinkedHashMap<String, Visite> visites) {
-        TraitementDonnees.visites = visites;
+    public static void setDonnees(Donnees donnees) {
+        TraitementDonnees.donnees = donnees;
     }
 
     /**
@@ -495,26 +505,22 @@ public class TraitementDonnees {
         
         char lettreIdentifiant = identifiant.charAt(0);
         if (lettreIdentifiant == 'E') { // Exposition
-            return !expositions.containsKey(identifiant);
+            return !donnees.getExpositions().containsKey(identifiant);
         } else if (lettreIdentifiant == 'R') { // Visite
-            return !visites.containsKey(identifiant);
+            return !donnees.getVisites().containsKey(identifiant);
         } else if (lettreIdentifiant == 'N') { // Employé
-            return !employes.containsKey(identifiant);
+            return !donnees.getVisites().containsKey(identifiant);
         } else { // Forcément Conférencier
-            return !conferenciers.containsKey(identifiant);
+            return !donnees.getConferenciers().containsKey(identifiant);
         }
     }
-    
+
     /**
      * Supprime les données stockées en mémoire.
      * Opération irréversible.
      */
     public static void supprimerDonnees() {
         
-        expositions.clear();
-        employes.clear();
-        conferenciers.clear();
-        clients.clear();
-        visites.clear();
+        donnees = null;
     }
 }

@@ -113,48 +113,48 @@ public class ExporterControleur {
     /**
      * Sauvegarde les données formatées des ArrayLists dans un fichier temporaire.
      */
-    private void sauvegarderDonneesFormatees(Path fichierTemp) throws IOException {
-        // Créez le répertoire temporaire s'il n'existe pas
-        File dossierTemporaire = new File(NOM_DOSSIER_TEMPORAIRE);
-        if (!dossierTemporaire.exists()) {
-            if (!dossierTemporaire.mkdirs()) {  // Crée tous les répertoires nécessaires
-                throw new IOException("Échec de la création du dossier temporaire : " + NOM_DOSSIER_TEMPORAIRE);
-            }
-        }
-
-        // Créez le fichier dans le dossier temporaire
-        File fichier = fichierTemp.toFile();
-        if (!fichier.exists()) {
-            if (!fichier.createNewFile()) {
-                throw new IOException("Échec de la création du fichier temporaire : " + fichierTemp);
-            }
-        }
-
-        try {
-            ObjectOutputStream fluxEcriture = new ObjectOutputStream(new FileOutputStream(fichier));
-            // Sauvegarde de chaque liste formatée dans le fichier
-            fluxEcriture.writeObject(TraitementDonnees.getExpositions());
-            fluxEcriture.writeObject(TraitementDonnees.getEmployes());
-            fluxEcriture.writeObject(TraitementDonnees.getConferenciers());
-            fluxEcriture.writeObject(TraitementDonnees.getClients());
-            fluxEcriture.writeObject(TraitementDonnees.getVisites());
-            fluxEcriture.close();
-
-            Alert alertInfo = new Alert(AlertType.INFORMATION);
-            alertInfo.setTitle("Information");
-            alertInfo.setHeaderText(null);
-            alertInfo.setContentText("Le fichier de sauvegarde de votre partie a bien été sauvegardé :\n" + fichierTemp.toString());
-            alertInfo.show();
-        } catch (IOException erreur) {
-            erreur.printStackTrace();
-
-            Alert alertErreur = new Alert(AlertType.ERROR);
-            alertErreur.setTitle("Erreur");
-            alertErreur.setHeaderText(null);
-            alertErreur.setContentText(erreur.getMessage());
-            alertErreur.show();
-        }
-    }
+//    private void sauvegarderDonneesFormatees(Path fichierTemp) throws IOException {
+//        // Créez le répertoire temporaire s'il n'existe pas
+//        File dossierTemporaire = new File(NOM_DOSSIER_TEMPORAIRE);
+//        if (!dossierTemporaire.exists()) {
+//            if (!dossierTemporaire.mkdirs()) {  // Crée tous les répertoires nécessaires
+//                throw new IOException("Échec de la création du dossier temporaire : " + NOM_DOSSIER_TEMPORAIRE);
+//            }
+//        }
+//
+//        // Créez le fichier dans le dossier temporaire
+//        File fichier = fichierTemp.toFile();
+//        if (!fichier.exists()) {
+//            if (!fichier.createNewFile()) {
+//                throw new IOException("Échec de la création du fichier temporaire : " + fichierTemp);
+//            }
+//        }
+//
+//        try {
+//            ObjectOutputStream fluxEcriture = new ObjectOutputStream(new FileOutputStream(fichier));
+//            // Sauvegarde de chaque liste formatée dans le fichier
+//            fluxEcriture.writeObject(TraitementDonnees.getDonnees());
+//            fluxEcriture.writeObject(TraitementDonnees.getEmployes());
+//            fluxEcriture.writeObject(TraitementDonnees.getConferenciers());
+//            fluxEcriture.writeObject(TraitementDonnees.getClients());
+//            fluxEcriture.writeObject(TraitementDonnees.getVisites());
+//            fluxEcriture.close();
+//
+//            Alert alertInfo = new Alert(AlertType.INFORMATION);
+//            alertInfo.setTitle("Information");
+//            alertInfo.setHeaderText(null);
+//            alertInfo.setContentText("Le fichier de sauvegarde de votre partie a bien été sauvegardé :\n" + fichierTemp.toString());
+//            alertInfo.show();
+//        } catch (IOException erreur) {
+//            erreur.printStackTrace();
+//
+//            Alert alertErreur = new Alert(AlertType.ERROR);
+//            alertErreur.setTitle("Erreur");
+//            alertErreur.setHeaderText(null);
+//            alertErreur.setContentText(erreur.getMessage());
+//            alertErreur.show();
+//        }
+//    }
     
     /**
      * Lit le fichier temporaire, chiffre son contenu, et l'enregistre dans le fichier final.

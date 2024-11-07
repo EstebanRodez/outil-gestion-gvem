@@ -35,7 +35,7 @@ import javafx.scene.control.TableView;
 public class DonneesCalculerConferencierEnsembleJourController {
     
     private static LinkedHashMap<String, Visite> visites
-    = TraitementDonnees.getVisites();
+    = TraitementDonnees.getDonnees().getVisites();
     
     private static String[] choix = {"conférencers qui n’ont aucune visite",
                                     "conférencers et leur nombre moyen de " 

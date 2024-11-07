@@ -45,7 +45,7 @@ import javafx.util.Callback;
 public class DonneesImporteesExpositionControleur {
     
     private static LinkedHashMap<String, Exposition> expositions
-    = TraitementDonnees.getExpositions();
+    = TraitementDonnees.getDonnees().getExpositions();
     
     // Format pour les dates au format jj/MM/aaaa
     private static final DateTimeFormatter DATE_FORMAT 

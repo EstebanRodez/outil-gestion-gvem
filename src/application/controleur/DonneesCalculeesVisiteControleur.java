@@ -46,7 +46,7 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
 public class DonneesCalculeesVisiteControleur {
     
     private static LinkedHashMap<String, Visite> visites
-    = TraitementDonnees.getVisites();
+    = TraitementDonnees.getDonnees().getVisites();
     
     // Format pour les dates au format jj/MM/aaaa
     private static final DateTimeFormatter DATE_FORMAT 

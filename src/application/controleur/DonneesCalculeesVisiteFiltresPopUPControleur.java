@@ -41,7 +41,7 @@ public class DonneesCalculeesVisiteFiltresPopUPControleur {
     private String[] conferenciers;
     
     private LinkedHashMap<String, Visite> visites
-    = TraitementDonnees.getVisites();
+    = TraitementDonnees.getDonnees().getVisites();
     
     private ArrayList<String> listeExpositions = new ArrayList<>();
     

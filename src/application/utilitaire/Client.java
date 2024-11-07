@@ -51,8 +51,13 @@ public class Client {
 
         try (Socket socket = new Socket(adresseServeur, port);
                 
-             BufferedInputStream in = new BufferedInputStream(socket.getInputStream());
-             DataInputStream dataIn = new DataInputStream(in)) {
+            BufferedInputStream in = new BufferedInputStream(socket.getInputStream());
+            DataInputStream dataIn = new DataInputStream(in)) {
+            
+            File dossier = new File(dossierDestination);
+            if (!dossier.exists()) {
+                dossier.mkdirs(); // Créer les répertoires nécessaires
+            }
 
             for (String cheminFichier : cheminsFichiers) {
                 // Créer le fichier dans le dossier de destination
@@ -60,13 +65,7 @@ public class Client {
 
                 // Lire la taille du fichier envoyé
                 long tailleFichier = dataIn.readLong();
-
-                // Assurez-vous que le dossier de destination existe
-//                File dossier = new File(dossierDestination);
-//                if (!dossier.exists()) {
-//                    dossier.mkdirs(); // Créer les répertoires nécessaires
-//                }
-
+                
                 try (FileOutputStream fileOut = new FileOutputStream(fichier)) {
                     byte[] buffer = new byte[TAILLE_BLOC_DONNEES];
                     int bytesLus;

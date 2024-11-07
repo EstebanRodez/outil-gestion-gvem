@@ -40,83 +40,85 @@ public class Cryptage {
             
             ObjectOutputStream fluxEcriture
             = new ObjectOutputStream(
-                    new FileOutputStream(NOM_FICHIER_DONNEES));
+                    new FileOutputStream(NOM_FICHIER_DONNEES));   
             
             int indice;
             String[] tableauCles;
             
-            /*
-             * On transforme les LinkedHashMap en deux tableaux
-             * distincts, un pour les valeurs et l'autre pour les
-             * clés.
-             */
-            LinkedHashMap<String, Exposition> expositions
-            = TraitementDonnees.getExpositions();
-            Exposition[] tableauExpositions
-            = new Exposition[expositions.size()];
-            tableauCles = new String[expositions.size()];
-            indice = 0;
-            for (Map.Entry<String, Exposition> paire
-                 : TraitementDonnees.getExpositions().entrySet()) {
-                
-                tableauCles[indice] = paire.getKey();
-                tableauExpositions[indice] = paire.getValue();
-                indice++;
-            }
-            fluxEcriture.writeObject(tableauCles);
-            fluxEcriture.writeObject(tableauExpositions);
+//            /*
+//             * On transforme les LinkedHashMap en deux tableaux
+//             * distincts, un pour les valeurs et l'autre pour les
+//             * clés.
+//             */
+//            LinkedHashMap<String, Exposition> expositions
+//            = TraitementDonnees.getExpositions();
+//            Exposition[] tableauExpositions
+//            = new Exposition[expositions.size()];
+//            tableauCles = new String[expositions.size()];
+//            indice = 0;
+//            for (Map.Entry<String, Exposition> paire
+//                 : TraitementDonnees.getExpositions().entrySet()) {
+//                
+//                tableauCles[indice] = paire.getKey();
+//                tableauExpositions[indice] = paire.getValue();
+//                indice++;
+//            }
+//            fluxEcriture.writeObject(tableauCles);
+//            fluxEcriture.writeObject(tableauExpositions);
+//            
+//            LinkedHashMap<String, Employe> employes
+//            = TraitementDonnees.getEmployes();
+//            Employe[] tableauEmployes
+//            = new Employe[employes.size()];
+//            tableauCles = new String[employes.size()];
+//            indice = 0;
+//            for (Map.Entry<String, Employe> paire
+//                 : employes.entrySet()) {
+//                
+//                tableauCles[indice] = paire.getKey();
+//                tableauEmployes[indice] = paire.getValue();
+//                indice++;
+//            }
+//            fluxEcriture.writeObject(tableauCles);
+//            fluxEcriture.writeObject(tableauEmployes);
+//            
+//            LinkedHashMap<String, Conferencier> conferenciers
+//            = TraitementDonnees.getConferenciers();
+//            Conferencier[] tableauConferenciers
+//            = new Conferencier[conferenciers.size()];
+//            tableauCles = new String[conferenciers.size()];
+//            indice = 0;
+//            for (Map.Entry<String, Conferencier> paire
+//                 : conferenciers.entrySet()) {
+//                
+//                tableauCles[indice] = paire.getKey();
+//                tableauConferenciers[indice] = paire.getValue();
+//                indice++;
+//            }
+//            fluxEcriture.writeObject(tableauCles);
+//            fluxEcriture.writeObject(tableauConferenciers);
+//            
+//            ArrayList<Client> clients = TraitementDonnees.getClients();
+//            fluxEcriture.writeObject(
+//                    clients.toArray(new Client[clients.size()]));
+//            
+//            LinkedHashMap<String, Visite> visites
+//            = TraitementDonnees.getVisites();
+//            Visite[] tableauVisites
+//            = new Visite[visites.size()];
+//            tableauCles = new String[visites.size()];
+//            indice = 0;
+//            for (Map.Entry<String, Visite> paire
+//                 : visites.entrySet()) {
+//                
+//                tableauCles[indice] = paire.getKey();
+//                tableauVisites[indice] = paire.getValue();
+//                indice++;
+//            }
+//            fluxEcriture.writeObject(tableauCles);
+//            fluxEcriture.writeObject(tableauVisites);
             
-            LinkedHashMap<String, Employe> employes
-            = TraitementDonnees.getEmployes();
-            Employe[] tableauEmployes
-            = new Employe[employes.size()];
-            tableauCles = new String[employes.size()];
-            indice = 0;
-            for (Map.Entry<String, Employe> paire
-                 : employes.entrySet()) {
-                
-                tableauCles[indice] = paire.getKey();
-                tableauEmployes[indice] = paire.getValue();
-                indice++;
-            }
-            fluxEcriture.writeObject(tableauCles);
-            fluxEcriture.writeObject(tableauEmployes);
-            
-            LinkedHashMap<String, Conferencier> conferenciers
-            = TraitementDonnees.getConferenciers();
-            Conferencier[] tableauConferenciers
-            = new Conferencier[conferenciers.size()];
-            tableauCles = new String[conferenciers.size()];
-            indice = 0;
-            for (Map.Entry<String, Conferencier> paire
-                 : conferenciers.entrySet()) {
-                
-                tableauCles[indice] = paire.getKey();
-                tableauConferenciers[indice] = paire.getValue();
-                indice++;
-            }
-            fluxEcriture.writeObject(tableauCles);
-            fluxEcriture.writeObject(tableauConferenciers);
-            
-            ArrayList<Client> clients = TraitementDonnees.getClients();
-            fluxEcriture.writeObject(
-                    clients.toArray(new Client[clients.size()]));
-            
-            LinkedHashMap<String, Visite> visites
-            = TraitementDonnees.getVisites();
-            Visite[] tableauVisites
-            = new Visite[visites.size()];
-            tableauCles = new String[visites.size()];
-            indice = 0;
-            for (Map.Entry<String, Visite> paire
-                 : visites.entrySet()) {
-                
-                tableauCles[indice] = paire.getKey();
-                tableauVisites[indice] = paire.getValue();
-                indice++;
-            }
-            fluxEcriture.writeObject(tableauCles);
-            fluxEcriture.writeObject(tableauVisites);
+            fluxEcriture.writeObject(TraitementDonnees.getDonnees());
             
             fluxEcriture.close();
             
@@ -129,6 +131,7 @@ public class Cryptage {
             
             return NOM_FICHIER_CRYPTAGE;
         } catch (IOException e) {
+            e.printStackTrace();
             return null;
         }
         

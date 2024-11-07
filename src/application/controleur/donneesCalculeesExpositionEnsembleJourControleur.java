@@ -35,7 +35,7 @@ import javafx.scene.control.TableView;
 public class DonneesCalculeesExpositionEnsembleJourControleur {
     
     private static LinkedHashMap<String, Visite> visites
-    = TraitementDonnees.getVisites();
+    = TraitementDonnees.getDonnees().getVisites();
     
     private static String[] choix = {"expositions qui n’ont aucune visite",
                                     "expositions et leur nombre moyen de " 

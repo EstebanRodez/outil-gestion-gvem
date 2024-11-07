@@ -97,7 +97,7 @@ public class AccueilControleur {
     @FXML
     public void initialize() {
         
-        if (TraitementDonnees.isDonneesVides()) {
+        if (TraitementDonnees.getDonnees().isDonneesVides()) {
             btnConsulterDonnees.setDisable(true);
             btnExporter.setDisable(true);
         }
