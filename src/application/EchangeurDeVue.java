@@ -6,6 +6,8 @@
 package application;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.HashMap;
 
 import javafx.fxml.FXMLLoader;
@@ -259,6 +261,10 @@ public class EchangeurDeVue {
      */
     private static Parent getParentVue(String nomVue, String lienVue) {
         
+        if (Files.notExists(Path.of(lienVue))) {
+            lancerErreurFichierVueInexistant(nomVue, lienVue);
+        }
+        
         Parent parentVue = null;
         if (cacheVue.containsKey(nomVue)) {
             
@@ -270,8 +276,8 @@ public class EchangeurDeVue {
                 cacheFXMLLoader.put(nomVue, loader);
                 parentVue = loader.load();
                 cacheVue.put(nomVue, parentVue);
-            } catch (IOException e) {
-                lancerErreurChargementVue(nomVue);
+            } catch (IOException erreur) {
+                lancerErreurChargementVue(nomVue, erreur);
             }
         }
         
@@ -284,13 +290,36 @@ public class EchangeurDeVue {
      *
      * @param nomVue le nom de la vue dont le chargement a échoué
      */
-    private static void lancerErreurChargementVue(String nomVue) {
+    private static void lancerErreurChargementVue(String nomVue,
+                                                  Exception erreur) {
         
         Alert boiteErreurChargementVue
         = new Alert(Alert.AlertType.ERROR,
-                    "Impossible de charger la vue nommé " + nomVue,
+                    "Impossible de charger la vue nommé " + nomVue + ".\n"
+                    + "Message précis : " + erreur.getMessage(),
                     ButtonType.OK);
         boiteErreurChargementVue.setTitle("Erreur d'affichage");
+        boiteErreurChargementVue.setHeaderText("Erreur de chargement de "
+                                               + nomVue);
+        boiteErreurChargementVue.showAndWait();
+    }
+    
+    /**
+     * Affiche une boîte de dialogue d'erreur si le chargement d'une
+     * vue échoue.
+     *
+     * @param nomVue le nom de la vue dont le chargement a échoué
+     */
+    private static void lancerErreurFichierVueInexistant(String nomVue,
+                                                         String lienVue) {
+        
+        Alert boiteErreurChargementVue
+        = new Alert(Alert.AlertType.ERROR,
+                    "Le fichier " + lienVue + " de la vue " + nomVue
+                    + " est introuvable.\n"
+                    + "Impossible de charger la vue associée",
+                    ButtonType.OK);
+        boiteErreurChargementVue.setTitle("Erreur chemin fichier");
         boiteErreurChargementVue.setHeaderText("Erreur de chargement de "
                                                + nomVue);
         boiteErreurChargementVue.showAndWait();
