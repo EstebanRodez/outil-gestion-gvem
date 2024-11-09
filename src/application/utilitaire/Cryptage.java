@@ -23,8 +23,10 @@ public class Cryptage {
      * TODO commenter le rôle de cette méthode (SRP)
      * @param cle 
      * @return le chemin du fichier de données
+     * @throws CryptageException 
      */
-    public static String creerFichierDonnees(String cle) {
+    public static String creerFichierDonnees(String cle)
+            throws CryptageException {
         
         try {
             
@@ -48,8 +50,8 @@ public class Cryptage {
             
             return NOM_FICHIER_CRYPTAGE;
         } catch (IOException e) {
-            e.printStackTrace();
-            return null;
+            
+            throw new CryptageException();
         }
         
     }

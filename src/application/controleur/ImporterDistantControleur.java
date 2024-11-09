@@ -7,7 +7,7 @@ import java.nio.file.Path;
 import application.EchangeurDeVue;
 import application.utilitaire.Client;
 import application.utilitaire.Decryptage;
-
+import application.utilitaire.DecryptageException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -58,19 +58,21 @@ public class ImporterDistantControleur {
         String ipServeur = txtFieldIPServeur.getText().trim();
         String[] fichiersRecus = {NOM_FICHIER_DONNEES_CRYPTEES};
         Client.recevoirFichiers(ipServeur, 65432, fichiersRecus, null);
-        
+
         // TODO Recevoir la clé à distance
         // Clé de chiffrement : 12
-        if (Decryptage.decrypterFichierDonnees("12")) {
+        try {
+            
+            Decryptage.decrypterFichierDonnees("12");
             System.out.println("Données reçues avec succès");
-        } else {
-            System.out.println("Echec");
+        } catch (DecryptageException erreur) {
+            System.out.println("Échec du décryptage des données");
         }
-        
+
         try {
             Files.delete(Path.of(NOM_FICHIER_DONNEES_CRYPTEES));
-        } catch (IOException e) {
-            
+        } catch (IOException erreur) {
+
         }
     }
 

@@ -5,11 +5,16 @@
  */
 package application.controleur;
 
+import java.io.IOException;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
 import application.EchangeurDeVue;
 
 import application.utilitaire.Cryptage;
+import application.utilitaire.CryptageException;
 import application.utilitaire.Serveur;
 
 import javafx.event.ActionEvent;
@@ -77,26 +82,33 @@ public class ExporterControleur {
         // TODO Envoyer la clé à distance
         // Clé de chiffrement : 12
         String nomFichierCrypte;
-        nomFichierCrypte = Cryptage.creerFichierDonnees("12");
+        try {
+            nomFichierCrypte = Cryptage.creerFichierDonnees("12");
+        } catch (CryptageException erreur) {
+            nomFichierCrypte = null;
+        }
         String[] fichiersCryptes = {nomFichierCrypte};
         
         // Initialiser le thread
         Thread attente;
         attente = new Thread(() -> {
-            try {
-                Serveur.envoyerFichiers(65431, fichiersCryptes);
+            Serveur.envoyerFichiers(65431, fichiersCryptes);
+
+            /* 
+             * Tout s'est déroulé si il n'a pas été interrompu
+             * donc on affiche la vue de confirmation de
+             * l'exportation 
+             */
+            if (!Thread.currentThread().isInterrupted()) {
+                EchangeurDeVue.fermerPopUp("chargementPopUp");
+                EchangeurDeVue.changerVue("exporterValideVue");
                 
-                /* 
-                 * Tout s'est déroulé si il n'a pas été interrompu
-                 * donc on affiche la vue de confirmation de
-                 * l'exportation 
-                 */
-                if (!Thread.currentThread().isInterrupted()) {
-                    EchangeurDeVue.fermerPopUp("chargementPopUp");
-                    EchangeurDeVue.changerVue("exporterValideVue");
-                }
-            } finally {
-                
+                // TODO suppression des fichiers envoyés
+//                try {
+//                    Files.delete(Path.of(nomFichierCrypte));
+//                } catch (IOException erreur) {
+//
+//                }
             }
         });
         

@@ -26,8 +26,10 @@ public class Decryptage {
      * TODO commenter le rôle de cette méthode (SRP)
      * @param cle
      * @return true
+     * @throws DecryptageException 
      */
-    public static boolean decrypterFichierDonnees(String cle) {
+    public static boolean decrypterFichierDonnees(String cle)
+            throws DecryptageException {
         
         try {
                    
@@ -51,8 +53,8 @@ public class Decryptage {
             
             return true;
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-            return false;
+            
+            throw new DecryptageException();
         }
         
     }
