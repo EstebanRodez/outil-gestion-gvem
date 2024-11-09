@@ -8,7 +8,6 @@ package application.utilitaire;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 
 import application.modele.Client;
 import application.modele.Conferencier;
