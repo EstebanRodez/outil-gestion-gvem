@@ -103,11 +103,11 @@ public class ExporterControleur {
         String[] fichiersCryptes = {nomFichierCrypte};
         
         Serveur.envoyerFichiers(65432, fichiersCryptes);
-        try {
-            Files.delete(Path.of(nomFichierCrypte));
-        } catch (IOException e) {
-            
-        }
+//        try {
+//            // Files.delete(Path.of(nomFichierCrypte));
+//        } catch (IOException e) {
+//            
+//        }
     }
     
     /**

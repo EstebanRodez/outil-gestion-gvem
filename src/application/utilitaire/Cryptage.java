@@ -5,12 +5,14 @@
  */
 package application.utilitaire;
 
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -122,12 +124,15 @@ public class Cryptage {
             
             fluxEcriture.close();
             
-            String contenuFichier,
-                   contenuCrypte;
-            contenuFichier = GestionFichiers.lireFichier(NOM_FICHIER_DONNEES);
-            contenuCrypte = cryptage(contenuFichier, cle);
-            GestionFichiers.ecrireFichier(NOM_FICHIER_CRYPTAGE, contenuCrypte);
-            Files.delete(Path.of(NOM_FICHIER_DONNEES));
+            FileInputStream fluxLecture
+            = new FileInputStream(NOM_FICHIER_DONNEES);
+            FileOutputStream flux2Ecriture
+            = new FileOutputStream(NOM_FICHIER_CRYPTAGE);
+            
+            cryptage(cle, fluxLecture, flux2Ecriture);
+            
+            fluxLecture.close();
+            flux2Ecriture.close();
             
             return NOM_FICHIER_CRYPTAGE;
         } catch (IOException e) {
@@ -137,17 +142,29 @@ public class Cryptage {
         
     }
     
-    private static String cryptage(String texte, String cle) {
-        StringBuilder textCrypter = new StringBuilder();
-        int keyLength = cle.length();
-
-        for (int i = 0; i < texte.length(); i++) {
-            char charText = texte.charAt(i);
-            char charKey = cle.charAt(i % keyLength);
-            char encryptedChar = (char) ((charText + charKey) % 256);
-            textCrypter.append(encryptedChar);
+    /**
+     * TODO commenter le rôle de cette méthode (SRP)
+     * @param cle
+     * @param fluxLecture
+     * @param fluxEcriture
+     * @throws IOException
+     */
+    private static void cryptage(String cle, FileInputStream fluxLecture,
+                                 FileOutputStream fluxEcriture)
+                                         throws IOException {
+        
+        byte[] cleBytes = cle.getBytes();
+        int longueurCle = cleBytes.length;
+        
+        int indiceByte = 0;
+        int byteData;
+        while ((byteData = fluxLecture.read()) != -1) {
+            
+            // Opération XOR pour cryptage
+            byte encryptedByte
+            = (byte) (byteData ^ cleBytes[indiceByte % longueurCle]);
+            fluxEcriture.write(encryptedByte);
+            indiceByte++;
         }
-
-        return textCrypter.toString();
     }
 }

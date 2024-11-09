@@ -6,6 +6,7 @@
 package application.utilitaire;
 
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.nio.file.Files;
@@ -43,14 +44,24 @@ public class Decryptage {
         
         try {
             
-            contenuFichier
-            = GestionFichiers.lireFichier(NOM_FICHIER_DONNEES_CRYPTEES);
-            contenuDecrypte = decrypter(contenuFichier, cle);
-            GestionFichiers.ecrireFichier(NOM_FICHIER_DECRYPTAGE,
-                                          contenuDecrypte);
-            Files.delete(Path.of(NOM_FICHIER_DONNEES_CRYPTEES));
+//            contenuFichier
+//            = GestionFichiers.lireFichier(NOM_FICHIER_DONNEES_CRYPTEES);
+//            contenuDecrypte = decrypter(contenuFichier, cle);
+//            GestionFichiers.ecrireFichier(NOM_FICHIER_DECRYPTAGE,
+//                                          contenuDecrypte);
+//            Files.delete(Path.of(NOM_FICHIER_DONNEES_CRYPTEES));
             
-            ObjectInputStream fluxLecture
+            FileInputStream fluxLecture
+            = new FileInputStream(NOM_FICHIER_DONNEES_CRYPTEES);
+            FileOutputStream fluxEcriture
+            = new FileOutputStream(NOM_FICHIER_DECRYPTAGE);
+            
+            decrypter(cle, fluxLecture, fluxEcriture);
+            
+            fluxLecture.close();
+            fluxEcriture.close();
+            
+            ObjectInputStream flux2Lecture
             = new ObjectInputStream(new FileInputStream(NOM_FICHIER_DECRYPTAGE));
             
 //            LinkedHashMap<String, Exposition> expositions
@@ -106,7 +117,7 @@ public class Decryptage {
 //            TraitementDonnees.setClients(clients);
 //            TraitementDonnees.setVisites(visites);
             
-            Donnees donnees = (Donnees) fluxLecture.readObject();
+            Donnees donnees = (Donnees) flux2Lecture.readObject();
             TraitementDonnees.setDonnees(donnees);
             
             fluxLecture.close();
@@ -120,22 +131,27 @@ public class Decryptage {
     }
     /**
      * TODO commenter le rôle de cette méthode (SRP)
-     * @param texte
      * @param cle
-     * @return le texte décrypté
+     * @param fluxLecture 
+     * @param fluxEcriture 
+     * @throws IOException 
      */
-    public static String decrypter(String texte, String cle) {
+    private static void decrypter(String cle, FileInputStream fluxLecture,
+                                  FileOutputStream fluxEcriture)
+                                         throws IOException {
 
-        StringBuilder textDecrypter = new StringBuilder();
-        int keyLength = cle.length();
-
-        for (int i = 0; i < texte.length(); i++) {
-            char charEncrypted = texte.charAt(i);
-            char charKey = cle.charAt(i % keyLength);
-            char decryptedChar = (char) ((charEncrypted - charKey + 256) % 256);
-            textDecrypter.append(decryptedChar);
+        byte[] cleBytes = cle.getBytes();
+        int longueurCle = cleBytes.length;
+        
+        int indiceByte = 0;
+        int byteData;
+        while ((byteData = fluxLecture.read()) != -1) {
+            
+            // Opération XOR pour cryptage
+            byte encryptedByte
+            = (byte) (byteData ^ cleBytes[indiceByte % longueurCle]);
+            fluxEcriture.write(encryptedByte);
+            indiceByte++;
         }
-
-        return textDecrypter.toString();
     }
 }
