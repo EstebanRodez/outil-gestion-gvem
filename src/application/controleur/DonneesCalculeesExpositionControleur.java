@@ -140,7 +140,7 @@ public class DonneesCalculeesExpositionControleur {
         }
         
         if (listePhrase.getValue().equals(choix[2])) {
-            System.out.println("choix 3");
+            EchangeurDeVue.changerVue("donneesCalculeesExpositionMoyenneSemaineVue");
         }
         
         if (listePhrase.getValue().equals(choix[3])) {

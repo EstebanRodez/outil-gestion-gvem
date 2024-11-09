@@ -9,7 +9,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -127,6 +126,7 @@ public class DonneesCalculeesExpositionEnsembleJourControleur {
         
         if (listePhrase.getValue().equals(choix[0])) {
             EchangeurDeVue.changerVue("donneesCalculeesExpositionVue");
+            listePhrase.setValue(choix[0]);
         }
         
         if (listePhrase.getValue().equals(choix[1])) {
@@ -134,7 +134,7 @@ public class DonneesCalculeesExpositionEnsembleJourControleur {
         }
         
         if (listePhrase.getValue().equals(choix[2])) {
-            System.out.println("choix 3");
+            EchangeurDeVue.changerVue("donneesCalculeesExpositionMoyenneSemaineVue");
         }
         
         if (listePhrase.getValue().equals(choix[3])) {
