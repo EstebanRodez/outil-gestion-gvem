@@ -220,8 +220,8 @@ public class DonneesCalculeesExpositionMoyenneJourControleur {
         // Compter les visites pour chaque exposition
         for (Map.Entry<String, Visite> paire : visites.entrySet()) {
             
-            String intituleExposition = paire.getValue().getExposition()
-                                                        .getIntitule();
+            String intituleExposition 
+            = paire.getValue().getExposition().getIntitule();
             visitesParExposition.put(
                 intituleExposition,
                 visitesParExposition.getOrDefault(intituleExposition, 0) + 1
@@ -240,10 +240,7 @@ public class DonneesCalculeesExpositionMoyenneJourControleur {
             double moyenneVisites = totalJours > 0 ? (double) totalVisites / 
                                                               totalJours : 0;
             
-            System.out.println("totalVisites : " + totalVisites);
-            System.out.println("totalJours : " + totalJours + "\n");
-            
-            //arrondir à 2 chiffre après la virgule
+            // arrondir à 2 chiffre après la virgule
             double moyenneVisitesArrondi = Math.round(moyenneVisites * 100.0) / 
                                                                        100.0;
 
