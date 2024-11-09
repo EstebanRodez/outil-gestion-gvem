@@ -72,13 +72,39 @@ public class ExporterControleur {
         // TODO Améliorer la pop up
         // String cle = JOptionPane.showInputDialog("Entrez la clé de cryptage Vigenère :");
         
+        EchangeurDeVue.creerPopUp("chargementPopUp");
+        
         // TODO Envoyer la clé à distance
         // Clé de chiffrement : 12
         String nomFichierCrypte;
         nomFichierCrypte = Cryptage.creerFichierDonnees("12");
         String[] fichiersCryptes = {nomFichierCrypte};
         
-        Serveur.envoyerFichiers(65432, fichiersCryptes);
+        // Initialiser le thread
+        Thread attente;
+        attente = new Thread(() -> {
+            try {
+                Serveur.envoyerFichiers(65431, fichiersCryptes);
+                
+                /* 
+                 * Tout s'est déroulé si il n'a pas été interrompu
+                 * donc on affiche la vue de confirmation de
+                 * l'exportation 
+                 */
+                if (!Thread.currentThread().isInterrupted()) {
+                    EchangeurDeVue.fermerPopUp("chargementPopUp");
+                    EchangeurDeVue.changerVue("exporterValideVue");
+                }
+            } finally {
+                
+            }
+        });
+        
+        ChargementPopUpControleur controleur
+        = EchangeurDeVue.getFXMLLoader("chargementPopUp").getController();
+        controleur.setThreadAttente(attente);
+        attente.start();
+        
 //        try {
 //            // Files.delete(Path.of(nomFichierCrypte));
 //        } catch (IOException e) {
