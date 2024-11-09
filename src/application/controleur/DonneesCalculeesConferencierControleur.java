@@ -52,15 +52,15 @@ public class DonneesCalculeesConferencierControleur {
     = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     
     private static String[] choix = {"conférencier qui n’ont aucune visite",
-                                     "conférencier et leur nombre moyen de " 
-                                     + "visites programmées chaque jour",
-                                     "conférencier et leur nombre moyen de "
-                                     + "visites programmées chaque semaine",
-                                     "l’esembles des conférencier et leur nombre moyen de "
-                                     + "visites prévues chaque jour",
-                                     "l’esembles des conférencier et leur nombre moyen de "
-                                     + "visites prévues chaque semaine"};
-    
+                                    "conférencier et leur nombre moyen de " 
+                                    + "visites programmées chaque jour",
+                                    "conférencier et leur nombre moyen de "
+                                    + "visites programmées chaque semaine",
+                                    "l’esembles des conférencier et leur nombre"
+                                    + " moyen de visites prévues chaque jour",
+                                    "l’esembles des conférencier et leur nombre"
+                                    + " moyen de visites prévues chaque semaine"};
+                            
     @FXML
     private Button btnFiltres;
 

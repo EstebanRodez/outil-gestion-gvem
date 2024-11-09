@@ -51,14 +51,14 @@ public class DonneesCalculeesExpositionControleur {
     private static final DateTimeFormatter DATE_FORMAT 
     = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     
-    private static String[] choix = {"expositions qui n’ont aucune visite",
-                                     "expositions et leur nombre moyen de " 
+    private static String[] choix = {"exposition qui n’ont aucune visite",
+                                     "exposition et leur nombre moyen de " 
                                      + "visites programmées chaque jour",
-                                     "expositions et leur nombre moyen de "
+                                     "exposition et leur nombre moyen de "
                                      + "visites programmées chaque semaine",
-                                     "l’esembles des expositions et leur nombre moyen de "
+                                     " exposition et leur nombre moyen de "
                                      + "visites prévues chaque jour",
-                                     "l’esembles des expositions et leur nombre moyen de "
+                                     " exposition et leur nombre moyen de "
                                      + "visites prévues chaque semaine"};
     
     @FXML

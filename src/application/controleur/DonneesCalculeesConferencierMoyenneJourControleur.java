@@ -48,10 +48,10 @@ public class DonneesCalculeesConferencierMoyenneJourControleur {
                                     + "visites programmées chaque jour",
                                     "conférencier et leur nombre moyen de "
                                     + "visites programmées chaque semaine",
-                                    "l’esembles des conférencier et leur nombre moyen de "
-                                    + "visites prévues chaque jour",
-                                    "l’esembles des conférencier et leur nombre moyen de "
-                                    + "visites prévues chaque semaine"};
+                                    "l’esembles des conférencier et leur nombre"
+                                    + " moyen de visites prévues chaque jour",
+                                    "l’esembles des conférencier et leur nombre"
+                                    + " moyen de visites prévues chaque semaine"};
     
     @FXML
     private Button btnFiltres;
@@ -75,7 +75,7 @@ public class DonneesCalculeesConferencierMoyenneJourControleur {
     private ChoiceBox<String> listePhrase;
 
     @FXML
-    private TableView<VisiteMoyenneResultat> tableExposition;
+    private TableView<VisiteMoyenneResultat> tableConferencier;
     
     /**
      * 
@@ -110,7 +110,6 @@ public class DonneesCalculeesConferencierMoyenneJourControleur {
             }
         }
 
-        // Appel avec les dates globales
         calculerMoyenneVisitesParConferencier(visites, dateDebutGlobal,
                                                        dateFinGlobal);
         
@@ -139,7 +138,7 @@ public class DonneesCalculeesConferencierMoyenneJourControleur {
         }
         
         if (listePhrase.getValue().equals(choix[3])) {
-            System.out.println("donneesCalculeesConferencierEnsembleJourVue ");
+            EchangeurDeVue.changerVue("donneesCalculeesConferencierEnsembleJourVue");
         }
     }
 
@@ -201,7 +200,6 @@ public class DonneesCalculeesConferencierMoyenneJourControleur {
         // Calculer le nombre total de jours global entre dateDebutGlobal et dateFinGlobal
         long totalJours = ChronoUnit.DAYS.between(dateDebutGlobal, 
                                                   dateFinGlobal) + 1;
-        System.out.println("Nombre total de jours global : " + totalJours);
 
         // Création d'une Map pour compter les visites par conférencier
         Map<String, Integer> visitesParConferencier = new HashMap<>();
@@ -240,7 +238,7 @@ public class DonneesCalculeesConferencierMoyenneJourControleur {
         // Mettre à jour le tableau avec les résultats
         ObservableList<VisiteMoyenneResultat> exposListe 
         = FXCollections.observableArrayList(resultats);
-        tableExposition.setItems(exposListe);
+        tableConferencier.setItems(exposListe);
         
         labelDate.setText("du " + dateDebutGlobal.format(DATE_FORMAT) 
                           + " au " + dateFinGlobal.format(DATE_FORMAT));
@@ -282,7 +280,6 @@ public class DonneesCalculeesConferencierMoyenneJourControleur {
             }
         }
 
-        // Maintenant, calculez les moyennes en utilisant la liste filtrée
         calculerMoyenneVisitesParConferencier(visitesFiltrees, 
                                              critere.getDateDebut(), 
                                              critere.getDateFin());
