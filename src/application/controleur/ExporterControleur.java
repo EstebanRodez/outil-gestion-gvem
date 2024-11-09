@@ -92,7 +92,14 @@ public class ExporterControleur {
         // Initialiser le thread
         Thread attente;
         attente = new Thread(() -> {
-            Serveur.envoyerFichiers(65431, fichiersCryptes);
+            Serveur.envoyerFichiers(65432, fichiersCryptes);
+            for (String cheminFichier : fichiersCryptes) {
+                try {
+                    Files.delete(Path.of(cheminFichier));
+                } catch (IOException erreur) {
+
+                }
+            }
 
             /* 
              * Tout s'est déroulé si il n'a pas été interrompu
@@ -102,13 +109,6 @@ public class ExporterControleur {
             if (!Thread.currentThread().isInterrupted()) {
                 EchangeurDeVue.fermerPopUp("chargementPopUp");
                 EchangeurDeVue.changerVue("exporterValideVue");
-                
-                // TODO suppression des fichiers envoyés
-//                try {
-//                    Files.delete(Path.of(nomFichierCrypte));
-//                } catch (IOException erreur) {
-//
-//                }
             }
         });
         
