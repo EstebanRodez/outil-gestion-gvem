@@ -32,6 +32,11 @@ import javafx.scene.control.TableView;
 
 /**
  * TODO commenter la responsabilité de cette class (SRP)
+ * @author Romain Augé
+ * @author Ayoub Laluti
+ * @author Baptiste Thenieres
+ * @author Esteban Vroemen
+ * @version 1.0
  */
 public class DonneesCalculeesExpositionEnsembleJourControleur {
     
@@ -85,7 +90,7 @@ public class DonneesCalculeesExpositionEnsembleJourControleur {
         listePhrase.getItems().addAll(choix);
         
         // défini la valeur par défaut
-        listePhrase.setValue(choix[2]);
+        listePhrase.setValue(choix[3]);
         
         Exposition.setCellValueFactory(
                 cellData -> new SimpleStringProperty(
@@ -142,7 +147,7 @@ public class DonneesCalculeesExpositionEnsembleJourControleur {
         }
         
         if (listePhrase.getValue().equals(choix[4])) {
-            System.out.println("choix 5");
+            EchangeurDeVue.changerVue("donneesCalculeesExpositionEnsembleSemaineVue");
         }
     }
 
