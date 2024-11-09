@@ -68,12 +68,12 @@ public class ImportationCSV {
      *                                  extension CSV
      * @throws IllegalArgumentException
      * @throws IllegalArgumentException
-     * @throws FichierDonneesInvalides si les données du fichier sont
-     *                                 invalides
+     * @throws FichierDonneesInvalidesException si les données du fichier sont
+     *                                          invalides
      */
 
     public static void importerDonnees(String cheminFichier)
-            throws FichierDonneesInvalides {
+            throws FichierDonneesInvalidesException {
 
         try {
 
@@ -166,7 +166,7 @@ public class ImportationCSV {
      */
 
     private static void parcourirFichier(BufferedReader fichierCSV)
-            throws IOException, FichierDonneesInvalides {
+            throws IOException, FichierDonneesInvalidesException {
 
         String ligne;
         ArrayList<String[]> donnees = new ArrayList<>();
@@ -181,7 +181,7 @@ public class ImportationCSV {
         if (verifierLignes(donnees)) {
             enregistrerLignes(donnees);
         } else {
-            throw new FichierDonneesInvalides(ERREUR_DONNEES_INCORRECTES);
+            throw new FichierDonneesInvalidesException(ERREUR_DONNEES_INCORRECTES);
         }
     }
 

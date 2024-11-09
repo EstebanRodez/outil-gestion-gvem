@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
-import application.utilitaire.FichierDonneesInvalides;
+import application.utilitaire.FichierDonneesInvalidesException;
 import application.utilitaire.ImportationCSV;
 import application.utilitaire.TraitementDonnees;
 
@@ -91,7 +91,7 @@ class TestImportationCSV {
         assertThrows(IllegalArgumentException.class, () -> {
             ImportationCSV.importerDonnees("ressources/tests/texte.txt");
         });
-        assertThrows(FichierDonneesInvalides.class, () -> {
+        assertThrows(FichierDonneesInvalidesException.class, () -> {
             ImportationCSV.importerDonnees(
                     "ressources/tests/CSV/fichier_vide_avec_entete.csv");
         });
@@ -104,175 +104,175 @@ class TestImportationCSV {
                     "ressources/tests/fichier_inexistant");
         });
         
-        assertThrows(FichierDonneesInvalides.class, () -> {
+        assertThrows(FichierDonneesInvalidesException.class, () -> {
             ImportationCSV.importerDonnees(
                     "ressources/tests/CSV/fichier_invalide1.csv");
         });
-        assertThrows(FichierDonneesInvalides.class, () -> {
+        assertThrows(FichierDonneesInvalidesException.class, () -> {
             ImportationCSV.importerDonnees(
                     "ressources/tests/CSV/fichier_invalide2.csv");
         });
-        assertThrows(FichierDonneesInvalides.class, () -> {
+        assertThrows(FichierDonneesInvalidesException.class, () -> {
             ImportationCSV.importerDonnees(
                     "ressources/tests/CSV/fichier_vide.csv");
         });
         
         // Fichiers Expositions avec données incorrectes
-        assertThrows(FichierDonneesInvalides.class, () -> {
+        assertThrows(FichierDonneesInvalidesException.class, () -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_EXPOSITIONS+"expositions_invalides1.csv");
         });
-        assertThrows(FichierDonneesInvalides.class, () -> {
+        assertThrows(FichierDonneesInvalidesException.class, () -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_EXPOSITIONS+"expositions_invalides2.csv");
         });
-        assertThrows(FichierDonneesInvalides.class, () -> {
+        assertThrows(FichierDonneesInvalidesException.class, () -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_EXPOSITIONS+"expositions_invalides3.csv");
         });
-        assertThrows(FichierDonneesInvalides.class, () -> {
+        assertThrows(FichierDonneesInvalidesException.class, () -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_EXPOSITIONS+"expositions_invalides4.csv");
         });
-        assertThrows(FichierDonneesInvalides.class, () -> {
+        assertThrows(FichierDonneesInvalidesException.class, () -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_EXPOSITIONS+"expositions_invalides5.csv");
         });
-        assertThrows(FichierDonneesInvalides.class, () -> {
+        assertThrows(FichierDonneesInvalidesException.class, () -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_EXPOSITIONS+"expositions_invalides6.csv");
         });
-        assertThrows(FichierDonneesInvalides.class, () -> {
+        assertThrows(FichierDonneesInvalidesException.class, () -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_EXPOSITIONS+"expositions_invalides7.csv");
         });
-        assertThrows(FichierDonneesInvalides.class, () -> {
+        assertThrows(FichierDonneesInvalidesException.class, () -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_EXPOSITIONS+"expositions_invalides8.csv");
         });
-        assertThrows(FichierDonneesInvalides.class, () -> {
+        assertThrows(FichierDonneesInvalidesException.class, () -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_EXPOSITIONS+"expositions_invalides9.csv");
         });
-        assertThrows(FichierDonneesInvalides.class, () -> {
+        assertThrows(FichierDonneesInvalidesException.class, () -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_EXPOSITIONS+"expositions_invalides10.csv");
         });
-        assertThrows(FichierDonneesInvalides.class, () -> {
+        assertThrows(FichierDonneesInvalidesException.class, () -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_EXPOSITIONS+"expositions_invalides11.csv");
         });
-        assertThrows(FichierDonneesInvalides.class, () -> {
+        assertThrows(FichierDonneesInvalidesException.class, () -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_EXPOSITIONS+"expositions_invalides12.csv");
         });
-        assertThrows(FichierDonneesInvalides.class, () -> {
+        assertThrows(FichierDonneesInvalidesException.class, () -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_EXPOSITIONS+"expositions_invalides13.csv");
         });
-        assertThrows(FichierDonneesInvalides.class, () -> {
+        assertThrows(FichierDonneesInvalidesException.class, () -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_EXPOSITIONS+"expositions_invalides14.csv");
         });
-        assertThrows(FichierDonneesInvalides.class, () -> {
+        assertThrows(FichierDonneesInvalidesException.class, () -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_EXPOSITIONS+"expositions_invalides15.csv");
         });
         
         // Fichiers Conférenciers avec données incorrectes
-        assertThrows(FichierDonneesInvalides.class, () -> {
+        assertThrows(FichierDonneesInvalidesException.class, () -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_CONFERENCIERS+"conferencier_invalide1.csv");
         });
-        assertThrows(FichierDonneesInvalides.class, () -> {
+        assertThrows(FichierDonneesInvalidesException.class, () -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_CONFERENCIERS+"conferencier_invalide2.csv");
         });
-        assertThrows(FichierDonneesInvalides.class, () -> {
+        assertThrows(FichierDonneesInvalidesException.class, () -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_CONFERENCIERS+"conferencier_invalide3.csv");
         });
-        assertThrows(FichierDonneesInvalides.class, () -> {
+        assertThrows(FichierDonneesInvalidesException.class, () -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_CONFERENCIERS+"conferencier_invalide4.csv");
         });
-        assertThrows(FichierDonneesInvalides.class, () -> {
+        assertThrows(FichierDonneesInvalidesException.class, () -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_CONFERENCIERS+"conferencier_invalide5.csv");
         });
-        assertThrows(FichierDonneesInvalides.class, () -> {
+        assertThrows(FichierDonneesInvalidesException.class, () -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_CONFERENCIERS+"conferencier_invalide6.csv");
         });
-        assertThrows(FichierDonneesInvalides.class, () -> {
+        assertThrows(FichierDonneesInvalidesException.class, () -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_CONFERENCIERS+"conferencier_invalide7.csv");
         });
-        assertThrows(FichierDonneesInvalides.class, () -> {
+        assertThrows(FichierDonneesInvalidesException.class, () -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_CONFERENCIERS+"conferencier_invalide8.csv");
         });
-        assertThrows(FichierDonneesInvalides.class, () -> {
+        assertThrows(FichierDonneesInvalidesException.class, () -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_CONFERENCIERS+"conferencier_invalide9.csv");
         });
         
         // Fichiers Employés avec données incorrectes
-        assertThrows(FichierDonneesInvalides.class, () -> {
+        assertThrows(FichierDonneesInvalidesException.class, () -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_EMPLOYES+"employes_invalides1.csv");
         });
-        assertThrows(FichierDonneesInvalides.class, () -> {
+        assertThrows(FichierDonneesInvalidesException.class, () -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_EMPLOYES+"employes_invalides2.csv");
         });
-        assertThrows(FichierDonneesInvalides.class, () -> {
+        assertThrows(FichierDonneesInvalidesException.class, () -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_EMPLOYES+"employes_invalides3.csv");
         });
-        assertThrows(FichierDonneesInvalides.class, () -> {
+        assertThrows(FichierDonneesInvalidesException.class, () -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_EMPLOYES+"employes_invalides4.csv");
         });
-        assertThrows(FichierDonneesInvalides.class, () -> {
+        assertThrows(FichierDonneesInvalidesException.class, () -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_EMPLOYES+"employes_invalides5.csv");
         });
         
         // Fichiers Visites avec données incorrectes
-        assertThrows(FichierDonneesInvalides.class, () -> {
+        assertThrows(FichierDonneesInvalidesException.class, () -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_VISITES+"visites_invalides1.csv");
         });
-        assertThrows(FichierDonneesInvalides.class, () -> {
+        assertThrows(FichierDonneesInvalidesException.class, () -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_VISITES+"visites_invalides2.csv");
         });
-        assertThrows(FichierDonneesInvalides.class, () -> {
+        assertThrows(FichierDonneesInvalidesException.class, () -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_VISITES+"visites_invalides3.csv");
         });
-        assertThrows(FichierDonneesInvalides.class, () -> {
+        assertThrows(FichierDonneesInvalidesException.class, () -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_VISITES+"visites_invalides4.csv");
         });
-        assertThrows(FichierDonneesInvalides.class, () -> {
+        assertThrows(FichierDonneesInvalidesException.class, () -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_VISITES+"visites_invalides5.csv");
         });
-        assertThrows(FichierDonneesInvalides.class, () -> {
+        assertThrows(FichierDonneesInvalidesException.class, () -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_VISITES+"visites_invalides6.csv");
         });
-        assertThrows(FichierDonneesInvalides.class, () -> {
+        assertThrows(FichierDonneesInvalidesException.class, () -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_VISITES+"visites_invalides7.csv");
         });
-        assertThrows(FichierDonneesInvalides.class, () -> {
+        assertThrows(FichierDonneesInvalidesException.class, () -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_VISITES+"visites_invalides8.csv");
         });
-        assertThrows(FichierDonneesInvalides.class, () -> {
+        assertThrows(FichierDonneesInvalidesException.class, () -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_VISITES+"visites_invalides9.csv");
         });

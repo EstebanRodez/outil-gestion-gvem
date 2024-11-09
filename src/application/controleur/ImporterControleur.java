@@ -13,7 +13,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 import application.EchangeurDeVue;
-import application.utilitaire.FichierDonneesInvalides;
+import application.utilitaire.FichierDonneesInvalidesException;
 import application.utilitaire.ImportationCSV;
 
 import javafx.event.ActionEvent;
@@ -101,7 +101,7 @@ public class ImporterControleur {
                     
                     // Ajouter le nom du fichier (sans le chemin) à la liste
                     nomsFichiers.append(fichier.getName()).append("\n");
-                } catch (FichierDonneesInvalides e) {
+                } catch (FichierDonneesInvalidesException e) {
                     
                     Alert boiteErreurDonneesInvalides
                     = new Alert(Alert.AlertType.ERROR, 

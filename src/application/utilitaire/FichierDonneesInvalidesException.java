@@ -11,13 +11,13 @@ package application.utilitaire;
  * @author Esteban Vroemen
  * @version 1.0
  */
-public class FichierDonneesInvalides extends Exception {
+public class FichierDonneesInvalidesException extends Exception {
 
     /**
      * Initialise l'exception avec un message d'erreur
      * @param erreurContenuFichier le message d'erreur à transmettre
      */
-    public FichierDonneesInvalides(String erreurContenuFichier) {
+    public FichierDonneesInvalidesException(String erreurContenuFichier) {
         super(erreurContenuFichier);
     }
 
