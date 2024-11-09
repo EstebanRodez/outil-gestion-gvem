@@ -132,6 +132,7 @@ public class DonneesCalculeesExpositionControleur {
         
         if (listePhrase.getValue().equals(choix[0])) {
             EchangeurDeVue.changerVue("donneesCalculeesExpositionVue");
+            listePhrase.setValue(choix[0]);
         }
         
         if (listePhrase.getValue().equals(choix[1])) {
