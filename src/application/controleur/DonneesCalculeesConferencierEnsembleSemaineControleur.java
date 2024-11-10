@@ -133,11 +133,11 @@ public class DonneesCalculeesConferencierEnsembleSemaineControleur {
         }
         
         if (listePhrase.getValue().equals(choix[2])) {
-            System.out.println("choix 3");
+            EchangeurDeVue.changerVue("donneesCalculeesConferencierMoyenneSemaineVue");
         }
         
         if (listePhrase.getValue().equals(choix[3])) {
-            EchangeurDeVue.changerVue("donneesCalculeesConferencierEnsembleJourVue");
+                EchangeurDeVue.changerVue("donneesCalculeesConferencierEnsembleJourVue");
         }
         
         if (listePhrase.getValue().equals(choix[4])) {
