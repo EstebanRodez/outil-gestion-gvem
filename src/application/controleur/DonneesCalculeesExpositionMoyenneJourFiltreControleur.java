@@ -14,6 +14,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
 
 /**
  * TODO commenter la responsabilité de cette class (SRP)
@@ -34,6 +36,24 @@ public class DonneesCalculeesExpositionMoyenneJourFiltreControleur {
     
     @FXML
     private DatePicker dateFin;
+    
+    @FXML
+    private RadioButton radioExternes;
+
+    @FXML
+    private RadioButton radioInternes;
+
+    @FXML
+    private RadioButton radioPermanente;
+
+    @FXML
+    private RadioButton radioTemporaire;
+
+    @FXML
+    private ToggleGroup typeConf;
+
+    @FXML
+    private ToggleGroup typeExpo;
 
     @FXML
     void btnValiderAction(ActionEvent event) {
@@ -51,6 +71,24 @@ public class DonneesCalculeesExpositionMoyenneJourFiltreControleur {
 
         if (dateFinSelectionne != null){  
             critere.setDateFin(dateFinSelectionne);
+        }
+        
+        if (typeExpo.getSelectedToggle() != null) {
+
+            if (typeExpo.getSelectedToggle() == radioPermanente) {
+                critere.setExpositionPermanente(true);
+            } else {
+                critere.setExpositionTemporaire(true);
+            }
+        }
+        
+        if (typeConf.getSelectedToggle() != null) {
+
+            if (typeConf.getSelectedToggle() == radioInternes) {
+                critere.setEstInterne(true);
+            } else {
+                critere.setExterne(true);
+            }
         }
             
         // Passer le critère de filtre au contrôleur principal via EchangeurDeVue

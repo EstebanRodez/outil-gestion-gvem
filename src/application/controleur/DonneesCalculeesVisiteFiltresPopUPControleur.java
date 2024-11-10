@@ -79,9 +79,18 @@ public class DonneesCalculeesVisiteFiltresPopUPControleur {
 
     @FXML
     private RadioButton radioTemporaire;
+    
+    @FXML
+    private RadioButton radioExternes;
+
+    @FXML
+    private RadioButton radioInternes;
 
     @FXML
     private ToggleGroup typeExpo;
+    
+    @FXML
+    private ToggleGroup typeConf;
     
     /**
      * 
@@ -133,6 +142,15 @@ public class DonneesCalculeesVisiteFiltresPopUPControleur {
                 critere.setExpositionPermanente(true);
             } else {
                 critere.setExpositionTemporaire(true);
+            }
+        }
+        
+        if (typeConf.getSelectedToggle() != null) {
+
+            if (typeConf.getSelectedToggle() == radioInternes) {
+                critere.setEstInterne(true);
+            } else {
+                critere.setExterne(true);
             }
         }
 

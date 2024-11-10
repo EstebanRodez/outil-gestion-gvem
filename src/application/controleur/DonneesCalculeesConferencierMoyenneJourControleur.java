@@ -16,6 +16,7 @@ import java.util.Map;
 
 import application.EchangeurDeVue;
 import application.modele.CritereFiltreVisite;
+import application.modele.ExpositionTemporaire;
 import application.modele.Visite;
 import application.modele.VisiteMoyenneResultat;
 import application.utilitaire.TraitementDonnees;
@@ -277,6 +278,38 @@ public class DonneesCalculeesConferencierMoyenneJourControleur {
                     || paire.getValue().getDate().isAfter(dateFin)) {
                     match = false;
                 }
+            }
+            
+         // Filtrer par exposition temporaire
+            if (critere.getExpositionTemporaire()
+                && !(paire.getValue().getExposition() instanceof ExpositionTemporaire)) {
+                
+                match = false;
+            }
+            
+            // Filtrer par exposition permanente
+            if (critere.getExpositionPermanente()
+                && paire.getValue().getExposition() instanceof ExpositionTemporaire) {
+                
+                match = false;
+            }
+            
+            // Filtrer par conférencier interne
+            if (critere.getInterne()
+                && !(paire.getValue().getConferencier().estInterne())) {
+                
+                match = false;
+            }
+            
+            // Filtrer par conférencier externe
+            if (critere.getExterne()
+                && (paire.getValue().getConferencier().estInterne())) {
+                
+                match = false;
+            }
+      
+            if (match) {
+                visitesFiltrees.putLast(paire.getKey(), paire.getValue());
             }
       
             if (match) {

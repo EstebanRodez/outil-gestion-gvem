@@ -19,6 +19,8 @@ public class CritereFiltreVisite {
     
     private boolean expositionTemporaire;
     private boolean expositionPermanente;
+    private boolean estInterne;
+    private boolean externe;
     
     private String conferencier;
     private String exposition;
@@ -61,6 +63,40 @@ public class CritereFiltreVisite {
     public void setExpositionPermanente(boolean expositionPermanente) {
         this.expositionPermanente = expositionPermanente;
         this.expositionTemporaire = false;
+    }
+    
+    /**
+     * Récupère si le conférencier est interne ou non.
+     * @return true si le conférencier est interne sinon false
+     */
+    public boolean getInterne() { 
+        return estInterne; 
+    }
+    
+    /**
+     * Récupère si le conférencier est non interne ou non.
+     * @return true si le conférencier est non interne sinon false
+     */
+    public boolean getExterne() { 
+        return externe; 
+    }
+    
+    /**
+     * Définit si le conférencier est interne ou non.
+     * @param estInterne si le conférencier est interne.
+     */
+    public void setEstInterne(boolean estInterne) {
+        this.estInterne = estInterne;
+        this.externe = false;
+    }
+    
+    /**
+     * Définit si le conférencier est externe ou non.
+     * @param externe si le conférencier est interne.
+     */
+    public void setExterne(boolean externe) {
+        this.externe = externe;
+        this.estInterne = false;
     }
 
     /**

@@ -204,6 +204,20 @@ public class DonneesCalculeesVisiteControleur {
                 
                 match = false;
             }
+            
+            // Filtrer par conférencier interne
+            if (critere.getInterne()
+                && !(visite.getConferencier().estInterne())) {
+                
+                match = false;
+            }
+            
+            // Filtrer par conférencier externe
+            if (critere.getExterne()
+                && (visite.getConferencier().estInterne())) {
+                
+                match = false;
+            }
 
             // Filtrer par conférencier
             if (critere.getConferencier() != null 

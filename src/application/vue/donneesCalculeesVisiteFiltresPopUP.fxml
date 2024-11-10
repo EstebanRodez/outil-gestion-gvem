@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
@@ -16,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="351.0" prefWidth="664.0" style="-fx-background-color: #72b8ed;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controleur.DonneesCalculeesVisiteFiltresPopUPControleur">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="397.0" prefWidth="664.0" style="-fx-background-color: #72b8ed;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controleur.DonneesCalculeesVisiteFiltresPopUPControleur">
    <children>
       <HBox alignment="CENTER" prefHeight="124.0" prefWidth="664.0">
          <children>
@@ -208,6 +204,35 @@
                <HBox.margin>
                   <Insets bottom="1.0" left="-5.0" />
                </HBox.margin></ChoiceBox>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <RadioButton fx:id="radioInternes" mnemonicParsing="false" prefHeight="31.0" prefWidth="144.0" style="-fx-background-color: #ffffff;" text="Internes">
+               <HBox.margin>
+                  <Insets right="50.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <padding>
+                  <Insets bottom="2.0" left="5.0" right="5.0" top="2.0" />
+               </padding>
+               <toggleGroup>
+                  <ToggleGroup fx:id="typeConf" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton fx:id="radioExternes" mnemonicParsing="false" style="-fx-background-color: #ffffff;" text="Externes" toggleGroup="$typeConf">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <padding>
+                  <Insets bottom="2.0" left="5.0" right="5.0" top="2.0" />
+               </padding>
+            </RadioButton>
          </children>
       </HBox>
       <HBox prefHeight="89.0" prefWidth="480.0">
