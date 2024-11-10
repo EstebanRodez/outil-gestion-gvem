@@ -86,7 +86,7 @@ public class DonneesCalculeesConferencierMoyenneJourControleur {
         listePhrase.getItems().addAll(choix);
         
         // défini la valeur par défaut
-        listePhrase.setValue(choix[2]);
+        listePhrase.setValue(choix[1]);
         
         conferencier.setCellValueFactory(
                 cellData -> new SimpleStringProperty(
@@ -134,11 +134,15 @@ public class DonneesCalculeesConferencierMoyenneJourControleur {
         }
         
         if (listePhrase.getValue().equals(choix[2])) {
-            System.out.println("choix 3 ");
+            EchangeurDeVue.changerVue("donneesCalculeesConferencierMoyenneSemaineVue");
         }
         
         if (listePhrase.getValue().equals(choix[3])) {
-            EchangeurDeVue.changerVue("donneesCalculeesConferencierEnsembleJourVue");
+                EchangeurDeVue.changerVue("donneesCalculeesConferencierEnsembleJourVue");
+        }
+        
+        if (listePhrase.getValue().equals(choix[4])) {
+            EchangeurDeVue.changerVue("donneesCalculeesConferencierEnsembleSemaineVue");
         }
     }
 

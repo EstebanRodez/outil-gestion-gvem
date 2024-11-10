@@ -145,6 +145,10 @@ public class DonneesCalculeesConferencierControleur {
         if (listePhrase.getValue().equals(choix[3])) {
         	EchangeurDeVue.changerVue("donneesCalculeesConferencierEnsembleJourVue");
         }
+        
+        if (listePhrase.getValue().equals(choix[4])) {
+            EchangeurDeVue.changerVue("donneesCalculeesConferencierEnsembleSemaineVue");
+        }
     }
 
     @FXML

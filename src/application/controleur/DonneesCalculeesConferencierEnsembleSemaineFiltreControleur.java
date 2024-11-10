@@ -1,6 +1,6 @@
 /*
- * DonneesCalculeesConferencierEnsembleJourFiltreControlleur.java                           
- * 5 nov. 2024
+ * DonneesCalculeesConferencierEnsembleSemaineFiltreControleur.java                           
+ * 10 nov. 2024
  * IUT de Rodez, pas de copyright
  */
 package application.controleur;
@@ -17,8 +17,8 @@ import javafx.scene.control.DatePicker;
 /**
  * TODO commenter la responsabilité de cette class (SRP)
  */
-public class DonneesCalculeesConferencierEnsembleJourFiltreControleur {
-    
+public class DonneesCalculeesConferencierEnsembleSemaineFiltreControleur {
+
     @FXML
     private Button btnValider;
 
@@ -47,15 +47,16 @@ public class DonneesCalculeesConferencierEnsembleJourFiltreControleur {
         }
             
         // Passer le critère de filtre au contrôleur principal via EchangeurDeVue
-        DonneesCalculeesConferencierEnsembleJourControleur controleurPrincipal;
+        DonneesCalculeesConferencierEnsembleSemaineControleur controleurPrincipal;
         controleurPrincipal = EchangeurDeVue
-                               .getFXMLLoader("donneesCalculeesConferencierEnsembleJourVue")
+                               .getFXMLLoader("donneesCalculeesConferencierEnsembleSemaineVue")
                                 .getController();
         controleurPrincipal.appliquerFiltreMoyenneJour(critere);
             
         // Fermer la popup
-        EchangeurDeVue.fermerPopUp("donneesCalculeesConferencierEnsembleJourFiltrePopUp");
+        EchangeurDeVue.fermerPopUp("donneesCalculeesConferencierEnsembleSemaineFiltrePopUp");
     }
 
 }
+
 

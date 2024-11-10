@@ -1,5 +1,5 @@
 /*
- * DonneesCalculeesConferencierMoyenneSemaineControleur.java                           
+ * DonneesCalculeesConferencierEnsembleSemaineControleur.java                           
  * 10 nov. 2024
  * IUT de Rodez, pas de copyright
  */
@@ -9,7 +9,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +33,7 @@ import javafx.scene.control.TableView;
 /**
  * TODO commenter la responsabilité de cette class (SRP)
  */
-public class DonneesCalculeesConferencierMoyenneSemaineControleur {
+public class DonneesCalculeesConferencierEnsembleSemaineControleur {
 
     private static LinkedHashMap<String, Visite> visites
     = TraitementDonnees.getVisites();
@@ -66,7 +65,7 @@ public class DonneesCalculeesConferencierMoyenneSemaineControleur {
     private Label labelDate;
 
     @FXML
-    private TableColumn<VisiteMoyenneResultat, String> conferencier;
+    private TableColumn<VisiteMoyenneResultat, String> Conferencier;
     
     @FXML
     private TableColumn<VisiteMoyenneResultat, Double> nbMoyen;
@@ -86,9 +85,9 @@ public class DonneesCalculeesConferencierMoyenneSemaineControleur {
         listePhrase.getItems().addAll(choix);
         
         // défini la valeur par défaut
-        listePhrase.setValue(choix[2]);
+        listePhrase.setValue(choix[4]);
         
-        conferencier.setCellValueFactory(
+        Conferencier.setCellValueFactory(
                 cellData -> new SimpleStringProperty(
                         cellData.getValue().getIntituleExposition()));
         
@@ -109,9 +108,9 @@ public class DonneesCalculeesConferencierMoyenneSemaineControleur {
                 dateFinGlobal = dateVisite;
             }
         }
-
-        calculerMoyenneVisitesParConferencier(visites, dateDebutGlobal,
-                                                       dateFinGlobal);
+        
+        calculerMoyenneVisitesEnsembleConferencier(visites, dateDebutGlobal,
+                                                            dateFinGlobal);
         
         labelDate.setText("du " + dateDebutGlobal.format(DATE_FORMAT) 
                           + " au " + dateFinGlobal.format(DATE_FORMAT));
@@ -119,7 +118,7 @@ public class DonneesCalculeesConferencierMoyenneSemaineControleur {
     
     @FXML
     void btnFiltresAction(ActionEvent event) {
-        EchangeurDeVue.creerPopUp("donneesCalculeesConferencierMoyenneSemaineFiltrePopUp");
+        EchangeurDeVue.creerPopUp("donneesCalculeesConferencierEnsembleSemaineFiltrePopUp");
     }
     
     @FXML
@@ -134,11 +133,11 @@ public class DonneesCalculeesConferencierMoyenneSemaineControleur {
         }
         
         if (listePhrase.getValue().equals(choix[2])) {
-            EchangeurDeVue.changerVue("donneesCalculeesConferencierMoyenneSemaineVue");
+            System.out.println("choix 3");
         }
         
         if (listePhrase.getValue().equals(choix[3])) {
-                EchangeurDeVue.changerVue("donneesCalculeesConferencierEnsembleJourVue");
+            EchangeurDeVue.changerVue("donneesCalculeesConferencierEnsembleJourVue");
         }
         
         if (listePhrase.getValue().equals(choix[4])) {
@@ -167,26 +166,21 @@ public class DonneesCalculeesConferencierMoyenneSemaineControleur {
     }
     
     /**
-     * Calcule la moyenne de visites programmées par jour pour chaque
-     * conférencier en tenant compte d'une période de temps spécifiée
-     * par les dates de début et de fin.
+     * Calcule la moyenne de visites programmées par jour pour chaque conférencier
+     * à partir d'une liste de visites spécifiée.
      * 
      * @param visites la liste des visites à utiliser pour le calcul
-     * @param dateDebut la date de début de la période de calcul,
-     *                  peut être null
-     * @param dateFin la date de fin de la période de calcul,
-     *                peut être null
      */
-    private void calculerMoyenneVisitesParConferencier(
+    private void calculerMoyenneVisitesEnsembleConferencier(
             LinkedHashMap<String, Visite> visites,
             LocalDate dateDebut,
             LocalDate dateFin) {
-        
+
         // Initialiser les dates globales de début et de fin si elles ne sont pas spécifiées
         LocalDate dateDebutGlobal = dateDebut != null ? dateDebut 
                                                       : LocalDate.MAX;
         LocalDate dateFinGlobal = dateFin != null ? dateFin 
-                                                  : LocalDate.MIN;
+                                                  : LocalDate.MIN;      
 
         // Parcourir toutes les visites pour ajuster les dates globales de début et de fin
         for (Map.Entry<String, Visite> paire : visites.entrySet()) {
@@ -200,64 +194,44 @@ public class DonneesCalculeesConferencierMoyenneSemaineControleur {
                 dateFinGlobal = dateVisite;
             }
         }
-        
+
         // Calculer le nombre total de jours global entre dateDebutGlobal et dateFinGlobal
-        long totalSemaines = ChronoUnit.WEEKS.between(dateDebutGlobal, 
+        long totalSemainesGlobal = ChronoUnit.WEEKS.between(dateDebutGlobal, 
                                                   dateFinGlobal) + 1;
 
-        // Création d'une Map pour compter les visites par conférencier
-        Map<String, Integer> visitesParConferencier = new HashMap<>();
+        // Calculer le nombre total de visites
+        int totalVisitesGlobal = visites.size();
 
-        // Compter les visites pour chaque exposition
-        for (Map.Entry<String, Visite> paire : visites.entrySet()) {
-            
-            String nomConferencier
-            = paire.getValue().getConferencier().getNom();
-            visitesParConferencier.put(
-                nomConferencier,
-                visitesParConferencier.getOrDefault(nomConferencier, 0) + 1
-            );
-        }
-
-        // Calculer la moyenne de visites pour chaque conférencier
+        // Calculer la moyenne globale
+        double moyenneGlobale = totalSemainesGlobal > 0 ? (double) totalVisitesGlobal / 
+                                                          totalSemainesGlobal : 0;
+        
+        // arrondir à 2 chiffre après la virgule
+        double moyenneVisitesArrondi = Math.round(moyenneGlobale * 100.0) / 
+                                                                   100.0;
+        
+        // Créer la liste de résultats avec une seule entrée pour la moyenne globale
         List<VisiteMoyenneResultat> resultats = new ArrayList<>();
+        resultats.add(new VisiteMoyenneResultat("Tout les conferenciers", 
+                                                moyenneVisitesArrondi));
 
-        for (Map.Entry<String, Integer> entry : visitesParConferencier
-                                                .entrySet()) {
-            String intituleExposition = entry.getKey();
-            int totalVisites = entry.getValue();
-
-            // Calculer la moyenne des visites pour cette exposition
-            double moyenneVisites = totalSemaines > 0 ? (double) totalVisites / 
-                                                              totalSemaines : 0;
-            
-            // arrondir à 2 chiffre après la virgule
-            double moyenneVisitesArrondi = Math.round(moyenneVisites * 100.0) / 
-                                                                       100.0;
-
-            resultats.add(new VisiteMoyenneResultat(intituleExposition, 
-                                                    moyenneVisitesArrondi));
-        }
-
-        // Mettre à jour le tableau avec les résultats
-        ObservableList<VisiteMoyenneResultat> exposListe 
+        // Mettre à jour le tableau avec le résultat
+        ObservableList<VisiteMoyenneResultat> confsListe 
         = FXCollections.observableArrayList(resultats);
-        tableConferencier.setItems(exposListe);
+        tableConferencier.setItems(confsListe);
         
         labelDate.setText("du " + dateDebutGlobal.format(DATE_FORMAT) 
                           + " au " + dateFinGlobal.format(DATE_FORMAT)
-                          + " (" + totalSemaines +" semaines)");
+                          + " (" + totalSemainesGlobal +" semaines)");
+                        
     }
-
-
-
     
     /**
      * Applique les critères de filtrage inversés sur la liste des visites.
      * Parcourt la liste des visites et affiche celles qui ne correspondent
      * pas aux critères spécifiés dans l'objet CritereFiltre.
      * Les visites qui ne respectent pas au moins un des critères 
-     * (type d'exposition, conférencier, exposition, dates et horaires)
+     * (type de conferenicer, conférencier, conférencier, dates et horaires)
      * sont ajoutées à la liste des visites filtrées.
      *
      * @param critere objet contenant les critères de filtrage à 
@@ -285,11 +259,10 @@ public class DonneesCalculeesConferencierMoyenneSemaineControleur {
             }
         }
 
-        calculerMoyenneVisitesParConferencier(visitesFiltrees, 
-                                             critere.getDateDebut(), 
-                                             critere.getDateFin());
+        calculerMoyenneVisitesEnsembleConferencier(visitesFiltrees, 
+                                                   critere.getDateDebut(), 
+                                                   critere.getDateFin());
     }
-
 
 }
 

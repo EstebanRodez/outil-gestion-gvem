@@ -86,7 +86,7 @@ public class DonneesCalculeesConferencierEnsembleJourControleur {
         listePhrase.getItems().addAll(choix);
         
         // défini la valeur par défaut
-        listePhrase.setValue(choix[2]);
+        listePhrase.setValue(choix[3]);
         
         Conferencier.setCellValueFactory(
                 cellData -> new SimpleStringProperty(
@@ -134,15 +134,15 @@ public class DonneesCalculeesConferencierEnsembleJourControleur {
         }
         
         if (listePhrase.getValue().equals(choix[2])) {
-            System.out.println("choix 3");
+            EchangeurDeVue.changerVue("donneesCalculeesConferencierMoyenneSemaineVue");
         }
         
         if (listePhrase.getValue().equals(choix[3])) {
-            EchangeurDeVue.changerVue("donneesCalculeesConferencierEnsembleJourVue");
+                EchangeurDeVue.changerVue("donneesCalculeesConferencierEnsembleJourVue");
         }
         
         if (listePhrase.getValue().equals(choix[4])) {
-            System.out.println("choix 5");
+            EchangeurDeVue.changerVue("donneesCalculeesConferencierEnsembleSemaineVue");
         }
     }
 
@@ -213,7 +213,7 @@ public class DonneesCalculeesConferencierEnsembleJourControleur {
         
         // Créer la liste de résultats avec une seule entrée pour la moyenne globale
         List<VisiteMoyenneResultat> resultats = new ArrayList<>();
-        resultats.add(new VisiteMoyenneResultat("Toutes les conferencier", 
+        resultats.add(new VisiteMoyenneResultat("Tout les conferenciers", 
                                                 moyenneVisitesArrondi));
 
         // Mettre à jour le tableau avec le résultat
