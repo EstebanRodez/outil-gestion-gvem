@@ -75,7 +75,7 @@ public class Serveur {
                     }
                 }
                 
-                return clientSocket.getLocalAddress();
+                return clientSocket.getInetAddress();
             }
         } catch (IOException e) {
             if (!Thread.currentThread().isInterrupted()) { // Vérifie si l'interruption est intentionnelle

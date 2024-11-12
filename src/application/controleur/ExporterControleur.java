@@ -110,6 +110,7 @@ public class ExporterControleur {
             }  
             InetAddress ipClient = Serveur.envoyerFichiers(65433, fichiersCles);
             
+            System.out.println(ipClient.getHostAddress());
             Client.recevoirFichiers(ipClient.getHostAddress(), 65433,
                                     new String[] {"g^b.txt"}, null);
             int gExpB;
