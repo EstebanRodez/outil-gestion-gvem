@@ -53,28 +53,34 @@ public class MenuImportationControleur {
                    btnSupprimerTrois, btnSupprimerQuatre, btnValider, btnRetour;
     
     /** Listes des labels */
-    private List<Label> labels = Arrays.asList(labelEmplacementUn, 
-                                               labelEmplacementDeux, 
-                                               labelEmplacementTrois, 
-                                               labelEmplacementQuatre);
+    private List<Label> labels;
     
     /** Listes des boutons supprimer */
-    private List<Button> btnSupprimer = Arrays.asList(btnSupprimerUn, 
-                                                      btnSupprimerDeux, 
-                                                      btnSupprimerTrois, 
-                                                      btnSupprimerQuatre);
+    private List<Button> btnSupprimer;
     
     /** Listes des boutons parcourir */
-    private List<Button> btnParcourir = Arrays.asList(btnParcourirUn, 
-                                                      btnParcourirDeux, 
-                                                      btnParcourirTrois, 
-                                                      btnParcourirQuatre);
+    private List<Button> btnParcourir;
     
     /**
      * Initialisation de la vue
      */
     @FXML
     public void initialize() {
+        labels = Arrays.asList(labelEmplacementUn, 
+                               labelEmplacementDeux, 
+                               labelEmplacementTrois, 
+                               labelEmplacementQuatre);
+        
+        btnSupprimer = Arrays.asList(btnSupprimerUn, 
+                                     btnSupprimerDeux, 
+                                     btnSupprimerTrois, 
+                                     btnSupprimerQuatre);
+        
+        btnParcourir = Arrays.asList(btnParcourirUn, 
+                                     btnParcourirDeux, 
+                                     btnParcourirTrois, 
+                                     btnParcourirQuatre);
+        
         importerFichier();
         mettreAJourLabelsFichiers(); 
         
@@ -214,7 +220,7 @@ public class MenuImportationControleur {
         for (int i = 0; i < btnSupprimer.size(); i++) {
             if (event.getSource() == btnSupprimer.get(i)) {
                 fichiersSelectionnes.set(i, null); 
-                labels.get(i).setText(null);         
+                labels.get(i).setText("");         
             }
         }
 
