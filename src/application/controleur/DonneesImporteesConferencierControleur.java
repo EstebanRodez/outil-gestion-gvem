@@ -5,7 +5,10 @@
  */
 package application.controleur;
 
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -48,6 +51,9 @@ public class DonneesImporteesConferencierControleur {
     private Button btnRetour;
     
     @FXML
+    private Button btnGenererPDF;
+    
+    @FXML
     private TableColumn<Map.Entry<String, Conferencier>, String> estInterne;
 
     @FXML
@@ -70,6 +76,22 @@ public class DonneesImporteesConferencierControleur {
 
     @FXML
     private TableView<Map.Entry<String, Conferencier>> tableExposition;
+    
+    @FXML
+    void btnGenererPDFAction(ActionEvent event) {
+        /*try {
+            // Create a list to hold VisiteMoyenneResultat objects
+            List<VisiteMoyenneResultat> results = new ArrayList<>();
+           
+            // Generate PDF with the results
+            CreerPdf pdfGenerator = new CreerPdf();
+            pdfGenerator.generatePdf("rapport_Conferenciers_sans_traitements.pdf", results);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } */
+    }
+
+    
     
     /**
      * 
@@ -136,8 +158,6 @@ public class DonneesImporteesConferencierControleur {
         
         return String.join(", ", indisponibilitesTextes);
     }
-
-
 
     @FXML
     void retourAccueilAction(ActionEvent event) {

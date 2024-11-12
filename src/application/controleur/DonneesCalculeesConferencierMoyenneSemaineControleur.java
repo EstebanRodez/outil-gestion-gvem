@@ -1,3 +1,4 @@
+
 /*
  * DonneesCalculeesConferencierMoyenneSemaineControleur.java                           
  * 10 nov. 2024
@@ -71,6 +72,9 @@ public class DonneesCalculeesConferencierMoyenneSemaineControleur {
     
     @FXML
     private Label labelDate;
+    
+    @FXML
+    private Button btnGenererPDF;
 
     @FXML
     private TableColumn<VisiteCalculResultat, String> conferencier;
@@ -127,6 +131,11 @@ public class DonneesCalculeesConferencierMoyenneSemaineControleur {
     @FXML
     void btnFiltresAction(ActionEvent event) {
         EchangeurDeVue.creerPopUp("donneesCalculeesConferencierMoyenneSemaineFiltrePopUp");
+    }
+    
+    @FXML
+    void btnGenererPDFAction(ActionEvent event) {
+    
     }
     
     @FXML
@@ -331,4 +340,5 @@ public class DonneesCalculeesConferencierMoyenneSemaineControleur {
 
 
 }
+
 

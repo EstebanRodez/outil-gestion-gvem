@@ -36,7 +36,7 @@
       </MenuBar>
       <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" style="-fx-background-color: #9FCFF3;">
          <children>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+            <HBox alignment="CENTER" prefHeight="71.0" prefWidth="912.0">
                <children>
                   <ChoiceBox fx:id="listePhrase" prefHeight="35.0" prefWidth="500.0" styleClass="btnBlanc">
                      <HBox.margin>
@@ -59,6 +59,11 @@
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </Label>
+                  <Button fx:id="btnGenererPDF" mnemonicParsing="false" onAction="#btnGenererPDFAction" text="générer un pdf">
+                  	<HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Button>
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="427.0" prefWidth="960.0">

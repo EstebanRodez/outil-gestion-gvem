@@ -7,6 +7,9 @@ package application.controleur;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.io.FileNotFoundException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -18,6 +21,7 @@ import application.modele.CritereFiltreVisite;
 import application.modele.ExpositionTemporaire;
 import application.modele.Visite;
 import application.modele.VisiteCalculResultat;
+
 import application.utilitaire.TraitementDonnees;
 
 import javafx.beans.property.SimpleDoubleProperty;
@@ -71,6 +75,9 @@ public class DonneesCalculeesExpositionEnsembleJourControleur {
     
     @FXML
     private Label labelDate;
+    
+    @FXML
+    private Button btnGenererPDF;
 
     @FXML
     private TableColumn<VisiteCalculResultat, String> Exposition;
@@ -154,6 +161,17 @@ public class DonneesCalculeesExpositionEnsembleJourControleur {
             EchangeurDeVue.changerVue("donneesCalculeesExpositionEnsembleSemaineVue");
         }
     }
+    
+    @FXML
+    void btnGenererPDFAction(ActionEvent event) {
+        /*try {
+            List<VisiteMoyenneResultat> results = tableExposition.getItems();
+            CreerPdf pdfGenerator = new CreerPdf();
+            pdfGenerator.generatePdf("rapport_ensembles_expositions_jours.pdf", results);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } */
+    } 
 
     @FXML
     void retourAccueilAction(ActionEvent event) {

@@ -5,8 +5,11 @@
  */
 package application.controleur;
 
+import java.io.FileNotFoundException;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -50,6 +53,9 @@ public class DonneesImporteesVisiteControleur {
     
     @FXML
     private Button btnRetour;
+    
+    @FXML
+    private Button btnGenererPDF;
     
     @FXML
     private TableColumn<Map.Entry<String, Visite>, String> conferencier;
@@ -126,6 +132,20 @@ public class DonneesImporteesVisiteControleur {
         ObservableList<Map.Entry<String, Visite>> visitesListe
         = FXCollections.observableArrayList(visites.entrySet());
         tableExposition.setItems(visitesListe);
+    }
+    
+    @FXML
+    void btnGenererPDFAction(ActionEvent event) {
+        /*try {
+            // Create a list to hold VisiteMoyenneResultat objects
+            List<VisiteMoyenneResultat> results = new ArrayList<>();
+
+            // Generate PDF with the results
+            CreerPdf pdfGenerator = new CreerPdf();
+            pdfGenerator.generatePdf("rapport_visites_sans_traitements.pdf", results);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } */
     }
     
     private static Visite getVisite(

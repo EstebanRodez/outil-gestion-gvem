@@ -5,13 +5,17 @@
  */
 package application.controleur;
 
+import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import application.EchangeurDeVue;
+import application.modele.Conferencier;
 import application.modele.Exposition;
 import application.modele.ExpositionTemporaire;
 import application.utilitaire.TraitementDonnees;
@@ -53,6 +57,9 @@ public class DonneesImporteesExpositionControleur {
 
     @FXML
     private Button btnRetour;
+    
+    @FXML
+    private Button btnGenererPDF;
     
     @FXML
     private TableColumn<Map.Entry<String, Exposition>, String> dateDebut;
@@ -163,6 +170,20 @@ public class DonneesImporteesExpositionControleur {
         tableExposition.setItems(exposListe);
     }
     
+    @FXML
+    void btnGenererPDFAction(ActionEvent event) {
+        /*try {
+            // Create a list to hold VisiteMoyenneResultat objects
+            List<VisiteMoyenneResultat> results = new ArrayList<>();
+
+            // Generate PDF with the results
+            CreerPdf pdfGenerator = new CreerPdf();
+            pdfGenerator.generatePdf("rapport_expositions_sans_traitements.pdf", results);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } */
+    }
+    
     /**
      * Formatte une date en chaîne de caractère en format française.
      * 
@@ -178,6 +199,8 @@ public class DonneesImporteesExpositionControleur {
         
         return celluleDonnees.getValue().getValue();
     }
+    
+
 
     @FXML
     void retourAccueilAction(ActionEvent event) {

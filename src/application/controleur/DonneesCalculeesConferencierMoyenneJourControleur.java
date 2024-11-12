@@ -5,6 +5,7 @@
  */
 package application.controleur;
 
+import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -31,6 +32,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+
 
 /**
  * TODO commenter la responsabilité de cette class (SRP)
@@ -71,6 +73,10 @@ public class DonneesCalculeesConferencierMoyenneJourControleur {
     
     @FXML
     private Label labelDate;
+    
+    @FXML
+    private Button btnGenererPDF;
+
 
     @FXML
     private TableColumn<VisiteCalculResultat, String> conferencier;
@@ -152,6 +158,17 @@ public class DonneesCalculeesConferencierMoyenneJourControleur {
             EchangeurDeVue.changerVue("donneesCalculeesConferencierEnsembleSemaineVue");
         }
     }
+    
+    @FXML
+    void btnGenererPDFAction(ActionEvent event) {
+    	/*try {
+            List<VisiteMoyenneResultat> results = tableConferencier.getItems();
+            CreerPdf pdfGenerator = new CreerPdf();
+            pdfGenerator.generatePdf("rapport_moyenne_conferenciers_jour.pdf", results);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }*/
+    } 
 
     @FXML
     void retourAccueilAction(ActionEvent event) {
@@ -327,6 +344,7 @@ public class DonneesCalculeesConferencierMoyenneJourControleur {
                                              critere.getDateDebut(), 
                                              critere.getDateFin());
     }
+    
 
 
 }

@@ -59,6 +59,11 @@
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </Label>
+                  <Button fx:id="btnGenererPDF" mnemonicParsing="false" onAction="#btnGenererPDFAction" text="générer un pdf">
+                  	<HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Button>
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="427.0" prefWidth="960.0">

@@ -1,3 +1,4 @@
+
 /*
  * DonneesCalculeesExpositionEnsembleSemaineControleur.java                           
  * 9 nov. 2024
@@ -70,6 +71,9 @@ public class DonneesCalculeesExpositionEnsembleSemaineControleur {
     
     @FXML
     private Label labelDate;
+    
+    @FXML
+    private Button btnGenererPDF;
 
     @FXML
     private TableColumn<VisiteCalculResultat, String> Exposition;
@@ -152,6 +156,11 @@ public class DonneesCalculeesExpositionEnsembleSemaineControleur {
         if (listePhrase.getValue().equals(choix[4])) {
             EchangeurDeVue.changerVue("donneesCalculeesExpositionEnsembleSemaineVue");
         }
+    }
+    
+    @FXML
+    void btnGenererPDFAction(ActionEvent event) {
+    	
     }
 
     @FXML
@@ -309,3 +318,4 @@ public class DonneesCalculeesExpositionEnsembleSemaineControleur {
     }
 
 }
+

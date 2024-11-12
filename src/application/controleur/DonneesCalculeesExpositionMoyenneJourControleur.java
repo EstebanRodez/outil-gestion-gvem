@@ -5,6 +5,7 @@
  */
 package application.controleur;
 
+import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -18,7 +19,10 @@ import application.EchangeurDeVue;
 import application.modele.CritereFiltreVisite;
 import application.modele.ExpositionTemporaire;
 import application.modele.Visite;
+
 import application.modele.VisiteCalculResultat;
+
+
 import application.utilitaire.TraitementDonnees;
 
 import javafx.beans.property.SimpleDoubleProperty;
@@ -75,6 +79,9 @@ public class DonneesCalculeesExpositionMoyenneJourControleur {
 
     @FXML
     private TableColumn<VisiteCalculResultat, String> Exposition;
+    @FXML
+    private Button btnGenererPDF;
+
     
     @FXML
     private TableColumn<VisiteCalculResultat, Double> nbMoyen;
@@ -155,6 +162,18 @@ public class DonneesCalculeesExpositionMoyenneJourControleur {
             EchangeurDeVue.changerVue("donneesCalculeesExpositionEnsembleSemaineVue");
         }
     }
+    
+    @FXML
+    void btnGenererPDFAction(ActionEvent event) {
+        /*try {
+            List<VisiteCalculResultat> results = tableExposition.getItems();
+            CreerPdf pdfGenerator = new CreerPdf();
+            pdfGenerator.generatePdf("rapport_moyenne_expositions_jours.pdf", results);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } */
+    }
+    
 
     @FXML
     void retourAccueilAction(ActionEvent event) {
