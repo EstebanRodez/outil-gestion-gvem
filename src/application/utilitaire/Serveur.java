@@ -10,6 +10,7 @@ import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -36,11 +37,12 @@ public class Serveur {
      *             connexions du client
      * @param cheminsFichiers Un tableau contenant les chemins des
      *                        fichiers à envoyer
+     * @return adresse du client
      * @throws IOException Si une erreur survient lors de la lecture
      *                     des fichiers ou de l'envoi de données au
      *                     client
      */
-    public static void envoyerFichiers(int port, String[] cheminsFichiers) {
+    public static InetAddress envoyerFichiers(int port, String[] cheminsFichiers) {
         final int TAILLE_BLOC_DONNEES = 1024;
 
         try {
@@ -72,6 +74,8 @@ public class Serveur {
                         System.out.println("Fichier " + fichier.getAbsolutePath() + " envoyé.");
                     }
                 }
+                
+                return clientSocket.getLocalAddress();
             }
         } catch (IOException e) {
             if (!Thread.currentThread().isInterrupted()) { // Vérifie si l'interruption est intentionnelle
@@ -80,6 +84,7 @@ public class Serveur {
         } finally {
             fermerServeur();
         }
+        return null;
     }
 
     /**

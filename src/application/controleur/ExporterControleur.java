@@ -10,7 +10,7 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 
 import application.EchangeurDeVue;
-
+import application.utilitaire.Client;
 import application.utilitaire.Cryptage;
 import application.utilitaire.CryptageException;
 import application.utilitaire.GestionFichiers;
@@ -108,8 +108,10 @@ public class ExporterControleur {
                 e.printStackTrace();
                 Thread.currentThread().interrupt();
             }  
-            Serveur.envoyerFichiers(65433, fichiersCles);
+            InetAddress ipClient = Serveur.envoyerFichiers(65433, fichiersCles);
             
+            Client.recevoirFichiers(ipClient.getHostAddress(), 65433,
+                                    new String[] {"g^b.txt"}, null);
             int gExpB;
             try {
                 gExpB = Integer.parseInt(
