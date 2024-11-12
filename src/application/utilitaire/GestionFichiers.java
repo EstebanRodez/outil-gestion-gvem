@@ -30,8 +30,13 @@ public class GestionFichiers {
              = new BufferedReader(new FileReader(chemin))) {
             
             String ligne;
-            while ((ligne = fluxLecture.readLine()) != null) {
-                contenu.append(ligne).append("\n");
+            ligne = fluxLecture.readLine();
+            while (ligne != null) {
+                contenu.append(ligne);
+                ligne = fluxLecture.readLine();
+                if (ligne != null) {
+                    contenu.append("\n");
+                }
             }
         }
         return contenu.toString();
