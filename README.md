@@ -23,6 +23,10 @@ Rôles Itération 2 :
  - Product Owner : Baptiste
  - Scrum Master : Esteban
 
+Rôles Itération 3 :
+ - Product Owner : Ayoub
+ - Scrum Master : Baptiste
+
 Lien GitHub : https://github.com/EstebanRodez/sae-semestre3-projet-java
 
 Lien Google Drive : https://drive.google.com/drive/folders/0AFo8NSY6FjJ1Uk9PVA
