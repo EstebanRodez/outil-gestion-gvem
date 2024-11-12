@@ -44,15 +44,17 @@ public class DonneesCalculeesConferencierEnsembleJourControleur {
     private static final DateTimeFormatter DATE_FORMAT 
     = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     
-    private static String[] choix = {"conférencier qui n’ont aucune visite",
-                                    "conférencier et leur nombre moyen de " 
-                                    + "visites programmées chaque jour",
-                                    "conférencier et leur nombre moyen de "
-                                    + "visites programmées chaque semaine",
-                                    "l’esembles des conférencier et leur nombre"
-                                    + " moyen de visites prévues chaque jour",
-                                    "l’esembles des conférencier et leur nombre"
-                                    + " moyen de visites prévues chaque semaine"};
+    private static String[] choix 
+    = {
+        "conférencier qui n’ont aucune visite",
+        "conférencier et leur nombre moyen de visites programmées chaque jour",
+        "conférencier et leur nombre moyen de visites programmées chaque "
+        + "semaine",
+        "l’esembles des conférencier et leur nombre moyen de visites prévues "
+        + "chaque jour",
+        "l’esembles des conférencier et leur nombre moyen de visites prévues "
+        + "chaque semaine"
+    };
     
     @FXML
     private Button btnFiltres;
@@ -120,7 +122,8 @@ public class DonneesCalculeesConferencierEnsembleJourControleur {
     
     @FXML
     void btnFiltresAction(ActionEvent event) {
-        EchangeurDeVue.creerPopUp("donneesCalculeesConferencierEnsembleJourFiltrePopUp");
+        EchangeurDeVue.creerPopUp(
+                "donneesCalculeesConferencierEnsembleJourFiltrePopUp");
     }
     
     @FXML
@@ -131,19 +134,23 @@ public class DonneesCalculeesConferencierEnsembleJourControleur {
         }
         
         if (listePhrase.getValue().equals(choix[1])) {
-            EchangeurDeVue.changerVue("donneesCalculeesConferencierMoyenneJourVue");
+            EchangeurDeVue.changerVue(
+                    "donneesCalculeesConferencierMoyenneJourVue");
         }
         
         if (listePhrase.getValue().equals(choix[2])) {
-            EchangeurDeVue.changerVue("donneesCalculeesConferencierMoyenneSemaineVue");
+            EchangeurDeVue.changerVue(
+                    "donneesCalculeesConferencierMoyenneSemaineVue");
         }
         
         if (listePhrase.getValue().equals(choix[3])) {
-                EchangeurDeVue.changerVue("donneesCalculeesConferencierEnsembleJourVue");
+                EchangeurDeVue.changerVue(
+                        "donneesCalculeesConferencierEnsembleJourVue");
         }
         
         if (listePhrase.getValue().equals(choix[4])) {
-            EchangeurDeVue.changerVue("donneesCalculeesConferencierEnsembleSemaineVue");
+            EchangeurDeVue.changerVue(
+                    "donneesCalculeesConferencierEnsembleSemaineVue");
         }
     }
 
@@ -168,8 +175,8 @@ public class DonneesCalculeesConferencierEnsembleJourControleur {
     }
     
     /**
-     * Calcule la moyenne de visites programmées par jour pour chaque conférencier
-     * à partir d'une liste de visites spécifiée.
+     * Calcule la moyenne de visites programmées par jour pour chaque
+     * conférencier à partir d'une liste de visites spécifiée.
      * 
      * @param visites la liste des visites à utiliser pour le calcul
      */
@@ -178,17 +185,26 @@ public class DonneesCalculeesConferencierEnsembleJourControleur {
             LocalDate dateDebut,
             LocalDate dateFin) {
 
-        // Initialiser les dates globales de début et de fin si elles ne sont pas spécifiées
+        /* 
+         * Initialiser les dates globales de début et de fin si elles
+         * ne sont pas spécifiées
+         */
         LocalDate dateDebutGlobal = dateDebut != null ? dateDebut 
                                                       : LocalDate.MAX;
         LocalDate dateFinGlobal = dateFin != null ? dateFin 
                                                   : LocalDate.MIN;      
 
-        // Parcourir toutes les visites pour ajuster les dates globales de début et de fin
+        /* 
+         * Parcourir toutes les visites pour ajuster les dates
+         * globales de début et de fin
+         */
         for (Map.Entry<String, Visite> paire : visites.entrySet()) {
             LocalDate dateVisite = paire.getValue().getDate();
 
-            // Ajuster dateDebutGlobal et dateFinGlobal en fonction des dates de visite trouvées
+            /* 
+             * Ajuster dateDebutGlobal et dateFinGlobal en fonction
+             * des dates de visite trouvées
+             */
             if (dateDebut == null && dateVisite.isBefore(dateDebutGlobal)) {
                 dateDebutGlobal = dateVisite;
             }
@@ -197,7 +213,10 @@ public class DonneesCalculeesConferencierEnsembleJourControleur {
             }
         }
 
-        // Calculer le nombre total de jours global entre dateDebutGlobal et dateFinGlobal
+        /* 
+         * Calculer le nombre total de jours global entre
+         * dateDebutGlobal et dateFinGlobal
+         */
         long totalJours = ChronoUnit.DAYS.between(dateDebutGlobal, 
                                                   dateFinGlobal) + 1;
 
@@ -205,14 +224,18 @@ public class DonneesCalculeesConferencierEnsembleJourControleur {
         int totalVisitesGlobal = visites.size();
 
         // Calculer la moyenne globale
-        double moyenneGlobale = totalJours > 0 ? (double) totalVisitesGlobal / 
-                                                          totalJours : 0;
+        double moyenneGlobale
+        = totalJours > 0 ? (double) totalVisitesGlobal / totalJours
+                         : 0;
         
         // arrondir à 2 chiffre après la virgule
-        double moyenneVisitesArrondi = Math.round(moyenneGlobale * 100.0) / 
-                                                                   100.0;
+        double moyenneVisitesArrondi
+        = Math.round(moyenneGlobale * 100.0) / 100.0;
         
-        // Créer la liste de résultats avec une seule entrée pour la moyenne globale
+        /* 
+         * Créer la liste de résultats avec une seule entrée pour la
+         * moyenne globale
+         */
         List<VisiteCalculResultat> resultats = new ArrayList<>();
         resultats.add(new VisiteCalculResultat("Tout les conferenciers", 
                                                 moyenneVisitesArrondi));
@@ -261,14 +284,16 @@ public class DonneesCalculeesConferencierEnsembleJourControleur {
             
          // Filtrer par exposition temporaire
             if (critere.getExpositionTemporaire()
-                && !(paire.getValue().getExposition() instanceof ExpositionTemporaire)) {
+                && !(paire.getValue().getExposition()
+                     instanceof ExpositionTemporaire)) {
                 
                 match = false;
             }
             
             // Filtrer par exposition permanente
             if (critere.getExpositionPermanente()
-                && paire.getValue().getExposition() instanceof ExpositionTemporaire) {
+                && paire.getValue().getExposition()
+                   instanceof ExpositionTemporaire) {
                 
                 match = false;
             }

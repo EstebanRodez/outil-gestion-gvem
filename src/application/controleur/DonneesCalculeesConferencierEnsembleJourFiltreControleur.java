@@ -9,6 +9,7 @@ import java.time.LocalDate;
 
 import application.EchangeurDeVue;
 import application.modele.CritereFiltreVisite;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -92,13 +93,14 @@ public class DonneesCalculeesConferencierEnsembleJourFiltreControleur {
             
         // Passer le critère de filtre au contrôleur principal via EchangeurDeVue
         DonneesCalculeesConferencierEnsembleJourControleur controleurPrincipal;
-        controleurPrincipal = EchangeurDeVue
-                               .getFXMLLoader("donneesCalculeesConferencierEnsembleJourVue")
-                                .getController();
+        controleurPrincipal 
+        = EchangeurDeVue.getFXMLLoader(
+                "donneesCalculeesConferencierEnsembleJourVue").getController();
         controleurPrincipal.appliquerFiltreMoyenneJour(critere);
             
         // Fermer la popup
-        EchangeurDeVue.fermerPopUp("donneesCalculeesConferencierEnsembleJourFiltrePopUp");
+        EchangeurDeVue.fermerPopUp(
+                "donneesCalculeesConferencierEnsembleJourFiltrePopUp");
     }
 
 }

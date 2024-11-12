@@ -30,11 +30,11 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
 /**
  * Contrôleur pour la gestion des données importées des conférenciers.
  * 
- * Cette classe gère l'affichage et les interactions relatives aux données 
- * caclulées des conférenciers dans l'application. Elle permet à l'utilisateur 
- * de visualiser les informations des conférenciers, ainsi que d'effectuer 
- * des actions telles que le retour à l'écran d'accueil ou la fermeture de 
- * l'application. 
+ * Cette classe gère l'affichage et les interactions relatives aux
+ * données cacullées des conférenciers dans l'application. Elle
+ * permet à l'utilisateur de visualiser les informations des
+ * conférenciers, ainsi que d'effectuer des actions telles que le
+ * retour à l'écran d'accueil ou la fermeture de l'application. 
  * 
  * @author Romain Augé
  * @author Ayoub Laluti
@@ -51,15 +51,17 @@ public class DonneesCalculeesConferencierControleur {
     private static final DateTimeFormatter DATE_FORMAT 
     = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     
-    private static String[] choix = {"conférencier qui n’ont aucune visite",
-                                    "conférencier et leur nombre moyen de " 
-                                    + "visites programmées chaque jour",
-                                    "conférencier et leur nombre moyen de "
-                                    + "visites programmées chaque semaine",
-                                    "l’esembles des conférencier et leur nombre"
-                                    + " moyen de visites prévues chaque jour",
-                                    "l’esembles des conférencier et leur nombre"
-                                    + " moyen de visites prévues chaque semaine"};
+    private static String[] choix
+    = {
+        "conférencier qui n’ont aucune visite",
+        "conférencier et leur nombre moyen de visites programmées chaque jour",
+        "conférencier et leur nombre moyen de visites programmées chaque "
+        + "semaine",
+        "l’esembles des conférencier et leur nombre moyen de visites prévues "
+        + "chaque jour",
+        "l’esembles des conférencier et leur nombre moyen de visites prévues "
+        + "chaque semaine"
+    };
                             
     @FXML
     private Button btnFiltres;
@@ -135,19 +137,23 @@ public class DonneesCalculeesConferencierControleur {
         }
         
         if (listePhrase.getValue().equals(choix[1])) {
-            EchangeurDeVue.changerVue("donneesCalculeesConferencierMoyenneJourVue");
+            EchangeurDeVue.changerVue(
+                    "donneesCalculeesConferencierMoyenneJourVue");
         }
         
         if (listePhrase.getValue().equals(choix[2])) {
-            EchangeurDeVue.changerVue("donneesCalculeesConferencierMoyenneSemaineVue");
+            EchangeurDeVue.changerVue(
+                    "donneesCalculeesConferencierMoyenneSemaineVue");
         }
         
         if (listePhrase.getValue().equals(choix[3])) {
-        	EchangeurDeVue.changerVue("donneesCalculeesConferencierEnsembleJourVue");
+        	EchangeurDeVue.changerVue(
+        	        "donneesCalculeesConferencierEnsembleJourVue");
         }
         
         if (listePhrase.getValue().equals(choix[4])) {
-            EchangeurDeVue.changerVue("donneesCalculeesConferencierEnsembleSemaineVue");
+            EchangeurDeVue.changerVue(
+                    "donneesCalculeesConferencierEnsembleSemaineVue");
         }
     }
 
@@ -199,10 +205,15 @@ public class DonneesCalculeesConferencierControleur {
                 = critere.getDateFin() != null ? critere.getDateFin()
                                                : critere.getDateDebut();
                 
-                // Si la date de la visite est avant la date de début ou après la date de fin, elle ne correspond pas
+                /* 
+                 * Si la date de la visite est avant la date de début
+                 * ou après la date de fin, elle ne correspond pas
+                 */
                 if (paire.getValue().getDate().isBefore(dateDebut)
                     || paire.getValue().getDate().isAfter(dateFin)) {
-                    match = true;  // Hors de la plage de dates, donc non correspondant
+                    
+                    // Hors de la plage de dates, donc non correspondant
+                    match = true;
                 }
             }
 
@@ -214,14 +225,23 @@ public class DonneesCalculeesConferencierControleur {
                 = critere.getHoraireFin() != 0 ? critere.getHoraireFin()
                                                : critere.getHoraireDebut();
                 
-                // Si l'horaire de la visite est avant l'horaire de début ou après l'horaire de fin, elle ne correspond pas
+                /* 
+                 * Si l'horaire de la visite est avant l'horaire de
+                 * début ou après l'horaire de fin, elle ne
+                 * correspond pas
+                 */
                 if (paire.getValue().getHoraireDebut() < horaireDebut
                     || paire.getValue().getHoraireDebut() > horaireFin) {
-                    match = true;  // Hors de la plage horaire, donc non correspondant
+                    
+                    // Hors de la plage horaire, donc non correspondant
+                    match = true;
                 }
             }
 
-            // Si l'une des conditions de non-correspondance est vraie, ajouter la visite à la liste
+            /* 
+             * Si l'une des conditions de non-correspondance est
+             * vraie, ajouter la visite à la liste
+             */
             if (match) {
                 visitesNonCorrespondantes.add(paire);
             }

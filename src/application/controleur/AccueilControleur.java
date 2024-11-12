@@ -22,12 +22,14 @@ import javafx.scene.control.ButtonType;
 /**
  * Contrôleur de l'interface d'accueil de l'application.
  * 
- * Cette classe gère les interactions utilisateur au sein de l'interface d'accueil. 
- * Elle est responsable de la navigation entre différentes vues de l'application 
- * en réponse aux actions des boutons. 
- * Chaque méthode de cette classe est associée à un bouton dans l'interface 
- * pour effectuer des actions spécifiques comme consulter, importer, 
- * exporter des données ou quitter l'application. 
+ * Cette classe gère les interactions utilisateur au sein de
+ * l'interface d'accueil. Elle est responsable de la navigation entre
+ * différentes vues de l'application en réponse aux actions des
+ * boutons.
+ * Chaque méthode de cette classe est associée à un bouton dans
+ * l'interface pour effectuer des actions spécifiques comme
+ * consulter, importer, exporter des données ou quitter
+ * l'application.
  * 
  * @author Romain Augé
  * @author Ayoub Laluti
