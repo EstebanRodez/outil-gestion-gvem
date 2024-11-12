@@ -30,7 +30,6 @@ import javafx.util.Duration;
 public class ChargementPopUpControleur {
     
     private Thread attente;
-    private volatile boolean running = true; // Drapeau pour contrôler l'exécution du thread
     
     private static String[] CHEMIN_FICHIER_CSV;
     
@@ -73,7 +72,6 @@ public class ChargementPopUpControleur {
                     EchangeurDeVue.changerVue("exporterValideVue");
                 }
             } finally {
-                running = false;
                 EchangeurDeVue.fermerPopUp("chargementPopUp");
             }
         });
@@ -98,7 +96,6 @@ public class ChargementPopUpControleur {
 
     @FXML
     void btnQuitterAction(ActionEvent event) {
-        running = false;
         
         // Demander l'arrêt du serveur
         Serveur.fermerServeur();

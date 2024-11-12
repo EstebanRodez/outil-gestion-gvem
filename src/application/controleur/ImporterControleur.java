@@ -5,23 +5,11 @@
  */
 package application.controleur;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
-import java.util.List;
-
 import application.EchangeurDeVue;
-import application.utilitaire.FichierDonneesInvalides;
-import application.utilitaire.ImportationCSV;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.stage.FileChooser;
 
 /**
  * Contrôleur pour la gestion de l'importation des données.
@@ -38,9 +26,6 @@ import javafx.stage.FileChooser;
  * @version 1.0
  */
 public class ImporterControleur {
-    
-    // Chemin du dossier où les fichiers importés seront stockés
-    private static final String DOSSIER_IMPORTATION = "fichiersImportees";
     
     @FXML
     private Button btnAide;
