@@ -8,13 +8,13 @@ package application.controleur;
 import java.io.IOException;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.nio.file.Files;
-import java.nio.file.Path;
 
 import application.EchangeurDeVue;
 
 import application.utilitaire.Cryptage;
 import application.utilitaire.CryptageException;
+import application.utilitaire.GestionFichiers;
+import application.utilitaire.Mathematiques;
 import application.utilitaire.Serveur;
 
 import javafx.event.ActionEvent;
@@ -79,26 +79,68 @@ public class ExporterControleur {
         
         EchangeurDeVue.creerPopUp("chargementPopUp");
         
-        // TODO Envoyer la clé à distance
-        // Clé de chiffrement : 12
-        String nomFichierCrypte;
-        try {
-            nomFichierCrypte = Cryptage.creerFichierDonnees("12");
-        } catch (CryptageException erreur) {
-            nomFichierCrypte = null;
-        }
-        String[] fichiersCryptes = {nomFichierCrypte};
+        int p, g;
+        
+        p = Mathematiques.trouverNombrePremier(
+                Mathematiques.genererNombreAleatoire(1000,9999));
+        System.out.println(p);
+        
+        g = Mathematiques.trouverDernierGroupeMultiplicatif(p);
+        System.out.println(g);
+        
+        int a = Mathematiques.genererNombreAleatoire(100,999);
+        int gExpA = Mathematiques.calculExponentielleModulo(g, a, p);
         
         // Initialiser le thread
         Thread attente;
         attente = new Thread(() -> {
-            Serveur.envoyerFichiers(65432, fichiersCryptes);
-            for (String cheminFichier : fichiersCryptes) {
+            
+            String[] fichiersCles = {"p.txt", "g.txt", "g^a.txt"};
+            try {
+                GestionFichiers.ecrireFichier(fichiersCles[0],
+                                              Integer.toString(p));
+                GestionFichiers.ecrireFichier(fichiersCles[1],
+                                              Integer.toString(p));
+                GestionFichiers.ecrireFichier(
+                    fichiersCles[2], Integer.toString(gExpA)
+                );
+            } catch (IOException e) {
+                e.printStackTrace();
+                Thread.currentThread().interrupt();
+            }  
+            Serveur.envoyerFichiers(65433, fichiersCles);
+            
+            int gExpB;
+            try {
+                gExpB = Integer.parseInt(
+                        GestionFichiers.lireFichier("g^b.txt"));
+            } catch (NumberFormatException | IOException e) {
+                gExpB = 0;
+                e.printStackTrace();
+            }
+            
+            int cleSecret = Mathematiques.calculExponentielleModulo(gExpB, a, p);
+            
+            if (!Thread.currentThread().isInterrupted()) {
+                
+                String nomFichierCrypte;
                 try {
-                    Files.delete(Path.of(cheminFichier));
-                } catch (IOException erreur) {
-
+                    nomFichierCrypte
+                    = Cryptage.creerFichierDonnees(Integer.toString(cleSecret));
+                } catch (CryptageException erreur) {
+                    nomFichierCrypte = null;
                 }
+                System.out.println("test");
+                String[] fichiersCryptes = {nomFichierCrypte};
+                
+                Serveur.envoyerFichiers(65430, fichiersCryptes);
+                // for (String cheminFichier : fichiersCryptes) {
+//                  try {
+//                      Files.delete(Path.of(cheminFichier));
+//                  } catch (IOException erreur) {
+//                      // Ne rien faire
+//                  }
+//              }
             }
 
             /* 
@@ -133,4 +175,5 @@ public class ExporterControleur {
     void btnRetourAction(ActionEvent event) {
         EchangeurDeVue.changerVue("accueilVue");
     }
+    
 }

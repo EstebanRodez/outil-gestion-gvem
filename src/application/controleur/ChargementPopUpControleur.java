@@ -26,7 +26,7 @@ import javafx.util.Duration;
  */
 public class ChargementPopUpControleur {
     
-    private Thread attente;
+    private static Thread attente;
       
     @FXML
     private Button btnQuitter;
@@ -50,11 +50,12 @@ public class ChargementPopUpControleur {
         if (attente != null && attente.isAlive()) {
             
             // Interrompt le thread pour sortir de l'attente de connexion
+            System.out.println("test2");
             attente.interrupt();
             try {
                 
                 // Attendre que le thread termine jusqu'à 500ms
-                attente.join(500); 
+                attente.join(); 
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -69,7 +70,7 @@ public class ChargementPopUpControleur {
      * @param attente
      */
     public void setThreadAttente(Thread attente) {
-        this.attente = attente;
+        ChargementPopUpControleur.attente = attente;
     }
     
     /**

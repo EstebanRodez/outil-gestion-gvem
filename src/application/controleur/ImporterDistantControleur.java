@@ -8,6 +8,9 @@ import application.EchangeurDeVue;
 import application.utilitaire.Client;
 import application.utilitaire.Decryptage;
 import application.utilitaire.DecryptageException;
+import application.utilitaire.GestionFichiers;
+import application.utilitaire.Mathematiques;
+import application.utilitaire.Serveur;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -29,8 +32,14 @@ import javafx.scene.control.TextField;
  */
 public class ImporterDistantControleur {
     
-    private static final String NOM_FICHIER_DONNEES_CRYPTEES
-    = "Donnees_cryptees";
+    private static final String[] NOMS_FICHIERS_DONNEES_CRYPTEES
+    = {"Donnees_cryptees"};
+    
+    private static final String[] NOMS_FICHIERS_CLES_RECUS
+    = {"p.txt", "g.txt", "g^a.txt"};
+    
+    private static final String[] NOMS_FICHIERS_CLES_ENVOIS
+    = {"g^b.txt"};
 
     @FXML
     private Button btnAide;
@@ -56,24 +65,55 @@ public class ImporterDistantControleur {
     void btnConnexionAction(ActionEvent event) {
         
         String ipServeur = txtFieldIPServeur.getText().trim();
-        String[] fichiersRecus = {NOM_FICHIER_DONNEES_CRYPTEES};
-        Client.recevoirFichiers(ipServeur, 65432, fichiersRecus, null);
-
-        // TODO Recevoir la clé à distance
-        // Clé de chiffrement : 12
+        
+        Client.recevoirFichiers(ipServeur, 65433, NOMS_FICHIERS_CLES_RECUS,
+                                null);
+        
+        int p, g, gExpA;
         try {
-            
-            Decryptage.decrypterFichierDonnees("12");
+            p = Integer.parseInt(
+                    GestionFichiers.lireFichier(NOMS_FICHIERS_CLES_RECUS[0]));
+            g = Integer.parseInt(
+                    GestionFichiers.lireFichier(NOMS_FICHIERS_CLES_RECUS[1]));
+            gExpA = Integer.parseInt(
+                    GestionFichiers.lireFichier(NOMS_FICHIERS_CLES_RECUS[2]));
+        } catch (NumberFormatException | IOException e) {
+            p = 0;
+            g = 0;
+            gExpA = 0;
+            e.printStackTrace();
+        }
+        
+        int b = Mathematiques.genererNombreAleatoire(100,999);
+        int gExpB = Mathematiques.calculExponentielleModulo(g, b, p);
+        
+        try {
+            GestionFichiers.ecrireFichier(
+                NOMS_FICHIERS_CLES_ENVOIS[0], Integer.toString(gExpB)
+            );
+        } catch (IOException e) {
+            e.printStackTrace();
+            Thread.currentThread().interrupt();
+        }  
+        Serveur.envoyerFichiers(65433, NOMS_FICHIERS_CLES_ENVOIS);
+        
+        int cleSecret = Mathematiques.calculExponentielleModulo(gExpA, b, p);
+        
+        Client.recevoirFichiers(ipServeur, 65433,
+                                NOMS_FICHIERS_DONNEES_CRYPTEES, null);
+
+        try {
+            Decryptage.decrypterFichierDonnees(Integer.toString(cleSecret));
             System.out.println("Données reçues avec succès");
         } catch (DecryptageException erreur) {
             System.out.println("Échec du décryptage des données");
         }
 
-        try {
-            Files.delete(Path.of(NOM_FICHIER_DONNEES_CRYPTEES));
-        } catch (IOException erreur) {
-
-        }
+//        try {
+//            Files.delete(Path.of(NOMS_FICHIERS_DONNEES_CRYPTEES));
+//        } catch (IOException erreur) {
+//
+//        }
     }
 
     @FXML

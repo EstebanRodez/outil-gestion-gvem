@@ -11,7 +11,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 import application.EchangeurDeVue;
-import application.utilitaire.TraitementDonnees;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -97,10 +96,10 @@ public class AccueilControleur {
     @FXML
     public void initialize() {
         
-        if (TraitementDonnees.getDonnees().isDonneesVides()) {
-            btnConsulterDonnees.setDisable(true);
-            btnExporter.setDisable(true);
-        }
+//        if (TraitementDonnees.getDonnees().isDonneesVides()) {
+//            btnConsulterDonnees.setDisable(true);
+//            btnExporter.setDisable(true);
+//        }
     }
 
     @FXML
