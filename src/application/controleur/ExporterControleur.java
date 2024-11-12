@@ -100,7 +100,7 @@ public class ExporterControleur {
                 GestionFichiers.ecrireFichier(fichiersCles[0],
                                               Integer.toString(p));
                 GestionFichiers.ecrireFichier(fichiersCles[1],
-                                              Integer.toString(p));
+                                              Integer.toString(g));
                 GestionFichiers.ecrireFichier(
                     fichiersCles[2], Integer.toString(gExpA)
                 );

@@ -54,10 +54,10 @@ public class Client {
             BufferedInputStream in = new BufferedInputStream(socket.getInputStream());
             DataInputStream dataIn = new DataInputStream(in)) {
             
-            File dossier = new File(dossierDestination);
-            if (!dossier.exists()) {
-                dossier.mkdirs(); // Créer les répertoires nécessaires
-            }
+//            File dossier = new File(dossierDestination);
+//            if (!dossier.exists()) {
+//                dossier.mkdirs(); // Créer les répertoires nécessaires
+//            }
 
             for (String cheminFichier : cheminsFichiers) {
                 // Créer le fichier dans le dossier de destination
