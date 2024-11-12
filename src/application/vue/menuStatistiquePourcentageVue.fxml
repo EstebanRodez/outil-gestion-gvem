@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" style="-fx-background-color: #9FCFF3;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controleur.MenuStatistiquePourcentageControleur">
+   <children>
+      <HBox prefHeight="100.0" prefWidth="960.0">
+         <children>
+            <Button fx:id="btnStatistique" mnemonicParsing="false" onAction="#btnStatistiqueAction" prefHeight="47.0" prefWidth="320.0" text="Statistique">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="btnMenuClassement" mnemonicParsing="false" onAction="#btnMenuClassementAction" prefHeight="47.0" prefWidth="320.0" text="Consulter des classements">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" prefHeight="47.0" prefWidth="320.0" style="-fx-background-color: #FFEE8E;" text="Consulter des pourcentages">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Consultation des statistiques" textAlignment="CENTER" wrappingWidth="429.9892578125">
+               <font>
+                  <Font name="System Bold" size="35.0" />
+               </font>
+               <HBox.margin>
+                  <Insets bottom="50.0" />
+               </HBox.margin>
+            </Text>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="54.0" prefWidth="960.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Sélectionnez un thème" textAlignment="CENTER" wrappingWidth="429.9892578125">
+               <font>
+                  <Font size="22.0" />
+               </font>
+               <HBox.margin>
+                  <Insets bottom="50.0" />
+               </HBox.margin>
+            </Text>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Button fx:id="btnExposition" mnemonicParsing="false" onAction="#btnExpositionAction" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: #ffffff;" text="Expositon">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <HBox.margin>
+                  <Insets right="50.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="btnConferencier" mnemonicParsing="false" onAction="#btnConferencierAction" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: #ffffff;" text="Conférencier">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="50.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+   </children>
+</VBox>

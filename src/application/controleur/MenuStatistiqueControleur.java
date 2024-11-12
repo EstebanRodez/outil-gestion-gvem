@@ -5,6 +5,7 @@
  */
 package application.controleur;
 
+import application.EchangeurDeVue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -28,7 +29,7 @@ public class MenuStatistiqueControleur {
     private Button btnAccueil;
 
     @FXML
-    private Button btnConferencier;
+    private Button btnClassement;
 
     @FXML
     private Button btnDonnesCalculees;
@@ -37,39 +38,31 @@ public class MenuStatistiqueControleur {
     private Button btnDonnesImportees;
 
     @FXML
-    private Button btnExposition;
-
-    @FXML
-    private Button btnVisite;
+    private Button btnPourcentage;
 
     @FXML
     void btnAccueilAction(ActionEvent event) {
-
+        EchangeurDeVue.changerVue("accueilVue");
     }
 
     @FXML
-    void btnConferencierAction(ActionEvent event) {
-
+    void btnPourcentageAction(ActionEvent event) {
+        EchangeurDeVue.changerVue("menuStatistiquePourcentageVue");
     }
 
     @FXML
     void btnDonnesCalculeesAction(ActionEvent event) {
-
+        EchangeurDeVue.changerVue("menuDonneesCalculeesVue");
     }
 
     @FXML
     void btnDonnesImporteesAction(ActionEvent event) {
-
+        EchangeurDeVue.changerVue("menuDonneesImporterVue");
     }
 
     @FXML
-    void btnExpositionAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void btnVisiteAction(ActionEvent event) {
-
+    void btnClassementAction(ActionEvent event) {
+        EchangeurDeVue.changerVue("menuStatistiqueClassementVue");
     }
 
 }

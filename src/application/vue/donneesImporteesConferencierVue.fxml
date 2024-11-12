@@ -42,7 +42,7 @@
                         <TableColumn fx:id="specialites" prefWidth="87.0" text="Spécialité" />
                         <TableColumn fx:id="numTel" prefWidth="104.0" text="Téléphone" />
                         <TableColumn fx:id="estInterne" prefWidth="88.0" text="Employé" />
-                        <TableColumn fx:id="indisponibilites" prefWidth="110.0" text="Indisponibilité" />
+                        <TableColumn fx:id="indisponibilites" prefWidth="263.0" text="Indisponibilité" />
                      </columns>
                      <HBox.margin>
                         <Insets bottom="5.0" top="25.0" />

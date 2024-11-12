@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="281.0" prefWidth="550.0" style="-fx-background-color: #72b8ed;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controleur.DonneesCalculeesConferencierEnsembleSemaineFiltreControleur">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="281.0" prefWidth="550.0" style="-fx-background-color: #9FCFF3;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controleur.DonneesCalculeesConferencierEnsembleSemaineFiltreControleur">
    <children>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="550.0">
          <children>

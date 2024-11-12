@@ -43,7 +43,7 @@
                         <TableColumn fx:id="date" prefWidth="104.0" text="Date" />
                         <TableColumn fx:id="horaireDebut" prefWidth="88.0" text="Heure début" />
                         <TableColumn fx:id="intitule" prefWidth="110.0" text="Intitulé" />
-                        <TableColumn fx:id="numTel" prefWidth="110.0" text="Téléphone" />
+                        <TableColumn fx:id="numTel" prefWidth="153.0" text="Téléphone" />
                      </columns>
                      <HBox.margin>
                         <Insets bottom="5.0" top="25.0" />

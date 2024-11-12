@@ -67,7 +67,7 @@ public class MenuDonneesImporterControleur {
 
     @FXML
     void btnStatistiqueAction(ActionEvent event) {
-
+        EchangeurDeVue.changerVue("MenuStatistiqueVue");
     }
 
     @FXML
