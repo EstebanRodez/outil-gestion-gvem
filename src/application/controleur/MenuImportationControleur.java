@@ -8,6 +8,7 @@ package application.controleur;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import application.EchangeurDeVue;
@@ -15,7 +16,9 @@ import application.utilitaire.FichierDonneesInvalides;
 import application.utilitaire.ImportationCSV;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.stage.FileChooser;
 
@@ -33,8 +36,11 @@ import javafx.stage.FileChooser;
  */
 public class MenuImportationControleur {
     
+    private static final String FICHIER_IMPORTER_SUCCES 
+        = "Les fichiers ont été importés avec succès";
+
     /** Listes des fichiers selectionnees */
-    private List<File> fichiersSelectionnes = new ArrayList<>();
+    private ArrayList<File> fichiersSelectionnes = new ArrayList<>();
     
     @FXML
     private Label labelEmplacementUn, labelEmplacementDeux, 
@@ -89,6 +95,16 @@ public class MenuImportationControleur {
                                                     getFenetreAppli());
         
         fichiersSelectionnes = new ArrayList<>(fichiersImportes);
+        
+        // Si la liste a plus de 4 éléments, on la réduit à 4 éléments
+        if (fichiersSelectionnes.size() > 4) {
+            fichiersSelectionnes = new ArrayList<>(fichiersSelectionnes
+                                                       .subList(0, 4));
+        } else {
+            while (fichiersSelectionnes.size() < 4) {
+                fichiersSelectionnes.add(null);  
+            }  
+        }
     }
     
     /**
@@ -135,6 +151,13 @@ public class MenuImportationControleur {
                (labelEmplacementQuatre.getText() != null &&
                 !labelEmplacementQuatre.getText().isEmpty());
     }
+    
+    /**
+     * Met la liste de fichiers dans l'ordre alphabétique
+     */
+    private void trierFichiers() {
+        Collections.sort(fichiersSelectionnes);  
+    }
 
     @FXML
     void btnRetourAction(ActionEvent event) {
@@ -143,7 +166,16 @@ public class MenuImportationControleur {
     
     @FXML
     void btnValiderAction(ActionEvent event) {
+        trierFichiers();
         exploiterDonnee();
+        // Afficher une alerte avec les noms des fichiers sélectionnés
+        Alert boiteInformationImportation
+        = new Alert(Alert.AlertType.INFORMATION, FICHIER_IMPORTER_SUCCES, ButtonType.OK);
+
+        boiteInformationImportation.setTitle("Importation");
+        boiteInformationImportation.setHeaderText(
+                "Fichiers importés avec succès");
+        boiteInformationImportation.showAndWait();
     }
     
     /**
