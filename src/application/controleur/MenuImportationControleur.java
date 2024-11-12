@@ -51,6 +51,25 @@ public class MenuImportationControleur {
     private Button btnParcourirUn, btnParcourirDeux, btnParcourirTrois,
                    btnParcourirQuatre,btnSupprimerUn, btnSupprimerDeux, 
                    btnSupprimerTrois, btnSupprimerQuatre, btnValider, btnRetour;
+    
+    /** Listes des labels */
+    private List<Label> labels = Arrays.asList(labelEmplacementUn, 
+                                               labelEmplacementDeux, 
+                                               labelEmplacementTrois, 
+                                               labelEmplacementQuatre);
+    
+    /** Listes des boutons supprimer */
+    private List<Button> btnSupprimer = Arrays.asList(btnSupprimerUn, 
+                                                      btnSupprimerDeux, 
+                                                      btnSupprimerTrois, 
+                                                      btnSupprimerQuatre);
+    
+    /** Listes des boutons parcourir */
+    private List<Button> btnParcourir = Arrays.asList(btnParcourirUn, 
+                                                      btnParcourirDeux, 
+                                                      btnParcourirTrois, 
+                                                      btnParcourirQuatre);
+    
     /**
      * Initialisation de la vue
      */
@@ -113,11 +132,7 @@ public class MenuImportationControleur {
     private void mettreAJourLabelsFichiers() {
         String nomFichier;
         File fichier;
-        List<Label> labels = Arrays.asList(labelEmplacementUn, 
-                                           labelEmplacementDeux, 
-                                           labelEmplacementTrois, 
-                                           labelEmplacementQuatre);
-
+        
         for (int numFichier = 0; numFichier < fichiersSelectionnes.size() 
                 && numFichier < labels.size(); numFichier++) {
             fichier = fichiersSelectionnes.get(numFichier);
@@ -142,23 +157,34 @@ public class MenuImportationControleur {
      * @return true si au moins un champ de fichier est rempli, sinon false.
      */
     private boolean isFichierValide() {
-        return (labelEmplacementUn.getText() != null &&
-                !labelEmplacementUn.getText().isEmpty()) &&
-               (labelEmplacementDeux.getText() != null &&
-                !labelEmplacementDeux.getText().isEmpty()) &&
-               (labelEmplacementTrois.getText() != null &&
-                !labelEmplacementTrois.getText().isEmpty()) &&
-               (labelEmplacementQuatre.getText() != null &&
-                !labelEmplacementQuatre.getText().isEmpty());
+        Boolean emplacementValide,
+                fichiersDistincts;
+        String text;
+        
+        emplacementValide = true;
+        for (int indiceLabel = 0; indiceLabel < labels.size(); indiceLabel++) {
+             text = labels.get(indiceLabel).getText();
+            if (text == null || text.isEmpty()) {
+                emplacementValide = false;
+            }
+        }
+        
+        fichiersDistincts = true;
+        for (int i = 0; i < fichiersSelectionnes.size(); i++) {
+            for (int j = i + 1; j < fichiersSelectionnes.size(); j++) {
+                if (fichiersSelectionnes.get(i)
+                        .equals(fichiersSelectionnes.get(j))) {
+                    fichiersDistincts = false;
+                    labelMessageErr.setText("Erreur: fichiers identiques");
+                    labels.get(j).setStyle("-fx-text-fill: red;");
+                    labels.get(i).setStyle("-fx-text-fill: red;");
+                }
+            }
+        }
+    
+        return emplacementValide && fichiersDistincts;
     }
     
-    /**
-     * Met la liste de fichiers dans l'ordre alphabétique
-     */
-    private void trierFichiers() {
-        Collections.sort(fichiersSelectionnes);  
-    }
-
     @FXML
     void btnRetourAction(ActionEvent event) {
         EchangeurDeVue.changerVue("importerVue");
@@ -166,7 +192,7 @@ public class MenuImportationControleur {
     
     @FXML
     void btnValiderAction(ActionEvent event) {
-        trierFichiers();
+        Collections.sort(fichiersSelectionnes); 
         exploiterDonnee();
         // Afficher une alerte avec les noms des fichiers sélectionnés
         Alert boiteInformationImportation
@@ -185,18 +211,11 @@ public class MenuImportationControleur {
     @FXML
     void btnSupprimerAction(ActionEvent event) {
         
-        if (event.getSource() == btnSupprimerUn) {
-            fichiersSelectionnes.set(0,null);
-            labelEmplacementUn.setText(null);
-        } else if (event.getSource() == btnSupprimerDeux) {
-            fichiersSelectionnes.set(1,null);
-            labelEmplacementDeux.setText(null);
-        } else if (event.getSource() == btnSupprimerTrois) {
-            fichiersSelectionnes.set(2,null);
-            labelEmplacementTrois.setText(null);
-        } else if (event.getSource() == btnSupprimerQuatre) {
-            fichiersSelectionnes.set(3,null);
-            labelEmplacementQuatre.setText(null);
+        for (int i = 0; i < btnSupprimer.size(); i++) {
+            if (event.getSource() == btnSupprimer.get(i)) {
+                fichiersSelectionnes.set(i, null); 
+                labels.get(i).setText(null);         
+            }
         }
 
         btnValider.setDisable(!isFichierValide());
@@ -218,18 +237,11 @@ public class MenuImportationControleur {
         if (fichier != null) {
             String nomFichier = fichier.getName();
 
-            if (event.getSource() == btnParcourirUn) {
-                fichiersSelectionnes.set(0,fichier);
-                labelEmplacementUn.setText(nomFichier);
-            } else if (event.getSource() == btnParcourirDeux) {
-                fichiersSelectionnes.set(1,fichier);
-                labelEmplacementDeux.setText(nomFichier);
-            } else if (event.getSource() == btnParcourirTrois) {
-                fichiersSelectionnes.set(2,fichier);
-                labelEmplacementTrois.setText(nomFichier);
-            } else if (event.getSource() == btnParcourirQuatre) {
-                fichiersSelectionnes.set(3,fichier);
-                labelEmplacementQuatre.setText(nomFichier);
+            for (int i = 0; i < btnParcourir.size(); i++) {
+                if (event.getSource() == btnParcourir.get(i)) {
+                    fichiersSelectionnes.set(i, fichier);
+                    labels.get(i).setText(nomFichier);
+                }
             }
 
             btnValider.setDisable(!isFichierValide());
