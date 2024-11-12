@@ -6,6 +6,9 @@
 package application.controleur;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -38,6 +41,11 @@ public class MenuImportationControleur {
     
     private static final String FICHIER_IMPORTER_SUCCES 
         = "Les fichiers ont été importés avec succès";
+
+    private static final String EN_ROUGE 
+        = "-fx-text-fill: red; -fx-background-color: #ffffff;";
+    private static final String EN_NOIR 
+    = "-fx-text-fill: black; -fx-background-color: #ffffff;";
 
     /** Listes des fichiers selectionnees */
     private ArrayList<File> fichiersSelectionnes = new ArrayList<>();
@@ -99,6 +107,7 @@ public class MenuImportationControleur {
                 ImportationCSV.importerDonnees(fichier.getAbsolutePath());
             } catch (FichierDonneesInvalides err) {
                 labelMessageErr.setText(err.getMessage());
+                btnValider.setDisable(true);
             }
         }
     }
@@ -111,13 +120,13 @@ public class MenuImportationControleur {
         FileChooser fileChooser = new FileChooser();
         
         FileChooser.ExtensionFilter extFilter
-            = new FileChooser.
-                      ExtensionFilter("Fichiers données (*.csv)", "*.csv");
+            = new FileChooser
+                      .ExtensionFilter("Fichiers données (*.csv)", "*.csv");
         fileChooser.getExtensionFilters().add(extFilter);
         
         fichiersImportes
-            = fileChooser.showOpenMultipleDialog(EchangeurDeVue.
-                                                    getFenetreAppli());
+            = fileChooser.showOpenMultipleDialog(EchangeurDeVue
+                                                    .getFenetreAppli());
         
         fichiersSelectionnes = new ArrayList<>(fichiersImportes);
         
@@ -167,6 +176,12 @@ public class MenuImportationControleur {
                 fichiersDistincts;
         String text;
         
+        // Par defaut
+        labelMessageErr.setText(" ");
+        for (Label label : labels) {
+            label.setStyle(EN_NOIR);
+        }
+        
         emplacementValide = true;
         for (int indiceLabel = 0; indiceLabel < labels.size(); indiceLabel++) {
              text = labels.get(indiceLabel).getText();
@@ -178,19 +193,54 @@ public class MenuImportationControleur {
         fichiersDistincts = true;
         for (int i = 0; i < fichiersSelectionnes.size(); i++) {
             for (int j = i + 1; j < fichiersSelectionnes.size(); j++) {
-                if (fichiersSelectionnes.get(i)
-                        .equals(fichiersSelectionnes.get(j))) {
+                if (fichiersSelectionnes.get(i) != null 
+                        && fichiersSelectionnes.get(j) != null 
+                        && comparerFichier(fichiersSelectionnes.get(i),
+                                           fichiersSelectionnes.get(j))) {
                     fichiersDistincts = false;
                     labelMessageErr.setText("Erreur: fichiers identiques");
-                    labels.get(j).setStyle("-fx-text-fill: red;");
-                    labels.get(i).setStyle("-fx-text-fill: red;");
-                }
+                    labels.get(j).setStyle(EN_ROUGE);
+                    labels.get(i).setStyle(EN_ROUGE);
+                } 
             }
         }
     
         return emplacementValide && fichiersDistincts;
     }
     
+    /**
+     * Compare deux fichiers pour savoir s'ils sont identiques.
+     * Compare la taille des deux fichiers et lit byte par byte
+     * @param fichier1
+     * @param fichier2
+     * @return true si les fichiers sont identiques sinon false
+     * @throws IOException 
+     */
+    private boolean comparerFichier(File fichier1, File fichier2) {
+        if (fichier1.length() != fichier2.length()) {
+            try (FileInputStream lecture1 = new FileInputStream(fichier1);
+                    FileInputStream lecture2 = new FileInputStream(fichier2)) {
+
+                      int byte1, 
+                          byte2;
+                      // Lire byte par byte des deux fichiers et comparer
+                      while ((byte1 = lecture1.read()) != -1 
+                                  && (byte2 = lecture2.read()) != -1) {
+                          if (byte1 != byte2) {
+                              return false; 
+                          }
+                      }
+            } catch (FileNotFoundException erreur) {
+                     labelMessageErr.setText("Erreur: fichiers introuvables");
+            } catch (IOException e) {
+                     labelMessageErr.setText("Erreur: Problème d'ouverture/fermeture de fichiers");
+            }    
+            return true;
+        }
+        return false;
+    }
+        
+
     @FXML
     void btnRetourAction(ActionEvent event) {
         EchangeurDeVue.changerVue("importerVue");
