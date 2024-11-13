@@ -128,7 +128,9 @@ public class MenuImportationControleur {
             = fileChooser.showOpenMultipleDialog(EchangeurDeVue
                                                     .getFenetreAppli());
         
-        fichiersSelectionnes = new ArrayList<>(fichiersImportes);
+        if (fichiersImportes != null) {
+            fichiersSelectionnes = new ArrayList<>(fichiersImportes);  
+        }
         
         // Si la liste a plus de 4 éléments, on la réduit à 4 éléments
         if (fichiersSelectionnes.size() > 4) {
@@ -191,16 +193,18 @@ public class MenuImportationControleur {
         }
         
         fichiersDistincts = true;
-        for (int i = 0; i < fichiersSelectionnes.size(); i++) {
-            for (int j = i + 1; j < fichiersSelectionnes.size(); j++) {
-                if (fichiersSelectionnes.get(i) != null 
-                        && fichiersSelectionnes.get(j) != null 
-                        && comparerFichier(fichiersSelectionnes.get(i),
-                                           fichiersSelectionnes.get(j))) {
+        for (int fichierSelect = 0; fichierSelect < fichiersSelectionnes.size()
+                                  ; fichierSelect++) {
+            for (int autreFichier = fichierSelect + 1; 
+                    autreFichier < fichiersSelectionnes.size(); autreFichier++) {             
+                if (fichiersSelectionnes.get(fichierSelect) != null 
+                        && fichiersSelectionnes.get(autreFichier) != null 
+                        && comparerFichier(fichiersSelectionnes.get(fichierSelect),
+                                           fichiersSelectionnes.get(autreFichier))) {
                     fichiersDistincts = false;
                     labelMessageErr.setText("Erreur: fichiers identiques");
-                    labels.get(j).setStyle(EN_ROUGE);
-                    labels.get(i).setStyle(EN_ROUGE);
+                    labels.get(fichierSelect).setStyle(EN_ROUGE);
+                    labels.get(autreFichier).setStyle(EN_ROUGE);
                 } 
             }
         }
@@ -217,7 +221,7 @@ public class MenuImportationControleur {
      * @throws IOException 
      */
     private boolean comparerFichier(File fichier1, File fichier2) {
-        if (fichier1.length() != fichier2.length()) {
+        if (fichier1.length() == fichier2.length()) {
             try (FileInputStream lecture1 = new FileInputStream(fichier1);
                     FileInputStream lecture2 = new FileInputStream(fichier2)) {
 
@@ -238,6 +242,7 @@ public class MenuImportationControleur {
             return true;
         }
         return false;
+        
     }
         
 
@@ -249,6 +254,7 @@ public class MenuImportationControleur {
     @FXML
     void btnValiderAction(ActionEvent event) {
         Collections.sort(fichiersSelectionnes); 
+        fichiersSelectionnesOrdre();
         exploiterDonnee();
         // Afficher une alerte avec les noms des fichiers sélectionnés
         Alert boiteInformationImportation
@@ -258,8 +264,17 @@ public class MenuImportationControleur {
         boiteInformationImportation.setHeaderText(
                 "Fichiers importés avec succès");
         boiteInformationImportation.showAndWait();
+        EchangeurDeVue.changerVue("menuDonneesImporterVue");
     }
     
+    /**
+     * Met dans l'ordre les fichiers selectionnes
+     */
+    private void fichiersSelectionnesOrdre() {
+        // TODO Bouchon de méthode auto-généré
+        
+    }
+
     /**
      * Supprime le nom du fichier du champ correspondant
      * et désactive "Valider" si aucun fichier n'est sélectionné.
