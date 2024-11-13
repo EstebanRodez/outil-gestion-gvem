@@ -6,14 +6,25 @@
 package application.utilitaire;
 
 /**
- * TODO commenter la responsabilité de cette class (SRP)
+ * Classe utilitaire offrant diverses méthodes mathématiques, 
+ * incluant la recherche de nombres premiers, la génération de nombres aléatoires,
+ * et des calculs modulo pour les groupes multiplicatifs.
+ * Utilisée pour effectuer des opérations avancées et optimisées
+ * sur les entiers.
+ * 
+ * @author Esteban Vroemen
+ * @version 1.0
  */
 public class Mathematiques {
     
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
-     * @param min
-     * @return nombre premier
+     * Recherche le premier nombre premier supérieur ou égal au nombre donné.
+     * Si le nombre donné est négatif, une exception est levée.
+     *
+     * @param min la valeur minimale pour commencer la recherche du
+     *            nombre premier.
+     * @return le plus petit nombre premier supérieur à min.
+     * @throws IllegalArgumentException si min est inférieur à zéro.
      */
     public static int trouverNombrePremier(int min) {
         
@@ -31,9 +42,12 @@ public class Mathematiques {
     }
     
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
-     * @param nombre
-     * @return le nombre est-il premier
+     * Détermine si un nombre donné est premier.
+     * Un nombre premier est un nombre entier supérieur à 1,
+     * divisible uniquement par lui-même et 1.
+     *
+     * @param nombre le nombre à vérifier.
+     * @return true si le nombre est premier, sinon false.
      */
     public static boolean estNombrePremier(int nombre) {
         
@@ -51,10 +65,11 @@ public class Mathematiques {
     }
     
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
-     * @param min 
-     * @param max 
-     * @return un integer
+     * Génère un nombre aléatoire compris entre deux valeurs inclusives.
+     *
+     * @param min la borne inférieure.
+     * @param max la borne supérieure.
+     * @return un entier aléatoire compris entre min et max inclus.
      */
     public static int genererNombreAleatoire(int min, int max) {
         
@@ -62,9 +77,13 @@ public class Mathematiques {
     }
     
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
-     * @param valeurEnsemble
-     * @return le groupe multiplicatif
+     * Trouve le premier élément du groupe multiplicatif pour un ensemble donné.
+     * Un groupe multiplicatif est un ensemble d'éléments de 1 à (n-1),
+     * tels que chaque élément a un inverse multiplicatif sous modulo n.
+     *
+     * @param valeurEnsemble la taille de l'ensemble (doit être un entier positif).
+     * @return la première valeur ayant un inverse multiplicatif dans cet ensemble,
+     *         ou -1 si aucun groupe multiplicatif n'est trouvé.
      */
     public static int trouverPremierGroupeMultiplicatif(int valeurEnsemble) {
         
@@ -85,9 +104,15 @@ public class Mathematiques {
     }
     
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
-     * @param valeurEnsemble
-     * @return le groupe multiplicatif
+     * Trouve le dernier élément du groupe multiplicatif pour un ensemble donné.
+     * Un groupe multiplicatif est un ensemble d'éléments de 1 à (n-1),
+     * tels que chaque élément a un inverse multiplicatif sous modulo n.
+     *
+     * @param valeurEnsemble la taille de l'ensemble
+     *                       (doit être un entier positif).
+     * @return la première valeur ayant un inverse multiplicatif dans
+     *         cet ensemble, ou -1 si aucun groupe multiplicatif
+     *         n'est trouvé.
      */
     public static int trouverDernierGroupeMultiplicatif(int valeurEnsemble) {
         
@@ -108,11 +133,14 @@ public class Mathematiques {
     }
     
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
-     * @param nombre
-     * @param exposant
-     * @param modulo
-     * @return le calcul modulo
+     * Calcule la puissance d'un nombre élevé à un exposant dans le cadre
+     * d'une opération modulaire, utilisant l'exponentiation rapide.
+     *
+     * @param nombre la base de l'exponentiation.
+     * @param exposant l'exposant.
+     * @param modulo la valeur modulaire.
+     * @return le résultat de (nombre^exposant) % modulo.
+     * @throws IllegalArgumentException si l'exposant est négatif.
      */
     public static int calculExponentielleModulo(int nombre, int exposant,
                                                 int modulo) {
