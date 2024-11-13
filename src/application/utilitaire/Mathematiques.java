@@ -5,8 +5,6 @@
  */
 package application.utilitaire;
 
-import java.util.HashSet;
-
 /**
  * TODO commenter la responsabilité de cette class (SRP)
  */
@@ -70,24 +68,17 @@ public class Mathematiques {
      */
     public static int trouverPremierGroupeMultiplicatif(int valeurEnsemble) {
         
-        HashSet<Long> calculs = new HashSet<>(); 
         for (int valeur = 2; valeur < valeurEnsemble; valeur++) {
             
             int exposant = 1;
-            for (long calcul = valeur;
-                 exposant < valeurEnsemble && !calculs.contains(calcul);
+            for (int calcul = valeur;
+                 exposant < valeurEnsemble && calcul != 1;
                  exposant++,
-                 calcul = calculExponentielleModulo(valeur, exposant,
-                                                    valeurEnsemble)) {
-                
-                System.out.println(valeur+"^"+exposant+" = "+calcul);
-                calculs.add(calcul);
-            }
+                 calcul = (calcul*valeur) % valeurEnsemble) ;
             
-            if (calculs.size() == valeurEnsemble-1) {
+            if (exposant == valeurEnsemble-1) {
                 return valeur;
             }
-            calculs.clear();
         }
         
         return -1;
@@ -100,23 +91,17 @@ public class Mathematiques {
      */
     public static int trouverDernierGroupeMultiplicatif(int valeurEnsemble) {
         
-        HashSet<Integer> calculs = new HashSet<>(); 
         for (int valeur = valeurEnsemble-1; valeur > 1; valeur--) {
             
             int exposant = 1;
             for (int calcul = valeur;
-                 exposant < valeurEnsemble && !calculs.contains(calcul);
-                 exposant++,
-                 calcul = calculExponentielleModulo(valeur, exposant,
-                                                    valeurEnsemble)) {
-                
-                calculs.add(calcul);
-            }
+                 exposant < valeurEnsemble && calcul != 1;
+                 exposant++, calcul = (calcul*valeur) % valeurEnsemble)
+                ; // empty body
             
-            if (calculs.size() == valeurEnsemble-1) {
+            if (exposant == valeurEnsemble-1) {
                 return valeur;
             }
-            calculs.clear();
         }
         
         return -1;

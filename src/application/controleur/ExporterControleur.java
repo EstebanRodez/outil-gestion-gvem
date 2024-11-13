@@ -73,10 +73,6 @@ public class ExporterControleur {
     @FXML
     void btnExporterAction(ActionEvent event) {
         
-        // Clé de chiffrement
-        // TODO Améliorer la pop up
-        // String cle = JOptionPane.showInputDialog("Entrez la clé de cryptage Vigenère :");
-        
         EchangeurDeVue.creerPopUp("chargementPopUp");
         
         int p, g;
@@ -88,7 +84,7 @@ public class ExporterControleur {
         g = Mathematiques.trouverDernierGroupeMultiplicatif(p);
         System.out.println(g);
         
-        int a = Mathematiques.genererNombreAleatoire(100,999);
+        int a = Mathematiques.genererNombreAleatoire(1,p);
         int gExpA = Mathematiques.calculExponentielleModulo(g, a, p);
         
         // Initialiser le thread
@@ -108,23 +104,23 @@ public class ExporterControleur {
                 e.printStackTrace();
                 Thread.currentThread().interrupt();
             }  
-            InetAddress ipClient = Serveur.envoyerFichiers(65433, fichiersCles);
-            
-            System.out.println(ipClient.getHostAddress());
-            Client.recevoirFichiers(ipClient.getHostAddress(), 65433,
-                                    new String[] {"g^b.txt"}, null);
-            int gExpB;
-            try {
-                gExpB = Integer.parseInt(
-                        GestionFichiers.lireFichier("g^b.txt"));
-            } catch (NumberFormatException | IOException e) {
-                gExpB = 0;
-                e.printStackTrace();
-            }
-            
-            int cleSecret = Mathematiques.calculExponentielleModulo(gExpB, a, p);
+            InetAddress ipClient = Serveur.envoyerFichiers(65432, fichiersCles);
             
             if (!Thread.currentThread().isInterrupted()) {
+                
+                Client.recevoirFichiers(ipClient.getHostAddress(), 65432,
+                                        new String[] {"g^b.txt"}, null);
+                int gExpB;
+                try {
+                    gExpB = Integer.parseInt(
+                            GestionFichiers.lireFichier("g^b.txt"));
+                } catch (NumberFormatException | IOException e) {
+                    gExpB = 0;
+                    e.printStackTrace();
+                }
+                
+                int cleSecret
+                = Mathematiques.calculExponentielleModulo(gExpB, a, p);
                 
                 String nomFichierCrypte;
                 try {
@@ -136,7 +132,7 @@ public class ExporterControleur {
                 System.out.println("test");
                 String[] fichiersCryptes = {nomFichierCrypte};
                 
-                Serveur.envoyerFichiers(65433, fichiersCryptes);
+                Serveur.envoyerFichiers(65432, fichiersCryptes);
                 // for (String cheminFichier : fichiersCryptes) {
 //                  try {
 //                      Files.delete(Path.of(cheminFichier));
