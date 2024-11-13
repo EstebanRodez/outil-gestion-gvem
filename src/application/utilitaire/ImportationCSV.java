@@ -9,8 +9,6 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashSet;
 
@@ -47,9 +45,6 @@ public class ImportationCSV {
     private static final String FORMAT_DATE_FR
     = "^(\\d{2})\\/(\\d{2})\\/(\\d{4})$";
     
-    private static final Character[] LETTRES_IDENTIFIANT_VALIDES
-    = {'E', 'R', 'C', 'N'};
-    
     /**
      * Importe les données d'un fichier CSV.
      * 
@@ -67,7 +62,7 @@ public class ImportationCSV {
         
         try {
             
-            if (!isFichierValide(cheminFichier)) {
+            if (!GestionCSV.isFichierValide(cheminFichier)) {
                 throw new IllegalArgumentException(ERREUR_FICHIER_INVALIDE);
             }
             
@@ -82,35 +77,6 @@ public class ImportationCSV {
 
             throw new IllegalArgumentException(ERREUR_FICHIER_ACCES);
         }
-    }
-
-    /**
-     * Indique si un fichier est valide pour importer ses données.
-     * 
-     * @param cheminFichier le chemin du fichier à vérifier
-     * @return true si on peut importer des données depuis ce fichier
-     *         sinon false
-     * @throws IOException si la taille du fichier n'est pas
-     *                     vérifiable
-     */
-    private static boolean isFichierValide(String cheminFichier)
-            throws IOException {
-        
-        return cheminFichier != null && !cheminFichier.isBlank() 
-               && Files.size(Path.of(cheminFichier)) != 0
-               && isExtensionCSV(cheminFichier);
-    }
-
-    /**
-     * Vérifie si un fichier contient l'extension .csv
-     * 
-     * @param cheminFichier le chemin du fichier à vérifier
-     * @return true si le fichier a l'extension .csv ou sinon false
-     */
-    private static boolean isExtensionCSV(String cheminFichier) {
-        
-        return cheminFichier.substring(cheminFichier.lastIndexOf('.')+1, 
-                                       cheminFichier.length()).equals("csv");
     }
 
     /**
@@ -207,14 +173,7 @@ public class ImportationCSV {
             lettreIdentifiant = premierIdentifiant.charAt(0);
         }
         
-        int indiceVerif;
-        for (indiceVerif = 0; 
-             indiceVerif < LETTRES_IDENTIFIANT_VALIDES.length
-             && LETTRES_IDENTIFIANT_VALIDES[indiceVerif] != lettreIdentifiant;
-             indiceVerif++)
-            ; // empty body
-        
-        if (indiceVerif == LETTRES_IDENTIFIANT_VALIDES.length) {
+        if (!GestionCSV.isLettreIdentifiantValide(lettreIdentifiant)) {
             return false;
         }
         
@@ -274,6 +233,7 @@ public class ImportationCSV {
             } else { // Forcément Conférencier
                 
                 /* On vérifie les format des indisponibilités */
+                int indiceVerif;
                 for (indiceVerif = 6;
                      indiceVerif < donnees.length 
                      && (donnees[indiceVerif].matches(FORMAT_DATE_FR)
