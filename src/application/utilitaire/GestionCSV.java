@@ -59,19 +59,12 @@ public class GestionCSV {
         }
         fichierCSV.close();
         
-        int indiceVerif;
-        for (indiceVerif = 0;
-             indiceVerif < LETTRES_IDENTIFIANT_VALIDES.length
-             && lettreIdentifiant != LETTRES_IDENTIFIANT_VALIDES[indiceVerif];
-             indiceVerif++)
-            ; // empty body
-        
         /* 
          * La lettre trouvée pour l'identifiant ne correspond à aucun type
          * de fichier CSV que l'application traite donc la lettre trouvée
          * est supprimé
          */
-        if (indiceVerif == LETTRES_IDENTIFIANT_VALIDES.length) {
+        if (!isLettreIdentifiantValide(lettreIdentifiant)) {
             lettreIdentifiant = 0;
         }
         
@@ -92,5 +85,25 @@ public class GestionCSV {
                && Files.exists(Path.of(chemin))
                && Files.size(Path.of(chemin)) != 0
                && chemin.endsWith(".csv");
+    }
+    
+    /**
+     * Vérifie si une lettre donnée correspond à l'une des lettres valides
+     * utilisées comme identifiants dans les fichiers CSV traités
+     * par l'application.
+     *
+     * @param lettre la lettre à vérifier.
+     * @return true si la lettre est un identifiant valide, sinon false.
+     */
+    public static boolean isLettreIdentifiantValide(char lettre) {
+        
+        int indiceVerif;
+        for (indiceVerif = 0;
+             indiceVerif < LETTRES_IDENTIFIANT_VALIDES.length
+             && lettre != LETTRES_IDENTIFIANT_VALIDES[indiceVerif];
+             indiceVerif++)
+            ; // empty body
+        
+        return indiceVerif != LETTRES_IDENTIFIANT_VALIDES.length;
     }
 }
