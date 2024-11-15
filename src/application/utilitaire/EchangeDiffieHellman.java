@@ -85,7 +85,7 @@ public class EchangeDiffieHellman {
     public static int genererDonneeSecreteBob(String ipServeur)
             throws GenerationDonneeSecreteException {
         
-        Client.recevoirFichiers(ipServeur, 65433,
+        Client.recevoirFichiers(ipServeur, 65432,
                                 NOMS_FICHIER_CLES_ALICE, null);
 
         int p, g, gExpA;
