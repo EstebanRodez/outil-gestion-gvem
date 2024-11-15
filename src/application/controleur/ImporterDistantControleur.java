@@ -6,6 +6,8 @@ import application.EchangeurDeVue;
 import application.utilitaire.Client;
 import application.utilitaire.Decryptage;
 import application.utilitaire.DecryptageException;
+import application.utilitaire.EchangeDiffieHellman;
+import application.utilitaire.GenerationDonneeSecreteException;
 import application.utilitaire.GestionFichiers;
 import application.utilitaire.Mathematiques;
 import application.utilitaire.Serveur;
@@ -64,48 +66,57 @@ public class ImporterDistantControleur {
         
         String ipServeur = txtFieldIPServeur.getText().trim();
         
-        Client.recevoirFichiers(ipServeur, 65433, NOMS_FICHIERS_CLES_RECUS,
-                                null);
-        
-        int p, g, gExpA;
+        int cleSecrete;
         try {
-            p = Integer.parseInt(
-                    GestionFichiers.lireFichier(NOMS_FICHIERS_CLES_RECUS[0]));
-            g = Integer.parseInt(
-                    GestionFichiers.lireFichier(NOMS_FICHIERS_CLES_RECUS[1]));
-            gExpA = Integer.parseInt(
-                    GestionFichiers.lireFichier(NOMS_FICHIERS_CLES_RECUS[2]));
-        } catch (NumberFormatException | IOException e) {
-            p = 0;
-            g = 0;
-            gExpA = 0;
+            cleSecrete
+            = EchangeDiffieHellman.genererDonneeSecreteBob(ipServeur);
+            System.out.println(cleSecrete);
+        } catch (GenerationDonneeSecreteException e) {
             e.printStackTrace();
         }
         
-        int b = Mathematiques.genererNombreAleatoire(100,999);
-        int gExpB = Mathematiques.calculExponentielleModulo(g, b, p);
-        
-        try {
-            GestionFichiers.ecrireFichier(
-                NOMS_FICHIERS_CLES_ENVOIS[0], Integer.toString(gExpB)
-            );
-        } catch (IOException e) {
-            e.printStackTrace();
-            Thread.currentThread().interrupt();
-        }  
-        Serveur.envoyerFichiers(65433, NOMS_FICHIERS_CLES_ENVOIS);
-        
-        int cleSecret = Mathematiques.calculExponentielleModulo(gExpA, b, p);
-        
-        Client.recevoirFichiers(ipServeur, 65433,
-                                NOMS_FICHIERS_DONNEES_CRYPTEES, null);
-
-        try {
-            Decryptage.decrypterFichierDonnees(Integer.toString(cleSecret));
-            System.out.println("Données reçues avec succès");
-        } catch (DecryptageException erreur) {
-            System.out.println("Échec du décryptage des données");
-        }
+//        Client.recevoirFichiers(ipServeur, 65433, NOMS_FICHIERS_CLES_RECUS,
+//                                null);
+//        
+//        int p, g, gExpA;
+//        try {
+//            p = Integer.parseInt(
+//                    GestionFichiers.lireFichier(NOMS_FICHIERS_CLES_RECUS[0]));
+//            g = Integer.parseInt(
+//                    GestionFichiers.lireFichier(NOMS_FICHIERS_CLES_RECUS[1]));
+//            gExpA = Integer.parseInt(
+//                    GestionFichiers.lireFichier(NOMS_FICHIERS_CLES_RECUS[2]));
+//        } catch (NumberFormatException | IOException e) {
+//            p = 0;
+//            g = 0;
+//            gExpA = 0;
+//            e.printStackTrace();
+//        }
+//        
+//        int b = Mathematiques.genererNombreAleatoire(100,999);
+//        int gExpB = Mathematiques.calculExponentielleModulo(g, b, p);
+//        
+//        try {
+//            GestionFichiers.ecrireFichier(
+//                NOMS_FICHIERS_CLES_ENVOIS[0], Integer.toString(gExpB)
+//            );
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            Thread.currentThread().interrupt();
+//        }  
+//        Serveur.envoyerFichiers(65433, NOMS_FICHIERS_CLES_ENVOIS);
+//        
+//        int cleSecret = Mathematiques.calculExponentielleModulo(gExpA, b, p);
+//        
+//        Client.recevoirFichiers(ipServeur, 65433,
+//                                NOMS_FICHIERS_DONNEES_CRYPTEES, null);
+//
+//        try {
+//            Decryptage.decrypterFichierDonnees(Integer.toString(cleSecret));
+//            System.out.println("Données reçues avec succès");
+//        } catch (DecryptageException erreur) {
+//            System.out.println("Échec du décryptage des données");
+//        }
 
 //        try {
 //            Files.delete(Path.of(NOMS_FICHIERS_DONNEES_CRYPTEES));

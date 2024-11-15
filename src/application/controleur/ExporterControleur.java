@@ -13,6 +13,10 @@ import application.EchangeurDeVue;
 import application.utilitaire.Client;
 import application.utilitaire.Cryptage;
 import application.utilitaire.CryptageException;
+import application.utilitaire.EchangeDiffieHellman;
+import application.utilitaire.ExportationCSV;
+import application.utilitaire.ExportationCSVException;
+import application.utilitaire.GenerationDonneeSecreteException;
 import application.utilitaire.GestionFichiers;
 import application.utilitaire.Mathematiques;
 import application.utilitaire.Serveur;
@@ -75,94 +79,123 @@ public class ExporterControleur {
         
         EchangeurDeVue.creerPopUp("chargementPopUp");
         
-        int p, g;
+        try {
+            ExportationCSV.exporterDonnees();
+        } catch (ExportationCSVException e) {
+            e.printStackTrace();
+        }
         
-        p = Mathematiques.trouverNombrePremier(
-                Mathematiques.genererNombreAleatoire(1000,9999));
-        System.out.println(p);
-        
-        g = Mathematiques.trouverDernierGroupeMultiplicatif(p);
-        System.out.println(g);
-        
-        int a = Mathematiques.genererNombreAleatoire(1,p);
-        int gExpA = Mathematiques.calculExponentielleModulo(g, a, p);
-        
-        // Initialiser le thread
         Thread attente;
         attente = new Thread(() -> {
-            
-            String[] fichiersCles = {"p.txt", "g.txt", "g^a.txt"};
+            int cleSecrete;
             try {
-                GestionFichiers.ecrireFichier(fichiersCles[0],
-                                              Integer.toString(p));
-                GestionFichiers.ecrireFichier(fichiersCles[1],
-                                              Integer.toString(g));
-                GestionFichiers.ecrireFichier(
-                    fichiersCles[2], Integer.toString(gExpA)
-                );
-            } catch (IOException e) {
+                cleSecrete = EchangeDiffieHellman.genererDonneeSecreteAlice();
+                System.out.println(cleSecrete);
+            } catch (GenerationDonneeSecreteException e) {
                 e.printStackTrace();
-                Thread.currentThread().interrupt();
-            }  
-            InetAddress ipClient = Serveur.envoyerFichiers(65432, fichiersCles);
-            
-            if (!Thread.currentThread().isInterrupted()) {
-                
-                Client.recevoirFichiers(ipClient.getHostAddress(), 65432,
-                                        new String[] {"g^b.txt"}, null);
-                int gExpB;
-                try {
-                    gExpB = Integer.parseInt(
-                            GestionFichiers.lireFichier("g^b.txt"));
-                } catch (NumberFormatException | IOException e) {
-                    gExpB = 0;
-                    e.printStackTrace();
-                }
-                
-                int cleSecret
-                = Mathematiques.calculExponentielleModulo(gExpB, a, p);
-                
-                String nomFichierCrypte;
-                try {
-                    nomFichierCrypte
-                    = Cryptage.creerFichierDonnees(Integer.toString(cleSecret));
-                } catch (CryptageException erreur) {
-                    nomFichierCrypte = null;
-                }
-                System.out.println("test");
-                String[] fichiersCryptes = {nomFichierCrypte};
-                
-                Serveur.envoyerFichiers(65432, fichiersCryptes);
-                // for (String cheminFichier : fichiersCryptes) {
-//                  try {
-//                      Files.delete(Path.of(cheminFichier));
-//                  } catch (IOException erreur) {
-//                      // Ne rien faire
-//                  }
-//              }
             }
-
-            /* 
-             * Tout s'est déroulé si il n'a pas été interrompu
-             * donc on affiche la vue de confirmation de
-             * l'exportation 
-             */
+            
             if (!Thread.currentThread().isInterrupted()) {
                 EchangeurDeVue.fermerPopUp("chargementPopUp");
                 EchangeurDeVue.changerVue("exporterValideVue");
             }
         });
         
-        ChargementPopUpControleur controleur
-        = EchangeurDeVue.getFXMLLoader("chargementPopUp").getController();
-        controleur.setThreadAttente(attente);
-        attente.start();
+      ChargementPopUpControleur controleur
+      = EchangeurDeVue.getFXMLLoader("chargementPopUp").getController();
+      controleur.setThreadAttente(attente);
+      attente.start();
         
-//        try {
-//            // Files.delete(Path.of(nomFichierCrypte));
-//        } catch (IOException e) {
+//        EchangeurDeVue.creerPopUp("chargementPopUp");
+//        
+//        int p, g;
+//        
+//        p = Mathematiques.trouverNombrePremier(
+//                Mathematiques.genererNombreAleatoire(1000,9999));
+//        System.out.println(p);
+//        
+//        g = Mathematiques.trouverDernierGroupeMultiplicatif(p);
+//        System.out.println(g);
+//        
+//        int a = Mathematiques.genererNombreAleatoire(1,p);
+//        int gExpA = Mathematiques.calculExponentielleModulo(g, a, p);
+//        
+//        // Initialiser le thread
+//        Thread attente;
+//        attente = new Thread(() -> {
 //            
-//        }
+//            String[] fichiersCles = {"p.txt", "g.txt", "g^a.txt"};
+//            try {
+//                GestionFichiers.ecrireFichier(fichiersCles[0],
+//                                              Integer.toString(p));
+//                GestionFichiers.ecrireFichier(fichiersCles[1],
+//                                              Integer.toString(g));
+//                GestionFichiers.ecrireFichier(
+//                    fichiersCles[2], Integer.toString(gExpA)
+//                );
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//                Thread.currentThread().interrupt();
+//            }  
+//            InetAddress ipClient = Serveur.envoyerFichiers(65432, fichiersCles);
+//            
+//            if (!Thread.currentThread().isInterrupted()) {
+//                
+//                Client.recevoirFichiers(ipClient.getHostAddress(), 65432,
+//                                        new String[] {"g^b.txt"}, null);
+//                int gExpB;
+//                try {
+//                    gExpB = Integer.parseInt(
+//                            GestionFichiers.lireFichier("g^b.txt"));
+//                } catch (NumberFormatException | IOException e) {
+//                    gExpB = 0;
+//                    e.printStackTrace();
+//                }
+//                
+//                int cleSecret
+//                = Mathematiques.calculExponentielleModulo(gExpB, a, p);
+//                
+//                String nomFichierCrypte;
+//                try {
+//                    nomFichierCrypte
+//                    = Cryptage.creerFichierDonnees(Integer.toString(cleSecret));
+//                } catch (CryptageException erreur) {
+//                    nomFichierCrypte = null;
+//                }
+//                System.out.println("test");
+//                String[] fichiersCryptes = {nomFichierCrypte};
+//                
+//                Serveur.envoyerFichiers(65432, fichiersCryptes);
+//                // for (String cheminFichier : fichiersCryptes) {
+////                  try {
+////                      Files.delete(Path.of(cheminFichier));
+////                  } catch (IOException erreur) {
+////                      // Ne rien faire
+////                  }
+////              }
+//            }
+//
+//            /* 
+//             * Tout s'est déroulé si il n'a pas été interrompu
+//             * donc on affiche la vue de confirmation de
+//             * l'exportation 
+//             */
+//            if (!Thread.currentThread().isInterrupted()) {
+//                EchangeurDeVue.fermerPopUp("chargementPopUp");
+//                EchangeurDeVue.changerVue("exporterValideVue");
+//            }
+//        });
+//        
+//        ChargementPopUpControleur controleur
+//        = EchangeurDeVue.getFXMLLoader("chargementPopUp").getController();
+//        controleur.setThreadAttente(attente);
+//        attente.start();
+//        
+////        try {
+////            // Files.delete(Path.of(nomFichierCrypte));
+////        } catch (IOException e) {
+////            
+////        }
     }
 
     @FXML
