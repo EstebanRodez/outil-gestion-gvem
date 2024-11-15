@@ -1,18 +1,9 @@
 package application.controleur;
 
-import java.io.IOException;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-
 import application.EchangeurDeVue;
-import application.utilitaire.Client;
-import application.utilitaire.Decryptage;
-import application.utilitaire.DecryptageException;
 import application.utilitaire.EchangeDiffieHellman;
 import application.utilitaire.GenerationDonneeSecreteException;
-import application.utilitaire.GestionFichiers;
-import application.utilitaire.Mathematiques;
-import application.utilitaire.Serveur;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -33,15 +24,6 @@ import javafx.scene.control.TextField;
  * @version 1.0
  */
 public class ImporterDistantControleur {
-    
-    private static final String[] NOMS_FICHIERS_DONNEES_CRYPTEES
-    = {"Donnees_cryptees"};
-    
-    private static final String[] NOMS_FICHIERS_CLES_RECUS
-    = {"p.txt", "g.txt", "g^a.txt"};
-    
-    private static final String[] NOMS_FICHIERS_CLES_ENVOIS
-    = {"g^b.txt"};
 
     @FXML
     private Button btnAide;
