@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 import application.EchangeurDeVue;
+import application.modele.CritereFiltreVisite;
 import application.modele.Visite;
 import application.modele.VisiteCalculResultat;
 import application.utilitaire.TraitementDonnees;
@@ -134,6 +135,15 @@ public class StatistiqueConferencierClassementControleur {
                                                       v1.getCalculVisites()));
         
         tableConferencier.setItems(sortedList);
+    }
+
+    /**
+     * TODO commenter le rôle de cette méthode (SRP)
+     * @param critere
+     */
+    public void appliquerFiltre(CritereFiltreVisite critere) {
+        // TODO Bouchon de méthode auto-généré
+        
     }
 
 }
