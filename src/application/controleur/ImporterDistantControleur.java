@@ -1,6 +1,8 @@
 package application.controleur;
 
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 import application.EchangeurDeVue;
 import application.utilitaire.Client;
@@ -66,13 +68,15 @@ public class ImporterDistantControleur {
         
         String ipServeur = txtFieldIPServeur.getText().trim();
         
-        int cleSecrete;
-        try {
-            cleSecrete
-            = EchangeDiffieHellman.genererDonneeSecreteBob(ipServeur);
-            System.out.println(cleSecrete);
-        } catch (GenerationDonneeSecreteException e) {
-            e.printStackTrace();
+        if (isValideAdresseIP(ipServeur)) {
+            int cleSecrete;
+            try {
+                cleSecrete
+                = EchangeDiffieHellman.genererDonneeSecreteBob(ipServeur);
+                System.out.println(cleSecrete);
+            } catch (GenerationDonneeSecreteException e) {
+                e.printStackTrace();
+            }
         }
         
 //        Client.recevoirFichiers(ipServeur, 65433, NOMS_FICHIERS_CLES_RECUS,
@@ -128,5 +132,40 @@ public class ImporterDistantControleur {
     @FXML
     void btnRetourAction(ActionEvent event) {
         EchangeurDeVue.changerVue("importerVue");
+    }
+    
+    /**
+     * Vérifie si une adresse IP est valide
+     * @param ip Adresse IP sous forme de chaîne
+     * @return true si l'adresse est valide, sinon false
+     */
+    private static boolean isValideAdresseIP(String ip) {
+        // Expression régulière pour vérifier une adresse IPv4
+        String ipPattern = 
+            "^([0-9]{1,3}\\.){3}[0-9]{1,3}$";
+        
+        if (!ip.matches(ipPattern)) {
+            return false;
+        }
+
+        String[] segments = ip.split("\\.");
+        for (String segment : segments) {
+            int value = Integer.parseInt(segment);
+            if (value < 0 || value > 255) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    /**
+     * Vérifie si le port est valide
+     * @param port Chaîne représentant le port
+     * @return true si le port est un entier valide entre 0 et 65535,
+     *         sinon false
+     */
+    private static boolean isPortValide(String port) {
+        return port.matches("(\\d){1,5}") && Integer.parseInt(port) >= 0
+               && Integer.parseInt(port) <= 65535;
     }
 }
