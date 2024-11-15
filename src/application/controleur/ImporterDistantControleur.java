@@ -68,7 +68,7 @@ public class ImporterDistantControleur {
         
         String ipServeur = txtFieldIPServeur.getText().trim();
         
-        if (isValideAdresseIP(ipServeur)) {
+        if (isAdresseIPValide(ipServeur)) {
             int cleSecrete;
             try {
                 cleSecrete
@@ -139,7 +139,7 @@ public class ImporterDistantControleur {
      * @param ip Adresse IP sous forme de chaîne
      * @return true si l'adresse est valide, sinon false
      */
-    private static boolean isValideAdresseIP(String ip) {
+    private static boolean isAdresseIPValide(String ip) {
         // Expression régulière pour vérifier une adresse IPv4
         String ipPattern = 
             "^([0-9]{1,3}\\.){3}[0-9]{1,3}$";
