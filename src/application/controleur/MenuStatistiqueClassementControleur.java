@@ -39,12 +39,12 @@ public class MenuStatistiqueClassementControleur {
 
     @FXML
     void btnExpositionAction(ActionEvent event) {
-        
+        EchangeurDeVue.changerVue("statistiqueExpositionClassementVue");
     }
 
     @FXML
     void btnConferencierAction(ActionEvent event) {
-
+        EchangeurDeVue.changerVue("statistiqueConferencierClassementVue");
     }
 
 }

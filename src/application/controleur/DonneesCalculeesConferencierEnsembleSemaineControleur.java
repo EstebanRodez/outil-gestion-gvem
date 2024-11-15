@@ -17,7 +17,7 @@ import application.EchangeurDeVue;
 import application.modele.CritereFiltreVisite;
 import application.modele.ExpositionTemporaire;
 import application.modele.Visite;
-import application.modele.VisiteMoyenneResultat;
+import application.modele.VisiteCalculResultat;
 import application.utilitaire.TraitementDonnees;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -66,16 +66,16 @@ public class DonneesCalculeesConferencierEnsembleSemaineControleur {
     private Label labelDate;
 
     @FXML
-    private TableColumn<VisiteMoyenneResultat, String> Conferencier;
+    private TableColumn<VisiteCalculResultat, String> Conferencier;
     
     @FXML
-    private TableColumn<VisiteMoyenneResultat, Double> nbMoyen;
+    private TableColumn<VisiteCalculResultat, Double> nbMoyen;
     
     @FXML
     private ChoiceBox<String> listePhrase;
 
     @FXML
-    private TableView<VisiteMoyenneResultat> tableConferencier;
+    private TableView<VisiteCalculResultat> tableConferencier;
     
     /**
      * 
@@ -94,7 +94,7 @@ public class DonneesCalculeesConferencierEnsembleSemaineControleur {
         
         nbMoyen.setCellValueFactory(
                 cellData -> new SimpleDoubleProperty(
-                        cellData.getValue().getMoyenneVisites()).asObject());
+                        cellData.getValue().getCalculVisites()).asObject());
         
         // Déterminer les dates de début et de fin globales
         LocalDate dateDebutGlobal = LocalDate.MAX;
@@ -212,12 +212,12 @@ public class DonneesCalculeesConferencierEnsembleSemaineControleur {
                                                                    100.0;
         
         // Créer la liste de résultats avec une seule entrée pour la moyenne globale
-        List<VisiteMoyenneResultat> resultats = new ArrayList<>();
-        resultats.add(new VisiteMoyenneResultat("Tout les conferenciers", 
+        List<VisiteCalculResultat> resultats = new ArrayList<>();
+        resultats.add(new VisiteCalculResultat("Tout les conferenciers", 
                                                 moyenneVisitesArrondi));
 
         // Mettre à jour le tableau avec le résultat
-        ObservableList<VisiteMoyenneResultat> confsListe 
+        ObservableList<VisiteCalculResultat> confsListe 
         = FXCollections.observableArrayList(resultats);
         tableConferencier.setItems(confsListe);
         

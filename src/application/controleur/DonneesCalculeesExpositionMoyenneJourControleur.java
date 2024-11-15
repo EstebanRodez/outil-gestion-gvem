@@ -18,7 +18,7 @@ import application.EchangeurDeVue;
 import application.modele.CritereFiltreVisite;
 import application.modele.ExpositionTemporaire;
 import application.modele.Visite;
-import application.modele.VisiteMoyenneResultat;
+import application.modele.VisiteCalculResultat;
 import application.utilitaire.TraitementDonnees;
 
 import javafx.beans.property.SimpleDoubleProperty;
@@ -74,16 +74,16 @@ public class DonneesCalculeesExpositionMoyenneJourControleur {
     private Label labelDate;
 
     @FXML
-    private TableColumn<VisiteMoyenneResultat, String> Exposition;
+    private TableColumn<VisiteCalculResultat, String> Exposition;
     
     @FXML
-    private TableColumn<VisiteMoyenneResultat, Double> nbMoyen;
+    private TableColumn<VisiteCalculResultat, Double> nbMoyen;
     
     @FXML
     private ChoiceBox<String> listePhrase;
 
     @FXML
-    private TableView<VisiteMoyenneResultat> tableExposition;
+    private TableView<VisiteCalculResultat> tableExposition;
     
     /**
      * 
@@ -102,7 +102,7 @@ public class DonneesCalculeesExpositionMoyenneJourControleur {
         
         nbMoyen.setCellValueFactory(
             cellData -> new SimpleDoubleProperty(
-                    cellData.getValue().getMoyenneVisites()).asObject());
+                    cellData.getValue().getCalculVisites()).asObject());
         
         // Déterminer les dates de début et de fin globales
         LocalDate dateDebutGlobal = LocalDate.MAX;
@@ -231,7 +231,7 @@ public class DonneesCalculeesExpositionMoyenneJourControleur {
         }
 
         // Calculer la moyenne de visites pour chaque exposition
-        List<VisiteMoyenneResultat> resultats = new ArrayList<>();
+        List<VisiteCalculResultat> resultats = new ArrayList<>();
 
         for (Map.Entry<String, Integer> entry : visitesParExposition
                                                 .entrySet()) {
@@ -246,12 +246,12 @@ public class DonneesCalculeesExpositionMoyenneJourControleur {
             double moyenneVisitesArrondi = Math.round(moyenneVisites * 100.0) / 
                                                                        100.0;
 
-            resultats.add(new VisiteMoyenneResultat(intituleExposition, 
+            resultats.add(new VisiteCalculResultat(intituleExposition, 
                                                     moyenneVisitesArrondi));
         }
 
         // Mettre à jour le tableau avec les résultats
-        ObservableList<VisiteMoyenneResultat> exposListe 
+        ObservableList<VisiteCalculResultat> exposListe 
         = FXCollections.observableArrayList(resultats);
         tableExposition.setItems(exposListe);
         

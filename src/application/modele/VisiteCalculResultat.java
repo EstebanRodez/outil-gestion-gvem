@@ -11,19 +11,19 @@ package application.modele;
  * @author Baptiste Thenieres
  * @version 1.0
  */
-public class VisiteMoyenneResultat {
+public class VisiteCalculResultat {
     
     private String intituleExposition;
-    private double moyenneVisites;
+    private double calculVisites;
 
     /**
      * TODO commenter l'état initial
      * @param intituleExposition
-     * @param moyenneVisites
+     * @param calculVisites 
      */
-    public VisiteMoyenneResultat(String intituleExposition, double moyenneVisites) {
+    public VisiteCalculResultat(String intituleExposition, double calculVisites) {
         this.intituleExposition = intituleExposition;
-        this.moyenneVisites = moyenneVisites;
+        this.calculVisites = calculVisites;
     }
 
     /**
@@ -36,9 +36,9 @@ public class VisiteMoyenneResultat {
 
     /**
      * TODO commenter le rôle de cette méthode (SRP)
-     * @return la moyenne
+     * @return le calcul sur les visites
      */
-    public double getMoyenneVisites() {
-        return moyenneVisites;
+    public double getCalculVisites() {
+        return calculVisites;
     }
 }

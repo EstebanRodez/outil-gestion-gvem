@@ -18,7 +18,7 @@ import application.EchangeurDeVue;
 import application.modele.CritereFiltreVisite;
 import application.modele.ExpositionTemporaire;
 import application.modele.Visite;
-import application.modele.VisiteMoyenneResultat;
+import application.modele.VisiteCalculResultat;
 import application.utilitaire.TraitementDonnees;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -67,16 +67,16 @@ public class DonneesCalculeesConferencierMoyenneJourControleur {
     private Label labelDate;
 
     @FXML
-    private TableColumn<VisiteMoyenneResultat, String> conferencier;
+    private TableColumn<VisiteCalculResultat, String> conferencier;
     
     @FXML
-    private TableColumn<VisiteMoyenneResultat, Double> nbMoyen;
+    private TableColumn<VisiteCalculResultat, Double> nbMoyen;
     
     @FXML
     private ChoiceBox<String> listePhrase;
 
     @FXML
-    private TableView<VisiteMoyenneResultat> tableConferencier;
+    private TableView<VisiteCalculResultat> tableConferencier;
     
     /**
      * 
@@ -95,7 +95,7 @@ public class DonneesCalculeesConferencierMoyenneJourControleur {
         
         nbMoyen.setCellValueFactory(
                 cellData -> new SimpleDoubleProperty(
-                        cellData.getValue().getMoyenneVisites()).asObject());
+                        cellData.getValue().getCalculVisites()).asObject());
         
         // Déterminer les dates de début et de fin globales
         LocalDate dateDebutGlobal = LocalDate.MAX;
@@ -221,7 +221,7 @@ public class DonneesCalculeesConferencierMoyenneJourControleur {
         }
 
         // Calculer la moyenne de visites pour chaque conférencier
-        List<VisiteMoyenneResultat> resultats = new ArrayList<>();
+        List<VisiteCalculResultat> resultats = new ArrayList<>();
 
         for (Map.Entry<String, Integer> entry : visitesParConferencier
                                                 .entrySet()) {
@@ -236,12 +236,12 @@ public class DonneesCalculeesConferencierMoyenneJourControleur {
             double moyenneVisitesArrondi = Math.round(moyenneVisites * 100.0) / 
                                                                        100.0;
 
-            resultats.add(new VisiteMoyenneResultat(intituleExposition, 
+            resultats.add(new VisiteCalculResultat(intituleExposition, 
                                                     moyenneVisitesArrondi));
         }
 
         // Mettre à jour le tableau avec les résultats
-        ObservableList<VisiteMoyenneResultat> exposListe 
+        ObservableList<VisiteCalculResultat> exposListe 
         = FXCollections.observableArrayList(resultats);
         tableConferencier.setItems(exposListe);
         
