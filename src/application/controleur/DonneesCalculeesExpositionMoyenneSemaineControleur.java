@@ -34,6 +34,7 @@ import javafx.scene.control.TableView;
 
 /**
  * TODO commenter la responsabilité de cette class (SRP)
+ * 
  * @author Romain Augé
  * @author Ayoub Laluti
  * @author Baptiste Thenieres
