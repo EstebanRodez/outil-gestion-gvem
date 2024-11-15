@@ -5,6 +5,7 @@
  */
 package application.controleur;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -12,6 +13,8 @@ import java.util.List;
 import java.util.Map;
 
 import application.EchangeurDeVue;
+import application.modele.CritereFiltreVisite;
+import application.modele.ExpositionTemporaire;
 import application.modele.Visite;
 import application.modele.VisiteCalculResultat;
 import application.utilitaire.TraitementDonnees;
@@ -72,7 +75,7 @@ public class StatistiqueExpositionClassementControleur {
 
     @FXML
     void btnFiltresAction(ActionEvent event) {
-        //TODO filtres date heure type expo
+        EchangeurDeVue.creerPopUp("statistiqueExpositionClassementFiltrePopUp");
     }
 
     @FXML
@@ -136,4 +139,65 @@ public class StatistiqueExpositionClassementControleur {
         tableExposition.setItems(sortedList);
     }
 
+    /**
+     * TODO commenter le rôle de cette méthode (SRP)
+     * @param critere
+     */
+    public void appliquerFiltre(CritereFiltreVisite critere) {
+
+        LinkedHashMap<String, Visite> visitesFiltrees = new LinkedHashMap<>();
+
+        for (Map.Entry<String, Visite> paire : visites.entrySet()) {
+
+            boolean match = true; 
+            
+            // Filtrer par date de visite
+            if (critere.getDateDebut() != null) {
+             
+                LocalDate dateFin
+                = critere.getDateFin() != null ? critere.getDateFin()
+                                               : critere.getDateDebut();
+                if (paire.getValue().getDate().isBefore(critere.getDateDebut())
+                    || paire.getValue().getDate().isAfter(dateFin)) {
+                    match = false;
+                }
+            }
+            
+            // Filtrer par plage horaire
+            if (critere.getHoraireDebut() != 0) {
+                int horaireFin;
+                horaireFin = critere.getHoraireFin() != 0 
+                                                    ? critere.getHoraireFin() 
+                                                    : critere.getHoraireDebut();
+                if (paire.getValue().getHoraireDebut() < critere.getHoraireDebut() 
+                    || paire.getValue().getHoraireDebut() > horaireFin) {
+                    match = false;
+                }
+            }
+            
+            // Filtrer par exposition temporaire
+            if (critere.getExpositionTemporaire()
+                && !(paire.getValue().getExposition() instanceof ExpositionTemporaire)) {
+                
+                match = false;
+            }
+            
+            // Filtrer par exposition permanente
+            if (critere.getExpositionPermanente()
+                && paire.getValue().getExposition() instanceof ExpositionTemporaire) {
+                
+                match = false;
+            }
+            
+            if (match) {
+                visitesFiltrees.putLast(paire.getKey(), paire.getValue());
+            }
+        }
+
+        calculerTotalVisitesParExposition(visitesFiltrees);
+            
+        }
 }
+
+
+

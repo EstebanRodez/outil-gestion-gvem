@@ -7,6 +7,7 @@ package application.controleur;
 
 import java.time.LocalDate;
 
+import application.EchangeurDeVue;
 import application.modele.CritereFiltreVisite;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -70,6 +71,39 @@ public class StatistiqueExpositionClassementFiltreControleur {
               critere.setExpositionTemporaire(true);
           }
         }
+        
+        if (dateDebutSelectionne != null){  
+            critere.setDateDebut(dateDebutSelectionne);
+        }
+
+        if (dateFinSelectionne != null){  
+            critere.setDateFin(dateFinSelectionne);
+        }
+
+        if(!labelHeureDebut.getText().isEmpty() 
+           && !labelMinuteDebut.getText().isEmpty()) {
+            
+            critere.setHoraireDebut(Integer.parseInt(labelHeureDebut.getText()) 
+                                    * 60 + Integer.parseInt(labelMinuteDebut
+                                                             .getText()));
+        }
+        
+        if(!labelHeureFin.getText().isEmpty() 
+           && !labelMinuteFin.getText().isEmpty()) {
+            
+            critere.setHoraireFin(Integer.parseInt(labelHeureFin.getText()) 
+                                  * 60 + Integer.parseInt(labelMinuteFin
+                                                           .getText()));
+        }
+        
+        // Passer le critère de filtre au contrôleur principal via EchangeurDeVue
+        StatistiqueExpositionClassementControleur controleurPrincipal;
+        controleurPrincipal = EchangeurDeVue
+                               .getFXMLLoader("statistiqueExpositionClassementVue")
+                                .getController();
+        controleurPrincipal.appliquerFiltre(critere);
+        
+        EchangeurDeVue.fermerPopUp("donneesCalculeesVisiteFiltresPopUP");
 
     }
     
