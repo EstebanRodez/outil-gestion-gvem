@@ -12,10 +12,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 import application.EchangeurDeVue;
 import application.utilitaire.FichierDonneesInvalides;
+import application.utilitaire.GestionCSV;
 import application.utilitaire.ImportationCSV;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -102,11 +104,14 @@ public class MenuImportationControleur {
      * Exploite les donnees importees
      */
     private void exploiterDonnee() {
+        int indexLabel = -1;
         for (File fichier : fichiersSelectionnes) {
             try {
+                indexLabel ++;
                 ImportationCSV.importerDonnees(fichier.getAbsolutePath());
-            } catch (FichierDonneesInvalides err) {
+            } catch (FichierDonneesInvalides | IllegalArgumentException err) {
                 labelMessageErr.setText(err.getMessage());
+                labels.get(indexLabel).setStyle(EN_ROUGE);;
                 btnValider.setDisable(true);
             }
         }
@@ -174,14 +179,61 @@ public class MenuImportationControleur {
      * @return true si au moins un champ de fichier est rempli, sinon false.
      */
     private boolean isFichierValide() {
-        Boolean emplacementValide,
-                fichiersDistincts;
+        Boolean fichierNonVide,
+                emplacementValide,
+                fichiersDistincts,
+                extensionValide,
+                typeFichier;
         String text;
+        int indexLabel;
         
         // Par defaut
         labelMessageErr.setText(" ");
         for (Label label : labels) {
             label.setStyle(EN_NOIR);
+        }
+        
+        indexLabel = -1;
+        fichierNonVide = true;
+        for (File fichier : fichiersSelectionnes) {
+            indexLabel ++;
+            if (fichier == null || fichier.length() == 0) { 
+                fichierNonVide = false;
+                labels.get(indexLabel).setStyle(EN_ROUGE);
+            }
+        }
+        
+        extensionValide = true;
+        indexLabel = -1;
+        for (File fichier : fichiersSelectionnes) {
+            try {
+                indexLabel++;
+                if (fichier != null || fichier.length() > 0) {
+                    if (!GestionCSV.isFichierValide(fichier.getAbsolutePath())) {
+                        extensionValide = false;
+                        labels.get(indexLabel).setStyle(EN_ROUGE);
+                    }
+                }
+            } catch (IOException err) {
+                //On rentrera pas ici
+            }
+        }
+        
+        typeFichier = true;
+        indexLabel = -1;
+        for (File fichier : fichiersSelectionnes) {
+            try {
+                indexLabel++;
+                if (fichier != null || fichier.length() > 0) {
+                    if (!GestionCSV.isLettreIdentifiantValide(
+                                GestionCSV.getTypeCSV(fichier.getAbsolutePath()))) {
+                        typeFichier = false;
+                        labels.get(indexLabel).setStyle(EN_ROUGE);
+                    }
+                }
+            } catch (IOException err) {
+                //On rentrera pas ici
+            }
         }
         
         emplacementValide = true;
@@ -191,7 +243,7 @@ public class MenuImportationControleur {
                 emplacementValide = false;
             }
         }
-        
+    
         fichiersDistincts = true;
         for (int fichierSelect = 0; fichierSelect < fichiersSelectionnes.size()
                                   ; fichierSelect++) {
@@ -209,7 +261,9 @@ public class MenuImportationControleur {
             }
         }
     
-        return emplacementValide && fichiersDistincts;
+        return fichierNonVide && extensionValide 
+                && emplacementValide && typeFichier 
+                && fichiersDistincts;
     }
     
     /**
@@ -271,8 +325,24 @@ public class MenuImportationControleur {
      * Met dans l'ordre les fichiers selectionnes
      */
     private void fichiersSelectionnesOrdre() {
-        // TODO Bouchon de méthode auto-généré
-        
+        char lettre;
+        HashMap<Character, File> fichiersParLettre = new HashMap<>();
+
+        for (File fichier : fichiersSelectionnes) {
+            try {
+                 lettre = GestionCSV.getTypeCSV(fichier.getAbsolutePath());
+                fichiersParLettre.put(lettre, fichier);
+            } catch (IOException e) {
+                // Ignorer les erreurs ici
+            }
+        }
+
+        fichiersSelectionnes.clear();
+        for (char lettreOrdre : new char[] {'E', 'C', 'N', 'R'}) {
+            if (fichiersParLettre.containsKey(lettreOrdre)) {
+                fichiersSelectionnes.add(fichiersParLettre.get(lettreOrdre));
+            }
+        }
     }
 
     /**
