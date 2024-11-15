@@ -1,3 +1,8 @@
+/*
+ * ImporterDistantControleur.java                           
+ * 13 oct. 2024
+ * IUT de Rodez, pas de copyright
+ */
 package application.controleur;
 
 import application.EchangeurDeVue;
