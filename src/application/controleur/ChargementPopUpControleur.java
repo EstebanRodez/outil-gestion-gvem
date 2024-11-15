@@ -50,7 +50,6 @@ public class ChargementPopUpControleur {
         if (attente != null && attente.isAlive()) {
             
             // Interrompt le thread pour sortir de l'attente de connexion
-            System.out.println("test2");
             attente.interrupt();
             try {
                 
