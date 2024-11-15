@@ -264,7 +264,7 @@ public class MenuImportationControleur {
         boiteInformationImportation.setHeaderText(
                 "Fichiers importés avec succès");
         boiteInformationImportation.showAndWait();
-        EchangeurDeVue.changerVue("menuDonneesImporterVue");
+        EchangeurDeVue.changerVue("accueilVue");
     }
     
     /**
