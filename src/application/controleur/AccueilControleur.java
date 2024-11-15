@@ -97,8 +97,8 @@ public class AccueilControleur {
     public void initialize() {
         
         if (TraitementDonnees.getDonnees().isDonneesVides()) {
-//            btnConsulterDonnees.setDisable(true);
-//            btnExporter.setDisable(true);
+            btnConsulterDonnees.setDisable(true);
+            btnExporter.setDisable(true);
         }
     }
 
