@@ -88,9 +88,14 @@ public class ExporterControleur {
                 e.printStackTrace();
             }
             
-            if (!Thread.currentThread().isInterrupted()) {
-                EchangeurDeVue.fermerPopUp("chargementPopUp");
-                EchangeurDeVue.changerVue("exporterValideVue");
+            // TODO Utiliser le thread JavaFX
+            try {
+                if (!Thread.currentThread().isInterrupted()) {
+                    EchangeurDeVue.fermerPopUp("chargementPopUp");
+                    EchangeurDeVue.changerVue("exporterValideVue");
+                }
+            } finally {
+                
             }
         });
         
