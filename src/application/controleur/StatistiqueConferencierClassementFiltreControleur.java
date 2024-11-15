@@ -99,7 +99,7 @@ public class StatistiqueConferencierClassementFiltreControleur {
         // Passer le critère de filtre au contrôleur principal via EchangeurDeVue
         StatistiqueConferencierClassementControleur controleurPrincipal;
         controleurPrincipal = EchangeurDeVue
-                               .getFXMLLoader("statistiqueConferencierClassementFiltreControleur")
+                               .getFXMLLoader("statistiqueConferencierClassementVue")
                                 .getController();
         controleurPrincipal.appliquerFiltre(critere);
         

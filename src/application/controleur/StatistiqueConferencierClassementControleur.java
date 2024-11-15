@@ -5,6 +5,7 @@
  */
 package application.controleur;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -13,6 +14,7 @@ import java.util.Map;
 
 import application.EchangeurDeVue;
 import application.modele.CritereFiltreVisite;
+import application.modele.ExpositionTemporaire;
 import application.modele.Visite;
 import application.modele.VisiteCalculResultat;
 import application.utilitaire.TraitementDonnees;
@@ -73,7 +75,7 @@ public class StatistiqueConferencierClassementControleur {
 
     @FXML
     void btnFiltresAction(ActionEvent event) {
-        //TODO filtres date heure type conferencier
+        EchangeurDeVue.creerPopUp("statistiqueConferencierClassementFiltrePopUp");
     }
 
     @FXML
@@ -142,7 +144,57 @@ public class StatistiqueConferencierClassementControleur {
      * @param critere
      */
     public void appliquerFiltre(CritereFiltreVisite critere) {
-        // TODO Bouchon de méthode auto-généré
+
+        LinkedHashMap<String, Visite> visitesFiltrees = new LinkedHashMap<>();
+
+        for (Map.Entry<String, Visite> paire : visites.entrySet()) {
+
+            boolean match = true; 
+            
+            // Filtrer par date de visite
+            if (critere.getDateDebut() != null) {
+             
+                LocalDate dateFin
+                = critere.getDateFin() != null ? critere.getDateFin()
+                                               : critere.getDateDebut();
+                if (paire.getValue().getDate().isBefore(critere.getDateDebut())
+                    || paire.getValue().getDate().isAfter(dateFin)) {
+                    match = false;
+                }
+            }
+            
+            // Filtrer par plage horaire
+            if (critere.getHoraireDebut() != 0) {
+                int horaireFin;
+                horaireFin = critere.getHoraireFin() != 0 
+                                                    ? critere.getHoraireFin() 
+                                                    : critere.getHoraireDebut();
+                if (paire.getValue().getHoraireDebut() < critere.getHoraireDebut() 
+                    || paire.getValue().getHoraireDebut() > horaireFin) {
+                    match = false;
+                }
+            }
+            
+            // Filtrer par conférencier interne
+            if (critere.getInterne()
+                && !(paire.getValue().getConferencier().estInterne())) {
+                
+                match = false;
+            }
+            
+            // Filtrer par conférencier externe
+            if (critere.getExterne()
+                && (paire.getValue().getConferencier().estInterne())) {
+                
+                match = false;
+            }
+            
+            if (match) {
+                visitesFiltrees.putLast(paire.getKey(), paire.getValue());
+            }
+        }
+
+        calculerTotalVisitesParConferencier(visitesFiltrees);
         
     }
 
