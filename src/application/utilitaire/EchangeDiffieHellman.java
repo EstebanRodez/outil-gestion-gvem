@@ -110,7 +110,7 @@ public class EchangeDiffieHellman {
             e.printStackTrace();
             throw new GenerationDonneeSecreteException();
         }  
-        Serveur.envoyerFichiers(65433, NOMS_FICHIER_CLES_BOB);
+        Serveur.envoyerFichiers(65432, NOMS_FICHIER_CLES_BOB);
 
         return Mathematiques.calculExponentielleModulo(gExpA, b, p);
     }
