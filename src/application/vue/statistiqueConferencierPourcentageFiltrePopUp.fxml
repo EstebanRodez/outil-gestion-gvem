@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="316.0" prefWidth="550.0" style="-fx-background-color: #9FCFF3;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controleur.StatistiqueConferencierPourcentageFiltreControleur">
+   <children>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="550.0">
+         <children>
+            <Label prefHeight="30.0" style="-fx-background-color: #ffffff;" text="Période personnalisée :">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <padding>
+                  <Insets left="5.0" right="5.0" />
+               </padding>
+            </Label>
+            <Label alignment="CENTER" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #ffffff;" text="De">
+               <font>
+                  <Font size="13.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
+            </Label>
+            <DatePicker fx:id="dateDebut" prefHeight="30.0" prefWidth="110.0" promptText="01/01/2024">
+               <HBox.margin>
+                  <Insets left="5.0" />
+               </HBox.margin>
+            </DatePicker>
+            <Label alignment="CENTER" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #ffffff;" text="A">
+               <font>
+                  <Font size="13.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
+            </Label>
+            <DatePicker fx:id="dateFin" prefHeight="30.0" prefWidth="110.0" promptText="01/01/2025">
+               <HBox.margin>
+                  <Insets left="5.0" />
+               </HBox.margin>
+            </DatePicker>
+         </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+         <padding>
+            <Insets left="5.0" right="5.0" />
+         </padding>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="723.0">
+         <children>
+            <Label prefHeight="30.0" style="-fx-background-color: #ffffff;" text="Plage horaire personnalisée :">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <padding>
+                  <Insets left="5.0" right="5.0" />
+               </padding>
+            </Label>
+            <Label alignment="CENTER" prefHeight="30.0" prefWidth="42.0" style="-fx-background-color: #ffffff;" text="Entre">
+               <font>
+                  <Font size="13.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="30.0" />
+               </HBox.margin>
+               <padding>
+                  <Insets left="1.0" />
+               </padding>
+            </Label>
+            <TextField fx:id="labelHeureDebut" prefHeight="30.0" prefWidth="30.0" promptText="..." style="-fx-background-color: #ffffff;">
+               <HBox.margin>
+                  <Insets left="-5.0" />
+               </HBox.margin>
+            </TextField>
+            <Label maxHeight="30.0" style="-fx-background-color: #ffffff;" text="h">
+               <HBox.margin>
+                  <Insets left="-5.0" />
+               </HBox.margin>
+               <padding>
+                  <Insets right="4.0" />
+               </padding>
+            </Label>
+            <TextField fx:id="labelMinuteDebut" prefHeight="30.0" prefWidth="30.0" promptText="..." style="-fx-background-color: #ffffff;">
+               <HBox.margin>
+                  <Insets left="-5.0" />
+               </HBox.margin>
+            </TextField>
+            <Label maxHeight="30.0" style="-fx-background-color: #ffffff;" text="min">
+               <HBox.margin>
+                  <Insets left="-5.0" />
+               </HBox.margin>
+               <padding>
+                  <Insets right="5.0" />
+               </padding>
+            </Label>
+            <Label alignment="CENTER" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #ffffff;" text="Et">
+               <font>
+                  <Font size="13.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="15.0" />
+               </HBox.margin>
+            </Label>
+            <TextField fx:id="labelHeureFin" prefHeight="30.0" prefWidth="30.0" promptText="..." style="-fx-background-color: #ffffff;">
+               <HBox.margin>
+                  <Insets left="-5.0" />
+               </HBox.margin>
+            </TextField>
+            <Label maxHeight="30.0" style="-fx-background-color: #ffffff;" text="h">
+               <padding>
+                  <Insets left="1.0" right="4.0" />
+               </padding>
+               <HBox.margin>
+                  <Insets left="-5.0" />
+               </HBox.margin>
+            </Label>
+            <TextField fx:id="labelMinuteFin" prefHeight="30.0" prefWidth="30.0" promptText="..." style="-fx-background-color: #ffffff;">
+               <HBox.margin>
+                  <Insets left="-5.0" />
+               </HBox.margin>
+            </TextField>
+            <Label maxHeight="30.0" style="-fx-background-color: #ffffff;" text="min">
+               <HBox.margin>
+                  <Insets left="-5.0" right="18.0" />
+               </HBox.margin>
+               <padding>
+                  <Insets right="5.0" />
+               </padding>
+            </Label>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="31.0" prefWidth="120.0" style="-fx-background-color: #ffffff;" text="Exposition :">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <padding>
+                  <Insets left="5.0" />
+               </padding>
+               <HBox.margin>
+                  <Insets right="50.0" />
+               </HBox.margin>
+            </Label>
+            <RadioButton fx:id="radioPermanente" mnemonicParsing="false" prefHeight="31.0" prefWidth="144.0" style="-fx-background-color: #ffffff;" text="Permanente">
+               <HBox.margin>
+                  <Insets right="28.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <toggleGroup>
+                  <ToggleGroup fx:id="typeExpo" />
+               </toggleGroup>
+               <padding>
+                  <Insets bottom="2.0" left="5.0" right="5.0" top="2.0" />
+               </padding>
+            </RadioButton>
+            <RadioButton fx:id="radioTemporaire" mnemonicParsing="false" prefHeight="31.0" prefWidth="144.0" style="-fx-background-color: #ffffff;" text="Temporaire" toggleGroup="$typeExpo">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <padding>
+                  <Insets bottom="2.0" left="5.0" right="5.0" top="2.0" />
+               </padding>
+            </RadioButton>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="550.0">
+         <children>
+            <Label prefHeight="31.0" prefWidth="120.0" style="-fx-background-color: #ffffff;" text="Conférencier :">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <padding>
+                  <Insets left="5.0" />
+               </padding>
+               <HBox.margin>
+                  <Insets right="50.0" />
+               </HBox.margin>
+            </Label>
+            <RadioButton fx:id="radioInternes" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="31.0" prefWidth="144.0" style="-fx-background-color: #ffffff;" text="Internes">
+               <HBox.margin>
+                  <Insets right="28.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <padding>
+                  <Insets bottom="2.0" left="5.0" right="5.0" top="2.0" />
+               </padding>
+               <toggleGroup>
+                  <ToggleGroup fx:id="typeConf" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton fx:id="radioExternes" mnemonicParsing="false" prefHeight="31.0" prefWidth="144.0" style="-fx-background-color: #ffffff;" text="Externes" toggleGroup="$typeConf">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <padding>
+                  <Insets bottom="2.0" left="5.0" right="5.0" top="2.0" />
+               </padding>
+            </RadioButton>
+         </children>
+      </HBox>
+      <HBox prefHeight="60.0" prefWidth="200.0">
+         <children>
+            <Button fx:id="btnValider" alignment="CENTER" mnemonicParsing="false" onAction="#btnValiderAction" prefHeight="25.0" prefWidth="90.0" text="Valider">
+               <HBox.margin>
+                  <Insets left="230.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
+         </children>
+         <VBox.margin>
+            <Insets bottom="20.0" top="10.0" />
+         </VBox.margin>
+      </HBox>
+   </children>
+</VBox>
