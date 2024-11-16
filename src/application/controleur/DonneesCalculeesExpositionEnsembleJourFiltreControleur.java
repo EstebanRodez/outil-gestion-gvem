@@ -29,6 +29,9 @@ public class DonneesCalculeesExpositionEnsembleJourFiltreControleur {
     
     @FXML
     private Button btnValider;
+    
+    @FXML
+    private Button btnReset;
 
     @FXML
     private DatePicker dateDebut;
@@ -99,6 +102,20 @@ public class DonneesCalculeesExpositionEnsembleJourFiltreControleur {
             
         // Fermer la popup
         EchangeurDeVue.fermerPopUp("donneesCalculeesExpositionEnsembleJourFiltrePopUp");
+    }
+    
+    @FXML
+    void btnResetAction(ActionEvent event) {
+        
+        dateDebut.setValue(null);
+        dateFin.setValue(null);
+        
+        radioExternes.setSelected(false);
+        radioInternes.setSelected(false);
+        radioPermanente.setSelected(false);
+        radioTemporaire.setSelected(false);
+        
+        
     }
 
 }

@@ -29,6 +29,9 @@ public class DonneesCalculeesConferencierMoyenneJourFiltreControleur {
     
     @FXML
     private Button btnValider;
+    
+    @FXML
+    private Button btnReset;
 
     @FXML
     private DatePicker dateDebut;
@@ -99,6 +102,20 @@ public class DonneesCalculeesConferencierMoyenneJourFiltreControleur {
             
         // Fermer la popup
         EchangeurDeVue.fermerPopUp("donneesCalculeesConferencierMoyenneJourFiltrePopUp");
+    }
+    
+    @FXML
+    void btnResetAction(ActionEvent event) {
+        
+        dateDebut.setValue(null);
+        dateFin.setValue(null);
+        
+        radioExternes.setSelected(false);
+        radioInternes.setSelected(false);
+        radioPermanente.setSelected(false);
+        radioTemporaire.setSelected(false);
+        
+        
     }
 
 }

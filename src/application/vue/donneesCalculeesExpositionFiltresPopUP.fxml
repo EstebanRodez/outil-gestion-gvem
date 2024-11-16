@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="281.0" prefWidth="550.0" style="-fx-background-color: #9FCFF3;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controleur.DonneesCalculeesExpositionFiltresPopUPControleur">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="210.0" prefWidth="550.0" style="-fx-background-color: #9FCFF3;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controleur.DonneesCalculeesExpositionFiltresPopUPControleur">
    <children>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="550.0">
          <children>
@@ -115,12 +115,17 @@
       </HBox>
       <HBox prefHeight="60.0" prefWidth="200.0">
          <children>
-            <Button fx:id="btnValider" alignment="CENTER" mnemonicParsing="false" onAction="#btnValiderAction" prefHeight="25.0" prefWidth="90.0" text="Valider">
+            <Button fx:id="btnReset" alignment="CENTER" mnemonicParsing="false" onAction="#btnResetAction" prefHeight="25.0" prefWidth="125.0" style="-fx-background-color: #f24822;" styleClass="btnMenu" text="réinitialiser les filtres" textFill="WHITE">
                <HBox.margin>
-                  <Insets left="230.0" />
+                  <Insets left="5.0" top="10.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="btnValider" alignment="CENTER" mnemonicParsing="false" onAction="#btnValiderAction" prefHeight="25.0" prefWidth="90.0" style="-fx-background-color: #29CA5E;" styleClass="btnMenu" text="Valider" textFill="WHITE">
+               <HBox.margin>
+                  <Insets left="100.0" />
                </HBox.margin>
                <font>
-                  <Font size="15.0" />
+                  <Font name="System Bold" size="15.0" />
                </font>
             </Button>
          </children>

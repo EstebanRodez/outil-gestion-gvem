@@ -28,6 +28,9 @@ public class DonneesCalculeesExpositionFiltresPopUPControleur {
         
     @FXML
     private Button btnValider;
+    
+    @FXML
+    private Button btnReset;
 
     @FXML
     private DatePicker dateDebut;
@@ -89,6 +92,18 @@ public class DonneesCalculeesExpositionFiltresPopUPControleur {
             
         // Fermer la popup
         EchangeurDeVue.fermerPopUp("donneesCalculeesExpositionFiltresPopUP");
+    }
+    
+    @FXML
+    void btnResetAction(ActionEvent event) {
+        
+        dateDebut.setValue(null);
+        dateFin.setValue(null);
+        
+        labelHeureDebut.setText("");
+        labelHeureFin.setText("");
+        labelMinuteDebut.setText("");
+        labelMinuteFin.setText("");        
     }
 
 }

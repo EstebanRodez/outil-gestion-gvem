@@ -55,6 +55,9 @@ public class DonneesCalculeesVisiteFiltresPopUPControleur {
     
     @FXML
     private Button btnValider;
+    
+    @FXML
+    private Button btnReset;
 
     @FXML
     private TextField labelHeureDebut;
@@ -194,6 +197,26 @@ public class DonneesCalculeesVisiteFiltresPopUPControleur {
         controleurPrincipal.appliquerFiltre(critere);
         
         EchangeurDeVue.fermerPopUp("donneesCalculeesVisiteFiltresPopUP");
+    }
+    
+    @FXML
+    void btnResetAction(ActionEvent event) {
+        
+        dateDebut.setValue(null);
+        dateFin.setValue(null);
+        
+        labelHeureDebut.setText("");
+        labelHeureFin.setText("");
+        labelMinuteDebut.setText("");
+        labelMinuteFin.setText("");
+        
+        listeConf.setValue(null);
+        listeExpo.setValue(null);
+        
+        radioExternes.setSelected(false);
+        radioInternes.setSelected(false);
+        radioPermanente.setSelected(false);
+        radioTemporaire.setSelected(false);
     }
 
 }
