@@ -98,7 +98,7 @@ public class DonneesCalculeesExpositionMoyenneJourControleur {
         
         Exposition.setCellValueFactory(
             cellData -> new SimpleStringProperty(
-                    cellData.getValue().getIntituleExposition()));
+                    cellData.getValue().getIntitule()));
         
         nbMoyen.setCellValueFactory(
             cellData -> new SimpleDoubleProperty(

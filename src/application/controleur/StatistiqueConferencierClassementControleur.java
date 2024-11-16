@@ -58,7 +58,7 @@ public class StatistiqueConferencierClassementControleur {
                 
         Conferencier.setCellValueFactory(
                 cellData -> new SimpleStringProperty(
-                        cellData.getValue().getIntituleExposition()));
+                        cellData.getValue().getIntitule()));
             
         nbTotal.setCellValueFactory(
             cellData -> new SimpleDoubleProperty(

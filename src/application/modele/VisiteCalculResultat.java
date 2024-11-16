@@ -13,27 +13,27 @@ package application.modele;
  */
 public class VisiteCalculResultat {
     
-    private String intituleExposition;
+    private String intitule;
     private double calculVisites;
     private String calculVisitesPourcentage;
 
     /**
      * TODO commenter l'état initial
-     * @param intituleExposition
+     * @param intitule
      * @param calculVisites 
      */
-    public VisiteCalculResultat(String intituleExposition, double calculVisites) {
-        this.intituleExposition = intituleExposition;
+    public VisiteCalculResultat(String intitule, double calculVisites) {
+        this.intitule = intitule;
         this.calculVisites = calculVisites;
     }
     
     /**
      * TODO commenter l'état initial
-     * @param intituleExposition
+     * @param intitule
      * @param calculVisites 
      */
-    public VisiteCalculResultat(String intituleExposition, String calculVisites) {
-        this.intituleExposition = intituleExposition;
+    public VisiteCalculResultat(String intitule, String calculVisites) {
+        this.intitule = intitule;
         this.calculVisitesPourcentage = calculVisites;
     }
 
@@ -41,8 +41,8 @@ public class VisiteCalculResultat {
      * TODO commenter le rôle de cette méthode (SRP)
      * @return l'intitule
      */
-    public String getIntituleExposition() {
-        return intituleExposition;
+    public String getIntitule() {
+        return intitule;
     }
 
     /**

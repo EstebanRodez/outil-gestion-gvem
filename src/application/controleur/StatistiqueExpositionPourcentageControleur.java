@@ -59,7 +59,7 @@ public class StatistiqueExpositionPourcentageControleur {
                 
         Exposition.setCellValueFactory(
                 cellData -> new SimpleStringProperty(
-                        cellData.getValue().getIntituleExposition()));
+                        cellData.getValue().getIntitule()));
             
         tauxVisites.setCellValueFactory(
             cellData -> new SimpleStringProperty(
@@ -80,7 +80,7 @@ public class StatistiqueExpositionPourcentageControleur {
 
     @FXML
     void btnRetourAction(ActionEvent event) {
-        EchangeurDeVue.changerVue("menuStatistiqueClassementVue");
+        EchangeurDeVue.changerVue("menuStatistiquePourcentageVue");
     }
 
     @FXML
