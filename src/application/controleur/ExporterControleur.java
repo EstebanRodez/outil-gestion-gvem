@@ -5,6 +5,11 @@
  */
 package application.controleur;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 
@@ -13,7 +18,7 @@ import application.utilitaire.EchangeDiffieHellman;
 import application.utilitaire.ExportationCSV;
 import application.utilitaire.ExportationCSVException;
 import application.utilitaire.GenerationDonneeSecreteException;
-
+import application.utilitaire.Vigenere;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -70,6 +75,12 @@ public class ExporterControleur {
     @FXML
     void btnExporterAction(ActionEvent event) {
         
+        final String[] NOMS_FICHIERS_EXPORTATION
+        = {
+            "conferenciers.csv", "employes.csv",
+            "expositions.csv", "visites.csv"
+        };
+        
         EchangeurDeVue.creerPopUp("chargementPopUp");
         
         try {
@@ -80,7 +91,8 @@ public class ExporterControleur {
         
         Thread attente;
         attente = new Thread(() -> {
-            int cleSecrete;
+            
+            int cleSecrete = -1;
             try {
                 cleSecrete = EchangeDiffieHellman.genererDonneeSecreteAlice();
                 System.out.println(cleSecrete);
@@ -88,15 +100,20 @@ public class ExporterControleur {
                 e.printStackTrace();
             }
             
-            // TODO Utiliser le thread JavaFX
-            try {
-                if (!Thread.currentThread().isInterrupted()) {
-                    EchangeurDeVue.fermerPopUp("chargementPopUp");
-                    EchangeurDeVue.changerVue("exporterValideVue");
-                }
-            } finally {
+            for (String nomFichier : NOMS_FICHIERS_EXPORTATION) {
                 
+                String cleChiffrement
+                = Vigenere.genererCleChiffrement(
+                      145387, Vigenere.recupererAlphabet(nomFichier));
+                
+                System.out.println(cleChiffrement);
             }
+            
+            // FIXME erreur thread
+//            if (!Thread.currentThread().isInterrupted()) {
+//                EchangeurDeVue.fermerPopUp("chargementPopUp");
+//                EchangeurDeVue.changerVue("exporterValideVue");
+//            }
         });
         
       ChargementPopUpControleur controleur
