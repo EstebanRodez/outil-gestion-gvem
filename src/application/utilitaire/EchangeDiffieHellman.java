@@ -30,7 +30,7 @@ public class EchangeDiffieHellman {
             throws GenerationDonneeSecreteException {
 
         int p = Mathematiques.trouverNombrePremier(
-                Mathematiques.genererNombreAleatoire(1000,9999));
+                Mathematiques.genererNombreAleatoire(10000,99999));
         System.out.println(p);
 
         int g = Mathematiques.trouverDernierGroupeMultiplicatif(p);
@@ -39,7 +39,6 @@ public class EchangeDiffieHellman {
         int a = Mathematiques.genererNombreAleatoire(1, p);
         int gExpA = Mathematiques.calculExponentielleModulo(g, a, p);
 
-        String[] fichiersCles = {"p.txt", "g.txt", "g^a.txt"};
         try {
             
             GestionFichiers.ecrireFichier(NOMS_FICHIER_CLES_ALICE[0],
@@ -52,7 +51,7 @@ public class EchangeDiffieHellman {
             e.printStackTrace();
             throw new GenerationDonneeSecreteException();
         }  
-        InetAddress ipClient = Serveur.envoyerFichiers(65432, fichiersCles);
+        InetAddress ipClient = Serveur.envoyerFichiers(65432, NOMS_FICHIER_CLES_ALICE);
         
         if (ipClient == null) {
             
