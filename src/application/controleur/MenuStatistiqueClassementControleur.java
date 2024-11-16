@@ -22,19 +22,27 @@ import javafx.scene.control.Button;
 public class MenuStatistiqueClassementControleur {
     
     @FXML
-    private Button btnConferencier;
+    private Button btnAccueil;
 
     @FXML
-    private Button btnMenuPourcentages;
+    private Button btnConferencier;
 
     @FXML
     private Button btnExposition;
 
     @FXML
-    private Button btnStatistique;
+    private Button btnMenuPourcentages;
 
     @FXML
-    void btnStatistiqueAction(ActionEvent event) {
+    private Button btnRetour;
+
+    @FXML
+    void btnAccueilAction(ActionEvent event) {
+        EchangeurDeVue.changerVue("accueilVue");
+    }
+    
+    @FXML
+    void btnRetourAction(ActionEvent event) {
         EchangeurDeVue.changerVue("MenuStatistiqueVue");
     }
 

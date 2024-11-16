@@ -47,7 +47,7 @@
       </HBox>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Consultation des statistiques" textAlignment="CENTER" wrappingWidth="429.9892578125">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Consulter des statistiques" textAlignment="CENTER" wrappingWidth="429.9892578125">
                <font>
                   <Font name="System Bold" size="35.0" />
                </font>

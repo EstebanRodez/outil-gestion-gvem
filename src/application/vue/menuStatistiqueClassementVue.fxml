@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" style="-fx-background-color: #9FCFF3;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controleur.MenuStatistiqueClassementControleur">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" style="-fx-background-color: #9FCFF3;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controleur.MenuStatistiqueClassementControleur">
    <children>
       <HBox prefHeight="100.0" prefWidth="960.0">
          <children>
-            <Button fx:id="btnStatistique" mnemonicParsing="false" onAction="#btnStatistiqueAction" prefHeight="47.0" prefWidth="320.0" text="Statistique">
+            <Button fx:id="btnAccueil" mnemonicParsing="false" onAction="#btnAccueilAction" prefHeight="47.0" prefWidth="320.0" text="Accueil">
                <font>
                   <Font size="15.0" />
                </font>
@@ -38,7 +39,7 @@
       </HBox>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Consultation des statistiques" textAlignment="CENTER" wrappingWidth="429.9892578125">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Consulter des classements" textAlignment="CENTER" wrappingWidth="429.9892578125">
                <font>
                   <Font name="System Bold" size="35.0" />
                </font>
@@ -50,7 +51,7 @@
       </HBox>
       <HBox alignment="CENTER" prefHeight="54.0" prefWidth="960.0">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Sélectionnez un thème" textAlignment="CENTER" wrappingWidth="429.9892578125">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Sélectionnez un thème :" textAlignment="CENTER" wrappingWidth="429.9892578125">
                <font>
                   <Font size="22.0" />
                </font>
@@ -76,6 +77,18 @@
                </font>
                <HBox.margin>
                   <Insets left="50.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+      <HBox prefHeight="157.0" prefWidth="960.0">
+         <children>
+            <Button fx:id="btnRetour" mnemonicParsing="false" onAction="#btnRetourAction" prefHeight="30.0" prefWidth="100.0" style="-fx-text-fill: black; -fx-background-color: white;" styleClass="btnMenu" text="Retour">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="20.0" top="100.0" />
                </HBox.margin>
             </Button>
          </children>

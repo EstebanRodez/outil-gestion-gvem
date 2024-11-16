@@ -22,6 +22,9 @@ import javafx.scene.control.Button;
 public class MenuStatistiquePourcentageControleur {
 
     @FXML
+    private Button btnAccueil;
+
+    @FXML
     private Button btnConferencier;
 
     @FXML
@@ -31,10 +34,15 @@ public class MenuStatistiquePourcentageControleur {
     private Button btnMenuClassement;
 
     @FXML
-    private Button btnStatistique;
+    private Button btnRetour;
+    
+    @FXML
+    void btnAccueilAction(ActionEvent event) {
+        EchangeurDeVue.changerVue("accueilVue");
+    }
 
     @FXML
-    void btnStatistiqueAction(ActionEvent event) {
+    void btnRetourAction(ActionEvent event) {
         EchangeurDeVue.changerVue("MenuStatistiqueVue");
     }
 
