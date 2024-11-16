@@ -45,7 +45,7 @@ public class MenuStatistiquePourcentageControleur {
 
     @FXML
     void btnExpositionAction(ActionEvent event) {
-
+        EchangeurDeVue.changerVue("statistiqueExpositionPourcentageVue");
     }
 
     @FXML

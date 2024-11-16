@@ -14,7 +14,6 @@ import java.util.Map;
 
 import application.EchangeurDeVue;
 import application.modele.CritereFiltreVisite;
-import application.modele.ExpositionTemporaire;
 import application.modele.Visite;
 import application.modele.VisiteCalculResultat;
 import application.utilitaire.TraitementDonnees;
