@@ -12,15 +12,31 @@ import java.io.InputStreamReader;
 import java.util.HashSet;
 
 /**
- * TODO commenter la responsabilité de cette class (SRP)
+ * Cette classe contient des méthodes pour effectuer des opérations de
+ * chiffrement et de déchiffrement basées sur le chiffre de Vigenère.
+ * Elle permet de générer une clé de chiffrement à partir d'une donnée secrète
+ * et d'un alphabet donné, ainsi que de récupérer un alphabet unique à partir
+ * d'un fichier texte.<br>
+ * <br>
+ * Le chiffre de Vigenère est une méthode de chiffrement polyalphabétique qui
+ * utilise une clé répétée pour décaler les caractères du texte en clair
+ * selon les positions définies dans l'alphabet.<br>
+ * Cette classe facilite ces opérations sur des données textuelles.
+ * 
+ * @author Esteban Vroemen
+ * @version 1.0
  */
 public class Vigenere {
     
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
-     * @param donneeSecrete
-     * @param alphabet 
-     * @return la clé de chiffrement
+     * Génère une clé de chiffrement basée sur une donnée secrète et
+     * un alphabet donné. La clé est calculée en transformant la donnée
+     * secrète en une séquence de caractères issus de l'alphabet, en
+     * appliquant des décalages successifs.
+     *
+     * @param donneeSecrete la donnée secrète utilisée pour générer la clé.
+     * @param alphabet l'alphabet à utiliser pour les caractères de la clé.
+     * @return une chaîne de caractères représentant la clé de chiffrement.
      */
     public static String genererCleChiffrement(int donneeSecrete,
                                                String alphabet) {
@@ -39,9 +55,13 @@ public class Vigenere {
     }
     
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
-     * @param cheminFichier
-     * @return l'alphabet du fichier
+     * Récupère l'alphabet utilisé dans un fichier texte donné.
+     * L'alphabet est construit en ajoutant chaque caractère unique du
+     * fichier, dans l'ordre d'apparition, à une chaîne de caractères.
+     *
+     * @param cheminFichier le chemin du fichier texte à analyser.
+     * @return une chaîne de caractères représentant l'alphabet unique
+     *         trouvé dans le fichier.
      */
     public static String recupererAlphabet(String cheminFichier) {
         
