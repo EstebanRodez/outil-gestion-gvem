@@ -115,9 +115,6 @@ public class StatistiqueConferencierPourcentageControleur {
             sommeTotaleVisites += visitesCompteur;
         }
         
-        System.out.println("sommeTotaleVisites : " + sommeTotaleVisites);
-
-        
         // Calculer le total de visites pour chaque exposition
         List<VisiteCalculResultat> resultats = new ArrayList<>();
 
@@ -125,8 +122,6 @@ public class StatistiqueConferencierPourcentageControleur {
                                                 .entrySet()) {
             String intituleExposition = entry.getKey();
             double totalVisites = entry.getValue();
-
-            System.out.println("totalVisites : " + totalVisites);
                         
             double pourcentageVisites;
             pourcentageVisites = (totalVisites / sommeTotaleVisites) * 100;

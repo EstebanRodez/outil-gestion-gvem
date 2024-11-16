@@ -46,7 +46,7 @@
                         <Insets right="15.0" />
                      </HBox.margin>
                   </VBox>
-                  <TableView fx:id="tableExposition" prefHeight="376.0" prefWidth="800.0">
+                  <TableView fx:id="tableExposition" prefHeight="376.0" prefWidth="800.0" stylesheets="@css/tableStyleStatistique.css">
                      <columns>
                         <TableColumn fx:id="Exposition" prefWidth="400.0" sortable="false" text="Exposition" />
                         <TableColumn fx:id="tauxVisites" prefWidth="400.0" sortType="DESCENDING" text="Répartition des Visites" />

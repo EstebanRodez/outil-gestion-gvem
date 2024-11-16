@@ -70,7 +70,7 @@
                         <Insets right="15.0" />
                      </HBox.margin>
                   </VBox>
-                  <TableView fx:id="tableExposition" prefHeight="376.0" prefWidth="800.0">
+                  <TableView fx:id="tableExposition" prefHeight="376.0" prefWidth="800.0" stylesheets="@css/tableStyleCalculees.css">
                      <columns>
                         <TableColumn fx:id="Exposition" prefWidth="400.0" text="Exposition" />
                         <TableColumn fx:id="nbMoyen" prefWidth="400.0" text="Nombre moyen de visites prévues" />

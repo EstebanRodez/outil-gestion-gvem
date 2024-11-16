@@ -1,0 +1,20 @@
+.table-view {
+	-fx-background-radius: 10pt;
+}
+
+.table-view .column-header {
+	-fx-background-color: transparent;
+	
+	
+}
+
+.table-view .column-header-background {
+	-fx-background-color: #E98973;	
+	-fx-background-radius: 10pt 10pt 0 0;
+	-fx-border-width: 0 0 1 0;
+	-fx-padding: 5px 0;
+}
+
+.ScrollBar {
+	-fx-background-radius: 10pt;
+}

@@ -109,9 +109,7 @@ public class StatistiqueExpositionClassementControleur {
                 visitesParExposition.getOrDefault(intituleExposition, 0) + 1
             );
         }
-        
-        System.out.println("visitesParExposition : " + visitesParExposition);
-        
+                
         // Calculer le total de visites pour chaque exposition
         List<VisiteCalculResultat> resultats = new ArrayList<>();
 
@@ -119,8 +117,6 @@ public class StatistiqueExpositionClassementControleur {
                                                 .entrySet()) {
             String intituleExposition = entry.getKey();
             double totalVisites = entry.getValue();
-
-            System.out.println("totalVisites : " + totalVisites);
 
             resultats.add(new VisiteCalculResultat(intituleExposition, 
                                                     totalVisites));

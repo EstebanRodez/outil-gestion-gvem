@@ -16,7 +16,7 @@
 
 <VBox prefHeight="400.0" prefWidth="640.0" stylesheets="@css/vue.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controleur.DonneesCalculeesConferencierEnsembleSemaineControleur">
    <children>
-      <MenuBar VBox.vgrow="NEVER">
+      <MenuBar stylesheets="@css/tableStyle.css" VBox.vgrow="NEVER">
          <menus>
             <Menu mnemonicParsing="false" text="Menu">
                <items>
@@ -70,7 +70,7 @@
                         <Insets right="15.0" />
                      </HBox.margin>
                   </VBox>
-                  <TableView fx:id="tableConferencier" prefHeight="376.0" prefWidth="800.0">
+                  <TableView fx:id="tableConferencier" prefHeight="376.0" prefWidth="800.0" stylesheets="@css/tableStyleCalculees.css">
                      <columns>
                         <TableColumn fx:id="Conferencier" prefWidth="400.0" text="Conférencier" />
                         <TableColumn fx:id="nbMoyen" prefWidth="400.0" text="Nombre moyen de visites prévues" />

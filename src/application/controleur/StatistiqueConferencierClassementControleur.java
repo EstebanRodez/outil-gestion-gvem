@@ -108,9 +108,7 @@ public class StatistiqueConferencierClassementControleur {
                 visitesParConferencier.getOrDefault(nomConferencier, 0) + 1
             );
         }
-        
-        System.out.println("visitesParConferencier : " + visitesParConferencier);
-        
+                
         // Calculer le total de visites pour chaque conferencier
         List<VisiteCalculResultat> resultats = new ArrayList<>();
 
@@ -118,8 +116,6 @@ public class StatistiqueConferencierClassementControleur {
                                                 .entrySet()) {
             String nomConferencier = entry.getKey();
             double totalVisites = entry.getValue();
-
-            System.out.println("totalVisites : " + totalVisites);
 
             resultats.add(new VisiteCalculResultat(nomConferencier, 
                                                     totalVisites));

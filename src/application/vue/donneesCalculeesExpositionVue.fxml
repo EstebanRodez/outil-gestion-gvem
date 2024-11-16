@@ -73,7 +73,7 @@
                         <Insets right="15.0" />
                      </HBox.margin>
                   </VBox>
-                  <TableView fx:id="tableExposition" prefHeight="376.0" prefWidth="800.0">
+                  <TableView fx:id="tableExposition" prefHeight="376.0" prefWidth="800.0" stylesheets="@css/tableStyleCalculees.css">
                      <columns>
                         <TableColumn fx:id="aucuneVisite" prefWidth="266.0" text="Exposition n'ayant aucune visite" />
                         <TableColumn fx:id="date" prefWidth="266.0" text="Date" />

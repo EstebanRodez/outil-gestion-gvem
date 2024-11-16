@@ -46,7 +46,7 @@
                         <Insets right="15.0" />
                      </HBox.margin>
                   </VBox>
-                  <TableView fx:id="tableConferencier" prefHeight="376.0" prefWidth="800.0">
+                  <TableView fx:id="tableConferencier" prefHeight="376.0" prefWidth="800.0" stylesheets="@css/tableStyleStatistique.css">
                      <columns>
                         <TableColumn fx:id="Conferencier" prefWidth="400.0" text="Conférenciers" />
                         <TableColumn fx:id="nbTotal" prefWidth="400.0" text="Nombre total de visites programmées" />
