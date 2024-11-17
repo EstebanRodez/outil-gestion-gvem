@@ -24,6 +24,9 @@ public class StatistiqueExpositionClassementFiltreControleur {
     
     @FXML
     private Button btnValider;
+    
+    @FXML
+    private Button btnReset;
 
     @FXML
     private DatePicker dateDebut;
@@ -103,8 +106,23 @@ public class StatistiqueExpositionClassementFiltreControleur {
                                 .getController();
         controleurPrincipal.appliquerFiltre(critere);
         
-        EchangeurDeVue.fermerPopUp("donneesCalculeesVisiteFiltresPopUP");
+        EchangeurDeVue.fermerPopUp("statistiqueExpositionClassementFiltrePopUp");
 
+    }
+    
+    @FXML
+    void btnResetAction(ActionEvent event) {
+        
+        dateDebut.setValue(null);
+        dateFin.setValue(null);
+        
+        labelHeureDebut.setText("");
+        labelHeureFin.setText("");
+        labelMinuteDebut.setText("");
+        labelMinuteFin.setText("");
+        
+        radioPermanente.setSelected(false);
+        radioTemporaire.setSelected(false);
     }
     
 }
