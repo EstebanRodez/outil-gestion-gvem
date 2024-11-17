@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import application.EchangeurDeVue;
 import application.utilitaire.FichierDonneesInvalides;
@@ -49,8 +50,20 @@ public class MenuImportationControleur {
     private static final String EN_NOIR 
     = "-fx-text-fill: black; -fx-background-color: #ffffff;";
 
+    private static final String FICHIER_INTROUVABLE 
+        = "Erreur: fichiers introuvables";
+
+    private static final String FICHIER_OUVERTURE_FERMETURE 
+        = "Erreur: Problème d'ouverture/fermeture de fichiers";
+
+    private static final String FICHIER_AUCUNE_CATEGORIE 
+        = "Fichier ne correspond à aucune catégorie d'exposition,"
+                + " conférencier, employé ou visite.";
+
     /** Listes des fichiers selectionnees */
     private ArrayList<File> fichiersSelectionnes = new ArrayList<>();
+    
+    private Map<Integer, String> stockageMessageErreur;
     
     @FXML
     private Label labelEmplacementUn, labelEmplacementDeux, 
@@ -94,7 +107,8 @@ public class MenuImportationControleur {
         importerFichier();
         mettreAJourLabelsFichiers(); 
         
-        if (!isFichierValide()) {
+        if (!isFichierValide()) { 
+            afficherErreursFichiers();
             btnValider.setDisable(true);
         } 
          
@@ -187,6 +201,8 @@ public class MenuImportationControleur {
         String text;
         int indexLabel;
         
+        stockageMessageErreur = new HashMap<>();       
+        
         // Par defaut
         labelMessageErr.setText(" ");
         for (Label label : labels) {
@@ -197,9 +213,14 @@ public class MenuImportationControleur {
         fichierNonVide = true;
         for (File fichier : fichiersSelectionnes) {
             indexLabel ++;
-            if (fichier == null || fichier.length() == 0) { 
-                fichierNonVide = false;
-                labels.get(indexLabel).setStyle(EN_ROUGE);
+            try {
+                if (fichier == null || GestionCSV.isFichierVide(fichier)) { 
+                    fichierNonVide = false;
+                    labels.get(indexLabel).setStyle(EN_ROUGE);
+                    gererErreur(indexLabel, "Contenu du fichier est vide");
+                }
+            } catch (IOException erreur) {
+                labelMessageErr.setText(FICHIER_OUVERTURE_FERMETURE);
             }
         }
         
@@ -208,14 +229,14 @@ public class MenuImportationControleur {
         for (File fichier : fichiersSelectionnes) {
             try {
                 indexLabel++;
-                if (fichier != null || fichier.length() > 0) {
-                    if (!GestionCSV.isFichierValide(fichier.getAbsolutePath())) {
-                        extensionValide = false;
-                        labels.get(indexLabel).setStyle(EN_ROUGE);
-                    }
+                if (fichier != null 
+                        && !GestionCSV.isFichierValide(fichier.getAbsolutePath())) {
+                    extensionValide = false;
+                    labels.get(indexLabel).setStyle(EN_ROUGE);
+                    gererErreur(indexLabel, "Ce n'est pas un fichier CSV");
                 }
             } catch (IOException err) {
-                //On rentrera pas ici
+                labelMessageErr.setText(FICHIER_OUVERTURE_FERMETURE);
             }
         }
         
@@ -224,15 +245,18 @@ public class MenuImportationControleur {
         for (File fichier : fichiersSelectionnes) {
             try {
                 indexLabel++;
-                if (fichier != null || fichier.length() > 0) {
-                    if (!GestionCSV.isLettreIdentifiantValide(
-                                GestionCSV.getTypeCSV(fichier.getAbsolutePath()))) {
-                        typeFichier = false;
-                        labels.get(indexLabel).setStyle(EN_ROUGE);
-                    }
+                if (fichier != null 
+                        && !GestionCSV.isLettreIdentifiantValide(
+                                GestionCSV.getTypeCSV(
+                                        fichier.getAbsolutePath()))) {
+                    typeFichier = false;
+                    labels.get(indexLabel).setStyle(EN_ROUGE);
+                    gererErreur(indexLabel, FICHIER_AUCUNE_CATEGORIE);
                 }
-            } catch (IOException err) {
-                //On rentrera pas ici
+            } catch (IOException | IllegalArgumentException err) {
+                labels.get(indexLabel).setStyle(EN_ROUGE);
+                gererErreur(indexLabel, FICHIER_AUCUNE_CATEGORIE);
+                typeFichier = false;
             }
         }
         
@@ -254,7 +278,8 @@ public class MenuImportationControleur {
                         && comparerFichier(fichiersSelectionnes.get(fichierSelect),
                                            fichiersSelectionnes.get(autreFichier))) {
                     fichiersDistincts = false;
-                    labelMessageErr.setText("Erreur: fichiers identiques");
+                    gererErreur(fichierSelect, "Fichier identique avec un autre fichier");
+                    gererErreur(autreFichier, "Fichier identique avec un autre fichier");
                     labels.get(fichierSelect).setStyle(EN_ROUGE);
                     labels.get(autreFichier).setStyle(EN_ROUGE);
                 } 
@@ -264,6 +289,55 @@ public class MenuImportationControleur {
         return fichierNonVide && extensionValide 
                 && emplacementValide && typeFichier 
                 && fichiersDistincts;
+    }
+    
+    /**
+     * Ajoute un texte pour un chiffre ou récupère le texte existant.
+     * @param chiffre
+     * @param texte
+     */
+    public void gererErreur(int chiffre, String texte) {
+        if (texte != null && !texte.isEmpty()) {
+            stockageMessageErreur
+                .put(chiffre, stockageMessageErreur.getOrDefault(chiffre, "") 
+                    + (stockageMessageErreur.containsKey(chiffre) ? "\n" : "") 
+                        + texte);
+        }
+    }
+    
+    /**
+     * Affiche les erreurs liées aux fichiers séléctionnés
+     */
+    private void afficherErreursFichiers() {
+        StringBuilder message = new StringBuilder();
+        
+        int indexFichier;
+        String messageErreur,
+               nomFichier;
+
+        for (Map.Entry<Integer, String> entry : stockageMessageErreur.entrySet()) {
+            indexFichier = entry.getKey();
+            messageErreur = entry.getValue();
+
+            if (indexFichier >= 0 && indexFichier < fichiersSelectionnes.size() 
+                    && fichiersSelectionnes.get(indexFichier) != null){
+                nomFichier = fichiersSelectionnes.get(indexFichier).getName();
+
+                message.append("Nom du fichier : [").append(nomFichier)
+                                                        .append("]\n"); 
+                
+                String[] erreurs = messageErreur.split("\n");
+                for (String erreur : erreurs) {
+                    message.append("- ").append(erreur).append("\n");
+                }
+            }
+        }
+        if (!message.toString().trim().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreurs de validation des fichiers");
+            alert.setHeaderText(message.toString());
+            alert.showAndWait();            
+        }  
     }
     
     /**
@@ -289,9 +363,9 @@ public class MenuImportationControleur {
                           }
                       }
             } catch (FileNotFoundException erreur) {
-                     labelMessageErr.setText("Erreur: fichiers introuvables");
+                     labelMessageErr.setText(FICHIER_INTROUVABLE);
             } catch (IOException e) {
-                     labelMessageErr.setText("Erreur: Problème d'ouverture/fermeture de fichiers");
+                     labelMessageErr.setText(FICHIER_OUVERTURE_FERMETURE);
             }    
             return true;
         }
@@ -307,7 +381,6 @@ public class MenuImportationControleur {
     
     @FXML
     void btnValiderAction(ActionEvent event) {
-        Collections.sort(fichiersSelectionnes); 
         fichiersSelectionnesOrdre();
         exploiterDonnee();
         // Afficher une alerte avec les noms des fichiers sélectionnés
@@ -386,6 +459,7 @@ public class MenuImportationControleur {
             }
 
             btnValider.setDisable(!isFichierValide());
+            afficherErreursFichiers();
             mettreAJourLabelsFichiers(); 
         }
     } 
