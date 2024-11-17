@@ -10,6 +10,8 @@
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -36,34 +38,40 @@
          <children>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <ChoiceBox fx:id="listePhrase" prefHeight="35.0" prefWidth="486.0">
+                  <ChoiceBox fx:id="listePhrase" prefHeight="35.0" prefWidth="500.0" styleClass="btnBlanc">
                      <HBox.margin>
                         <Insets left="-300.0" />
                      </HBox.margin>
                   </ChoiceBox>
-                  <Button fx:id="btnValider" mnemonicParsing="false" onAction="#btnValiderAction" text="Valider">
+                  <Button fx:id="btnValider" mnemonicParsing="false" onAction="#btnValiderAction" prefHeight="35.0" prefWidth="70.0" styleClass="btnBlanc" text="Valider">
                      <HBox.margin>
-                        <Insets left="20.0" />
+                        <Insets left="10.0" />
                      </HBox.margin>
-                  </Button>
-                  <Label fx:id="labelDate" prefHeight="30.0" prefWidth="373.0">
                      <font>
-                        <Font size="18.0" />
+                        <Font size="14.0" />
                      </font>
+                  </Button>
+                  <Label fx:id="labelDate" prefHeight="30.0" prefWidth="338.0">
                      <HBox.margin>
                         <Insets left="25.0" right="-300.0" />
                      </HBox.margin>
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
                   </Label>
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="427.0" prefWidth="960.0">
                <children>
-                  <VBox prefHeight="394.0" prefWidth="115.0">
+                  <VBox alignment="TOP_CENTER" prefHeight="400.0" prefWidth="119.0">
                      <children>
-                        <Button fx:id="btnFiltres" mnemonicParsing="false" onAction="#btnFiltresAction" prefHeight="25.0" prefWidth="171.0" text="Ajouter des filtres">
+                        <Button fx:id="btnFiltres" mnemonicParsing="false" onAction="#btnFiltresAction" prefHeight="35.0" prefWidth="125.0" styleClass="btnBlanc" text="Appliquer Filtres">
                            <VBox.margin>
                               <Insets top="40.0" />
                            </VBox.margin>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
                         </Button>
                      </children>
                      <HBox.margin>
@@ -86,13 +94,20 @@
             </HBox>
             <HBox prefHeight="80.0" prefWidth="960.0">
                <children>
-                  <Button fx:id="btnRetour" mnemonicParsing="false" onAction="#btnRetourAction" prefHeight="30.0" prefWidth="100.0" style="-fx-text-fill: black; -fx-background-color: white;" styleClass="btnMenu" text="Retour">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
+                  <Button fx:id="btnRetour" mnemonicParsing="false" onAction="#btnRetourAction" prefHeight="35.0" prefWidth="115.0" style="-fx-text-fill: black; -fx-background-color: white;" styleClass="btnMenu" text="Retour">
                      <HBox.margin>
-                        <Insets bottom="15.0" left="20.0" top="20.0" />
+                        <Insets bottom="15.0" left="10.0" top="20.0" />
                      </HBox.margin>
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="22.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../image/icons8-flèche-gauche-64.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
                   </Button>
                </children>
                <VBox.margin>

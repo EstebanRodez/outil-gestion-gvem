@@ -48,7 +48,7 @@
                         <Insets left="10.0" />
                      </HBox.margin>
                      <font>
-                        <Font name="System Bold" size="12.0" />
+                        <Font size="14.0" />
                      </font>
                   </Button>
                   <Label fx:id="labelDate" prefHeight="30.0" prefWidth="338.0">
@@ -63,14 +63,14 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="427.0" prefWidth="960.0">
                <children>
-                  <VBox alignment="TOP_CENTER" prefHeight="394.0" prefWidth="115.0">
+                  <VBox alignment="TOP_CENTER" prefHeight="400.0" prefWidth="119.0">
                      <children>
-                        <Button fx:id="btnFiltres" mnemonicParsing="false" onAction="#btnFiltresAction" prefHeight="35.0" prefWidth="115.0" styleClass="btnBlanc" text="Appliquer Filtres">
+                        <Button fx:id="btnFiltres" mnemonicParsing="false" onAction="#btnFiltresAction" prefHeight="35.0" prefWidth="125.0" styleClass="btnBlanc" text="Appliquer Filtres">
                            <VBox.margin>
                               <Insets top="40.0" />
                            </VBox.margin>
                            <font>
-                              <Font name="System Bold" size="12.0" />
+                              <Font size="14.0" />
                            </font>
                         </Button>
                      </children>
@@ -95,9 +95,6 @@
             <HBox prefHeight="80.0" prefWidth="960.0">
                <children>
                   <Button fx:id="btnRetour" mnemonicParsing="false" onAction="#btnRetourAction" prefHeight="35.0" prefWidth="115.0" style="-fx-text-fill: black; -fx-background-color: white;" styleClass="btnMenu" text="Retour">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
                      <HBox.margin>
                         <Insets bottom="15.0" left="10.0" top="20.0" />
                      </HBox.margin>
@@ -108,6 +105,9 @@
                            </image>
                         </ImageView>
                      </graphic>
+                     <font>
+                        <Font size="14.0" />
+                     </font>
                   </Button>
                </children>
                <VBox.margin>
