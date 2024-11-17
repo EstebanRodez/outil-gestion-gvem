@@ -15,6 +15,16 @@
 	-fx-padding: 5px 0;
 }
 
-.ScrollBar {
-	-fx-background-radius: 10pt;
+.table-view .table-cell{
+	-fx-background-color: transparent;
+	-fx-alignment: CENTER ;    
+    -fx-text-alignment: center;
+    -fx-font-size: 14px; 
+}
+
+.table-view .table-cell:odd{
+	-fx-background-color: #e9e9e9;
+	-fx-alignment: CENTER ;    
+    -fx-text-alignment: center;
+    -fx-font-size: 14px; 
 }

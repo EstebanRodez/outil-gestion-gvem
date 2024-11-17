@@ -13,7 +13,6 @@
 	-fx-background-radius: 10pt 10pt 0 0;
 	-fx-border-width: 0 0 1 0;
 	-fx-padding: 5px 0;
-    -fx-font-size: 16px; 
 }
 
 .table-view .table-cell{
