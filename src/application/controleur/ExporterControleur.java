@@ -13,6 +13,7 @@ import application.utilitaire.EchangeDiffieHellman;
 import application.utilitaire.ExportationCSV;
 import application.utilitaire.ExportationCSVException;
 import application.utilitaire.GenerationDonneeSecreteException;
+import application.utilitaire.Serveur;
 import application.utilitaire.Vigenere;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -70,10 +71,16 @@ public class ExporterControleur {
     @FXML
     void btnExporterAction(ActionEvent event) {
         
-        final String[] NOMS_FICHIERS_EXPORTATION
+        final String[] NOMS_FICHIERS_CRYPTAGE
         = {
             "conferenciers.csv", "employes.csv",
             "expositions.csv", "visites.csv"
+        };
+        
+        final String[] NOMS_FICHIERS_ENVOIS
+        = {
+            "conferenciers_crypté", "employes_crypté",
+            "expositions_crypté", "visites_crypté"
         };
         
         EchangeurDeVue.creerPopUp("chargementPopUp");
@@ -95,14 +102,18 @@ public class ExporterControleur {
                 e.printStackTrace();
             }
             
-            for (String nomFichier : NOMS_FICHIERS_EXPORTATION) {
+            for (String nomFichier : NOMS_FICHIERS_CRYPTAGE) {
                 
+                String alphabet = Vigenere.recupererAlphabet(nomFichier);
                 String cleChiffrement
-                = Vigenere.genererCleChiffrement(
-                      145387, Vigenere.recupererAlphabet(nomFichier));
+                = Vigenere.genererCleChiffrement(cleSecrete, alphabet);
                 
                 System.out.println(cleChiffrement);
+                
+                Vigenere.crypter(nomFichier, cleChiffrement, alphabet);
             }
+            
+            Serveur.envoyerFichiers(65432, NOMS_FICHIERS_ENVOIS);
             
             // FIXME erreur thread
 //            if (!Thread.currentThread().isInterrupted()) {

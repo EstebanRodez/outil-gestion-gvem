@@ -6,9 +6,12 @@
 package application.utilitaire;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.HashSet;
 
 /**
@@ -98,5 +101,115 @@ public class Vigenere {
         }
         
         return chaineAlphabet.toString();
+    }
+    
+    /**
+     * TODO commenter le rôle de cette méthode (SRP)
+     * @param cheminFichier
+     * @param cle
+     * @param alphabet 
+     */
+    public static void crypter(String cheminFichier, String cle,
+                               String alphabet) {
+        
+        try {
+            
+            FileInputStream fileInputStream
+            = new FileInputStream(cheminFichier);
+            InputStreamReader inputStreamReader
+            = new InputStreamReader(fileInputStream, "windows-1252");
+            BufferedReader fluxLecture = new BufferedReader(inputStreamReader);
+            
+            String nomFichierCrypte
+            = cheminFichier.substring(0, cheminFichier.lastIndexOf("."))
+              + "_crypté";
+            FileOutputStream fileOutputStream
+            = new FileOutputStream(nomFichierCrypte);
+            OutputStreamWriter outputStreamWriter
+            = new OutputStreamWriter(fileOutputStream, "windows-1252");
+            BufferedWriter fluxEcriture = new BufferedWriter(outputStreamWriter);
+            
+            int modulo = alphabet.length();
+            String ligne = fluxLecture.readLine();
+            while (ligne != null) {
+                
+                for (int indiceLigne = 0;
+                     indiceLigne < ligne.length();
+                     indiceLigne++) {
+                    
+                    char lettre = ligne.charAt(indiceLigne);
+                    int indexLettre = alphabet.indexOf(lettre);
+                    int indexLettreCrypte
+                    = (indexLettre
+                       + alphabet.indexOf(cle.charAt(indiceLigne%cle.length())))
+                       % modulo;
+                    char lettreCrypte = alphabet.charAt(indexLettreCrypte);
+                    fluxEcriture.append(lettreCrypte);
+                }
+                ligne = fluxLecture.readLine();
+                fluxEcriture.write("\n");
+            }
+            
+            fluxLecture.close();
+            fluxEcriture.close();
+        } catch (IOException e) {
+            // Ne rien faire
+            e.printStackTrace();
+        }
+    }
+    
+    /**
+     * TODO commenter le rôle de cette méthode (SRP)
+     * @param cheminFichier
+     * @param cle
+     * @param alphabet 
+     */
+    public static void decrypter(String cheminFichier, String cle,
+                                 String alphabet) {
+        
+        try {
+            
+            FileInputStream fileInputStream
+            = new FileInputStream(cheminFichier);
+            InputStreamReader inputStreamReader
+            = new InputStreamReader(fileInputStream, "windows-1252");
+            BufferedReader fluxLecture = new BufferedReader(inputStreamReader);
+            
+            String nomFichierDecrypte
+            = cheminFichier.substring(0, cheminFichier.lastIndexOf("_crypté"))
+              + ".csv";
+            FileOutputStream fileOutputStream
+            = new FileOutputStream(nomFichierDecrypte);
+            OutputStreamWriter outputStreamWriter
+            = new OutputStreamWriter(fileOutputStream, "windows-1252");
+            BufferedWriter fluxEcriture = new BufferedWriter(outputStreamWriter);
+            
+            int modulo = alphabet.length();
+            String ligne = fluxLecture.readLine();
+            while (ligne != null) {
+                
+                for (int indiceLigne = 0;
+                     indiceLigne < ligne.length();
+                     indiceLigne++) {
+                    
+                    char lettreCrypte = ligne.charAt(indiceLigne);
+                    int indexLettreCrypte = alphabet.indexOf(lettreCrypte);
+                    int indexLettre
+                    = (indexLettreCrypte
+                       + alphabet.indexOf(cle.charAt(indiceLigne%cle.length())))
+                       % modulo;
+                    char lettre = alphabet.charAt(indexLettre);
+                    fluxEcriture.append(lettre);
+                }
+                ligne = fluxLecture.readLine();
+                fluxEcriture.write("\n");
+            }
+            
+            fluxLecture.close();
+            fluxEcriture.close();
+        } catch (IOException e) {
+            // Ne rien faire
+            e.printStackTrace();
+        }
     }
 }

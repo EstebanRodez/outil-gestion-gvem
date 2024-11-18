@@ -6,9 +6,10 @@
 package application.controleur;
 
 import application.EchangeurDeVue;
+import application.utilitaire.Client;
 import application.utilitaire.EchangeDiffieHellman;
 import application.utilitaire.GenerationDonneeSecreteException;
-
+import application.utilitaire.Vigenere;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -53,16 +54,42 @@ public class ImporterDistantControleur {
     @FXML
     void btnConnexionAction(ActionEvent event) {
         
+        final String[] NOMS_FICHIERS_DECRYPTAGE
+        = {
+            "conferenciers.csv", "employes.csv",
+            "expositions.csv", "visites.csv"
+        };
+        
+        final String[] NOMS_FICHIERS_RECUS
+        = {
+            "conferenciers_crypté", "employes_crypté",
+            "expositions_crypté", "visites_crypté"
+        };
+        
         String ipServeur = txtFieldIPServeur.getText().trim();
         
         if (isAdresseIPValide(ipServeur)) {
-            int cleSecrete;
+            
+            int cleSecrete = -1;
             try {
                 cleSecrete
                 = EchangeDiffieHellman.genererDonneeSecreteBob(ipServeur);
                 System.out.println(cleSecrete);
             } catch (GenerationDonneeSecreteException e) {
                 e.printStackTrace();
+            }
+            
+            Client.recevoirFichiers(ipServeur, 65432, NOMS_FICHIERS_RECUS,  null);
+            
+            for (String nomFichier : NOMS_FICHIERS_RECUS) {
+                
+                String alphabet = Vigenere.recupererAlphabet(nomFichier);
+                String cleChiffrement
+                = Vigenere.genererCleChiffrement(cleSecrete, alphabet);
+                
+                System.out.println(cleChiffrement);
+                
+                Vigenere.decrypter(nomFichier, cleChiffrement, alphabet);
             }
         }
         
