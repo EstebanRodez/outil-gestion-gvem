@@ -196,6 +196,7 @@ public class EchangeurDeVue {
             // Bloque l'accès à la fenêtre principale
             stagePopUp.initModality(Modality.APPLICATION_MODAL);
             stagePopUp.setScene(new Scene(parentVue));
+            stagePopUp.setResizable(false);
             cachePopUp.put(nomVuePopUp, stagePopUp);
         }
         
