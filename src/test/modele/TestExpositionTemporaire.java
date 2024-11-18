@@ -15,8 +15,12 @@ import application.modele.ExpositionTemporaire;
 
 /**
  * Classe de test pour {@link application.modele.ExpositionTemporaire}
+ * 
+ * @author Romain Augé
+ * @author Ayoub Laluti
+ * @author Baptiste Thenieres
  * @author Esteban Vroemen
- * @version 1.0
+ * @version 1.0 
  */
 class TestExpositionTemporaire {
     

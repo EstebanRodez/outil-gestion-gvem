@@ -19,8 +19,12 @@ import application.modele.Visite;
 
 /**
  * Classe de test pour {@link application.modele.Visite}
+ * 
+ * @author Romain Augé
+ * @author Ayoub Laluti
+ * @author Baptiste Thenieres
  * @author Esteban Vroemen
- * @version 1.0
+ * @version 1.0 
  */
 class TestVisite {
     

@@ -13,6 +13,12 @@ import java.io.IOException;
 
 /**
  * TODO commenter le fonctionnement
+ * 
+ * @author Romain Augé
+ * @author Ayoub Laluti
+ * @author Baptiste Thenieres
+ * @author Esteban Vroemen
+ * @version 1.0 
  */
 public class GestionFichiers {
     

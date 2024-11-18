@@ -12,8 +12,11 @@ import java.time.LocalDate;
  * Elle contient des informations sur le type d'exposition, le conférencier,
  * l'exposition, ainsi que les dates de début et de fin, et les horaires.
  * 
+ * @author Romain Augé
+ * @author Ayoub Laluti
  * @author Baptiste Thenieres
- * @version 1.0
+ * @author Esteban Vroemen
+ * @version 1.0 
  */
 public class CritereFiltreVisite {
     

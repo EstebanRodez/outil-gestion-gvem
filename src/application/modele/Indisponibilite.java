@@ -18,8 +18,11 @@ import java.util.Objects;
  * d'indisponibilité sera basée uniquement sur la date du début
  * (= 1 jour d'indisponibilité).
  * 
+ * @author Romain Augé
+ * @author Ayoub Laluti
+ * @author Baptiste Thenieres
  * @author Esteban Vroemen
- * @version 1.0
+ * @version 1.0 
  */
 public class Indisponibilite implements Comparable<Indisponibilite>,
                                         Serializable {

@@ -12,8 +12,11 @@ import java.io.Serializable;
  * nom et son prénom. Il n’y a pas d’homonymes. Un employé possède
  * éventuellement un numéro de téléphone codé sur 4 chiffres.
  * 
+ * @author Romain Augé
+ * @author Ayoub Laluti
+ * @author Baptiste Thenieres
  * @author Esteban Vroemen
- * @version 1.0
+ * @version 1.0 
  */
 public class Employe implements Serializable {
     

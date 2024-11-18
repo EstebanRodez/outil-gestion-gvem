@@ -33,7 +33,11 @@ import javafx.scene.control.Label;
  * en fournissant une adresse IP et un port. Elle gère également 
  * la validation des entrées et l'affichage des erreurs éventuelles.
  * 
- * @version 1.0
+ * @author Romain Augé
+ * @author Ayoub Laluti
+ * @author Baptiste Thenieres
+ * @author Esteban Vroemen
+ * @version 1.0 
  */
 public class ExporterControleur {
 

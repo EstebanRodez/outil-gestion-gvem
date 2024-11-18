@@ -7,13 +7,16 @@ package application.utilitaire;
 
 /**
  * Classe utilitaire offrant diverses méthodes mathématiques, 
- * incluant la recherche de nombres premiers, la génération de nombres aléatoires,
- * et des calculs modulo pour les groupes multiplicatifs.
+ * incluant la recherche de nombres premiers, la génération de nombres
+ * aléatoires, et des calculs modulo pour les groupes multiplicatifs.
  * Utilisée pour effectuer des opérations avancées et optimisées
  * sur les entiers.
  * 
+ * @author Romain Augé
+ * @author Ayoub Laluti
+ * @author Baptiste Thenieres
  * @author Esteban Vroemen
- * @version 1.0
+ * @version 1.0 
  */
 public class Mathematiques {
     

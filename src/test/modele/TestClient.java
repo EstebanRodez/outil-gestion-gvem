@@ -13,8 +13,12 @@ import application.modele.Client;
 
 /**
  * Classe de test pour {@link application.modele.Client}
+ * 
+ * @author Romain Augé
+ * @author Ayoub Laluti
+ * @author Baptiste Thenieres
  * @author Esteban Vroemen
- * @version 1.0
+ * @version 1.0 
  */
 class TestClient {
     

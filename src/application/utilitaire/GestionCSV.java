@@ -19,6 +19,12 @@ import java.util.ArrayList;
  * Classe utilitaire pour la gestion des fichiers CSV dans l'application.
  * Permet de déterminer le type de données stockées dans un fichier CSV
  * et de valider l'existence et le format des fichiers CSV.
+ * 
+ * @author Romain Augé
+ * @author Ayoub Laluti
+ * @author Baptiste Thenieres
+ * @author Esteban Vroemen
+ * @version 1.0 
  */
 public class GestionCSV {
     

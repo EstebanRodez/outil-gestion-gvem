@@ -18,8 +18,11 @@ import java.net.Socket;
  * Classe Serveur responsable de l'envoi d'un fichier texte à un
  * client une fois la connexion établie.
  * 
+ * @author Romain Augé
+ * @author Ayoub Laluti
  * @author Baptiste Thenieres
- * @version 1.0
+ * @author Esteban Vroemen
+ * @version 1.0 
  */
 public class Serveur {
     

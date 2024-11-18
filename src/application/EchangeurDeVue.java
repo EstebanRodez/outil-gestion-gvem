@@ -30,6 +30,9 @@ import javafx.stage.Stage;
  * mécanisme de gestion des erreurs lors du chargement des vues.
  * </p>
  * 
+ * @author Romain Augé
+ * @author Ayoub Laluti
+ * @author Baptiste Thenieres
  * @author Esteban Vroemen
  * @version 1.0
  */

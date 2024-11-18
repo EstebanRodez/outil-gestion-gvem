@@ -27,8 +27,11 @@ import java.util.HashSet;
  * selon les positions définies dans l'alphabet.<br>
  * Cette classe facilite ces opérations sur des données textuelles.
  * 
+ * @author Romain Augé
+ * @author Ayoub Laluti
+ * @author Baptiste Thenieres
  * @author Esteban Vroemen
- * @version 1.0
+ * @version 1.0 
  */
 public class Vigenere {
     

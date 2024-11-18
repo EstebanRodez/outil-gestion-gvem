@@ -8,8 +8,12 @@ import application.modele.VisiteCalculResultat;
 
 /**
  * Classe de test pour {@link application.modele.VisiteCalculResultat}
+ * 
+ * @author Romain Augé
+ * @author Ayoub Laluti
  * @author Baptiste Thenieres
- * @version 1.0
+ * @author Esteban Vroemen
+ * @version 1.0 
  */
 class TestVisiteCalculResultat {
 

@@ -16,8 +16,12 @@ import application.modele.CritereFiltreVisite;
 
 /**
  * Classe de test pour {@link application.modele.CritereFiltreVisite}
+ * 
+ * @author Romain Augé
+ * @author Ayoub Laluti
  * @author Baptiste Thenieres
- * @version 1.0
+ * @author Esteban Vroemen
+ * @version 1.0 
  */
 public class TestCritereFiltreVisite {
     

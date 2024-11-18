@@ -20,8 +20,11 @@ import java.net.Socket;
  * et de recevoir plusieurs fichiers, en sauvegardant chaque 
  * fichier dans un emplacement spécifié. 
  * 
+ * @author Romain Augé
+ * @author Ayoub Laluti
  * @author Baptiste Thenieres
- * @version 1.0
+ * @author Esteban Vroemen
+ * @version 1.0 
  */
 public class Client {
 

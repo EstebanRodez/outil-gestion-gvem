@@ -20,6 +20,12 @@ import javafx.scene.control.ToggleGroup;
 
 /**
  * TODO commenter la responsabilité de cette class (SRP)
+ * 
+ * @author Romain Augé
+ * @author Ayoub Laluti
+ * @author Baptiste Thenieres
+ * @author Esteban Vroemen
+ * @version 1.0 
  */
 public class StatistiqueExpositionPourcentageFiltreControleur {
 

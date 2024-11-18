@@ -26,9 +26,10 @@ import java.io.Serializable;
  * au 21 juin 2025.
  * 
  * @author Romain Augé
+ * @author Ayoub Laluti
  * @author Baptiste Thenieres
  * @author Esteban Vroemen
- * @version 1.0
+ * @version 1.0 
  */
 public class Exposition implements Serializable {
     

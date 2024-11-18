@@ -25,8 +25,10 @@ import java.util.TreeSet;
  * internes et externes sont clairement différenciés.
  * 
  * @author Romain Augé
+ * @author Ayoub Laluti
+ * @author Baptiste Thenieres
  * @author Esteban Vroemen
- * @version 1.0
+ * @version 1.0 
  */
 public class Conferencier implements Serializable {
     

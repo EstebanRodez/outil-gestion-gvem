@@ -16,8 +16,11 @@ import application.utilitaire.TraitementDonnees;
 /**
  * Classe de Test pour {@link application.utilitaire.ImportationCSV}
  * 
+ * @author Romain Augé
+ * @author Ayoub Laluti
+ * @author Baptiste Thenieres
  * @author Esteban Vroemen
- * @version 1.0
+ * @version 1.0 
  */
 class TestImportationCSV {
     

@@ -13,9 +13,12 @@ import application.modele.Exposition;
 
 /**
  * Classe de Test pour {@link application.modele.Exposition}
+ * 
  * @author Romain Augé
+ * @author Ayoub Laluti
+ * @author Baptiste Thenieres
  * @author Esteban Vroemen
- * @version 1.0
+ * @version 1.0 
  */
 class TestExposition {
 

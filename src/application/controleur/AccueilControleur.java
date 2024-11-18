@@ -105,6 +105,9 @@ public class AccueilControleur {
     	lancerAide(0); // Par exemple, ouvre le lien associé à l'indice 0
     }
 
+    /**
+     * TODO commenter le rôle de cette méthode (SRP)
+     */
     @FXML
     public void initialize() {
         
