@@ -20,6 +20,30 @@ package application.utilitaire;
  */
 public class Mathematiques {
     
+    private static final String ERREUR_MIN_MAX_EGAUX =
+    """
+    Impossible de générer un nombre aléatoire.
+    La borne minimale ne doit pas être égale à la borne maximum.
+    """;
+    
+    private static final String ERREUR_MIN_SUPERIEUR_MAX =
+    """
+    Impossible de générer un nombre aléatoire.
+    La borne minimale ne doit pas être supérieure à la borne maximum.
+    """;
+
+    private static final String ERREUR_EXPOSANT_NEGATIF =
+    """
+    Impossible de procéder au calcul exponentielle modulaire.
+    L'exposant ne doit pas être négatif.
+    """;
+
+    private static final String ERREUR_MODULO_NEGATIF_NUL =
+    """
+    Impossible de procéder au calcul exponentielle modulaire.
+    Le modulo ne doit pas être négatif ou nul.
+    """;
+
     /**
      * Recherche le premier nombre premier supérieur ou égal au nombre donné.
      * Si le nombre donné est négatif, une exception est levée.
@@ -27,12 +51,11 @@ public class Mathematiques {
      * @param min la valeur minimale pour commencer la recherche du
      *            nombre premier.
      * @return le plus petit nombre premier supérieur à min.
-     * @throws IllegalArgumentException si min est inférieur à zéro.
      */
     public static int trouverNombrePremier(int min) {
         
-        if (min < 0) {
-            throw new IllegalArgumentException();
+        if (min <= 2) {
+            return 2;
         }
         
         int candidat = min + 1;
@@ -73,8 +96,18 @@ public class Mathematiques {
      * @param min la borne inférieure.
      * @param max la borne supérieure.
      * @return un entier aléatoire compris entre min et max inclus.
+     * @throws IllegalArgumentException
+     * @throws IllegalArgumentException
      */
     public static int genererNombreAleatoire(int min, int max) {
+        
+        if (min == max) {
+            throw new IllegalArgumentException(ERREUR_MIN_MAX_EGAUX);
+        }
+        
+        if (min > max) {
+            throw new IllegalArgumentException(ERREUR_MIN_SUPERIEUR_MAX);
+        }
         
         return min + (int) (Math.random() * ((max - min) + 1));
     }
@@ -84,9 +117,10 @@ public class Mathematiques {
      * Un groupe multiplicatif est un ensemble d'éléments de 1 à (n-1),
      * tels que chaque élément a un inverse multiplicatif sous modulo n.
      *
-     * @param valeurEnsemble la taille de l'ensemble (doit être un entier positif).
-     * @return la première valeur ayant un inverse multiplicatif dans cet ensemble,
-     *         ou -1 si aucun groupe multiplicatif n'est trouvé.
+     * @param valeurEnsemble la taille de l'ensemble
+     *                       (doit être un entier positif).
+     * @return la première valeur ayant un inverse multiplicatif dans cet
+     *         ensemble, ou -1 si aucun groupe multiplicatif n'est trouvé.
      */
     public static int trouverPremierGroupeMultiplicatif(int valeurEnsemble) {
         
@@ -144,12 +178,17 @@ public class Mathematiques {
      * @param modulo la valeur modulaire.
      * @return le résultat de (nombre^exposant) % modulo.
      * @throws IllegalArgumentException si l'exposant est négatif.
+     * @throws IllegalArgumentException
      */
     public static int calculExponentielleModulo(int nombre, int exposant,
                                                 int modulo) {
         
         if (exposant < 0) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(ERREUR_EXPOSANT_NEGATIF);
+        }
+        
+        if (modulo <= 0) {
+            throw new IllegalArgumentException(ERREUR_MODULO_NEGATIF_NUL);
         }
         
         long resultat = 1;

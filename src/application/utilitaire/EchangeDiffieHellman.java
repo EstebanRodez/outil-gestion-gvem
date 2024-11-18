@@ -19,18 +19,54 @@ import java.net.InetAddress;
  */
 public class EchangeDiffieHellman {
     
-    // TODO Ajouter des messages d'erreurs précis
-    
     private static final String[] NOMS_FICHIER_CLES_ALICE
     = {"p.txt", "g.txt", "g^a.txt"};
     
     private static final String[] NOMS_FICHIER_CLES_BOB
     = {"g^b.txt"};
+
+    private static final String ERREUR_IPSERVEUR_INVALIDE =
+    """
+    Impossible de générer la donnée secrète pour l'échange des fichiers cryptés.
+    L'IP du serveur (Alice) ne doit pas être nul ou vide.
+    """;
+
+    private static final String ERREUR_ECRITURE_ALICE =
+    """
+    Impossible de générer la donnée secrète pour l'échange des fichiers cryptés.
+    Le fichier à envoyer pour p ou g ou g^a n'a pas pu être crée.
+    """;
+
+    private static final String ERREUR_LECTURE_ALICE =
+    """
+    Impossible de générer la donnée secrète pour l'échange des fichiers cryptés.
+    Le fichier reçu pour g^b n'a pas pu être lu.
+    """;
+
+    private static final String ERREUR_COMMUNICATION_FERMEE =
+    """
+    Impossible de générer la donnée secrète pour l'échange des fichiers cryptés.
+    L'IP de l'autre appareil n'a pas être déterminée.
+    """;
+
+    private static final String ERREUR_ECRITURE_BOB = 
+    """
+    Impossible de générer la donnée secrète pour l'échange des fichiers cryptés.
+    Le fichier à envoyer pour g^b n'a pas pu être crée.
+    """;
+
+    private static final String ERREUR_LECTURE_BOB =
+    """
+    Impossible de générer la donnée secrète pour l'échange des fichiers cryptés.
+    Le fichier reçu pour p ou g ou g^a n'a pas pu être lu.
+    """;
     
     /**
      * TODO commenter le rôle de cette méthode (SRP)
      * @return la donnée secrète
      * @throws GenerationDonneeSecreteException 
+     * @throws GenerationDonneeSecreteException
+     * @throws GenerationDonneeSecreteException
      */
     public static int genererDonneeSecreteAlice()
             throws GenerationDonneeSecreteException {
@@ -54,8 +90,7 @@ public class EchangeDiffieHellman {
             GestionFichiers.ecrireFichier(NOMS_FICHIER_CLES_ALICE[2],
                                           Integer.toString(gExpA));
         } catch (IOException e) {
-            e.printStackTrace();
-            throw new GenerationDonneeSecreteException();
+            throw new GenerationDonneeSecreteException(ERREUR_ECRITURE_ALICE);
         }  
         InetAddress ipClient = Serveur.envoyerFichiers(65432, NOMS_FICHIER_CLES_ALICE);
         
@@ -65,7 +100,8 @@ public class EchangeDiffieHellman {
              * Le serveur s'est arrêté ou n'a pas du accepté de connexion.
              * La génération de la donnée secrète devient alors inutile
              */      
-            return 0;
+            throw new GenerationDonneeSecreteException(
+                    ERREUR_COMMUNICATION_FERMEE);
         }
 
         Client.recevoirFichiers(ipClient.getHostAddress(), 65432,
@@ -74,8 +110,7 @@ public class EchangeDiffieHellman {
         try {
             gExpB = Integer.parseInt(GestionFichiers.lireFichier("g^b.txt"));
         } catch (NumberFormatException | IOException e) {
-            e.printStackTrace();
-            throw new GenerationDonneeSecreteException();
+            throw new GenerationDonneeSecreteException(ERREUR_LECTURE_ALICE);
         }
         
         return Mathematiques.calculExponentielleModulo(gExpB, a, p); // bouchon
@@ -85,10 +120,16 @@ public class EchangeDiffieHellman {
      * TODO commenter le rôle de cette méthode (SRP)
      * @param ipServeur 
      * @return la donnée secrète
+     * @throws IllegalArgumentException 
      * @throws GenerationDonneeSecreteException 
+     * @throws GenerationDonneeSecreteException
      */
     public static int genererDonneeSecreteBob(String ipServeur)
             throws GenerationDonneeSecreteException {
+        
+        if (ipServeur == null || ipServeur.isBlank()) {
+            throw new IllegalArgumentException(ERREUR_IPSERVEUR_INVALIDE);
+        }
         
         Client.recevoirFichiers(ipServeur, 65432,
                                 NOMS_FICHIER_CLES_ALICE, null);
@@ -102,8 +143,7 @@ public class EchangeDiffieHellman {
             gExpA = Integer.parseInt(
                     GestionFichiers.lireFichier(NOMS_FICHIER_CLES_ALICE[2]));
         } catch (NumberFormatException | IOException e) {
-            e.printStackTrace();
-            throw new GenerationDonneeSecreteException();
+            throw new GenerationDonneeSecreteException(ERREUR_LECTURE_BOB);
         }
 
         int b = Mathematiques.genererNombreAleatoire(1, p);
@@ -113,7 +153,7 @@ public class EchangeDiffieHellman {
                                           Integer.toString(gExpB));
         } catch (IOException e) {
             e.printStackTrace();
-            throw new GenerationDonneeSecreteException();
+            throw new GenerationDonneeSecreteException(ERREUR_ECRITURE_BOB);
         }  
         Serveur.envoyerFichiers(65432, NOMS_FICHIER_CLES_BOB);
 
