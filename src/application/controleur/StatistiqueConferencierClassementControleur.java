@@ -44,6 +44,9 @@ public class StatistiqueConferencierClassementControleur {
 
     @FXML
     private Button btnRetour;
+    
+    @FXML
+    private Button aideAction;
 
     @FXML
     private TableColumn<VisiteCalculResultat, Double> nbTotal;
@@ -66,11 +69,15 @@ public class StatistiqueConferencierClassementControleur {
         
         calculerTotalVisitesParConferencier(visites);
     }
-
+    
     @FXML
     void aideAction(ActionEvent event) {
-
+    	// Appel de la méthode lancerAide de AccueilControleur avec un indice spécifique
+    	// Utilise l'indice 11 pour ouvrir un lien d'aide correspondant
+    	// à la réference de la partit des statistique des classement des conférenciers
+        AccueilControleur.lancerAide(11);
     }
+
 
     @FXML
     void btnFiltresAction(ActionEvent event) {

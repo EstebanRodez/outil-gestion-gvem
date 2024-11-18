@@ -37,13 +37,17 @@ public class AccueilControleur {
         "https://docs.google.com/document/d/1wA1ytqySDYe1D-2ZL1M0mLKMvUmv9SCtS0uORFgoRIY/edit?tab=t.0#bookmark=id.phccnmenp45", // pageAccueil
         "https://docs.google.com/document/d/1wA1ytqySDYe1D-2ZL1M0mLKMvUmv9SCtS0uORFgoRIY/edit?tab=t.0#bookmark=id.szfgaenvr4bk",// donnees calc Conf
         "https://docs.google.com/document/d/1wA1ytqySDYe1D-2ZL1M0mLKMvUmv9SCtS0uORFgoRIY/edit?tab=t.0#bookmark=id.1gzjdlhuen4l", // donnees calc Expo
-        "https://docs.google.com/document/d/1wA1ytqySDYe1D-2ZL1M0mLKMvUmv9SCtS0uORFgoRIY/edit?tab=t.0#bookmark=id.qmhq2qcd6w1o", // donnees calc Visite
+        "https://docs.google.com/document/d/1wA1ytqySDYe1D-2ZL1M0mLKMvUmv9SCtS0uORFgoRIY/edit?tab=t.0#bookmark=id.9v5510j1sdze", // donnees calc Visite
         "https://docs.google.com/document/d/1wA1ytqySDYe1D-2ZL1M0mLKMvUmv9SCtS0uORFgoRIY/edit?tab=t.0#bookmark=id.rzodinig137o", // donnees import Expo
         "https://docs.google.com/document/d/1wA1ytqySDYe1D-2ZL1M0mLKMvUmv9SCtS0uORFgoRIY/edit?tab=t.0#bookmark=id.412ilhctyjqe", // donnees import Conf
         "https://docs.google.com/document/d/1wA1ytqySDYe1D-2ZL1M0mLKMvUmv9SCtS0uORFgoRIY/edit?tab=t.0#bookmark=id.qmhq2qcd6w1o", // donnees import Visite
         "https://docs.google.com/document/d/1wA1ytqySDYe1D-2ZL1M0mLKMvUmv9SCtS0uORFgoRIY/edit?tab=t.0#bookmark=id.an8iar9agec5", // exportation
         "https://docs.google.com/document/d/1wA1ytqySDYe1D-2ZL1M0mLKMvUmv9SCtS0uORFgoRIY/edit?tab=t.0#bookmark=id.axvpwnml3l6h", // import fichier
-        "https://docs.google.com/document/d/1wA1ytqySDYe1D-2ZL1M0mLKMvUmv9SCtS0uORFgoRIY/edit?tab=t.0#bookmark=id.vv8lnbpm49el" // import fichier distant
+        "https://docs.google.com/document/d/1wA1ytqySDYe1D-2ZL1M0mLKMvUmv9SCtS0uORFgoRIY/edit?tab=t.0#bookmark=id.vv8lnbpm49el", // import fichier distant
+        "https://docs.google.com/document/d/1wA1ytqySDYe1D-2ZL1M0mLKMvUmv9SCtS0uORFgoRIY/edit?tab=t.0#bookmark=id.9in0biog55ti", // Stat Classement Expo
+        "https://docs.google.com/document/d/1wA1ytqySDYe1D-2ZL1M0mLKMvUmv9SCtS0uORFgoRIY/edit?tab=t.0#bookmark=id.vldp0n93ted0", // Stat Classement Conf
+        "https://docs.google.com/document/d/1wA1ytqySDYe1D-2ZL1M0mLKMvUmv9SCtS0uORFgoRIY/edit?tab=t.0#bookmark=id.6o2rk7o9eltt", // Stat Pourcentage Expo
+        "https://docs.google.com/document/d/1wA1ytqySDYe1D-2ZL1M0mLKMvUmv9SCtS0uORFgoRIY/edit?tab=t.0#bookmark=id.ukb3nu3upixl" // Stat Pourcentage Conf
     };
 
     @FXML
@@ -98,7 +102,7 @@ public class AccueilControleur {
     @FXML
     void btnAideAction(ActionEvent event) {
         // Appel à ouvrirDansNavigateur avec un indice spécifique pour ouvrir l'aide
-    	lancerAide(1); // Par exemple, ouvre le lien associé à l'indice 1
+    	lancerAide(0); // Par exemple, ouvre le lien associé à l'indice 0
     }
 
     @FXML

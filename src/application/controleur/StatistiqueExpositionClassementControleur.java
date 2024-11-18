@@ -45,6 +45,9 @@ public class StatistiqueExpositionClassementControleur {
 
     @FXML
     private Button btnRetour;
+    
+    @FXML
+    private Button aideAction;
 
     @FXML
     private TableColumn<VisiteCalculResultat, Double> nbTotal;
@@ -70,7 +73,10 @@ public class StatistiqueExpositionClassementControleur {
 
     @FXML
     void aideAction(ActionEvent event) {
-
+    	// Appel de la méthode lancerAide de AccueilControleur avec un indice spécifique
+    	// Utilise l'indice 10 pour ouvrir un lien d'aide correspondant
+    	// à la réference de la partit des statistique des classement des expositions
+        AccueilControleur.lancerAide(10);
     }
 
     @FXML

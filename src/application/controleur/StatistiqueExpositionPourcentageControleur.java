@@ -40,6 +40,9 @@ public class StatistiqueExpositionPourcentageControleur {
 
     @FXML
     private Button btnFiltres;
+    
+    @FXML
+    private Button aideAction;
 
     @FXML
     private Button btnRetour;
@@ -68,7 +71,7 @@ public class StatistiqueExpositionPourcentageControleur {
 
     @FXML
     void aideAction(ActionEvent event) {
-
+    	AccueilControleur.lancerAide(12);
     }
 
     @FXML

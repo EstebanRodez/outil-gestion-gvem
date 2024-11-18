@@ -43,6 +43,9 @@ public class StatistiqueConferencierPourcentageControleur {
 
     @FXML
     private Button btnRetour;
+    
+    @FXML
+    private Button aideAction;
 
     @FXML
     private TableColumn<VisiteCalculResultat, String> tauxVisites;
@@ -68,7 +71,7 @@ public class StatistiqueConferencierPourcentageControleur {
 
     @FXML
     void aideAction(ActionEvent event) {
-
+    	AccueilControleur.lancerAide(13);
     }
 
     @FXML
