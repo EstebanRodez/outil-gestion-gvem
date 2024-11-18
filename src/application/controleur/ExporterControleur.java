@@ -5,6 +5,7 @@
  */
 package application.controleur;
 
+import java.io.IOException;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 
@@ -13,6 +14,7 @@ import application.utilitaire.EchangeDiffieHellman;
 import application.utilitaire.ExportationCSV;
 import application.utilitaire.ExportationCSVException;
 import application.utilitaire.GenerationDonneeSecreteException;
+import application.utilitaire.GestionFichiers;
 import application.utilitaire.Serveur;
 import application.utilitaire.Vigenere;
 import javafx.event.ActionEvent;
@@ -77,6 +79,12 @@ public class ExporterControleur {
             "expositions.csv", "visites.csv"
         };
         
+        final String[] NOMS_FICHIERS_ALPHABET
+        = {
+            "conferenciers_alphabet", "employes_alphabet",
+            "expositions_alphabet", "visites_alphabet"
+        };
+        
         final String[] NOMS_FICHIERS_ENVOIS
         = {
             "conferenciers_crypté", "employes_crypté",
@@ -105,6 +113,14 @@ public class ExporterControleur {
             for (String nomFichier : NOMS_FICHIERS_CRYPTAGE) {
                 
                 String alphabet = Vigenere.recupererAlphabet(nomFichier);
+                String nomFichierAlphabet
+                = nomFichier.substring(0, nomFichier.lastIndexOf("."))
+                  + "_alphabet";
+                try {
+                    GestionFichiers.ecrireFichier(nomFichierAlphabet, alphabet);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 String cleChiffrement
                 = Vigenere.genererCleChiffrement(cleSecrete, alphabet);
                 
@@ -114,6 +130,7 @@ public class ExporterControleur {
             }
             
             Serveur.envoyerFichiers(65432, NOMS_FICHIERS_ENVOIS);
+            Serveur.envoyerFichiers(65432, NOMS_FICHIERS_ALPHABET);
             
             // FIXME erreur thread
 //            if (!Thread.currentThread().isInterrupted()) {

@@ -5,10 +5,13 @@
  */
 package application.controleur;
 
+import java.io.IOException;
+
 import application.EchangeurDeVue;
 import application.utilitaire.Client;
 import application.utilitaire.EchangeDiffieHellman;
 import application.utilitaire.GenerationDonneeSecreteException;
+import application.utilitaire.GestionFichiers;
 import application.utilitaire.Vigenere;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -60,6 +63,12 @@ public class ImporterDistantControleur {
             "expositions.csv", "visites.csv"
         };
         
+        final String[] NOMS_FICHIERS_ALPHABET
+        = {
+            "conferenciers_alphabet", "employes_alphabet",
+            "expositions_alphabet", "visites_alphabet"
+        };
+        
         final String[] NOMS_FICHIERS_RECUS
         = {
             "conferenciers_crypté", "employes_crypté",
@@ -81,10 +90,20 @@ public class ImporterDistantControleur {
             
             Client.recevoirFichiers(ipServeur, 65432, NOMS_FICHIERS_RECUS,
                                     null);
+            Client.recevoirFichiers(ipServeur, 65432, NOMS_FICHIERS_ALPHABET,
+                                    null);
             
             for (String nomFichier : NOMS_FICHIERS_RECUS) {
                 
-                String alphabet = Vigenere.recupererAlphabet(nomFichier);
+                String nomFichierAlphabet
+                = nomFichier.substring(0, nomFichier.lastIndexOf("_crypté"))
+                  + "_alphabet";
+                String alphabet = "";
+                try {
+                    alphabet = GestionFichiers.lireFichier(nomFichierAlphabet);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 String cleChiffrement
                 = Vigenere.genererCleChiffrement(cleSecrete, alphabet);
                 
