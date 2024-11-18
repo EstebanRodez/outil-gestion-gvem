@@ -96,8 +96,10 @@ public class Mathematiques {
      * @param min la borne inférieure.
      * @param max la borne supérieure.
      * @return un entier aléatoire compris entre min et max inclus.
-     * @throws IllegalArgumentException
-     * @throws IllegalArgumentException
+     * @throws IllegalArgumentException si la borne minimale est égale à la
+     *                                  borne maximale
+     * @throws IllegalArgumentException si la borne minimale est supérieur à la
+     *                                  borne maximale
      */
     public static int genererNombreAleatoire(int min, int max) {
         
@@ -178,7 +180,7 @@ public class Mathematiques {
      * @param modulo la valeur modulaire.
      * @return le résultat de (nombre^exposant) % modulo.
      * @throws IllegalArgumentException si l'exposant est négatif.
-     * @throws IllegalArgumentException
+     * @throws IllegalArgumentException si le modulo est négatif ou nul
      */
     public static int calculExponentielleModulo(int nombre, int exposant,
                                                 int modulo) {

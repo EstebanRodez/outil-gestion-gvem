@@ -9,7 +9,25 @@ import java.io.IOException;
 import java.net.InetAddress;
 
 /**
- * TODO commenter la responsabilité de cette class (SRP)
+ * Cette classe implémente le protocole d'échange de clés Diffie-Hellman,
+ * permettant à deux parties (Alice et Bob) de générer une clé secrète commune
+ * à travers un canal de communication non sécurisé.<br>
+ * 
+ * Le protocole repose sur l'utilisation d'opérations exponentielles
+ * modulaires dans un groupe fini, garantissant la sécurité cryptographique
+ * de la clé échangée.<br>
+ * <br>
+ * Cette classe gère :<br>
+ * <ul>
+ *     <li>La génération des paramètres (nombre premier p, générateur g, 
+ *         et exponents secrets).</li>
+ *     <li>L'envoi et la réception de fichiers contenant les 
+ *         clés intermédiaires.</li>
+ *     <li>Le calcul de la clé secrète commune.</li>
+ * </ul>
+ * <br>
+ * Elle s'appuie sur d'autres classes utilitaires pour la gestion des fichiers, 
+ * la communication réseau et les opérations mathématiques.
  * 
  * @author Romain Augé
  * @author Ayoub Laluti
@@ -62,11 +80,26 @@ public class EchangeDiffieHellman {
     """;
     
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
-     * @return la donnée secrète
-     * @throws GenerationDonneeSecreteException 
-     * @throws GenerationDonneeSecreteException
-     * @throws GenerationDonneeSecreteException
+     * Génère la clé secrète pour Alice en suivant le protocole Diffie-Hellman.
+     * 
+     * <p>Cette méthode effectue les opérations suivantes :</p>
+     * <ul>
+     *   <li>Génération des paramètres p (nombre premier) et g (générateur).</li>
+     *   <li>Calcul de g^a mod p, où a est un entier secret.</li>
+     *   <li>Envoi des fichiers contenant p, g, et g^a à Bob.</li>
+     *   <li>Réception de g^b envoyé par Bob.</li>
+     *   <li>Calcul de la clé secrète commune (g^(ab) mod p).</li>
+     * </ul>
+     *
+     * @return la clé secrète calculée par Alice.
+     * @throws GenerationDonneeSecreteException si une erreur survient :
+     * <ul>
+     *   <li>Si l'écriture des fichiers p, g ou g^a échoue.</li>
+     *   <li>Si la connexion avec Bob échoue (adresse IP du client non
+     *       déterminée).</li>
+     *   <li>Si le fichier contenant g^b ne peut pas être lu ou contient des
+     *       données non valides.</li>
+     * </ul>
      */
     public static int genererDonneeSecreteAlice()
             throws GenerationDonneeSecreteException {
@@ -117,12 +150,26 @@ public class EchangeDiffieHellman {
     }
     
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
-     * @param ipServeur 
-     * @return la donnée secrète
-     * @throws IllegalArgumentException 
-     * @throws GenerationDonneeSecreteException 
-     * @throws GenerationDonneeSecreteException
+     * Génère la clé secrète pour Bob en suivant le protocole Diffie-Hellman.
+     * 
+     * <p>Cette méthode effectue les opérations suivantes :</p>
+     * <ul>
+     *   <li>Réception des fichiers p, g et g^a envoyés par Alice.</li>
+     *   <li>Calcul de g^b mod p, où b est un entier secret.</li>
+     *   <li>Envoi de g^b à Alice.</li>
+     *   <li>Calcul de la clé secrète commune (g^(ab) mod p).</li>
+     * </ul>
+     *
+     * @param ipServeur l'adresse IP du serveur (Alice).
+     * @return la clé secrète calculée par Bob.
+     * @throws IllegalArgumentException si l'adresse IP du serveur est nulle
+     *                                  ou vide.
+     * @throws GenerationDonneeSecreteException si une erreur survient :
+     * <ul>
+     *   <li>Si les fichiers contenant p, g ou g^a ne peuvent pas être lus ou
+     *       contiennent des données non valides.</li>
+     *   <li>Si l'écriture du fichier contenant g^b échoue.</li>
+     * </ul>
      */
     public static int genererDonneeSecreteBob(String ipServeur)
             throws GenerationDonneeSecreteException {
