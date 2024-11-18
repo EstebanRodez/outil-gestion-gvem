@@ -5,6 +5,8 @@
  */
 package application.modele;
 
+import java.io.Serializable;
+
 /**
  * Une exposition, qu'elle soit temporaire ou permanente, sera
  * décrite par :<br>
@@ -28,7 +30,9 @@ package application.modele;
  * @author Esteban Vroemen
  * @version 1.0
  */
-public class Exposition {
+public class Exposition implements Serializable {
+    
+    private static final long serialVersionUID = 1L;
     
     private static String ERREUR_IDENTIFIANT_INVALIDE =
     """

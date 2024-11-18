@@ -34,7 +34,7 @@ import javafx.scene.control.TableView;
 public class StatistiqueConferencierClassementControleur {
 
     private static LinkedHashMap<String, Visite> visites
-    = TraitementDonnees.getVisites();
+    = TraitementDonnees.getDonnees().getVisites();
     
     @FXML
     private TableColumn<VisiteCalculResultat, String> Conferencier;

@@ -5,6 +5,7 @@
  */
 package application.modele;
 
+import java.io.Serializable;
 import java.util.TreeSet;
 
 /**
@@ -27,7 +28,9 @@ import java.util.TreeSet;
  * @author Esteban Vroemen
  * @version 1.0
  */
-public class Conferencier {
+public class Conferencier implements Serializable {
+    
+    private static final long serialVersionUID = 1L;
     
     private static final String ERREUR_IDENTIFIANT_INVALIDE =
     """

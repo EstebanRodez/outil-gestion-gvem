@@ -24,8 +24,9 @@ public class GestionCSV {
     
     private static final char[] LETTRES_IDENTIFIANT_VALIDES
     = {'E', 'R', 'C', 'N'};
+    
     private static final String IDENTIFIANT_INCORRECT 
-        = "L'identifiant est vide ou nulle.";
+    = "L'identifiant est vide ou nulle.";
     
     /**
      * Détecte le type de données stockées dans un fichier CSV, en fonction du

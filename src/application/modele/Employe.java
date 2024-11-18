@@ -5,6 +5,8 @@
  */
 package application.modele;
 
+import java.io.Serializable;
+
 /**
  * Un membre du personnel ou employé du musée est identifié par son
  * nom et son prénom. Il n’y a pas d’homonymes. Un employé possède
@@ -13,7 +15,9 @@ package application.modele;
  * @author Esteban Vroemen
  * @version 1.0
  */
-public class Employe {
+public class Employe implements Serializable {
+    
+    private static final long serialVersionUID = 1L;
     
     private static final String NUMTEL_DEFAUT = "Inconnu";
     

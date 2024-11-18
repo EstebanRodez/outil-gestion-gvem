@@ -11,15 +11,15 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import application.EchangeurDeVue;
-import application.utilitaire.FichierDonneesInvalides;
+import application.utilitaire.FichierDonneesInvalidesException;
 import application.utilitaire.GestionCSV;
 import application.utilitaire.ImportationCSV;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -118,12 +118,14 @@ public class MenuImportationControleur {
      * Exploite les donnees importees
      */
     private void exploiterDonnee() {
+        
         int indexLabel = -1;
         for (File fichier : fichiersSelectionnes) {
             try {
                 indexLabel ++;
                 ImportationCSV.importerDonnees(fichier.getAbsolutePath());
-            } catch (FichierDonneesInvalides | IllegalArgumentException err) {
+            } catch (IllegalArgumentException
+                     | FichierDonneesInvalidesException err) {
                 labelMessageErr.setText(err.getMessage());
                 labels.get(indexLabel).setStyle(EN_ROUGE);;
                 btnValider.setDisable(true);

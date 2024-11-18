@@ -5,17 +5,25 @@
  */
 package application.controleur;
 
+import java.io.IOException;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 
 import application.EchangeurDeVue;
-
+import application.utilitaire.EchangeDiffieHellman;
+import application.utilitaire.ExportationCSV;
+import application.utilitaire.ExportationCSVException;
+import application.utilitaire.GenerationDonneeSecreteException;
+import application.utilitaire.GestionFichiers;
+import application.utilitaire.Serveur;
+import application.utilitaire.Vigenere;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+
 
 /**
  * Contrôleur pour la gestion de l'exportation des données.
@@ -24,14 +32,10 @@ import javafx.scene.control.Label;
  * en fournissant une adresse IP et un port. Elle gère également 
  * la validation des entrées et l'affichage des erreurs éventuelles.
  * 
- * @author Romain Augé
- * @author Ayoub Laluti
- * @author Baptiste Thenieres
- * @author Esteban Vroemen
  * @version 1.0
  */
 public class ExporterControleur {
-    
+
     @FXML
     private Button btnAide;
 
@@ -49,44 +53,92 @@ public class ExporterControleur {
     
     /**
      * Méthode d'initialisation appelée après le chargement de 
-     * l'interface utilisateur. Cette méthode est utilisée pour 
-     * configurer les éléments de l'interface,
-     * initialiser les données, et définir les actions des boutons.
+     * l'interface utilisateur.
      */
     @FXML
     public void initialize() {
-        
-        try(DatagramSocket socket = new DatagramSocket()){
+        try (DatagramSocket socket = new DatagramSocket()) {
             socket.connect(InetAddress.getByName("8.8.8.8"), 10002);
             labelIp.setText(socket.getLocalAddress().getHostAddress());
-          
-        } catch (Exception e) {  
-            Alert boiteIpInconnu =
-                    new Alert(Alert.AlertType.ERROR, 
-                              "Impossible de connaître l'adresse "
-                                  + "IP de l'interface Ethernet",
-                                      ButtonType.OK);
-
+        } catch (Exception e) {
+            Alert boiteIpInconnu = new Alert(Alert.AlertType.ERROR, 
+                    "Impossible de connaître l'adresse IP de l'interface Ethernet", 
+                    ButtonType.OK);
             boiteIpInconnu.setTitle("Erreur adresse IP inconnue");
             boiteIpInconnu.setHeaderText("Erreur adresse IP inconnue");
-
-            boiteIpInconnu.showAndWait();  
-        }  
+            boiteIpInconnu.showAndWait(); 
+        }
     } 
+
+    @FXML
+    void btnExporterAction(ActionEvent event) {
+        
+        EchangeurDeVue.creerPopUp("chargementPopUp");
+        
+        try {
+            ExportationCSV.exporterDonnees();
+        } catch (ExportationCSVException e) {
+            e.printStackTrace();
+        }
+        
+        Thread attente;
+        attente = new Thread(() -> {
+            
+            int cleSecrete = -1;
+            try {
+                cleSecrete = EchangeDiffieHellman.genererDonneeSecreteAlice();
+                System.out.println(cleSecrete);
+            } catch (GenerationDonneeSecreteException e) {
+                e.printStackTrace();
+            }
+            
+            String[] nomFichiersDonnees = Vigenere.getNomsFichiersDonnees();
+            String[] nomFichiersAlphabet = Vigenere.getNomsFichiersAlphabet();
+            for (int indiceNomFichier = 0;
+                 indiceNomFichier < nomFichiersDonnees.length;
+                 indiceNomFichier++) {
+                
+                String alphabet
+                = Vigenere.recupererAlphabet(nomFichiersDonnees[indiceNomFichier]);
+                try {
+                    GestionFichiers.ecrireFichier(
+                        nomFichiersAlphabet[indiceNomFichier], alphabet);
+                } catch (IOException e) {
+                    // Ne rien faire
+                }
+                String cleChiffrement
+                = Vigenere.genererCleChiffrement(cleSecrete, alphabet);
+                
+                System.out.println(cleChiffrement);
+                
+                Vigenere.crypter(nomFichiersDonnees[indiceNomFichier],
+                                 cleChiffrement, alphabet);
+            }
+            
+            Serveur.envoyerFichiers(65432, Vigenere.getNomsFichiersEnvois());
+            Serveur.envoyerFichiers(65432, nomFichiersAlphabet);
+            
+            // FIXME erreur thread
+//            if (!Thread.currentThread().isInterrupted()) {
+//                EchangeurDeVue.fermerPopUp("chargementPopUp");
+//                EchangeurDeVue.changerVue("exporterValideVue");
+//            }
+        });
+        
+        ChargementPopUpControleur controleur
+        = EchangeurDeVue.getFXMLLoader("chargementPopUp").getController();
+        controleur.setThreadAttente(attente);
+        attente.start();
+    }
 
     @FXML
     void btnAideAction(ActionEvent event) {
         AccueilControleur.lancerAide();
-    }
-    
-    @FXML
-    void btnExporterAction(ActionEvent event) {
-        EchangeurDeVue.creerPopUp("chargementPopUp");
     }
 
     @FXML
     void btnRetourAction(ActionEvent event) {
         EchangeurDeVue.changerVue("accueilVue");
     }
-
+    
 }

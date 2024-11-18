@@ -9,7 +9,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,7 +43,7 @@ import javafx.scene.control.TableView;
 public class DonneesCalculeesConferencierEnsembleJourControleur {
     
     private static LinkedHashMap<String, Visite> visites
-    = TraitementDonnees.getVisites();
+    = TraitementDonnees.getDonnees().getVisites();
     
     // Format pour les dates au format jj/MM/aaaa
     private static final DateTimeFormatter DATE_FORMAT 

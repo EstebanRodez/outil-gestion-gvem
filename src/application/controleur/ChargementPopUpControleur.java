@@ -5,9 +5,6 @@
  */
 package application.controleur;
 
-import java.io.File;
-import java.util.ArrayList;
-
 import application.EchangeurDeVue;
 import application.utilitaire.Serveur;
 
@@ -29,10 +26,8 @@ import javafx.util.Duration;
  */
 public class ChargementPopUpControleur {
     
-    private Thread attente;
-    
-    private static String[] CHEMIN_FICHIER_CSV;
-    
+    private static Thread attente;
+      
     @FXML
     private Button btnQuitter;
     
@@ -41,45 +36,40 @@ public class ChargementPopUpControleur {
     
     @FXML
     void initialize() {
-        // Récupérer les fichiers CSV dans le dossier
-        File dossier = new File("fichiersImportees");
-        
-        if (dossier.exists() && dossier.isDirectory()) {
-            File[] liste = dossier.listFiles();
-            ArrayList<String> cheminsFichiers = new ArrayList<>();
-            
-            if (liste != null) {
-                for (File fichier : liste) {
-                    cheminsFichiers.add(fichier.getAbsolutePath());
-                }
-            }
-            
-            // Convertir la liste en tableau
-            CHEMIN_FICHIER_CSV = cheminsFichiers.toArray(new String[0]);
-        }
-        
-        // Initialiser le thread
-        attente = new Thread(() -> {
-            try {
-                Serveur.envoyerFichiers(65429, CHEMIN_FICHIER_CSV);
-                
-                /* 
-                 * Tout s'est déroulé si il n'a pas été interrompu
-                 * donc on affiche la vue de confirmation de
-                 * l'exportation 
-                 */
-                if (!Thread.currentThread().isInterrupted()) {
-                    EchangeurDeVue.changerVue("exporterValideVue");
-                }
-            } finally {
-                EchangeurDeVue.fermerPopUp("chargementPopUp");
-            }
-        });
 
-        attente.start();
-        
-     // Faire tourner l'image
+        // Faire tourner l'image
         startImageRotation();
+    }
+    
+    @FXML
+    void btnQuitterAction(ActionEvent event) {
+        
+        // Demander l'arrêt du serveur
+        Serveur.fermerServeur();
+        
+        if (attente != null && attente.isAlive()) {
+            
+            // Interrompt le thread pour sortir de l'attente de connexion
+            attente.interrupt();
+            try {
+                
+                // Attendre que le thread termine jusqu'à 500ms
+                attente.join(); 
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        // Fermer la fenêtre pop-up
+        EchangeurDeVue.fermerPopUp("chargementPopUp");
+    }
+    
+    /**
+     * TODO commenter le rôle de cette méthode (SRP)
+     * @param attente
+     */
+    public void setThreadAttente(Thread attente) {
+        ChargementPopUpControleur.attente = attente;
     }
     
     /**
@@ -94,26 +84,4 @@ public class ChargementPopUpControleur {
         rotateTransition.play(); // Lancer l'animation
     }
 
-    @FXML
-    void btnQuitterAction(ActionEvent event) {
-        
-        // Demander l'arrêt du serveur
-        Serveur.fermerServeur();
-        
-        if (attente != null && attente.isAlive()) {
-            
-            // Interrompt le thread pour sortir de l'attente de connexion
-            attente.interrupt();
-            try {
-                
-                // Attendre que le thread termine jusqu'à 500ms
-                attente.join(500); 
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-
-        // Fermer la fenêtre pop-up
-        EchangeurDeVue.fermerPopUp("chargementPopUp");
-    }
 }

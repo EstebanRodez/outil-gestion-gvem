@@ -42,7 +42,7 @@ import javafx.scene.control.TableView;
 public class DonneesImporteesConferencierControleur {
     
     private static LinkedHashMap<String, Conferencier> conferenciers
-    = TraitementDonnees.getConferenciers();
+    = TraitementDonnees.getDonnees().getConferenciers();
     
     @FXML
     private Button btnRetour;

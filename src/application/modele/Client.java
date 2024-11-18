@@ -5,6 +5,8 @@
  */
 package application.modele;
 
+import java.io.Serializable;
+
 /**
  * Un client est représenté avec un intitulé et un numéro de 
  * téléphone. Un client a forcément lié à une visite qu'il a réservé.
@@ -16,7 +18,9 @@ package application.modele;
  * @author Esteban Vroemen
  * @version 1.0
  */
-public class Client {
+public class Client implements Serializable {
+    
+    private static final long serialVersionUID = 1L;
     
     private static final String ERREUR_INTITULE_INVALIDE =
     """

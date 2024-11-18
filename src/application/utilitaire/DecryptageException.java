@@ -6,20 +6,17 @@
 package application.utilitaire;
 
 /**
- * Exception générée si un fichier .csv contient des données incorrectes
+ * TODO
  * 
  * @author Esteban Vroemen
  * @version 1.0
  */
-public class FichierDonneesInvalides extends Exception {
-
-    /** Pour l'interface Serializable de la classe Exception */
-    private static final long serialVersionUID = 1L;
+public class DecryptageException extends Exception {
     
     /**
      * Initialise l'exception sans message d'erreur
      */
-    public FichierDonneesInvalides() {
+    public DecryptageException() {
         super();
     }
     
@@ -27,8 +24,11 @@ public class FichierDonneesInvalides extends Exception {
      * Initialise l'exception avec un message d'erreur
      * @param erreurContenuFichier le message d'erreur à transmettre
      */
-    public FichierDonneesInvalides(String erreurContenuFichier) {
+    public DecryptageException(String erreurContenuFichier) {
         super(erreurContenuFichier);
     }
+
+    /** Pour l'interface Serializable de la classe Exception */
+    private static final long serialVersionUID = 1L;
 
 }

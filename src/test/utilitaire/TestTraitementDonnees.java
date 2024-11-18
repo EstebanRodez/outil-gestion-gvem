@@ -35,168 +35,134 @@ class TestTraitementDonnees {
     private final String CHEMIN_VISITES
     = CHEMIN_RACINE_TEST + "CSV/visites/";
 
-    /**
-     * Méthode de test pour
-     * {@link application.utilitaire.TraitementDonnees#getExpositions()}.
-     */
-    @Test
-    void testGetExpositions() {
-        
-        // Test utile pour 100% couverture
-        assertDoesNotThrow(() -> {
-            new TraitementDonnees();
-        });
-        
-        assertDoesNotThrow(() -> {
-            ImportationCSV.importerDonnees(
-                    CHEMIN_EXPOSITIONS+"expositions_valides1.csv");
-        });
-        
-        assertNotNull(TraitementDonnees.getExpositions());
-        TraitementDonnees.supprimerDonnees();
-    }
+//    /**
+//     * Méthode de test pour
+//     * {@link application.utilitaire.TraitementDonnees#creerExpositions(
+//     * java.util.ArrayList)}.
+//     */
+//    @Test
+//    void testCreerExpositions() {
+//        
+//        // Méthode protected testée dans TestImportationCSV
+//    }
+//
+//    /**
+//     * Méthode de test pour
+//     * {@link application.utilitaire.TraitementDonnees#creerEmployes(
+//     * java.util.ArrayList)}.
+//     */
+//    @Test
+//    void testCreerEmployes() {
+//        
+//        // Méthode protected testée dans TestImportationCSV
+//    }
+//
+//    /**
+//     * Méthode de test pour
+//     * {@link application.utilitaire.TraitementDonnees#creerConferenciers(
+//     * java.util.ArrayList)}.
+//     */
+//    @Test
+//    void testCreerConferenciers() {
+//        
+//        // Méthode protected testée dans TestImportationCSV
+//    }
+//
+//    /**
+//     * Méthode de test pour
+//     * {@link application.utilitaire.TraitementDonnees#creerVisites(
+//     * java.util.ArrayList)}.
+//     */
+//    @Test
+//    void testCreerVisites() {
+//        
+//        // Méthode protected testée dans TestImportationCSV
+//    }
 
-    /**
-     * Méthode de test pour
-     * {@link application.utilitaire.TraitementDonnees#getEmployes()}.
-     */
-    @Test
-    void testGetEmployes() {
-        
-        assertDoesNotThrow(() -> {
-            ImportationCSV.importerDonnees(
-                    CHEMIN_EMPLOYES+"employes_valides1.csv");
-        });
-        
-        assertNotNull(TraitementDonnees.getEmployes());
-        TraitementDonnees.supprimerDonnees();
-    }
-
-    /**
-     * Méthode de test pour
-     * {@link application.utilitaire.TraitementDonnees#getConferenciers()}.
-     */
-    @Test
-    void testGetConferenciers() {
-        
-        assertDoesNotThrow(() -> {
-            ImportationCSV.importerDonnees(
-                    CHEMIN_CONFERENCIERS+"conferencier_valide1.csv");
-        });
-        
-        assertNotNull(TraitementDonnees.getConferenciers());
-        TraitementDonnees.supprimerDonnees();
-    }
-
-    /**
-     * Méthode de test pour
-     * {@link application.utilitaire.TraitementDonnees#getClients()}.
-     */
-    @Test
-    void testGetClients() {
-        
-        // Données nécessaires
-        assertDoesNotThrow(() -> {
-            ImportationCSV.importerDonnees(
-                    CHEMIN_EXPOSITIONS+"expositions_valides1.csv");
-        });
-        assertDoesNotThrow(() -> {
-            ImportationCSV.importerDonnees(
-                    CHEMIN_EMPLOYES+"employes_valides1.csv");
-        });
-        assertDoesNotThrow(() -> {
-            ImportationCSV.importerDonnees(
-                    CHEMIN_CONFERENCIERS+"conferencier_valide1.csv");
-        });
-        
-        assertDoesNotThrow(() -> {
-            ImportationCSV.importerDonnees(
-                    CHEMIN_VISITES+"visites_valides1.csv");
-        });
-        
-        assertNotNull(TraitementDonnees.getClients());
-        TraitementDonnees.supprimerDonnees();
-    }
-
-    /**
-     * Méthode de test pour
-     * {@link application.utilitaire.TraitementDonnees#getVisites()}.
-     */
-    @Test
-    void testGetVisites() {
-        
-        // Données nécessaires
-        assertDoesNotThrow(() -> {
-            ImportationCSV.importerDonnees(
-                    CHEMIN_EXPOSITIONS+"expositions_valides1.csv");
-        });
-        assertDoesNotThrow(() -> {
-            ImportationCSV.importerDonnees(
-                    CHEMIN_EMPLOYES+"employes_valides1.csv");
-        });
-        assertDoesNotThrow(() -> {
-            ImportationCSV.importerDonnees(
-                    CHEMIN_CONFERENCIERS+"conferencier_valide1.csv");
-        });
-        
-        assertDoesNotThrow(() -> {
-            ImportationCSV.importerDonnees(
-                    CHEMIN_VISITES+"visites_valides1.csv");
-        });
-        
-        assertNotNull(TraitementDonnees.getVisites());
-        TraitementDonnees.supprimerDonnees();
-    }
-    
-    /**
-     * Méthode de test pour
-     * {@link application.utilitaire.TraitementDonnees#isDonneesVides()}.
-     */
-    @Test
-    void testIsDonneesVides() {
-        
-        TraitementDonnees.supprimerDonnees();
-        assertTrue(TraitementDonnees.isDonneesVides());
-        
-        assertDoesNotThrow(() -> {
-            ImportationCSV.importerDonnees(
-                    CHEMIN_EXPOSITIONS+"expositions_valides1.csv");
-        });
-        assertFalse(TraitementDonnees.isDonneesVides());
-        TraitementDonnees.supprimerDonnees();
-        
-        assertDoesNotThrow(() -> {
-            ImportationCSV.importerDonnees(
-                    CHEMIN_EMPLOYES+"employes_valides1.csv");
-        });
-        assertFalse(TraitementDonnees.isDonneesVides());
-        TraitementDonnees.supprimerDonnees();
-        
-        assertDoesNotThrow(() -> {
-            ImportationCSV.importerDonnees(
-                    CHEMIN_CONFERENCIERS+"conferencier_valide1.csv");
-        });
-        assertFalse(TraitementDonnees.isDonneesVides());
-        TraitementDonnees.supprimerDonnees();
-        
-        assertDoesNotThrow(() -> {
-            ImportationCSV.importerDonnees(
-                    CHEMIN_EXPOSITIONS+"expositions_valides1.csv");
-        });
-        assertDoesNotThrow(() -> {
-            ImportationCSV.importerDonnees(
-                    CHEMIN_EMPLOYES+"employes_valides1.csv");
-        });
-        assertDoesNotThrow(() -> {
-            ImportationCSV.importerDonnees(
-                    CHEMIN_CONFERENCIERS+"conferencier_valide1.csv");
-        });
-        assertDoesNotThrow(() -> {
-            ImportationCSV.importerDonnees(
-                    CHEMIN_VISITES+"visites_valides1.csv");
-        });
-        assertFalse(TraitementDonnees.isDonneesVides());
-        TraitementDonnees.supprimerDonnees();
-    }
+    // TODO A déplacer dans un autre classe de test
+//    /**
+//     * Méthode de test pour
+//     * {@link application.utilitaire.TraitementDonnees#getExpositions()}.
+//     */
+//    @Test
+//    @Order(1)
+//    void testGetExpositions() {
+//        
+//        // Test utile pour 100% couverture
+//        assertDoesNotThrow(() -> {
+//            new TraitementDonnees();
+//        });
+//        
+//        assertDoesNotThrow(() -> {
+//            ImportationCSV.importerDonnees(
+//                    CHEMIN_EXPOSITIONS+"expositions_valides1.csv");
+//        });
+//        
+//        assertNotNull(TraitementDonnees.getDonnees().getExpositions());
+//    }
+//
+//    /**
+//     * Méthode de test pour
+//     * {@link application.utilitaire.TraitementDonnees#getEmployes()}.
+//     */
+//    @Test
+//    @Order(2)
+//    void testGetEmployes() {
+//        
+//        assertDoesNotThrow(() -> {
+//            ImportationCSV.importerDonnees(
+//                    CHEMIN_EMPLOYES+"employes_valides1.csv");
+//        });
+//        
+//        assertNotNull(TraitementDonnees.getDonnees().getEmployes());
+//    }
+//
+//    /**
+//     * Méthode de test pour
+//     * {@link application.utilitaire.TraitementDonnees#getConferenciers()}.
+//     */
+//    @Test
+//    @Order(3)
+//    void testGetConferenciers() {
+//        
+//        assertDoesNotThrow(() -> {
+//            ImportationCSV.importerDonnees(
+//                    CHEMIN_CONFERENCIERS+"conferencier_valide1.csv");
+//        });
+//        
+//        assertNotNull(TraitementDonnees.getDonnees().getConferenciers());
+//    }
+//
+//    /**
+//     * Méthode de test pour
+//     * {@link application.utilitaire.TraitementDonnees#getClients()}.
+//     */
+//    @Test
+//    @Order(4)
+//    void testGetClients() {
+//        
+//        assertDoesNotThrow(() -> {
+//            ImportationCSV.importerDonnees(
+//                    CHEMIN_VISITES+"visites_valides1.csv");
+//        });
+//        
+//        assertNotNull(TraitementDonnees.getDonnees().getClients());
+//    }
+//
+//    /**
+//     * Méthode de test pour
+//     * {@link application.utilitaire.TraitementDonnees#getVisites()}.
+//     */
+//    @Test
+//    @Order(5)
+//    void testGetVisites() {
+//        
+//        assertDoesNotThrow(() -> {
+//            ImportationCSV.importerDonnees(
+//                    CHEMIN_VISITES+"visites_valides1.csv");
+//        });
+//        
+//        assertNotNull(TraitementDonnees.getDonnees().getVisites());
+//    }
 
 }

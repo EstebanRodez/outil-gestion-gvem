@@ -18,11 +18,9 @@ import application.modele.ExpositionTemporaire;
 import application.modele.Visite;
 import application.modele.VisiteCalculResultat;
 import application.utilitaire.TraitementDonnees;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -35,7 +33,7 @@ import javafx.scene.control.TableView;
 public class StatistiqueExpositionPourcentageControleur {
     
     private static LinkedHashMap<String, Visite> visites
-    = TraitementDonnees.getVisites();
+    = TraitementDonnees.getDonnees().getVisites();
     
     @FXML
     private TableColumn<VisiteCalculResultat, String> Exposition;

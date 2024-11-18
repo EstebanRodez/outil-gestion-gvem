@@ -35,7 +35,7 @@ import javafx.scene.control.TableView;
 public class StatistiqueExpositionClassementControleur {
     
     private static LinkedHashMap<String, Visite> visites
-    = TraitementDonnees.getVisites();
+    = TraitementDonnees.getDonnees().getVisites();
     
     @FXML
     private TableColumn<VisiteCalculResultat, String> Exposition;

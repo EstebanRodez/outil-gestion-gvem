@@ -19,6 +19,7 @@ import application.modele.ExpositionTemporaire;
 import application.modele.Visite;
 import application.modele.VisiteCalculResultat;
 import application.utilitaire.TraitementDonnees;
+
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -43,21 +44,21 @@ import javafx.scene.control.TableView;
 public class DonneesCalculeesExpositionEnsembleJourControleur {
     
     private static LinkedHashMap<String, Visite> visites
-    = TraitementDonnees.getVisites();
+    = TraitementDonnees.getDonnees().getVisites();
     
     // Format pour les dates au format jj/MM/aaaa
     private static final DateTimeFormatter DATE_FORMAT 
     = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     
-    private static String[] choix = {"exposition qui n’ont aucune visite",
-                                     "exposition et leur nombre moyen de " 
-                                     + "visites programmées chaque jour",
-                                     "exposition et leur nombre moyen de "
-                                     + "visites programmées chaque semaine",
-                                     " exposition et leur nombre moyen de "
-                                     + "visites prévues chaque jour",
-                                     " exposition et leur nombre moyen de "
-                                     + "visites prévues chaque semaine"};
+    private static String[] choix = {"expositions qui n’ont aucune visite",
+                                    "expositions et leur nombre moyen de " 
+                                    + "visites programmées chaque jour",
+                                    "expositions et leur nombre moyen de "
+                                    + "visites programmées chaque semaine",
+                                    "l’esembles des expositions et leur nombre moyen de "
+                                    + "visites prévues chaque jour",
+                                    "l’esembles des expositions et leur nombre moyen de "
+                                    + "visites prévues chaque semaine"};
     
     @FXML
     private Button btnFiltres;
@@ -76,13 +77,13 @@ public class DonneesCalculeesExpositionEnsembleJourControleur {
     
     @FXML
     private TableColumn<VisiteCalculResultat, Double> nbMoyen;
-    
+
     @FXML
     private ChoiceBox<String> listePhrase;
 
     @FXML
     private TableView<VisiteCalculResultat> tableExposition;
-    
+
     /**
      * 
      */
@@ -102,7 +103,7 @@ public class DonneesCalculeesExpositionEnsembleJourControleur {
                 cellData -> new SimpleDoubleProperty(
                         cellData.getValue().getCalculVisites()).asObject());
         
-     // Déterminer les dates de début et de fin globales
+        // Déterminer les dates de début et de fin globales
         LocalDate dateDebutGlobal = LocalDate.MAX;
         LocalDate dateFinGlobal = LocalDate.MIN;
 
@@ -134,6 +135,7 @@ public class DonneesCalculeesExpositionEnsembleJourControleur {
         if (listePhrase.getValue().equals(choix[0])) {
             EchangeurDeVue.changerVue("donneesCalculeesExpositionVue");
             listePhrase.setValue(choix[0]);
+
         }
         
         if (listePhrase.getValue().equals(choix[1])) {
@@ -261,7 +263,7 @@ public class DonneesCalculeesExpositionEnsembleJourControleur {
                 }
             }
             
-         // Filtrer par exposition temporaire
+            // Filtrer par exposition temporaire
             if (critere.getExpositionTemporaire()
                 && !(paire.getValue().getExposition() instanceof ExpositionTemporaire)) {
                 
@@ -301,6 +303,7 @@ public class DonneesCalculeesExpositionEnsembleJourControleur {
         calculerMoyenneVisitesEnsembleExposition(visitesFiltrees, 
                                                  critere.getDateDebut(), 
                                                  critere.getDateFin());
+
     }
 
 }
