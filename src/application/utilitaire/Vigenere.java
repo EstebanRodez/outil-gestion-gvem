@@ -201,7 +201,8 @@ public class Vigenere {
                     int indexLettreCrypte = alphabet.indexOf(lettreCrypte);
                     int indexLettre
                     = (indexLettreCrypte
-                       - alphabet.indexOf(cle.charAt(indiceLigne%cle.length())))
+                       - alphabet.indexOf(cle.charAt(indiceLigne%cle.length()))
+                       + modulo)
                        % modulo;
                     char lettre = alphabet.charAt(indexLettre);
                     fluxEcriture.append(lettre);
