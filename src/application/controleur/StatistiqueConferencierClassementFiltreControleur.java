@@ -9,6 +9,7 @@ import java.time.LocalDate;
 
 import application.EchangeurDeVue;
 import application.modele.CritereFiltreVisite;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

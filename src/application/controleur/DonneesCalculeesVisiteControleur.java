@@ -5,10 +5,6 @@
  */
 package application.controleur;
 
-import java.awt.Desktop;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedHashMap;
@@ -17,7 +13,6 @@ import java.util.Map.Entry;
 
 import application.EchangeurDeVue;
 import application.modele.CritereFiltreVisite;
-import application.modele.Exposition;
 import application.modele.ExpositionTemporaire;
 import application.modele.Visite;
 import application.utilitaire.TraitementDonnees;
@@ -27,9 +22,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;

@@ -6,12 +6,6 @@
 package application.controleur;
 
 import java.io.IOException;
-import java.awt.Desktop;
-import java.io.File;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
 
 import application.EchangeurDeVue;
 import application.utilitaire.Client;
@@ -21,10 +15,10 @@ import application.utilitaire.GenerationDonneeSecreteException;
 import application.utilitaire.GestionFichiers;
 import application.utilitaire.ImportationCSV;
 import application.utilitaire.Vigenere;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 
 /**

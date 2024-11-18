@@ -5,13 +5,9 @@
  */
 package application.controleur;
 
-
-import java.awt.Desktop;
 import java.io.IOException;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.net.URI;
-import java.net.URISyntaxException;
 
 import application.EchangeurDeVue;
 import application.utilitaire.EchangeDiffieHellman;
@@ -21,6 +17,7 @@ import application.utilitaire.GenerationDonneeSecreteException;
 import application.utilitaire.GestionFichiers;
 import application.utilitaire.Serveur;
 import application.utilitaire.Vigenere;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
