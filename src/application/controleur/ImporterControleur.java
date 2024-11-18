@@ -5,6 +5,16 @@
  */
 package application.controleur;
 
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
+import java.util.List;
+
 import application.EchangeurDeVue;
 
 import javafx.event.ActionEvent;
@@ -41,7 +51,10 @@ public class ImporterControleur {
 
     @FXML
     void btnAideAction(ActionEvent event) {
-        AccueilControleur.lancerAide();
+    	// Appel de la méthode lancerAide de AccueilControleur avec un indice spécifique
+    	// Utilise l'indice 9 pour ouvrir un lien d'aide correspondant
+    	// à la réference de la partit des conferenciers dans données calculées
+        AccueilControleur.lancerAide(9);
     }
 
     @FXML

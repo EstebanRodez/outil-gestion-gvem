@@ -5,9 +5,13 @@
  */
 package application.controleur;
 
+
+import java.awt.Desktop;
 import java.io.IOException;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 import application.EchangeurDeVue;
 import application.utilitaire.EchangeDiffieHellman;
@@ -133,7 +137,10 @@ public class ExporterControleur {
 
     @FXML
     void btnAideAction(ActionEvent event) {
-        AccueilControleur.lancerAide();
+    	// Appel de la méthode lancerAide de AccueilControleur avec un indice spécifique
+    	// Utilise l'indice 8 pour ouvrir un lien d'aide correspondant
+    	// à la réference de la partit de l'exportation
+        AccueilControleur.lancerAide(8);
     }
 
     @FXML

@@ -5,6 +5,10 @@
  */
 package application.controleur;
 
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedHashMap;
@@ -13,6 +17,7 @@ import java.util.Map.Entry;
 
 import application.EchangeurDeVue;
 import application.modele.CritereFiltreVisite;
+import application.modele.Exposition;
 import application.modele.ExpositionTemporaire;
 import application.modele.Visite;
 import application.utilitaire.TraitementDonnees;
@@ -22,7 +27,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -51,6 +58,9 @@ public class DonneesCalculeesVisiteControleur {
     // Format pour les dates au format jj/MM/aaaa
     private static final DateTimeFormatter DATE_FORMAT 
     = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    
+    @FXML
+    private Button aideAction;
     
     @FXML
     private Label LabelResultat;
@@ -156,7 +166,10 @@ public class DonneesCalculeesVisiteControleur {
 
     @FXML
     void aideAction(ActionEvent event) {
-        AccueilControleur.lancerAide();
+    	// Appel de la méthode lancerAide de AccueilControleur avec un indice spécifique
+    	// Utilise l'indice 4 pour ouvrir un lien d'aide correspondant
+    	// à la réference de la partit des Visites dans données calculées
+        AccueilControleur.lancerAide(4);
     }
 
     @FXML
@@ -266,7 +279,6 @@ public class DonneesCalculeesVisiteControleur {
         
         LabelResultat.setText("Nombre de visite correspondant aux filtres : " 
                                + visitesFiltrees.size());
-        
     }
 
 }

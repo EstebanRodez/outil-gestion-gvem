@@ -1,8 +1,3 @@
-/*
- * AcceuilControleur.java                           
- * 11 oct. 2024
- * IUT de Rodez, pas de copyright
- */
 package application.controleur;
 
 import java.awt.Desktop;
@@ -20,7 +15,6 @@ import javafx.scene.control.ButtonType;
 
 /**
  * Contrôleur de l'interface d'accueil de l'application.
- * 
  * Cette classe gère les interactions utilisateur au sein de
  * l'interface d'accueil. Elle est responsable de la navigation entre
  * différentes vues de l'application en réponse aux actions des
@@ -34,14 +28,24 @@ import javafx.scene.control.ButtonType;
  * @author Ayoub Laluti
  * @author Baptiste Thenieres
  * @author Esteban Vroemen
- * @version 1.0
+ * @version 1.0 
  */
 public class AccueilControleur {
-    
-    private static final String LIEN_AIDE
-    = "https://docs.google.com/document/d/1wA1ytqySDYe1D-2ZL1M0mLKMvUmv9SCtS0u"
-      + "ORFgoRIY";
-    
+
+    // Stockage des liens avec signets
+    private static final String[] liens = {
+        "https://docs.google.com/document/d/1wA1ytqySDYe1D-2ZL1M0mLKMvUmv9SCtS0uORFgoRIY/edit?tab=t.0#bookmark=id.phccnmenp45", // pageAccueil
+        "https://docs.google.com/document/d/1wA1ytqySDYe1D-2ZL1M0mLKMvUmv9SCtS0uORFgoRIY/edit?tab=t.0#bookmark=id.szfgaenvr4bk",// donnees calc Conf
+        "https://docs.google.com/document/d/1wA1ytqySDYe1D-2ZL1M0mLKMvUmv9SCtS0uORFgoRIY/edit?tab=t.0#bookmark=id.1gzjdlhuen4l", // donnees calc Expo
+        "https://docs.google.com/document/d/1wA1ytqySDYe1D-2ZL1M0mLKMvUmv9SCtS0uORFgoRIY/edit?tab=t.0#bookmark=id.qmhq2qcd6w1o", // donnees calc Visite
+        "https://docs.google.com/document/d/1wA1ytqySDYe1D-2ZL1M0mLKMvUmv9SCtS0uORFgoRIY/edit?tab=t.0#bookmark=id.rzodinig137o", // donnees import Expo
+        "https://docs.google.com/document/d/1wA1ytqySDYe1D-2ZL1M0mLKMvUmv9SCtS0uORFgoRIY/edit?tab=t.0#bookmark=id.412ilhctyjqe", // donnees import Conf
+        "https://docs.google.com/document/d/1wA1ytqySDYe1D-2ZL1M0mLKMvUmv9SCtS0uORFgoRIY/edit?tab=t.0#bookmark=id.qmhq2qcd6w1o", // donnees import Visite
+        "https://docs.google.com/document/d/1wA1ytqySDYe1D-2ZL1M0mLKMvUmv9SCtS0uORFgoRIY/edit?tab=t.0#bookmark=id.an8iar9agec5", // exportation
+        "https://docs.google.com/document/d/1wA1ytqySDYe1D-2ZL1M0mLKMvUmv9SCtS0uORFgoRIY/edit?tab=t.0#bookmark=id.axvpwnml3l6h", // import fichier
+        "https://docs.google.com/document/d/1wA1ytqySDYe1D-2ZL1M0mLKMvUmv9SCtS0uORFgoRIY/edit?tab=t.0#bookmark=id.vv8lnbpm49el" // import fichier distant
+    };
+
     @FXML
     private Button btnAide;
 
@@ -56,45 +60,47 @@ public class AccueilControleur {
 
     @FXML
     private Button btnQuitter;
-    
+
     /**
-     * Lance l'aide à l'utilisateur
+     * Ouvre l'URL dans le navigateur avec un signet spécifique
+     * 
+     * @param indice l'indice du lien à ouvrir.
      */
-    public static void lancerAide() {
-        
-        Desktop desktop = Desktop.getDesktop();
+    public static void lancerAide(int indice) {
+        // Validation de l'indice
+        if (indice < 0 || indice >= liens.length) {
+            afficherErreurAide();
+            return;
+        }
+
+        String url = liens[indice]; // Obtient l'URL avec le signet associé
+
         try {
-            desktop.browse(new URI(getLienAide()));
+            Desktop desktop = Desktop.getDesktop();
+            URI uri = new URI(url);
+            desktop.browse(uri);  // Ouvre l'URL dans le navigateur
         } catch (IOException | URISyntaxException e) {
-            lancerErreurAide();
+            afficherErreurAide();  // En cas d'erreur, affiche une boîte d'erreur
         }
     }
-    
+
     /**
-     * Renvoie le lien de la fiche d'aide.
-     * @return le lien de la fiche d'aide
+     * Affiche une fenêtre d'erreur en cas d'échec d'ouverture de l'URL.
      */
-    public static String getLienAide() {
-        return LIEN_AIDE;
-    }
-    
-    /**
-     * Lance une fenêtre d'erreur en cas d'échec d'ouverture de la
-     * fiche d'aide.
-     */
-    private static void lancerErreurAide() {
-        
-        Alert boiteErreurOuvertureAide
-        = new Alert(Alert.AlertType.ERROR,
-                    "impossible d'ouvrir le fichier d'aide", ButtonType.OK);
+    private static void afficherErreurAide() {
+        Alert boiteErreurOuvertureAide = new Alert(Alert.AlertType.ERROR,
+                "Impossible d'ouvrir le fichier d'aide", ButtonType.OK);
         boiteErreurOuvertureAide.setTitle("Erreur d'affichage aide");
         boiteErreurOuvertureAide.setHeaderText("Erreur d'affichage aide");
         boiteErreurOuvertureAide.showAndWait();
     }
-    
-    /**
-     * 
-     */
+
+    @FXML
+    void btnAideAction(ActionEvent event) {
+        // Appel à ouvrirDansNavigateur avec un indice spécifique pour ouvrir l'aide
+    	lancerAide(1); // Par exemple, ouvre le lien associé à l'indice 1
+    }
+
     @FXML
     public void initialize() {
         
@@ -102,11 +108,6 @@ public class AccueilControleur {
             btnConsulterDonnees.setDisable(true);
             btnExporter.setDisable(true);
         }
-    }
-
-    @FXML
-    void btnAideAction(ActionEvent event) {
-        lancerAide();
     }
 
     @FXML
@@ -128,5 +129,4 @@ public class AccueilControleur {
     void btnQuitterAction(ActionEvent event) {
         EchangeurDeVue.getFenetreAppli().hide();
     }
-
 }

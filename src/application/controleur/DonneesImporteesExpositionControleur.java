@@ -5,7 +5,11 @@
  */
 package application.controleur;
 
+import java.awt.Desktop;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -25,7 +29,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
@@ -54,7 +60,10 @@ public class DonneesImporteesExpositionControleur {
     // Format pour les dates au format jj/MM/aaaa
     private static final DateTimeFormatter DATE_FORMAT 
     = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
+    
+    @FXML
+    private Button aideAction;
+    
     @FXML
     private Button btnRetour;
     
@@ -199,7 +208,6 @@ public class DonneesImporteesExpositionControleur {
         
         return celluleDonnees.getValue().getValue();
     }
-    
 
 
     @FXML
@@ -214,7 +222,10 @@ public class DonneesImporteesExpositionControleur {
 
     @FXML
     void aideAction(ActionEvent event) {
-        AccueilControleur.lancerAide();
+    	// Appel de la méthode lancerAide de AccueilControleur avec un indice spécifique
+    	// Utilise l'indice 5 pour ouvrir un lien d'aide correspondant
+    	// à la réference de la partit des expositions dans données importer
+        AccueilControleur.lancerAide(5);
     }
 
     @FXML

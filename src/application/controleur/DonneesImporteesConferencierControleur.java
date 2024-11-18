@@ -5,7 +5,11 @@
  */
 package application.controleur;
 
+import java.awt.Desktop;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -22,7 +26,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
@@ -46,6 +52,9 @@ public class DonneesImporteesConferencierControleur {
     
     private static LinkedHashMap<String, Conferencier> conferenciers
     = TraitementDonnees.getDonnees().getConferenciers();
+    
+    @FXML
+    private Button aideAction;
     
     @FXML
     private Button btnRetour;
@@ -158,7 +167,7 @@ public class DonneesImporteesConferencierControleur {
         
         return String.join(", ", indisponibilitesTextes);
     }
-
+    
     @FXML
     void retourAccueilAction(ActionEvent event) {
         EchangeurDeVue.changerVue("accueilVue");
@@ -171,7 +180,10 @@ public class DonneesImporteesConferencierControleur {
 
     @FXML
     void aideAction(ActionEvent event) {
-        AccueilControleur.lancerAide();
+    	// Appel de la méthode lancerAide de AccueilControleur avec un indice spécifique
+    	// Utilise l'indice 6 pour ouvrir un lien d'aide correspondant
+    	// à la réference de la partit des conferenciers dans données importer
+        AccueilControleur.lancerAide(6);
     }
 
     @FXML
