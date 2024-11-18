@@ -12,6 +12,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.Arrays;
 import java.util.HashSet;
 
 /**
@@ -86,10 +87,7 @@ public class Vigenere {
                      indiceLigne++) {
                     
                     Character lettre = ligne.charAt(indiceLigne);
-                    if (!lettres.contains(lettre)) {
-                        lettres.add(lettre);
-                        chaineAlphabet.append(lettre);
-                    }
+                    lettres.add(lettre);
                 }
                 ligne = fluxLecture.readLine();
             }
@@ -98,6 +96,13 @@ public class Vigenere {
         } catch (IOException e) {
             // Ne rien faire
             e.printStackTrace();
+        }
+        
+        Character[] tabLettres = lettres.toArray(new Character[lettres.size()]);
+        Arrays.sort(tabLettres);
+        
+        for (char lettre : tabLettres) {
+            chaineAlphabet.append(lettre);
         }
         
         return chaineAlphabet.toString();
@@ -196,7 +201,7 @@ public class Vigenere {
                     int indexLettreCrypte = alphabet.indexOf(lettreCrypte);
                     int indexLettre
                     = (indexLettreCrypte
-                       + alphabet.indexOf(cle.charAt(indiceLigne%cle.length())))
+                       - alphabet.indexOf(cle.charAt(indiceLigne%cle.length())))
                        % modulo;
                     char lettre = alphabet.charAt(indexLettre);
                     fluxEcriture.append(lettre);

@@ -79,7 +79,8 @@ public class ImporterDistantControleur {
                 e.printStackTrace();
             }
             
-            Client.recevoirFichiers(ipServeur, 65432, NOMS_FICHIERS_RECUS,  null);
+            Client.recevoirFichiers(ipServeur, 65432, NOMS_FICHIERS_RECUS,
+                                    null);
             
             for (String nomFichier : NOMS_FICHIERS_RECUS) {
                 
