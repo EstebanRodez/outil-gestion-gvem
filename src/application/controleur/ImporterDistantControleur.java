@@ -10,8 +10,10 @@ import java.io.IOException;
 import application.EchangeurDeVue;
 import application.utilitaire.Client;
 import application.utilitaire.EchangeDiffieHellman;
+import application.utilitaire.FichierDonneesInvalidesException;
 import application.utilitaire.GenerationDonneeSecreteException;
 import application.utilitaire.GestionFichiers;
+import application.utilitaire.ImportationCSV;
 import application.utilitaire.Vigenere;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -57,24 +59,6 @@ public class ImporterDistantControleur {
     @FXML
     void btnConnexionAction(ActionEvent event) {
         
-        final String[] NOMS_FICHIERS_DECRYPTAGE
-        = {
-            "conferenciers.csv", "employes.csv",
-            "expositions.csv", "visites.csv"
-        };
-        
-        final String[] NOMS_FICHIERS_ALPHABET
-        = {
-            "conferenciers_alphabet", "employes_alphabet",
-            "expositions_alphabet", "visites_alphabet"
-        };
-        
-        final String[] NOMS_FICHIERS_RECUS
-        = {
-            "conferenciers_crypté", "employes_crypté",
-            "expositions_crypté", "visites_crypté"
-        };
-        
         String ipServeur = txtFieldIPServeur.getText().trim();
         
         if (isAdresseIPValide(ipServeur)) {
@@ -88,79 +72,43 @@ public class ImporterDistantControleur {
                 e.printStackTrace();
             }
             
-            Client.recevoirFichiers(ipServeur, 65432, NOMS_FICHIERS_RECUS,
+            String[] nomFichierEnvois = Vigenere.getNomsFichiersEnvois();
+            String[] nomFichierAlphabet = Vigenere.getNomsFichiersAlphabet();
+            String[] nomFichierDonnees = Vigenere.getNomsFichiersDonnees();
+            
+            Client.recevoirFichiers(ipServeur, 65432, nomFichierEnvois,
                                     null);
-            Client.recevoirFichiers(ipServeur, 65432, NOMS_FICHIERS_ALPHABET,
+            Client.recevoirFichiers(ipServeur, 65432, nomFichierAlphabet,
                                     null);
             
-            for (String nomFichier : NOMS_FICHIERS_RECUS) {
+            for (int indiceNomFichier = 0;
+                 indiceNomFichier < nomFichierEnvois.length;
+                 indiceNomFichier++) {
                 
-                String nomFichierAlphabet
-                = nomFichier.substring(0, nomFichier.lastIndexOf("_crypté"))
-                  + "_alphabet";
                 String alphabet = "";
                 try {
-                    alphabet = GestionFichiers.lireFichier(nomFichierAlphabet);
+                    alphabet = GestionFichiers.lireFichier(
+                                   nomFichierAlphabet[indiceNomFichier]);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    // Ne rien faire
                 }
+                
                 String cleChiffrement
                 = Vigenere.genererCleChiffrement(cleSecrete, alphabet);
                 
                 System.out.println(cleChiffrement);
                 
-                Vigenere.decrypter(nomFichier, cleChiffrement, alphabet);
+                Vigenere.decrypter(nomFichierEnvois[indiceNomFichier],
+                                   cleChiffrement, alphabet);
+                
+                try {
+                    ImportationCSV.importerDonnees(
+                            nomFichierDonnees[indiceNomFichier]);
+                } catch (FichierDonneesInvalidesException e) {
+                    // Ne rien faire
+                }
             }
         }
-        
-//        Client.recevoirFichiers(ipServeur, 65433, NOMS_FICHIERS_CLES_RECUS,
-//                                null);
-//        
-//        int p, g, gExpA;
-//        try {
-//            p = Integer.parseInt(
-//                    GestionFichiers.lireFichier(NOMS_FICHIERS_CLES_RECUS[0]));
-//            g = Integer.parseInt(
-//                    GestionFichiers.lireFichier(NOMS_FICHIERS_CLES_RECUS[1]));
-//            gExpA = Integer.parseInt(
-//                    GestionFichiers.lireFichier(NOMS_FICHIERS_CLES_RECUS[2]));
-//        } catch (NumberFormatException | IOException e) {
-//            p = 0;
-//            g = 0;
-//            gExpA = 0;
-//            e.printStackTrace();
-//        }
-//        
-//        int b = Mathematiques.genererNombreAleatoire(100,999);
-//        int gExpB = Mathematiques.calculExponentielleModulo(g, b, p);
-//        
-//        try {
-//            GestionFichiers.ecrireFichier(
-//                NOMS_FICHIERS_CLES_ENVOIS[0], Integer.toString(gExpB)
-//            );
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            Thread.currentThread().interrupt();
-//        }  
-//        Serveur.envoyerFichiers(65433, NOMS_FICHIERS_CLES_ENVOIS);
-//        
-//        int cleSecret = Mathematiques.calculExponentielleModulo(gExpA, b, p);
-//        
-//        Client.recevoirFichiers(ipServeur, 65433,
-//                                NOMS_FICHIERS_DONNEES_CRYPTEES, null);
-//
-//        try {
-//            Decryptage.decrypterFichierDonnees(Integer.toString(cleSecret));
-//            System.out.println("Données reçues avec succès");
-//        } catch (DecryptageException erreur) {
-//            System.out.println("Échec du décryptage des données");
-//        }
-
-//        try {
-//            Files.delete(Path.of(NOMS_FICHIERS_DONNEES_CRYPTEES));
-//        } catch (IOException erreur) {
-//
-//        }
     }
 
     @FXML

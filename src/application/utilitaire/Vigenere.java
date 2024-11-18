@@ -32,6 +32,24 @@ import java.util.HashSet;
  */
 public class Vigenere {
     
+    private static final String[] NOMS_FICHIERS_DONNEES
+    = {
+        "conferenciers.csv", "employes.csv",
+        "expositions.csv", "visites.csv"
+    };
+    
+    private static final String[] NOMS_FICHIERS_ALPHABET
+    = {
+        "conferenciers_alphabet", "employes_alphabet",
+        "expositions_alphabet", "visites_alphabet"
+    };
+    
+    private static final String[] NOMS_FICHIERS_ENVOIS
+    = {
+        "conferenciers_crypté", "employes_crypté",
+        "expositions_crypté", "visites_crypté"
+    };
+    
     /**
      * Génère une clé de chiffrement basée sur une donnée secrète et
      * un alphabet donné. La clé est calculée en transformant la donnée
@@ -217,4 +235,26 @@ public class Vigenere {
             e.printStackTrace();
         }
     }
+
+    /**
+     * @return nomsFichiersDonnees
+     */
+    public static String[] getNomsFichiersDonnees() {
+        return NOMS_FICHIERS_DONNEES;
+    }
+
+    /**
+     * @return nomsFichiersAlphabet
+     */
+    public static String[] getNomsFichiersAlphabet() {
+        return NOMS_FICHIERS_ALPHABET;
+    }
+
+    /**
+     * @return nomsFichiersEnvois
+     */
+    public static String[] getNomsFichiersEnvois() {
+        return NOMS_FICHIERS_ENVOIS;
+    }
+    
 }

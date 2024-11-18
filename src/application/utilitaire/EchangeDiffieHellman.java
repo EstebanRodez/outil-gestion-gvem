@@ -30,7 +30,7 @@ public class EchangeDiffieHellman {
             throws GenerationDonneeSecreteException {
 
         int p = Mathematiques.trouverNombrePremier(
-                Mathematiques.genererNombreAleatoire(10000,99999));
+                Mathematiques.genererNombreAleatoire(1000,9999));
         System.out.println(p);
 
         int g = Mathematiques.trouverDernierGroupeMultiplicatif(p);
