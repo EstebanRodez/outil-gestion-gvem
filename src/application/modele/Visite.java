@@ -32,13 +32,6 @@ public class Visite implements Serializable {
     
     private static final long serialVersionUID = 1L;
     
-    private static final String ERREUR_IDENTIFIANT_INVALIDE =
-    """
-    Impossible de créer une visite.
-    La référence de l'identifiant de la visite ne doit pas être nulle ou
-    l'identifiant ne doit pas être vide.                
-    """;
-    
     private static final String ERREUR_HORAIRE_DEBUT_INVALIDE =
     """
     Impossible de créer une visite.
@@ -77,8 +70,6 @@ public class Visite implements Serializable {
     La référence du conférencier de la visite ne doit pas être nulle.                   
     """;
     
-    private String identifiant;
-    
     private int horaireDebut;
     
     private LocalDate date;
@@ -96,7 +87,6 @@ public class Visite implements Serializable {
      * début, sa date, le client, l'exposition, l'employé, et le
      * conférencier associés à cette visite.
      * 
-     * @param identifiant l'identifiant de la visite
      * @param horaireDebut l'horaire de la visite
      *                     (en nombre de minutes)
      * @param date la date de la visite
@@ -104,9 +94,6 @@ public class Visite implements Serializable {
      * @param exposition l'exposition de la visite
      * @param employe l'employé de la visite
      * @param conferencier le conférencier de la visite
-     * @throws IllegalArgumentException si la référence de
-     *                                  l'identifiant est nulle ou
-     *                                  l'identifiant est vide
      * @throws IllegalArgumentException si la valeur de l'horaire de
      *                                  début est négative ou
      *                                  supérieur à 1439
@@ -121,13 +108,9 @@ public class Visite implements Serializable {
      * @throws IllegalArgumentException si la référence du
      *                                  conférencier est nulle
      */
-    public Visite(String identifiant, int horaireDebut, LocalDate date,
-                  Client client, Exposition exposition, Employe employe,
+    public Visite(int horaireDebut, LocalDate date, Client client,
+                  Exposition exposition, Employe employe,
                   Conferencier conferencier) {
-        
-        if (identifiant == null || identifiant.isBlank()) {
-            throw new IllegalArgumentException(ERREUR_IDENTIFIANT_INVALIDE);
-        }
         
         /* 
          * 24 * 60 = 1440
@@ -158,21 +141,12 @@ public class Visite implements Serializable {
             throw new IllegalArgumentException(ERREUR_CONFEFENCIER_INVALIDE);
         }
         
-        this.identifiant = identifiant.trim();
         this.horaireDebut = horaireDebut;
         this.date = date;
         this.client = client;
         this.exposition = exposition;
         this.employe = employe;
         this.conferencier = conferencier;
-    }
-
-    /**
-     * Récupère l'identifiant de la visite.
-     * @return identifiant l'identifiant de la visite
-     */
-    public String getIdentifiant() {
-        return identifiant;
     }
 
     /**

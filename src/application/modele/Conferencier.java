@@ -34,12 +34,6 @@ public class Conferencier implements Serializable {
     
     private static final long serialVersionUID = 1L;
     
-    private static final String ERREUR_IDENTIFIANT_INVALIDE =
-    """
-    Impossible de créer un conférencier.
-    L'identifiant du conférencier ne doit pas être nul ou vide.                
-    """;
-    
     private static final String ERREUR_NOM_INVALIDE =
     """
     Impossible de créer un conférencier.
@@ -93,8 +87,6 @@ public class Conferencier implements Serializable {
     n'est pas valide.                
     """;
     
-    private String identifiant;
-    
     private String nom;
 
     private String prenom;
@@ -112,15 +104,11 @@ public class Conferencier implements Serializable {
      * téléphone, une liste de ses spécialités et s'il est interne
      * ou non.
      * 
-     * @param identifiant l'identifiant unique de conférencier
      * @param nom le nom du conférencier
      * @param prenom le prénom du conférencier
      * @param specialites la liste des spécialités du conférencier
      * @param numTel le numéro de téléphone du conférencier
      * @param estInterne si la conférencier est interne ou non
-     * @throws IllegalArgumentException si la référence de
-     *                                  l'identifiant est nulle ou
-     *                                  l'identifiant est vide
      * @throws IllegalArgumentException si la référence du nom est
      *                                  nulle ou le nom est vide
      * @throws IllegalArgumentException si la référence du prénom est
@@ -137,13 +125,8 @@ public class Conferencier implements Serializable {
      *                                  chiffres ou ne contient pas 10
      *                                  caractères
      */
-    public Conferencier(String identifiant, String nom, String prenom,
-                        String[] specialites, String numTel,
-                        boolean estInterne) {
-        
-        if (identifiant == null || identifiant.isBlank()) {
-            throw new IllegalArgumentException(ERREUR_IDENTIFIANT_INVALIDE);
-        }
+    public Conferencier(String nom, String prenom, String[] specialites,
+                        String numTel, boolean estInterne) {
         
         if (nom == null || nom.isBlank()) {
             throw new IllegalArgumentException(ERREUR_NOM_INVALIDE);
@@ -170,7 +153,6 @@ public class Conferencier implements Serializable {
                     ERREUR_NUMTEL_CARACTERE_INVALIDE);
         }
 
-        this.identifiant = identifiant.trim();
         this.nom = nom.trim();
         this.prenom = prenom.trim();
         this.specialites = specialites;
@@ -184,7 +166,6 @@ public class Conferencier implements Serializable {
      * téléphone, une liste de ses spécialités, s'il est interne ou
      * non et une liste de des indisponibilités du conférencier.
      * 
-     * @param identifiant l'identifiant unique de conférencier
      * @param nom le nom du conférencier
      * @param prenom le prénom du conférencier
      * @param specialites la liste des spécialités du conférencier
@@ -192,9 +173,6 @@ public class Conferencier implements Serializable {
      * @param estInterne si la conférencier est interne ou non
      * @param indisponibilites la liste de ses indisponibités
      *                         potentielles
-     * @throws IllegalArgumentException si la référence de
-     *                                  l'identifiant est nulle ou
-     *                                  l'identifiant est vide
      * @throws IllegalArgumentException si la référence du nom est
      *                                  nulle ou le nom est vide
      * @throws IllegalArgumentException si la référence du prénom est
@@ -216,13 +194,9 @@ public class Conferencier implements Serializable {
      * @throws IllegalArgumentException si une valeur de la liste des
      *                                  indisponibilités est invalide
      */
-    public Conferencier(String identifiant, String nom, String prenom,
+    public Conferencier(String nom, String prenom,
                         String[] specialites, String numTel, boolean estInterne,
                         Indisponibilite[] indisponibilites) {
-        
-        if (identifiant == null || identifiant.isBlank()) {
-            throw new IllegalArgumentException(ERREUR_IDENTIFIANT_INVALIDE);
-        }
         
         if (nom == null || nom.isBlank()) {
             throw new IllegalArgumentException(ERREUR_NOM_INVALIDE);
@@ -266,7 +240,6 @@ public class Conferencier implements Serializable {
             }
         }
         
-        this.identifiant = identifiant.trim();
         this.nom = nom.trim();
         this.prenom = prenom.trim();
         this.specialites = specialites;
@@ -295,8 +268,7 @@ public class Conferencier implements Serializable {
 
         // sinon : conferencierAComparer est un objet de type Conferencier
         Conferencier confAComparer = (Conferencier) conferencierAComparer;
-        return identifiant.equals(confAComparer.identifiant) 
-               && nom.equals(confAComparer.nom) 
+        return nom.equals(confAComparer.nom) 
                && prenom.equals(confAComparer.prenom) 
                && specialites.equals(confAComparer.specialites) 
                && numTel == confAComparer.numTel && this.estInterne == confAComparer.estInterne
@@ -319,21 +291,12 @@ public class Conferencier implements Serializable {
             }
         }
         
-        return "identifiant : " + identifiant + ", nom : " + nom
-               + ", prenom : " + prenom + ", specialites : [" 
+        return "nom : " + nom + ", prenom : " + prenom + ", specialites : [" 
                + toStringSpecialites() + "], numéro de téléphone : "
                + numTel + ", status(interne ou externe) : " + estInterne 
                + (indisponibilites == null ? ""
                                            : ", liste des indisponibilites : "
                                            + listeIndisponibilite.toString());
-    }
-
-    /**
-     * Récupère l'identifiant du conférencier.
-     * @return l'identifiant du conférencier
-     */
-    public String getIdentifiant() {
-        return identifiant;
     }
     
     /**

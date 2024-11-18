@@ -24,8 +24,6 @@ import application.modele.ExpositionTemporaire;
  */
 class TestExpositionTemporaire {
     
-    private final String IDENTIFIANT_EXPO_VALIDE = "E000001";
-    
     private final String INTITULE_EXPO_VALIDE = "Les paysages impressionnistes";
     
     private final int PERIODEDEB_EXPO_VALIDE = 1880;
@@ -44,26 +42,22 @@ class TestExpositionTemporaire {
     
     private final ExpositionTemporaire[] EXPOSITIONS_TEMP_VALIDES =
     {
-        new ExpositionTemporaire(IDENTIFIANT_EXPO_VALIDE, INTITULE_EXPO_VALIDE,
-                                 PERIODEDEB_EXPO_VALIDE, PERIODEFIN_EXPO_VALIDE,
-                                 NBOEUVRE_EXPO_VALIDE, MOTSCLES_EXPO_VALIDE,
-                                 RESUME_EXPO_VALIDE, LocalDate.of(2005, 5, 28),
-                                 DATE_VALIDE),
-        new ExpositionTemporaire(IDENTIFIANT_EXPO_VALIDE, INTITULE_EXPO_VALIDE,
-                                 PERIODEDEB_EXPO_VALIDE, PERIODEFIN_EXPO_VALIDE,
-                                 NBOEUVRE_EXPO_VALIDE, MOTSCLES_EXPO_VALIDE,
-                                 RESUME_EXPO_VALIDE, LocalDate.of(2005, 3, 21),
-                                 DATE_VALIDE),
-        new ExpositionTemporaire(IDENTIFIANT_EXPO_VALIDE, INTITULE_EXPO_VALIDE,
-                                 PERIODEDEB_EXPO_VALIDE, PERIODEFIN_EXPO_VALIDE,
-                                 NBOEUVRE_EXPO_VALIDE, MOTSCLES_EXPO_VALIDE,
-                                 RESUME_EXPO_VALIDE, LocalDate.of(2005, 8, 14),
-                                 DATE_VALIDE),
-        new ExpositionTemporaire(IDENTIFIANT_EXPO_VALIDE, INTITULE_EXPO_VALIDE,
-                                 PERIODEDEB_EXPO_VALIDE, PERIODEFIN_EXPO_VALIDE,
-                                 NBOEUVRE_EXPO_VALIDE, MOTSCLES_EXPO_VALIDE,
-                                 RESUME_EXPO_VALIDE, LocalDate.of(2005, 11, 20),
-                                 DATE_VALIDE),
+        new ExpositionTemporaire(INTITULE_EXPO_VALIDE, PERIODEDEB_EXPO_VALIDE,
+                                 PERIODEFIN_EXPO_VALIDE, NBOEUVRE_EXPO_VALIDE,
+                                 MOTSCLES_EXPO_VALIDE, RESUME_EXPO_VALIDE,
+                                 LocalDate.of(2005, 5, 28), DATE_VALIDE),
+        new ExpositionTemporaire(INTITULE_EXPO_VALIDE, PERIODEDEB_EXPO_VALIDE,
+                                 PERIODEFIN_EXPO_VALIDE, NBOEUVRE_EXPO_VALIDE,
+                                 MOTSCLES_EXPO_VALIDE, RESUME_EXPO_VALIDE,
+                                 LocalDate.of(2005, 3, 21), DATE_VALIDE),
+        new ExpositionTemporaire(INTITULE_EXPO_VALIDE, PERIODEDEB_EXPO_VALIDE,
+                                 PERIODEFIN_EXPO_VALIDE, NBOEUVRE_EXPO_VALIDE,
+                                 MOTSCLES_EXPO_VALIDE, RESUME_EXPO_VALIDE,
+                                 LocalDate.of(2005, 8, 14), DATE_VALIDE),
+        new ExpositionTemporaire(INTITULE_EXPO_VALIDE, PERIODEDEB_EXPO_VALIDE,
+                                 PERIODEFIN_EXPO_VALIDE, NBOEUVRE_EXPO_VALIDE,
+                                 MOTSCLES_EXPO_VALIDE, RESUME_EXPO_VALIDE,
+                                 LocalDate.of(2005, 11, 20), DATE_VALIDE),
     };
 
     /**
@@ -76,8 +70,7 @@ class TestExpositionTemporaire {
     void testExpositionTemporaireInvalide() {
         
         assertThrows(IllegalArgumentException.class, 
-                     () -> new ExpositionTemporaire(IDENTIFIANT_EXPO_VALIDE,
-                                                    INTITULE_EXPO_VALIDE,
+                     () -> new ExpositionTemporaire(INTITULE_EXPO_VALIDE,
                                                     PERIODEDEB_EXPO_VALIDE,
                                                     PERIODEFIN_EXPO_VALIDE,
                                                     NBOEUVRE_EXPO_VALIDE,
@@ -85,8 +78,7 @@ class TestExpositionTemporaire {
                                                     RESUME_EXPO_VALIDE,
                                                     null, null));
         assertThrows(IllegalArgumentException.class, 
-                     () -> new ExpositionTemporaire(IDENTIFIANT_EXPO_VALIDE,
-                                                    INTITULE_EXPO_VALIDE,
+                     () -> new ExpositionTemporaire(INTITULE_EXPO_VALIDE,
                                                     PERIODEDEB_EXPO_VALIDE,
                                                     PERIODEFIN_EXPO_VALIDE,
                                                     NBOEUVRE_EXPO_VALIDE,
@@ -94,8 +86,7 @@ class TestExpositionTemporaire {
                                                     RESUME_EXPO_VALIDE,
                                                     DATE_VALIDE, null));
         assertThrows(IllegalArgumentException.class, 
-                     () -> new ExpositionTemporaire(IDENTIFIANT_EXPO_VALIDE,
-                                                    INTITULE_EXPO_VALIDE,
+                     () -> new ExpositionTemporaire(INTITULE_EXPO_VALIDE,
                                                     PERIODEDEB_EXPO_VALIDE,
                                                     PERIODEFIN_EXPO_VALIDE,
                                                     NBOEUVRE_EXPO_VALIDE,
@@ -103,8 +94,7 @@ class TestExpositionTemporaire {
                                                     RESUME_EXPO_VALIDE,
                                                     null, DATE_VALIDE));
         assertThrows(IllegalArgumentException.class, 
-                     () -> new ExpositionTemporaire(IDENTIFIANT_EXPO_VALIDE,
-                                                    INTITULE_EXPO_VALIDE,
+                     () -> new ExpositionTemporaire(INTITULE_EXPO_VALIDE,
                                                     PERIODEDEB_EXPO_VALIDE,
                                                     PERIODEFIN_EXPO_VALIDE,
                                                     NBOEUVRE_EXPO_VALIDE,
@@ -112,8 +102,7 @@ class TestExpositionTemporaire {
                                                     RESUME_EXPO_VALIDE,
                                                     DATE_VALIDE, DATE_VALIDE));
         assertThrows(IllegalArgumentException.class, 
-                     () -> new ExpositionTemporaire(IDENTIFIANT_EXPO_VALIDE,
-                                                    INTITULE_EXPO_VALIDE,
+                     () -> new ExpositionTemporaire(INTITULE_EXPO_VALIDE,
                                                     PERIODEDEB_EXPO_VALIDE,
                                                     PERIODEFIN_EXPO_VALIDE,
                                                     NBOEUVRE_EXPO_VALIDE,
@@ -122,8 +111,7 @@ class TestExpositionTemporaire {
                                                     DATE_VALIDE,
                                                     LocalDate.of(2005, 5, 28)));
         assertThrows(IllegalArgumentException.class, 
-                     () -> new ExpositionTemporaire(IDENTIFIANT_EXPO_VALIDE,
-                                                    INTITULE_EXPO_VALIDE,
+                     () -> new ExpositionTemporaire(INTITULE_EXPO_VALIDE,
                                                     PERIODEDEB_EXPO_VALIDE,
                                                     PERIODEFIN_EXPO_VALIDE,
                                                     NBOEUVRE_EXPO_VALIDE,
@@ -132,8 +120,7 @@ class TestExpositionTemporaire {
                                                     DATE_VALIDE,
                                                     LocalDate.of(2005, 3, 21)));
         assertThrows(IllegalArgumentException.class, 
-                     () -> new ExpositionTemporaire(IDENTIFIANT_EXPO_VALIDE,
-                                                    INTITULE_EXPO_VALIDE,
+                     () -> new ExpositionTemporaire(INTITULE_EXPO_VALIDE,
                                                     PERIODEDEB_EXPO_VALIDE,
                                                     PERIODEFIN_EXPO_VALIDE,
                                                     NBOEUVRE_EXPO_VALIDE,
@@ -142,8 +129,7 @@ class TestExpositionTemporaire {
                                                     DATE_VALIDE,
                                                     LocalDate.of(2005, 8, 14)));
         assertThrows(IllegalArgumentException.class, 
-                     () -> new ExpositionTemporaire(IDENTIFIANT_EXPO_VALIDE,
-                                                    INTITULE_EXPO_VALIDE,
+                     () -> new ExpositionTemporaire(INTITULE_EXPO_VALIDE,
                                                     PERIODEDEB_EXPO_VALIDE,
                                                     PERIODEFIN_EXPO_VALIDE,
                                                     NBOEUVRE_EXPO_VALIDE,
@@ -163,8 +149,7 @@ class TestExpositionTemporaire {
     void testExpositionTemporaireValide() {
 
         assertDoesNotThrow(
-                () -> new ExpositionTemporaire(IDENTIFIANT_EXPO_VALIDE,
-                                               INTITULE_EXPO_VALIDE,
+                () -> new ExpositionTemporaire(INTITULE_EXPO_VALIDE,
                                                PERIODEDEB_EXPO_VALIDE,
                                                PERIODEFIN_EXPO_VALIDE,
                                                NBOEUVRE_EXPO_VALIDE,
@@ -173,8 +158,7 @@ class TestExpositionTemporaire {
                                                LocalDate.of(2005, 5, 28),
                                                DATE_VALIDE));
         assertDoesNotThrow(
-                () -> new ExpositionTemporaire(IDENTIFIANT_EXPO_VALIDE,
-                                               INTITULE_EXPO_VALIDE,
+                () -> new ExpositionTemporaire(INTITULE_EXPO_VALIDE,
                                                PERIODEDEB_EXPO_VALIDE,
                                                PERIODEFIN_EXPO_VALIDE,
                                                NBOEUVRE_EXPO_VALIDE,
@@ -183,8 +167,7 @@ class TestExpositionTemporaire {
                                                LocalDate.of(2005, 3, 21),
                                                DATE_VALIDE));
         assertDoesNotThrow(
-                () -> new ExpositionTemporaire(IDENTIFIANT_EXPO_VALIDE,
-                                               INTITULE_EXPO_VALIDE,
+                () -> new ExpositionTemporaire(INTITULE_EXPO_VALIDE,
                                                PERIODEDEB_EXPO_VALIDE,
                                                PERIODEFIN_EXPO_VALIDE,
                                                NBOEUVRE_EXPO_VALIDE,
@@ -193,8 +176,7 @@ class TestExpositionTemporaire {
                                                LocalDate.of(2005, 8, 14),
                                                DATE_VALIDE));
         assertDoesNotThrow(
-                () -> new ExpositionTemporaire(IDENTIFIANT_EXPO_VALIDE,
-                                               INTITULE_EXPO_VALIDE,
+                () -> new ExpositionTemporaire(INTITULE_EXPO_VALIDE,
                                                PERIODEDEB_EXPO_VALIDE,
                                                PERIODEFIN_EXPO_VALIDE,
                                                NBOEUVRE_EXPO_VALIDE,

@@ -21,8 +21,6 @@ import application.modele.Exposition;
  * @version 1.0 
  */
 class TestExposition {
-
-    private final String IDENTIFIANT_EXPO_VALIDE = "E000001";
     
     private final String INTITULE_EXPO_VALIDE = "Les paysages impressionnistes";
     
@@ -40,12 +38,12 @@ class TestExposition {
     
     private final Exposition[] EXPO_VALIDES =
     {
-        new Exposition("N000001", INTITULE_EXPO_VALIDE, 1725, 1850, 15,
+        new Exposition(INTITULE_EXPO_VALIDE, 1725, 1850, 15,
                        new String[] {"Romain", "Ayoub", "Esteban", "Baptiste",
                                      "paysage", "mars"},
                        "Une grande exposition sur des paysages originaux et"
                        + " audacieux"),
-        new Exposition("N000002", INTITULE_EXPO_VALIDE, 1800, 1900, 45,
+        new Exposition(INTITULE_EXPO_VALIDE, 1800, 1900, 45,
                        new String[] {"cubisme", "oeuvre", "abstrait", 
                                      "art moderne"},
                        "Une exposition d'œuvres cubistes influentes."),
@@ -59,33 +57,17 @@ class TestExposition {
      */
     @Test
     void testExpositionInvalide() {
-        
-        // Test avec identifiant null ou vide
-        assertThrows(IllegalArgumentException.class, 
-                     () -> new Exposition(null, INTITULE_EXPO_VALIDE, 
-                                          PERIODEDEB_EXPO_VALIDE, 
-                                          PERIODEFIN_EXPO_VALIDE,
-                                          NBOEUVRE_EXPO_VALIDE, 
-                                          MOTSCLES_EXPO_VALIDE,
-                                          RESUME_EXPO_VALIDE));
-        assertThrows(IllegalArgumentException.class, 
-                     () -> new Exposition("", INTITULE_EXPO_VALIDE, 
-                                          PERIODEDEB_EXPO_VALIDE, 
-                                          PERIODEFIN_EXPO_VALIDE,
-                                          NBOEUVRE_EXPO_VALIDE, 
-                                          MOTSCLES_EXPO_VALIDE,
-                                          RESUME_EXPO_VALIDE));
 
         // Test avec intitulé null ou vide
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Exposition(IDENTIFIANT_EXPO_VALIDE, null, 
+                     () -> new Exposition(null, 
                                           PERIODEDEB_EXPO_VALIDE, 
                                           PERIODEFIN_EXPO_VALIDE,
                                           NBOEUVRE_EXPO_VALIDE, 
                                           MOTSCLES_EXPO_VALIDE,
                                           RESUME_EXPO_VALIDE));
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Exposition(IDENTIFIANT_EXPO_VALIDE, "",
+                     () -> new Exposition("",
                                           PERIODEDEB_EXPO_VALIDE, 
                                           PERIODEFIN_EXPO_VALIDE,
                                           NBOEUVRE_EXPO_VALIDE, 
@@ -94,35 +76,30 @@ class TestExposition {
 
         // Test avec périodes invalides
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Exposition(IDENTIFIANT_EXPO_VALIDE,
-                                          INTITULE_EXPO_VALIDE, 
+                     () -> new Exposition(INTITULE_EXPO_VALIDE, 
                                           2025, 1880, NBOEUVRE_EXPO_VALIDE, 
                                           MOTSCLES_EXPO_VALIDE,
                                           RESUME_EXPO_VALIDE));
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Exposition(IDENTIFIANT_EXPO_VALIDE,
-                                          INTITULE_EXPO_VALIDE, 1880, 0, 
+                     () -> new Exposition(INTITULE_EXPO_VALIDE, 1880, 0, 
                                           NBOEUVRE_EXPO_VALIDE, 
                                           MOTSCLES_EXPO_VALIDE,
                                           RESUME_EXPO_VALIDE));
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Exposition(IDENTIFIANT_EXPO_VALIDE,
-                                          INTITULE_EXPO_VALIDE, 0, -40,
+                     () -> new Exposition(INTITULE_EXPO_VALIDE, 0, -40,
                                           NBOEUVRE_EXPO_VALIDE, 
                                           MOTSCLES_EXPO_VALIDE,
                                           RESUME_EXPO_VALIDE));
 
         // Test avec nombre d'œuvres invalide
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Exposition(IDENTIFIANT_EXPO_VALIDE, 
-                                          INTITULE_EXPO_VALIDE, 
+                     () -> new Exposition(INTITULE_EXPO_VALIDE, 
                                           PERIODEDEB_EXPO_VALIDE,
                                           PERIODEFIN_EXPO_VALIDE, 0,
                                           MOTSCLES_EXPO_VALIDE,
                                           RESUME_EXPO_VALIDE));
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Exposition(IDENTIFIANT_EXPO_VALIDE,
-                                          INTITULE_EXPO_VALIDE, 
+                     () -> new Exposition(INTITULE_EXPO_VALIDE, 
                                           PERIODEDEB_EXPO_VALIDE,
                                           PERIODEFIN_EXPO_VALIDE, -5, 
                                           MOTSCLES_EXPO_VALIDE, 
@@ -130,15 +107,13 @@ class TestExposition {
 
         // Test avec liste de mots-clés invalide
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Exposition(IDENTIFIANT_EXPO_VALIDE,
-                                          INTITULE_EXPO_VALIDE, 
+                     () -> new Exposition(INTITULE_EXPO_VALIDE, 
                                           PERIODEDEB_EXPO_VALIDE,
                                           PERIODEFIN_EXPO_VALIDE, 
                                           NBOEUVRE_EXPO_VALIDE, null,
                                           RESUME_EXPO_VALIDE));
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Exposition(IDENTIFIANT_EXPO_VALIDE,
-                                          INTITULE_EXPO_VALIDE, 
+                     () -> new Exposition(INTITULE_EXPO_VALIDE, 
                                           PERIODEDEB_EXPO_VALIDE,
                                           PERIODEFIN_EXPO_VALIDE, 
                                           NBOEUVRE_EXPO_VALIDE, new String[0], 
@@ -146,8 +121,7 @@ class TestExposition {
         
         // Test avec plus de 10 mots-clés
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Exposition(IDENTIFIANT_EXPO_VALIDE,
-                                          INTITULE_EXPO_VALIDE, 
+                     () -> new Exposition(INTITULE_EXPO_VALIDE, 
                                           PERIODEDEB_EXPO_VALIDE,
                                           PERIODEFIN_EXPO_VALIDE, 
                                           NBOEUVRE_EXPO_VALIDE, 
@@ -159,16 +133,14 @@ class TestExposition {
 
         // Test avec un mot-clé null ou vide
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Exposition(IDENTIFIANT_EXPO_VALIDE,
-                                          INTITULE_EXPO_VALIDE, 
+                     () -> new Exposition(INTITULE_EXPO_VALIDE, 
                                           PERIODEDEB_EXPO_VALIDE,
                                           PERIODEFIN_EXPO_VALIDE, 
                                           NBOEUVRE_EXPO_VALIDE, 
                                           new String[]{"paysage", null}, 
                                           RESUME_EXPO_VALIDE));
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Exposition(IDENTIFIANT_EXPO_VALIDE,
-                                          INTITULE_EXPO_VALIDE, 
+                     () -> new Exposition(INTITULE_EXPO_VALIDE, 
                                           PERIODEDEB_EXPO_VALIDE,
                                           PERIODEFIN_EXPO_VALIDE, 
                                           NBOEUVRE_EXPO_VALIDE, 
@@ -177,15 +149,13 @@ class TestExposition {
 
         // Test avec résumé invalide
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Exposition(IDENTIFIANT_EXPO_VALIDE,
-                                          INTITULE_EXPO_VALIDE, 
+                     () -> new Exposition(INTITULE_EXPO_VALIDE, 
                                           PERIODEDEB_EXPO_VALIDE,
                                           PERIODEFIN_EXPO_VALIDE, 
                                           NBOEUVRE_EXPO_VALIDE,
                                           MOTSCLES_EXPO_VALIDE, null));
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Exposition(IDENTIFIANT_EXPO_VALIDE,
-                                          INTITULE_EXPO_VALIDE,
+                     () -> new Exposition(INTITULE_EXPO_VALIDE,
                                           PERIODEDEB_EXPO_VALIDE,
                                           PERIODEFIN_EXPO_VALIDE, 
                                           NBOEUVRE_EXPO_VALIDE,
@@ -201,28 +171,12 @@ class TestExposition {
     @Test
     void testExpositionValide() {
         
-        assertDoesNotThrow(() -> new Exposition(IDENTIFIANT_EXPO_VALIDE,
-                                                INTITULE_EXPO_VALIDE, 
+        assertDoesNotThrow(() -> new Exposition(INTITULE_EXPO_VALIDE, 
                                                 PERIODEDEB_EXPO_VALIDE,
                                                 PERIODEFIN_EXPO_VALIDE, 
                                                 NBOEUVRE_EXPO_VALIDE,
                                                 MOTSCLES_EXPO_VALIDE, 
                                                 RESUME_EXPO_VALIDE));
-    }
-    
-    /**
-     * Méthode de test pour 
-     * {@link application.modele.Exposition#getIdentifiant()}.
-     */
-    @Test
-    void testGetIdentifiant() {
-        
-        assertEquals("N000001", EXPO_VALIDES[0].getIdentifiant());
-        assertEquals("N000002", EXPO_VALIDES[1].getIdentifiant());
-
-        assertNotEquals("N000003", EXPO_VALIDES[1].getIdentifiant());
-        assertNotEquals(null, EXPO_VALIDES[0].getIdentifiant());
-        assertNotEquals("", EXPO_VALIDES[0].getIdentifiant());
     }
 
     /**
@@ -231,8 +185,7 @@ class TestExposition {
     @Test
     void testGetIntitule() {
         
-        Exposition expo = new Exposition(IDENTIFIANT_EXPO_VALIDE,
-                                         INTITULE_EXPO_VALIDE, 
+        Exposition expo = new Exposition(INTITULE_EXPO_VALIDE, 
                                          PERIODEDEB_EXPO_VALIDE,
                                          PERIODEFIN_EXPO_VALIDE, 
                                          NBOEUVRE_EXPO_VALIDE,

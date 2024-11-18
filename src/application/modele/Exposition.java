@@ -35,12 +35,6 @@ public class Exposition implements Serializable {
     
     private static final long serialVersionUID = 1L;
     
-    private static String ERREUR_IDENTIFIANT_INVALIDE =
-    """
-    Impossible de créer une exposition.
-    L'identifiant de l'exposition ne doit pas être nul ou vide.                
-    """;
-    
     private static String ERREUR_INTITULE_INVALIDE =
     """
     Impossible de créer une exposition.
@@ -71,8 +65,6 @@ public class Exposition implements Serializable {
     Impossible de créer une exposition.
     Le résumé de l'exposition ne doit pas être nul ou vide.                
     """;
-
-    private String identifiant;
     
     private String intitule;
     
@@ -92,7 +84,6 @@ public class Exposition implements Serializable {
      * de fin, un nombre d'oeuvres, une liste de mots clés et un
      * résumé.
      * 
-     * @param identifiant l'identifiant/code de l'exposition
      * @param intitule le nom ou la désignation de l'exposition
      * @param periodeDebut l'année de début que les oeuvres de
      *                     l'exposition recouvrent
@@ -102,9 +93,6 @@ public class Exposition implements Serializable {
      * @param motsCles liste de mots clés permettant de retrouver
      *                 l'exposition
      * @param resume le résumé de l'exposition
-     * @throws IllegalArgumentException si la référence de
-     *                                  l'identifiant est nulle ou
-     *                                  l'identifiant est vide
      * @throws IllegalArgumentException si la référence de l'intitulé
      *                                  est nulle ou l'intitulé est
      *                                  vide
@@ -123,13 +111,8 @@ public class Exposition implements Serializable {
      * @throws IllegalArgumentException si la référence du résumé est
      *                                  nulle ou le résumé est vide
      */
-    public Exposition (String identifiant,String intitule, int periodeDebut,
-                       int periodeFin, int nbOeuvre, String[] motsCles,
-                       String resume) {
-        
-        if (identifiant == null || identifiant.isBlank()) {
-            throw new IllegalArgumentException(ERREUR_IDENTIFIANT_INVALIDE);
-        }
+    public Exposition (String intitule, int periodeDebut, int periodeFin,
+                       int nbOeuvre, String[] motsCles, String resume) {
         
         if (intitule == null || intitule.isBlank()) {
             throw new IllegalArgumentException(ERREUR_INTITULE_INVALIDE);
@@ -159,21 +142,12 @@ public class Exposition implements Serializable {
             throw new IllegalArgumentException(ERREUR_RESUME_INVALIDE);
         }
 
-        this.identifiant = identifiant.trim();
         this.intitule = intitule.trim();
         this.periodeDebut = periodeDebut;
         this.periodeFin = periodeFin;
         this.nbOeuvre = nbOeuvre;
         this.motsCles = motsCles;
         this.resume = resume.trim();
-    }
-
-    /**
-     * Récupère l'identifiant de l'exposition
-     * @return l'identifiant de l'exposition
-     */
-    public String getIdentifiant() {
-        return identifiant;
     }
 
     /**

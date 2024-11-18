@@ -32,17 +32,19 @@ class TestEmploye {
     
     private final Employe[] EMPLOYES_VALIDES =
     {
-        new Employe("N000001", "Thenieres", "Baptiste", "1234"),
-        new Employe("N000002", "Laluti", "Ayoub", "5678"),
-        new Employe("N000003", "Augé", "Romain", "9876"),
-        new Employe("N000004", "Vroemen", "Esteban", "2049"),
+        new Employe("Thenieres", "Baptiste", "1234"),
+        new Employe("Laluti", "Ayoub", "5678"),
+        new Employe("Augé", "Romain", "9876"),
+        new Employe("Vroemen", "Esteban", "2049"),
     };
     
     /**
      * Méthode de test pour 
-     * {@link application.modele.Employe#Employe(java.lang.String, java.lang.String, java.lang.String)}
+     * {@link application.modele.Employe#Employe(java.lang.String,
+     * java.lang.String, java.lang.String)}
      * et
-     * {@link application.modele.Employe#Employe(java.lang.String, java.lang.String, java.lang.String, java.lang.String)}
+     * {@link application.modele.Employe#Employe(java.lang.String,
+     * java.lang.String, java.lang.String, java.lang.String)}
      * Cas uniquement invalides
      */
     @Test
@@ -113,62 +115,46 @@ class TestEmploye {
          * Tests spécifiques au constructeur à 4 arguments
          */
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Employe(null, null, null, null));
+                     () -> new Employe(null, null, null));
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Employe("", null, null, null));
+                     () -> new Employe("", null, null));
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Employe(null, "", null, null));
+                     () -> new Employe(null, "", null));
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Employe(null, null, "", null));
+                     () -> new Employe(null, null, ""));
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Employe(null, null, null, ""));
+                     () -> new Employe("", "", null));
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Employe("", "", null, null));
+                     () -> new Employe(null, "", ""));
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Employe("", null, "", null));
+                     () -> new Employe("", null, ""));
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Employe("", null, null, ""));
-        assertThrows(IllegalArgumentException.class, 
-                     () -> new Employe(" ", "  ", "   ", "    "));
+                     () -> new Employe(" ", "  ", "   "));
         
         /*
          * Tests avec un unique argument null
          */
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Employe(IDENTIFIANT_EMPLOYE_VALIDE, 
-                                       NOM_EMPLOYE_VALIDE, null,
+                     () -> new Employe(NOM_EMPLOYE_VALIDE, null,
                                        NUMTEL_EMPLOYE_VALIDE));
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Employe(null, NOM_EMPLOYE_VALIDE, 
-                                       PRENOM_EMPLOYE_VALIDE,
+                     () -> new Employe(null, PRENOM_EMPLOYE_VALIDE,
                                        NUMTEL_EMPLOYE_VALIDE));
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Employe(IDENTIFIANT_EMPLOYE_VALIDE, null, 
-                                       PRENOM_EMPLOYE_VALIDE,
-                                       NUMTEL_EMPLOYE_VALIDE));
-        assertThrows(IllegalArgumentException.class, 
-                     () -> new Employe(IDENTIFIANT_EMPLOYE_VALIDE,
-                                       NOM_EMPLOYE_VALIDE, 
+                     () -> new Employe(NOM_EMPLOYE_VALIDE,
                                        PRENOM_EMPLOYE_VALIDE, null));
         
         /*
          * Tests avec un unique argument vide
          */
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Employe(IDENTIFIANT_EMPLOYE_VALIDE, 
-                                       NOM_EMPLOYE_VALIDE, "",
+                     () -> new Employe(NOM_EMPLOYE_VALIDE, "",
                                        NUMTEL_EMPLOYE_VALIDE));
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Employe("", NOM_EMPLOYE_VALIDE, 
-                                       PRENOM_EMPLOYE_VALIDE,
+                     () -> new Employe("", PRENOM_EMPLOYE_VALIDE,
                                        NUMTEL_EMPLOYE_VALIDE));
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Employe(IDENTIFIANT_EMPLOYE_VALIDE, "", 
-                                       PRENOM_EMPLOYE_VALIDE,
-                                       NUMTEL_EMPLOYE_VALIDE));
-        assertThrows(IllegalArgumentException.class, 
-                     () -> new Employe(IDENTIFIANT_EMPLOYE_VALIDE,
-                                       NOM_EMPLOYE_VALIDE, 
+                     () -> new Employe(NOM_EMPLOYE_VALIDE, 
                                        PRENOM_EMPLOYE_VALIDE, ""));
         
 
@@ -178,32 +164,29 @@ class TestEmploye {
          * Identifiant, nom et prénom toujours valides
          */
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Employe(IDENTIFIANT_EMPLOYE_VALIDE, 
-                                       NOM_EMPLOYE_VALIDE,
+                     () -> new Employe(NOM_EMPLOYE_VALIDE,
                                        PRENOM_EMPLOYE_VALIDE, null));
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Employe(IDENTIFIANT_EMPLOYE_VALIDE, 
-                                       NOM_EMPLOYE_VALIDE,
+                     () -> new Employe(NOM_EMPLOYE_VALIDE,
                                        PRENOM_EMPLOYE_VALIDE, ""));
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Employe(IDENTIFIANT_EMPLOYE_VALIDE, 
-                                       NOM_EMPLOYE_VALIDE,
+                     () -> new Employe(NOM_EMPLOYE_VALIDE,
                                        PRENOM_EMPLOYE_VALIDE, "123"));
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Employe(IDENTIFIANT_EMPLOYE_VALIDE, 
-                                       NOM_EMPLOYE_VALIDE,
+                     () -> new Employe(NOM_EMPLOYE_VALIDE,
                                        PRENOM_EMPLOYE_VALIDE, "12345"));
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Employe(IDENTIFIANT_EMPLOYE_VALIDE, 
-                                       NOM_EMPLOYE_VALIDE,
+                     () -> new Employe(NOM_EMPLOYE_VALIDE,
                                        PRENOM_EMPLOYE_VALIDE, "12a4"));
     }
 
     /**
      * Méthode de test pour 
-     * {@link application.modele.Employe#Employe(java.lang.String, java.lang.String, java.lang.String)}
+     * {@link application.modele.Employe#Employe(java.lang.String,
+     * java.lang.String, java.lang.String)}
      * et
-     * {@link application.modele.Employe#Employe(java.lang.String, java.lang.String, java.lang.String, java.lang.String)}
+     * {@link application.modele.Employe#Employe(java.lang.String,
+     * java.lang.String, java.lang.String, java.lang.String)}
      * Cas uniquement valides
      */
     @Test
@@ -212,44 +195,20 @@ class TestEmploye {
         /*
          * Tests spécifiques au constructeur à 3 arguments
          */
-        assertDoesNotThrow(() -> new Employe(IDENTIFIANT_EMPLOYE_VALIDE, 
-                                             NOM_EMPLOYE_VALIDE,
+        assertDoesNotThrow(() -> new Employe(NOM_EMPLOYE_VALIDE,
                                              PRENOM_EMPLOYE_VALIDE));
-        assertDoesNotThrow(() -> new Employe("N000002", "Thenieres", 
-                                             "Baptiste"));
-        assertDoesNotThrow(() -> new Employe("N000003", "Laluti", "Ayoub"));
-        assertDoesNotThrow(() -> new Employe("N000004", "Augé", "Romain"));
-        assertDoesNotThrow(() -> new Employe("N000005", "Vroemen", "Esteban"));
+        assertDoesNotThrow(() -> new Employe("Thenieres", "Baptiste"));
+        assertDoesNotThrow(() -> new Employe("Laluti", "Ayoub"));
+        assertDoesNotThrow(() -> new Employe("Augé", "Romain"));
+        assertDoesNotThrow(() -> new Employe("Vroemen", "Esteban"));
         
         /*
          * Tests spécifiques au constructeur à 4 arguments
          */
-        assertDoesNotThrow(() -> new Employe("N000001", "Thenieres", "Baptiste", 
-                                             "1234"));
-        assertDoesNotThrow(() -> new Employe("N000002", "Laluti", "Ayoub", 
-                                             "5678"));
-        assertDoesNotThrow(() -> new Employe("N000003", "Augé", "Romain", 
-                                             "9876"));
-        assertDoesNotThrow(() -> new Employe("N000004", "Vroemen", "Esteban", 
-                                             "2049"));
-    }
-
-    /**
-     * Méthode de test pour 
-     * {@link application.modele.Employe#getIdentifiant()}.
-     */
-    @Test
-    void testGetIdentifiant() {
-
-        assertEquals("N000001", EMPLOYES_VALIDES[0].getIdentifiant());
-        assertEquals("N000002", EMPLOYES_VALIDES[1].getIdentifiant());
-        assertEquals("N000003", EMPLOYES_VALIDES[2].getIdentifiant());
-        assertEquals("N000004", EMPLOYES_VALIDES[3].getIdentifiant());
-        
-        assertNotEquals(null, EMPLOYES_VALIDES[1].getIdentifiant());
-        assertNotEquals("", EMPLOYES_VALIDES[2].getIdentifiant());
-        assertNotEquals("  ", EMPLOYES_VALIDES[3].getIdentifiant());
-        assertNotEquals("E0000001", EMPLOYES_VALIDES[0].getIdentifiant());
+        assertDoesNotThrow(() -> new Employe("Thenieres", "Baptiste", "1234"));
+        assertDoesNotThrow(() -> new Employe("Laluti", "Ayoub", "5678"));
+        assertDoesNotThrow(() -> new Employe("Augé", "Romain", "9876"));
+        assertDoesNotThrow(() -> new Employe("Vroemen", "Esteban", "2049"));
     }
 
     /**
@@ -279,8 +238,7 @@ class TestEmploye {
 
         Employe testEmploye;
         
-        testEmploye = new Employe(IDENTIFIANT_EMPLOYE_VALIDE, 
-                                  NOM_EMPLOYE_VALIDE,
+        testEmploye = new Employe(NOM_EMPLOYE_VALIDE,
                                   PRENOM_EMPLOYE_VALIDE);
         assertThrows(IllegalArgumentException.class,
                      () -> testEmploye.setNumTel(null));

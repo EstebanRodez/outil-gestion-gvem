@@ -81,19 +81,17 @@ public class TraitementDonnees {
             
             if (donneesLigne.length == 7) { // Exposition permanente
 
-                expo = new Exposition(identifiant, intitule, periodeDebut, 
-                                      periodeFin, nbOeuvre, motsCles,
-                                      resume);
+                expo = new Exposition(intitule, periodeDebut, periodeFin,
+                                      nbOeuvre, motsCles, resume);
 
             } else { // Exposition temporaire
                 
                 dateDebut = LocalDate.parse(donneesLigne[7], FORMATTER_DATE_FR);
                 dateFin = LocalDate.parse(donneesLigne[8], FORMATTER_DATE_FR);
 
-                expo = new ExpositionTemporaire(identifiant, intitule,
-                                                periodeDebut, periodeFin,
-                                                nbOeuvre, motsCles, resume,
-                                                dateDebut, dateFin);
+                expo = new ExpositionTemporaire(intitule, periodeDebut,
+                                                periodeFin, nbOeuvre, motsCles,
+                                                resume, dateDebut, dateFin);
             }
             donnees.getExpositions().putLast(identifiant, expo);
         }
@@ -123,11 +121,11 @@ public class TraitementDonnees {
             prenom = donneesLigne[2];
             if (donneesLigne.length == 3 || donneesLigne[3].isBlank()) { 
                 
-                employe = new Employe(identifiant, nom, prenom);
+                employe = new Employe(nom, prenom);
             } else { 
                 
                 numTel = donneesLigne[3];
-                employe = new Employe(identifiant, nom, prenom, numTel);   
+                employe = new Employe(nom, prenom, numTel);   
             }
             donnees.getEmployes().putLast(identifiant, employe);
         }     
@@ -167,15 +165,14 @@ public class TraitementDonnees {
                 || donneesLigne[6].isBlank()
                 || donneesLigne[7].isBlank()) {
 
-                conferencier = new Conferencier(identifiant, nom, prenom, 
-                                                specialites, numTel,
-                                                estInterne);
+                conferencier = new Conferencier(nom, prenom, specialites,
+                                                numTel, estInterne);
             } else {                     
 
                 indisponibilites = creeIndisponibilité(donneesLigne);
-                conferencier = new Conferencier(identifiant, nom, prenom, 
-                                                specialites, numTel, 
-                                                estInterne, indisponibilites);   
+                conferencier = new Conferencier(nom, prenom, specialites,
+                                                numTel, estInterne,
+                                                indisponibilites);   
             }
             donnees.getConferenciers().putLast(identifiant, conferencier);
         }
@@ -248,8 +245,8 @@ public class TraitementDonnees {
             }
 
             // Créer l'objet Visite
-            visite = new Visite(identifiant, heureDebut, date, client,
-                    exposition, employe, conferencier);
+            visite = new Visite(heureDebut, date, client, exposition, employe,
+                                conferencier);
 
             donnees.getVisites().putLast(identifiant, visite);        
         }

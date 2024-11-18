@@ -24,12 +24,6 @@ public class Employe implements Serializable {
     
     private static final String NUMTEL_DEFAUT = "Inconnu";
     
-    private static final String ERREUR_IDENTIFIANT_INVALIDE =
-    """
-    Impossible de créer un employé.
-    L'identifiant de l'employé ne doit pas être nul ou vide.                
-    """;
-    
     private static final String ERREUR_NOM_INVALIDE =
     """
     Impossible de créer un employé.
@@ -60,8 +54,6 @@ public class Employe implements Serializable {
     Le prénom de l'employé ne doit pas être nul ou vide.                
     """;
     
-    private String identifiant;
-    
     private String nom;
     
     private String prenom;
@@ -72,22 +64,14 @@ public class Employe implements Serializable {
      * Crée un employé avec un identifiant, un nom et un prénom.
      * Le numéro de téléphone est initialisé par défaut.
      * 
-     * @param identifiant l'identifiant unique de l'employé
      * @param nom le nom de l'employé
      * @param prenom le prénom de l'employé
-     * @throws IllegalArgumentException si la référence de
-     *                                  l'identifiant est nul ou
-     *                                  l'identifiant est vide
      * @throws IllegalArgumentException si la référence du nom est
      *                                  nul ou le nom est vide
      * @throws IllegalArgumentException si la référence du prénom est
      *                                  nul ou le prénom est vide
      */
-    public Employe(String identifiant, String nom, String prenom) {
-        
-        if (identifiant == null || identifiant.isBlank()) {
-            throw new IllegalArgumentException(ERREUR_IDENTIFIANT_INVALIDE);
-        }
+    public Employe(String nom, String prenom) {
         
         if (nom == null || nom.isBlank()) {
             throw new IllegalArgumentException(ERREUR_NOM_INVALIDE);
@@ -97,7 +81,6 @@ public class Employe implements Serializable {
             throw new IllegalArgumentException(ERREUR_PRENOM_INVALIDE);
         }
         
-        this.identifiant = identifiant.trim();
         this.nom = nom.trim();
         this.prenom = prenom.trim();
         this.numTel = NUMTEL_DEFAUT;
@@ -107,13 +90,9 @@ public class Employe implements Serializable {
      * Crée un employé avec un identifiant, un nom, un prénom et un
      * numéro de téléphone fournis en argument.
      * 
-     * @param identifiant l'identifiant unique de l'employé
      * @param nom le nom de l'employé
      * @param prenom le prénom de l'employé
      * @param numTel le numéro de téléphone de l'employé
-     * @throws IllegalArgumentException si la référence de
-     *                                  l'identifiant est nul ou
-     *                                  l'identifiant est vide
      * @throws IllegalArgumentException si la référence du nom est
      *                                  nul ou le nom est vide
      * @throws IllegalArgumentException si la référence du prénom est
@@ -128,12 +107,7 @@ public class Employe implements Serializable {
      *                                  contient pas uniquement des
      *                                  chiffres
      */
-    public Employe(String identifiant, String nom, String prenom, 
-                   String numTel) {
-        
-        if (identifiant == null || identifiant.isBlank()) {
-            throw new IllegalArgumentException(ERREUR_IDENTIFIANT_INVALIDE);
-        }
+    public Employe(String nom, String prenom, String numTel) {
         
         if (nom == null || nom.isBlank()) {
             throw new IllegalArgumentException(ERREUR_NOM_INVALIDE);
@@ -156,18 +130,9 @@ public class Employe implements Serializable {
                     ERREUR_NUMTEL_CARACTERE_INVALIDE);
         }
         
-        this.identifiant = identifiant.trim();
         this.nom = nom.trim();
         this.prenom = prenom.trim();
         this.numTel = numTel.trim();
-    }
-    
-    /**
-     * Récupère l'identifiant de l'employé.
-     * @return l'identifiant de l'employé
-     */
-    public String getIdentifiant() {
-        return identifiant;
     }
 
     /**

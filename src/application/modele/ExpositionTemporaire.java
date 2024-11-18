@@ -67,8 +67,6 @@ public class ExpositionTemporaire extends Exposition {
      * et une année de fin, un nombre d'oeuvres, une liste de mots
      * clés, un résumé, une date de début et une date de fin.
      * 
-     * @param identifiant l'identifiant/code de l'exposition
-     *                    temporaire
      * @param intitule le nom ou la désignation de l'exposition
      *                 temporaire
      * @param periodeDebut l'année de début que les oeuvres de
@@ -89,13 +87,12 @@ public class ExpositionTemporaire extends Exposition {
      *                                  inférieur ou égale à la date
      *                                  de début
      */
-    public ExpositionTemporaire(String identifiant, String intitule,
-                                int periodeDebut, int periodeFin, int nbOeuvre,
-                                String[] motsCles, String resume, 
-                                LocalDate dateDebut, LocalDate dateFin) {
+    public ExpositionTemporaire(String intitule, int periodeDebut,
+                                int periodeFin, int nbOeuvre, String[] motsCles,
+                                String resume, LocalDate dateDebut,
+                                LocalDate dateFin) {
         
-        super(identifiant, intitule, periodeDebut, periodeFin, nbOeuvre,
-              motsCles, resume);
+        super(intitule, periodeDebut, periodeFin, nbOeuvre, motsCles, resume);
         
         if (dateDebut == null) {
             throw new IllegalArgumentException(ERREUR_DATE_DEBUT_INVALIDE);
