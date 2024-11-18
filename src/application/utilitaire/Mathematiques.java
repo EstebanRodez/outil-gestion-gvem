@@ -149,8 +149,8 @@ public class Mathematiques {
             throw new IllegalArgumentException();
         }
         
-        int resultat = 1;
-        int nb = nombre;
+        long resultat = 1;
+        long nb = nombre;
         int exp = exposant;
         while (exp > 0) {
             
@@ -161,6 +161,6 @@ public class Mathematiques {
             exp /= 2;
         }
         
-        return resultat;
+        return (int) resultat;
     }
 }
