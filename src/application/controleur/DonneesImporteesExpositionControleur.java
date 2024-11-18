@@ -223,9 +223,9 @@ public class DonneesImporteesExpositionControleur {
     @FXML
     void aideAction(ActionEvent event) {
     	// Appel de la méthode lancerAide de AccueilControleur avec un indice spécifique
-    	// Utilise l'indice 5 pour ouvrir un lien d'aide correspondant
+    	// Utilise l'indice 4 pour ouvrir un lien d'aide correspondant
     	// à la réference de la partit des expositions dans données importer
-        AccueilControleur.lancerAide(5);
+        AccueilControleur.lancerAide(4);
     }
 
     @FXML

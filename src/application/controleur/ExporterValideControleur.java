@@ -38,7 +38,7 @@ public class ExporterValideControleur {
 
     @FXML
     void btnAideAction(ActionEvent event) {
-        AccueilControleur.lancerAide();
+        AccueilControleur.lancerAide(7);
     }
 
     @FXML

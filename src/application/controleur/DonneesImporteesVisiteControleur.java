@@ -176,9 +176,9 @@ public class DonneesImporteesVisiteControleur {
     @FXML
     void aideAction(ActionEvent event) {
     	// Appel de la méthode lancerAide de AccueilControleur avec un indice spécifique
-    	// Utilise l'indice 7 pour ouvrir un lien d'aide correspondant
+    	// Utilise l'indice 6 pour ouvrir un lien d'aide correspondant
     	// à la réference de la partit des visite dans données importer
-        AccueilControleur.lancerAide(7);
+        AccueilControleur.lancerAide(6);
     }
 
     @FXML

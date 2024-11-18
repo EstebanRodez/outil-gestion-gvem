@@ -174,7 +174,7 @@ public class DonneesCalculeesConferencierMoyenneSemaineControleur {
 
     @FXML
     void aideAction(ActionEvent event) {
-        AccueilControleur.lancerAide();
+        AccueilControleur.lancerAide(1);
     }
 
     @FXML

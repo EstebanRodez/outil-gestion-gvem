@@ -175,7 +175,7 @@ public class DonneesCalculeesExpositionEnsembleSemaineControleur {
 
     @FXML
     void aideAction(ActionEvent event) {
-        AccueilControleur.lancerAide();
+        AccueilControleur.lancerAide(2);
     }
 
     @FXML

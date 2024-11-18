@@ -180,9 +180,9 @@ public class DonneesCalculeesConferencierControleur {
     @FXML
     void aideAction(ActionEvent event) {
     	// Appel de la méthode lancerAide de AccueilControleur avec un indice spécifique
-    	// Utilise l'indice 2 pour ouvrir un lien d'aide correspondant
+    	// Utilise l'indice 1 pour ouvrir un lien d'aide correspondant
     	// à la réference de la partit des conferenciers dans données calculées
-        AccueilControleur.lancerAide(2); 
+        AccueilControleur.lancerAide(1); 
     }
 
     @FXML

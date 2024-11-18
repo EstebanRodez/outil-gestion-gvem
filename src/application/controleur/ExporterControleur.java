@@ -138,9 +138,9 @@ public class ExporterControleur {
     @FXML
     void btnAideAction(ActionEvent event) {
     	// Appel de la méthode lancerAide de AccueilControleur avec un indice spécifique
-    	// Utilise l'indice 8 pour ouvrir un lien d'aide correspondant
+    	// Utilise l'indice 7 pour ouvrir un lien d'aide correspondant
     	// à la réference de la partit de l'exportation
-        AccueilControleur.lancerAide(8);
+        AccueilControleur.lancerAide(7);
     }
 
     @FXML

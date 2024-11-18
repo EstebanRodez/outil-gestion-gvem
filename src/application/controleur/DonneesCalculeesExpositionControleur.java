@@ -174,9 +174,9 @@ public class DonneesCalculeesExpositionControleur {
     @FXML
     void aideAction(ActionEvent event) {
     	// Appel de la méthode lancerAide de AccueilControleur avec un indice spécifique
-    	// Utilise l'indice 3 pour ouvrir un lien d'aide correspondant
+    	// Utilise l'indice 2 pour ouvrir un lien d'aide correspondant
     	// à la réference de la partit des Expositions dans données calculées
-        AccueilControleur.lancerAide(3);
+        AccueilControleur.lancerAide(2);
     }
 
     @FXML

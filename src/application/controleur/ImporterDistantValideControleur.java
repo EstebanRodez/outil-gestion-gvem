@@ -37,7 +37,7 @@ public class ImporterDistantValideControleur {
 
     @FXML
     void btnAideAction(ActionEvent event) {
-        AccueilControleur.lancerAide();
+        AccueilControleur.lancerAide(9);
     }
 
     @FXML

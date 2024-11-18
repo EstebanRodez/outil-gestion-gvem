@@ -187,7 +187,7 @@ public class DonneesCalculeesExpositionMoyenneJourControleur {
 
     @FXML
     void aideAction(ActionEvent event) {
-        AccueilControleur.lancerAide();
+        AccueilControleur.lancerAide(2);
     }
 
     @FXML

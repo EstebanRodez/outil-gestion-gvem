@@ -52,9 +52,9 @@ public class ImporterControleur {
     @FXML
     void btnAideAction(ActionEvent event) {
     	// Appel de la méthode lancerAide de AccueilControleur avec un indice spécifique
-    	// Utilise l'indice 9 pour ouvrir un lien d'aide correspondant
+    	// Utilise l'indice 8 pour ouvrir un lien d'aide correspondant
     	// à la réference de la partit des conferenciers dans données calculées
-        AccueilControleur.lancerAide(9);
+        AccueilControleur.lancerAide(8);
     }
 
     @FXML
