@@ -78,6 +78,11 @@
                               <Font size="14.0" />
                            </font>
                         </Button>
+                        <Button fx:id="btnGenererPDF" mnemonicParsing="false" onAction="#btnGenererPDFAction" text="générer un pdf">
+                           <VBox.margin>
+                              <Insets left="10.0" top="40.0" />
+                           </VBox.margin>
+                        </Button>
                      </children>
                      <HBox.margin>
                         <Insets right="15.0" />

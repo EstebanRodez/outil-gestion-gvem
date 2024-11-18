@@ -32,6 +32,10 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Paragraph;
 
 
 /**
@@ -163,8 +167,7 @@ public class DonneesCalculeesConferencierMoyenneJourControleur {
     void btnGenererPDFAction(ActionEvent event) {
     	/*try {
             List<VisiteMoyenneResultat> results = tableConferencier.getItems();
-            CreerPdf pdfGenerator = new CreerPdf();
-            pdfGenerator.generatePdf("rapport_moyenne_conferenciers_jour.pdf", results);
+            CreerPdf.generatePdf("rapport_moyenne_conferenciers_jour.pdf", results);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }*/
