@@ -22,8 +22,6 @@ import application.modele.Employe;
  */
 class TestEmploye {
     
-    private final String IDENTIFIANT_EMPLOYE_VALIDE = "N000001";
-    
     private final String NOM_EMPLOYE_VALIDE = "Mathieu";
     
     private final String PRENOM_EMPLOYE_VALIDE = "Bernoulli";
@@ -54,62 +52,31 @@ class TestEmploye {
          * Tests spécifiques au constructeur à 3 arguments
          */
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Employe(null, null, null));
+                     () -> new Employe(null, null));
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Employe("", null, null));
+                     () -> new Employe("",  null));
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Employe(null, "", null));
+                     () -> new Employe(null, ""));
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Employe(null, null, ""));
+                     () -> new Employe("", ""));
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Employe("", "", null));
-        assertThrows(IllegalArgumentException.class, 
-                     () -> new Employe(null, "", ""));
-        assertThrows(IllegalArgumentException.class, 
-                     () -> new Employe("", null, ""));
-        assertThrows(IllegalArgumentException.class, 
-                     () -> new Employe("", "", ""));
-        assertThrows(IllegalArgumentException.class, 
-                     () -> new Employe(" ", "  ", "  "));
+                     () -> new Employe(" ", "  "));
         
         /*
          * Tests avec un unique argument null
          */
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Employe(IDENTIFIANT_EMPLOYE_VALIDE, 
-                                       NOM_EMPLOYE_VALIDE, null));
+                     () -> new Employe(NOM_EMPLOYE_VALIDE, null));
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Employe(null, NOM_EMPLOYE_VALIDE, 
-                                       PRENOM_EMPLOYE_VALIDE));
-        assertThrows(IllegalArgumentException.class, 
-                     () -> new Employe(IDENTIFIANT_EMPLOYE_VALIDE, null, 
-                                       PRENOM_EMPLOYE_VALIDE));
+                     () -> new Employe(null, PRENOM_EMPLOYE_VALIDE));
         
         /*
          * Tests avec un unique argument vide
          */
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Employe(IDENTIFIANT_EMPLOYE_VALIDE, 
-                                       NOM_EMPLOYE_VALIDE, ""));
+                     () -> new Employe(NOM_EMPLOYE_VALIDE, ""));
         assertThrows(IllegalArgumentException.class, 
-                     () -> new Employe("", NOM_EMPLOYE_VALIDE, 
-                                       PRENOM_EMPLOYE_VALIDE));
-        assertThrows(IllegalArgumentException.class, 
-                     () -> new Employe(IDENTIFIANT_EMPLOYE_VALIDE, "", 
-                                       PRENOM_EMPLOYE_VALIDE));
-        
-        assertThrows(IllegalArgumentException.class, 
-                     () -> new Employe(IDENTIFIANT_EMPLOYE_VALIDE, null, null));
-        assertThrows(IllegalArgumentException.class, 
-                     () -> new Employe(null, NOM_EMPLOYE_VALIDE, null));
-        assertThrows(IllegalArgumentException.class, 
-                     () -> new Employe(null, null, PRENOM_EMPLOYE_VALIDE));
-        assertThrows(IllegalArgumentException.class, 
-                     () -> new Employe(IDENTIFIANT_EMPLOYE_VALIDE, "", ""));
-        assertThrows(IllegalArgumentException.class, 
-                     () -> new Employe("", NOM_EMPLOYE_VALIDE, ""));
-        assertThrows(IllegalArgumentException.class, 
-                     () -> new Employe("", "", PRENOM_EMPLOYE_VALIDE));
+                     () -> new Employe("", PRENOM_EMPLOYE_VALIDE));
         
         /*
          * Tests spécifiques au constructeur à 4 arguments
