@@ -19,7 +19,8 @@ import application.EchangeurDeVue;
 import application.utilitaire.FichierDonneesInvalidesException;
 import application.utilitaire.GestionCSV;
 import application.utilitaire.ImportationCSV;
-
+import application.utilitaire.SauvegardeDonnees;
+import application.utilitaire.TraitementDonnees;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -134,6 +135,8 @@ public class MenuImportationControleur {
                 btnValider.setDisable(true);
             }
         }
+        
+        SauvegardeDonnees.sauvegarderDonnees(TraitementDonnees.getDonnees());
     }
 
     /**

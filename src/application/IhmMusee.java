@@ -5,10 +5,13 @@
  */
 package application;
 
+import application.utilitaire.SauvegardeDonnees;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 
 /**
@@ -25,6 +28,8 @@ public class IhmMusee extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         
+        boolean sessionRestauree = SauvegardeDonnees.restaurerDonnees();
+        
         FXMLLoader loader = new FXMLLoader(getClass().getResource("vue/accueilVue.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
@@ -34,6 +39,18 @@ public class IhmMusee extends Application {
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
+        
+        if (sessionRestauree) {
+            Alert boiteInformationSession
+            = new Alert(Alert.AlertType.INFORMATION,
+                        "Vos données de l'ancienne session ont été chargées "
+                        + "avec succès", ButtonType.OK);
+
+            boiteInformationSession.setTitle("Session restaurée");
+            boiteInformationSession.setHeaderText(
+                    "Votre ancienne session a été restaurée.");
+            boiteInformationSession.showAndWait();
+        }
     }
     
     /**
