@@ -13,7 +13,6 @@ import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Base64;
 
@@ -28,9 +27,6 @@ import java.util.Base64;
  * @version 1.0
  */
 public class ImportationCSV {
-
-    final static DateTimeFormatter formatter
-    = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     //private static ArrayList<Exposition> expositions = new ArrayList<>();
 

@@ -50,7 +50,7 @@ public class DonneesCalculeesConferencierMoyenneSemaineControleur {
     
     // Format pour les dates au format jj/MM/aaaa
     private static final DateTimeFormatter DATE_FORMAT 
-    = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    = AccueilControleur.getDateFormatterFR();
     
     private static String[] choix = {"conférencier qui n’ont aucune visite",
                                     "conférencier et leur nombre moyen de " 

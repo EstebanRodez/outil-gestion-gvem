@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+import application.controleur.AccueilControleur;
 import application.modele.Client;
 import application.modele.Conferencier;
 import application.modele.Donnees;
@@ -42,7 +43,7 @@ public class TraitementDonnees {
     = " Erreur : Aucune exposition n'est associé a l'identifiant indiqué";
     
     private final static DateTimeFormatter FORMATTER_DATE_FR
-    = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    = AccueilControleur.getDateFormatterFR();
 
     private static Donnees donnees = new Donnees();
 

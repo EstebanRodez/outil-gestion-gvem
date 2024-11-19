@@ -50,7 +50,7 @@ public class DonneesCalculeesExpositionMoyenneSemaineControleur {
     
     // Format pour les dates au format jj/MM/aaaa
     private static final DateTimeFormatter DATE_FORMAT 
-    = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    = AccueilControleur.getDateFormatterFR();
     
     private static String[] choix = {"exposition qui n’ont aucune visite",
                                     "exposition et leur nombre moyen de " 

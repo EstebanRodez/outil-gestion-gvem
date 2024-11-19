@@ -4,6 +4,7 @@ import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.format.DateTimeFormatter;
 
 import application.EchangeurDeVue;
 import application.utilitaire.TraitementDonnees;
@@ -87,6 +88,19 @@ public class AccueilControleur {
         } catch (IOException | URISyntaxException e) {
             afficherErreurAide();  // En cas d'erreur, affiche une boîte d'erreur
         }
+    }
+    
+    /**
+     * Retourne un formateur de dates pour le format français "jj/MM/aaaa".
+     * 
+     * <p>Ce formateur peut être utilisé pour afficher ou parser des dates 
+     * dans le format standard français (jour/mois/année).</p>
+     * 
+     * @return un formateur de type {@link DateTimeFormatter} configuré
+     *         pour le format "dd/MM/yyyy".
+     */
+    public static DateTimeFormatter getDateFormatterFR() {
+        return DateTimeFormatter.ofPattern("dd/MM/yyyy");
     }
 
     /**

@@ -46,7 +46,7 @@ public class DonneesImporteesVisiteControleur {
     
     // Format pour les dates au format jj/MM/aaaa
     private static final DateTimeFormatter DATE_FORMAT 
-    = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    = AccueilControleur.getDateFormatterFR();
     
     @FXML
     private Button aideAction;

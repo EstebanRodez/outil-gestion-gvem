@@ -48,7 +48,7 @@ public class DonneesCalculeesExpositionEnsembleJourControleur {
     
     // Format pour les dates au format jj/MM/aaaa
     private static final DateTimeFormatter DATE_FORMAT 
-    = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    = AccueilControleur.getDateFormatterFR();
     
     private static String[] choix = {"expositions qui n’ont aucune visite",
                                     "expositions et leur nombre moyen de " 

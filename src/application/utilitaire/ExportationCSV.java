@@ -13,6 +13,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import application.controleur.AccueilControleur;
 import application.modele.Conferencier;
 import application.modele.Donnees;
 import application.modele.Employe;
@@ -42,7 +43,7 @@ public class ExportationCSV {
     
     // Format pour les dates au format jj/MM/aaaa
     private static final DateTimeFormatter DATE_FORMAT 
-    = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    = AccueilControleur.getDateFormatterFR();
     
     /**
      * Exporte l'ensemble des données de l'application dans des fichiers CSV.
