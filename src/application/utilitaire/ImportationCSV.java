@@ -9,12 +9,12 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.HashSet;
 
 /**
  * La classe ImportationCSV permet d'importer et de verifier des
@@ -72,12 +72,7 @@ public class ImportationCSV {
         try {
 
             BufferedReader fichierCSV;
-            if (isFichierBinaire(cheminFichier)) {
-
-                String contenuDecrypte = decrypterFichierBinaire(cheminFichier);
-                fichierCSV
-                = new BufferedReader(new StringReader(contenuDecrypte));
-            } else if (isFichierValide(cheminFichier)) { // TODO Renommer méthode plus clair
+            if (GestionCSV.isFichierValide(cheminFichier)) {
 
                 FileInputStream fileInputStream
                 = new FileInputStream(cheminFichier);
@@ -221,6 +216,9 @@ public class ImportationCSV {
 
         char lettreIdentifiant;
         String premierIdentifiant = donneesLignes.get(0)[0];
+        
+        /* Pour vérifier l'unicité de chaque identifiant */
+        HashSet<String> listeIdentifiants = new HashSet<>();
 
         /*
          * On récupère le type de données grâce à l'identifiant de la
@@ -243,15 +241,18 @@ public class ImportationCSV {
         if (!GestionCSV.isLettreIdentifiantValide(lettreIdentifiant)) {
             return false;
         }
+        
 
         for (String[] donnees : donneesLignes) {
 
             String identifiant = donnees[0];
-            if (!identifiant.matches(
-                    String.format(FORMAT_IDENTIFIANT, lettreIdentifiant))) {
+            if (!identifiant.matches(String.format(FORMAT_IDENTIFIANT,
+                                                   lettreIdentifiant))
+                || listeIdentifiants.contains(identifiant)) {
                 
                 return false;
             }
+            listeIdentifiants.add(identifiant);
             
             /* L'identifiant est forcément valide dans ce cas */
             if (lettreIdentifiant == 'E') { // Exposition
