@@ -74,7 +74,7 @@
                               <Insets top="40.0" />
                            </VBox.margin>
                         </Button>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Veuillez appliquer un ou plusieurs filtres afin de détérminé quel exposition n'ont pas de visite" wrappingWidth="115.7421875">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Veuillez appliquer un ou plusieurs filtres afin de détérminé quel exposition n'ont pas de visite" textAlignment="CENTER" wrappingWidth="115.7421875">
                            <VBox.margin>
                               <Insets top="15.0" />
                            </VBox.margin>
