@@ -10,6 +10,7 @@ import application.utilitaire.TraitementDonnees;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 
@@ -134,6 +135,15 @@ public class AccueilControleur {
 
     @FXML
     void btnQuitterAction(ActionEvent event) {
-        EchangeurDeVue.getFenetreAppli().hide();
+
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation de sortie");
+        alert.setHeaderText("Êtes-vous sûr de vouloir quitter ?");
+
+        ButtonType result = alert.showAndWait().orElse(ButtonType.CANCEL);
+
+        if (result == ButtonType.OK) {
+            EchangeurDeVue.getFenetreAppli().hide();
+        }
     }
 }
