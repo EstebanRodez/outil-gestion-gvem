@@ -10,7 +10,26 @@ import java.io.IOException;
 import application.controleur.ExporterControleur;
 
 /**
- * TODO commenter la responsabilité de cette class (SRP)
+ * Thread gérant le processus d'exportation sécurisé de fichiers.
+ * Ce thread effectue les étapes suivantes dans un cycle continu :
+ * <ul>
+ *     <li>Génération d'une clé secrète pour le chiffrement via l'échange
+ *         Diffie-Hellman.</li>
+ *     <li>Préparation des fichiers nécessaires au chiffrement et au
+ *         transfert.</li>
+ *     <li>Chiffrement des données à exporter en utilisant l'algorithme de
+ *         Vigenère.</li>
+ *     <li>Envoi des fichiers chiffrés et des alphabets via un réseau.</li>
+ *     <li>Nettoyage des fichiers temporaires utilisés.</li>
+ * </ul>
+ * Le thread peut être arrêté proprement en appelant la méthode
+ * {@link #arreterExportation()}.
+ * 
+ * @author Romain Augé
+ * @author Ayoub Laluti
+ * @author Baptiste Thenieres
+ * @author Esteban Vroemen
+ * @version 1.0
  */
 public class ThreadExportation extends Thread {
     
@@ -38,16 +57,19 @@ public class ThreadExportation extends Thread {
             if (!Thread.interrupted()) {
                 
                 String[] nomFichiersDonnees = Vigenere.getNomsFichiersDonnees();
-                String[] nomFichiersAlphabet = Vigenere.getNomsFichiersAlphabet();
+                String[] nomFichiersAlphabet
+                = Vigenere.getNomsFichiersAlphabet();
                 for (int indiceNomFichier = 0;
                         indiceNomFichier < nomFichiersDonnees.length;
                         indiceNomFichier++) {
 
                     String alphabet
-                    = Vigenere.recupererAlphabet(nomFichiersDonnees[indiceNomFichier]);
+                    = Vigenere.recupererAlphabet(
+                            nomFichiersDonnees[indiceNomFichier]);
                     try {
                         GestionFichiers.ecrireFichier(
-                                nomFichiersAlphabet[indiceNomFichier], alphabet);
+                                nomFichiersAlphabet[indiceNomFichier],
+                                alphabet);
                     } catch (IOException e) {
                         ExporterControleur.lancerErreurExportation(
                                 ERREUR_ECRITURE_ALPHABET);
@@ -77,7 +99,7 @@ public class ThreadExportation extends Thread {
     }        
 
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
+     * Indique que le processus d'exportation doit s'arrêter
      */
     public void arreterExportation() {
         arretExportation = true;
