@@ -368,6 +368,6 @@ public class TraitementDonnees {
      */
     public static void supprimerDonnees() {
         
-        donnees = null;
+        donnees = new Donnees();
     }
 }
