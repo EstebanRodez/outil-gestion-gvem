@@ -127,6 +127,7 @@ public class ExporterControleur {
             Reseau.envoyerFichiers(PORT_EXPORTATION, nomFichiersAlphabet);
             
             EchangeDiffieHellman.supprimerFichiersAlice();
+            EchangeDiffieHellman.supprimerFichiersBob();
             Vigenere.supprimerFichiersDonnees();
             Vigenere.supprimerFichiersAlphabet();
             Vigenere.supprimerFichiersEnvois();

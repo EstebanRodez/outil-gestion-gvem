@@ -114,11 +114,13 @@ public class ImporterDistantControleur {
                     // Ne rien faire
                 }
                 
-                EchangeDiffieHellman.supprimerFichiersBob();
-                Vigenere.supprimerFichiersEnvois();
-                Vigenere.supprimerFichiersAlphabet();
-                Vigenere.supprimerFichiersDonnees();
             }
+            
+            EchangeDiffieHellman.supprimerFichiersAlice();
+            EchangeDiffieHellman.supprimerFichiersBob();
+            Vigenere.supprimerFichiersEnvois();
+            Vigenere.supprimerFichiersAlphabet();
+            Vigenere.supprimerFichiersDonnees();
         }
     }
 
