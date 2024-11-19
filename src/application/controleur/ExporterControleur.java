@@ -75,18 +75,26 @@ public class ExporterControleur {
         
         EchangeurDeVue.creerPopUp("chargementPopUp");
         
+        boolean erreurExportation = false;
         try {
             ExportationCSV.exporterDonnees();
         } catch (ExportationCSVException e) {
-            e.printStackTrace();
+            erreurExportation = true;
+            lancerErreurExportation(
+                "Vos données n'ont pas pu être exportées dans un format csv.");
         }
         
-        ThreadExportation threadExportation = new ThreadExportation();
+        if (!erreurExportation) {
+            
+            ThreadExportation threadExportation = new ThreadExportation();
+            
+            ChargementPopUpControleur controleur
+            = EchangeurDeVue.getFXMLLoader("chargementPopUp").getController();
+            controleur.setThreadExportation(threadExportation);
+            threadExportation.start();
+        }
         
-        ChargementPopUpControleur controleur
-        = EchangeurDeVue.getFXMLLoader("chargementPopUp").getController();
-        controleur.setThreadExportation(threadExportation);
-        threadExportation.start();
+        
     }
 
     @FXML
@@ -100,6 +108,20 @@ public class ExporterControleur {
     @FXML
     void btnRetourAction(ActionEvent event) {
         EchangeurDeVue.changerVue("accueilVue");
+    }
+    
+    /**
+     * TODO commenter le rôle de cette méthode (SRP)
+     * @param message
+     */
+    public static void lancerErreurExportation(String message) {
+        
+        Alert boiteErreurChargementVue
+        = new Alert(Alert.AlertType.ERROR, message, ButtonType.OK);
+        boiteErreurChargementVue.setTitle("Erreur Exportation");
+        boiteErreurChargementVue.setHeaderText(
+                "Erreur lors de l'exportation de vos données");
+        boiteErreurChargementVue.showAndWait();
     }
     
 }

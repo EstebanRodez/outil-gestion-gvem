@@ -7,12 +7,17 @@ package application.utilitaire;
 
 import java.io.IOException;
 
+import application.controleur.ExporterControleur;
+
 /**
  * TODO commenter la responsabilité de cette class (SRP)
  */
 public class ThreadExportation extends Thread {
     
     private static final int PORT_EXPORTATION = Reseau.getPortExportation();
+
+    private static final String ERREUR_ECRITURE_ALPHABET = 
+    "Les fichiers contenant les alphabets n'ont pas pu être crées.";
 
     private boolean arretExportation = false;
     
@@ -27,6 +32,7 @@ public class ThreadExportation extends Thread {
                 System.out.println(cleSecrete);
             } catch (GenerationDonneeSecreteException e) {
                 interrupt();
+                ExporterControleur.lancerErreurExportation(e.getMessage());
             }
             
             if (!Thread.interrupted()) {
@@ -43,7 +49,8 @@ public class ThreadExportation extends Thread {
                         GestionFichiers.ecrireFichier(
                                 nomFichiersAlphabet[indiceNomFichier], alphabet);
                     } catch (IOException e) {
-                        // Ne rien faire
+                        ExporterControleur.lancerErreurExportation(
+                                ERREUR_ECRITURE_ALPHABET);
                     }
                     String cleChiffrement
                     = Vigenere.genererCleChiffrement(cleSecrete, alphabet);
@@ -60,13 +67,13 @@ public class ThreadExportation extends Thread {
 
                 EchangeDiffieHellman.supprimerFichiersAlice();
                 EchangeDiffieHellman.supprimerFichiersBob();
-                Vigenere.supprimerFichiersDonnees();
                 Vigenere.supprimerFichiersAlphabet();
                 Vigenere.supprimerFichiersEnvois();
             }
             
         } 
-
+        
+        Vigenere.supprimerFichiersDonnees();
     }        
 
     /**
