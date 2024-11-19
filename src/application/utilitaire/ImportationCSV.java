@@ -9,11 +9,7 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.HashSet;
 
 /**
@@ -87,57 +83,6 @@ public class ImportationCSV {
         } catch (IOException e) {
 
             throw new IllegalArgumentException(ERREUR_FICHIER_ACCES);
-        }
-    }
-
-    /**
-     * Indique si un fichier est valide pour importer ses données.
-     * 
-     * @param cheminFichier le chemin du fichier à vérifier
-     * @return true si on peut importer des données depuis ce fichier
-     *         sinon false
-     * @throws IOException si la taille du fichier n'est pas
-     *                     vérifiable
-     */
-    private static boolean isFichierValide(String cheminFichier)
-            throws IOException {
-
-        return cheminFichier != null && !cheminFichier.isBlank() 
-               && Files.size(Path.of(cheminFichier)) != 0
-               && isExtensionCSV(cheminFichier);
-    }
-
-
-    private static boolean isFichierBinaire(String cheminFichier)
-            throws IOException {
-        
-        // Vérification simple pour un fichier binaire crypté par taille et contenu
-        return Files.size(Path.of(cheminFichier)) > 0
-               && cheminFichier.endsWith(".bin");
-    }
-    
-    /**
-     * Vérifie si un fichier contient l'extension .csv
-     * 
-     * @param cheminFichier le chemin du fichier à vérifier
-     * @return true si le fichier a l'extension .csv sinon false
-     */
-    private static boolean isExtensionCSV(String cheminFichier) {
-        return cheminFichier.endsWith(".csv");
-    }
-
-    private static String decrypterFichierBinaire(String cheminFichier)
-            throws IOException {
-        
-        try (FileInputStream fis = new FileInputStream(cheminFichier)) {
-            
-            byte[] bytes = fis.readAllBytes();
-            byte[] decryptedBytes = Base64.getDecoder().decode(bytes);
-            return new String(decryptedBytes, StandardCharsets.UTF_8);
-        } catch (IOException e) {
-            
-            throw new IOException(
-                    "Erreur lors du décryptage du fichier binaire.", e);
         }
     }
 
