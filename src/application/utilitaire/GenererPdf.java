@@ -20,6 +20,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import application.controleur.AccueilControleur;
+import application.modele.Exposition;
+import application.modele.ExpositionTemporaire;
 import application.modele.Visite;
 
 /**
@@ -27,11 +29,12 @@ import application.modele.Visite;
  */
 public class GenererPdf {
 
+    private static final DateTimeFormatter FORMAT_DATE 
+    = AccueilControleur.getDateFormatterFR();
+    
     private static final String TITRE_PDF 
         = "Gestion des visites des expositions d’un musée";
     
-    private static final float[] formatVisite = {6, 6, 6, 6, 15, 5, 15, 7};
-
     private static final String POLICE_ECRITURE = "Helvetica";
 
     private static final DeviceRgb COULEUR_DONNEES_IMPORTEES 
@@ -42,15 +45,23 @@ public class GenererPdf {
     
     private static final DeviceRgb COULEUR_STATISTIQUE  
         = new DeviceRgb(29, 198, 144);
+    
+    private static final float[] FORMAT_VISITE = {6, 6, 6, 6, 15, 5, 15, 7};
 
-    private static final String[] enteteVisite 
+    private static final String[] ENTETE_VISITE 
         = {"Identifiant", "Conférencier", "Date", "Employé", "Exposition", 
             "Horaire Début", "Client", "Numéro de Téléphone"};
+    
+    private static final float[] FORMAT_EXPOSITION 
+        = {6, 6, 5, 5, 3, 20, 20, 15, 15};
 
-    private static final DateTimeFormatter FORMAT_DATE 
-        = AccueilControleur.getDateFormatterFR(); 
+    private static final String[] ENTETE_EXPOSITION 
+        = {"Identifiant", "Intitulé", "Période début", "Période fin",
+            "Nombre d'oeuvre", "Mot clé", "Résumé", "Date début", "Date fin"};
     
     private static LinkedHashMap<String, Visite> visitesPdf;
+    
+    private static LinkedHashMap<String, Exposition> expositionsPdf;
     
     private static PdfWriter destination;
     
@@ -66,9 +77,22 @@ public class GenererPdf {
      */
     public static void visitePdf(LinkedHashMap<String, Visite> visites,
                                  String cheminPdf) throws IOException {
-            visitesPdf = visites;
-            creerEntetePDF(cheminPdf, "visites");
-            donneesImporteesVisite();
+        visitesPdf = visites;
+        creerEntetePDF(cheminPdf, "visites");
+        donneesImporteesVisite();
+    }
+    
+    /**
+     * Méthode publique pour générer un PDF à partir des expositions.
+     * @param expositions Données des expositions.
+     * @param cheminPdf le chemin ou sera stocké le fichier pdf
+     * @throws IOException 
+     */
+    public static void expositionsPdf(LinkedHashMap<String, Exposition> expositions,
+                                      String cheminPdf) throws IOException {
+        expositionsPdf = expositions;
+        creerEntetePDF(cheminPdf, "expositions");
+        donneesImporteesExposition();       
     }
     
     /**
@@ -193,33 +217,85 @@ public class GenererPdf {
         PdfFont font;
         
         font = PdfFontFactory.createRegisteredFont(POLICE_ECRITURE);
-        table = new Table(UnitValue.createPercentArray(formatVisite))
+        table = new Table(UnitValue.createPercentArray(FORMAT_VISITE))
                     .useAllAvailableWidth();
         
-        enteteTableau(table, font, COULEUR_DONNEES_IMPORTEES, enteteVisite);
+        enteteTableau(table, font, COULEUR_DONNEES_IMPORTEES, ENTETE_VISITE);
      
         
         for (Entry<String, Visite> entry : visitesPdf.entrySet()) {
             Visite visite = entry.getValue();
-
-            Object[] rowData = {
-                    entry.getKey(), // Identifiant
-                    visite.getConferencier().getNom(), // Conférencier
-                    visite.getDate().format(FORMAT_DATE), // Date
-                    visite.getEmploye().getNom(), // Employé
-                    visite.getExposition().getIntitule(), // Exposition
-                    visite.toStringHoraireDebut(), // Horaire Début
-                    visite.getClient().getIntitule(), // Client
-                    visite.getClient().getNumTel() // Numéro de Téléphone
-                };
-            
-            for (Object data : rowData) {
-                table.addCell(creerCelluleTableau(data.toString(), font));
-            }
+                
+            table.addCell(creerCelluleTableau(
+                    entry.getKey().toString(), font)); // Identifiant
+            table.addCell(creerCelluleTableau(
+                    visite.getConferencier().getNom().toString(), font)); // Conférencier
+            table.addCell(creerCelluleTableau(
+                    visite.getDate().format(FORMAT_DATE).toString(), font)); // Date
+            table.addCell(creerCelluleTableau(
+                    visite.getEmploye().getNom().toString(), font)); // Employé
+            table.addCell(creerCelluleTableau(
+                    visite.getExposition().getIntitule().toString(), font)); // Exposition
+            table.addCell(creerCelluleTableau(
+                    visite.toStringHoraireDebut().toString(), font)); // Horaire Début
+            table.addCell(creerCelluleTableau(
+                    visite.getClient().getIntitule().toString(), font)); // Client
+            table.addCell(creerCelluleTableau(
+                    visite.getClient().getNumTel().toString(), font)); // Numéro de Téléphone
         }
 
         document.add(table);
         document.close();
+    }
+    
+    /**
+     * Génère un PDF avec un tableau contenant les données des expositions.
+     * @throws IOException 
+     */
+    private static void donneesImporteesExposition() throws IOException {
+        Table table;
+        PdfFont font;
+        
+        font = PdfFontFactory.createRegisteredFont(POLICE_ECRITURE);
+        table = new Table(UnitValue.createPercentArray(FORMAT_EXPOSITION))
+                    .useAllAvailableWidth();
+        
+        enteteTableau(table, font, COULEUR_DONNEES_IMPORTEES, ENTETE_EXPOSITION);
+     
+        
+        for (Entry<String, Exposition> entry : expositionsPdf.entrySet()) {
+            Exposition expo  = entry.getValue();
+            
+            table.addCell(creerCelluleTableau(
+                    entry.getKey(), font));
+            table.addCell(creerCelluleTableau(
+                    expo.getIntitule().toString(), font));
+            table.addCell(creerCelluleTableau(
+                    Integer.toString(expo.getPeriodeDebut()), font));
+            table.addCell(creerCelluleTableau(
+                    Integer.toString(expo.getPeriodeFin()), font));
+            table.addCell(creerCelluleTableau(
+                    Integer.toString(expo.getNbOeuvre()), font));
+            table.addCell(creerCelluleTableau(
+                    expo.toStringMotsCles(), font));
+            table.addCell(creerCelluleTableau(
+                    expo.getResume().toString(), font));
+            
+            if (expo instanceof ExpositionTemporaire) { 
+                ExpositionTemporaire expoTempo = (ExpositionTemporaire) expo;
+                
+                table.addCell(creerCelluleTableau(
+                        expoTempo.getDateDebut().toString(), font));
+                table.addCell(creerCelluleTableau(
+                        expoTempo.getDateFin().toString(), font));
+            } else {
+                table.addCell(creerCelluleTableau("", font));
+                table.addCell(creerCelluleTableau("", font));
+            }
+        }
+
+        document.add(table);
+        document.close();  
     }
 }
 

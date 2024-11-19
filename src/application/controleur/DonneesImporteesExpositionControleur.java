@@ -5,6 +5,8 @@
  */
 package application.controleur;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedHashMap;
@@ -14,6 +16,7 @@ import java.util.Map.Entry;
 import application.EchangeurDeVue;
 import application.modele.Exposition;
 import application.modele.ExpositionTemporaire;
+import application.utilitaire.GenererPdf;
 import application.utilitaire.TraitementDonnees;
 
 import javafx.beans.property.SimpleStringProperty;
@@ -25,6 +28,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
+import javafx.stage.DirectoryChooser;
 import javafx.scene.control.TableView;
 import javafx.util.Callback;
 
@@ -57,10 +61,7 @@ public class DonneesImporteesExpositionControleur {
     
     @FXML
     private Button btnRetour;
-    
-    @FXML
-    private Button btnGenererPDF;
-    
+     
     @FXML
     private TableColumn<Map.Entry<String, Exposition>, String> dateDebut;
 
@@ -171,17 +172,25 @@ public class DonneesImporteesExpositionControleur {
     }
     
     @FXML
-    void btnGenererPDFAction(ActionEvent event) {
-        /*try {
-            // Create a list to hold VisiteMoyenneResultat objects
-            List<VisiteMoyenneResultat> results = new ArrayList<>();
-
-            // Generate PDF with the results
-            CreerPdf pdfGenerator = new CreerPdf();
-            pdfGenerator.generatePdf("rapport_expositions_sans_traitements.pdf", results);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } */
+    void convertirPdfOnAction(ActionEvent event) {
+        String chemin = "";
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        directoryChooser.setInitialDirectory
+            (new File(System.getProperty("user.home"), "Documents"));
+        
+        File selectedDirectory = directoryChooser.showDialog(null);
+        
+        if (selectedDirectory != null) {
+            chemin = selectedDirectory.getAbsolutePath() 
+                        + File.separator + "expositions.pdf";
+            
+            try {
+                GenererPdf.expositionsPdf(expositions, chemin);
+                AccueilControleur.alertePdfSucces();
+            } catch (IOException err) {  
+                AccueilControleur.alertePdfEchec(err);
+            }
+        }        
     }
     
     /**
