@@ -12,6 +12,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.HashSet;
 
@@ -153,7 +155,8 @@ public class Vigenere {
             = new FileOutputStream(nomFichierCrypte);
             OutputStreamWriter outputStreamWriter
             = new OutputStreamWriter(fileOutputStream, "windows-1252");
-            BufferedWriter fluxEcriture = new BufferedWriter(outputStreamWriter);
+            BufferedWriter fluxEcriture
+            = new BufferedWriter(outputStreamWriter);
             
             int modulo = alphabet.length();
             String ligne = fluxLecture.readLine();
@@ -208,7 +211,8 @@ public class Vigenere {
             = new FileOutputStream(nomFichierDecrypte);
             OutputStreamWriter outputStreamWriter
             = new OutputStreamWriter(fileOutputStream, "windows-1252");
-            BufferedWriter fluxEcriture = new BufferedWriter(outputStreamWriter);
+            BufferedWriter fluxEcriture
+            = new BufferedWriter(outputStreamWriter);
             
             int modulo = alphabet.length();
             String ligne = fluxLecture.readLine();
@@ -258,6 +262,51 @@ public class Vigenere {
      */
     public static String[] getNomsFichiersEnvois() {
         return NOMS_FICHIERS_ENVOIS;
+    }
+    
+    /**
+     * TODO commenter le rôle de cette méthode (SRP)
+     */
+    public static void supprimerFichiersDonnees() {
+        
+        for (String nomFichier : NOMS_FICHIERS_DONNEES) {
+            
+            try {
+                Files.deleteIfExists(Path.of(nomFichier));
+            } catch (IOException e) {
+                // Ne rien faire
+            }
+        }
+    }
+    
+    /**
+     * TODO commenter le rôle de cette méthode (SRP)
+     */
+    public static void supprimerFichiersAlphabet() {
+        
+        for (String nomFichier : NOMS_FICHIERS_ALPHABET) {
+            
+            try {
+                Files.deleteIfExists(Path.of(nomFichier));
+            } catch (IOException e) {
+                // Ne rien faire
+            }
+        }
+    }
+
+    /**
+     * TODO commenter le rôle de cette méthode (SRP)
+     */
+    public static void supprimerFichiersEnvois() {
+        
+        for (String nomFichier : NOMS_FICHIERS_ENVOIS) {
+            
+            try {
+                Files.deleteIfExists(Path.of(nomFichier));
+            } catch (IOException e) {
+                // Ne rien faire
+            }
+        }
     }
     
 }
