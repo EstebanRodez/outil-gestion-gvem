@@ -7,6 +7,7 @@ package application.controleur;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -112,16 +113,19 @@ public class DonneesCalculeesVisiteFiltresPopUPControleur {
             String conf = paire.getValue().getConferencier().getNom();
             
             // Éviter les doublons
-            if (!listeExpositions.contains(expo)
-                && !listeConferenciers.contains(conf)) {
-                
+            if (!listeExpositions.contains(expo)) {
                 listeExpositions.add(expo);
+            }
+            
+            if (!listeConferenciers.contains(conf)) {
                 listeConferenciers.add(conf);
             }
         }
 
         expositions = listeExpositions.toArray(new String[0]);
         conferenciers = listeConferenciers.toArray(new String[0]);
+        
+        System.out.println(Arrays.toString(conferenciers));
 
         listeExpo.setItems(FXCollections.observableArrayList(expositions));
         listeConf.setItems(FXCollections.observableArrayList(conferenciers));
