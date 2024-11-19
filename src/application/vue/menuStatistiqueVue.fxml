@@ -77,7 +77,7 @@
             </Button>
          </children>
          <VBox.margin>
-            <Insets bottom="150.0" />
+            <Insets bottom="150.0" top="45.0" />
          </VBox.margin>
       </HBox>
    </children>
