@@ -22,7 +22,15 @@ import application.modele.Indisponibilite;
 import application.modele.Visite;
 
 /**
- * TODO commenter la responsabilité de cette class (SRP)
+ * Classe utilitaire responsable de l'exportation des données de l'application 
+ * au format CSV.
+ * 
+ * <p>Cette classe gère l'exportation de différentes entités, telles que les
+ * conférenciers, les employés, les expositions et les visites, dans des
+ * fichiers CSV distincts.</p>
+ * 
+ * <p>Chaque fichier CSV est créé avec une structure définie, adaptée au
+ * type de données exportées.</p>
  * 
  * @author Romain Augé
  * @author Ayoub Laluti
@@ -37,8 +45,19 @@ public class ExportationCSV {
     = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
-     * @throws ExportationCSVException 
+     * Exporte l'ensemble des données de l'application dans des fichiers CSV.
+     * 
+     * <p>Les entités suivantes sont exportées :</p>
+     * <ul>
+     *   <li>Les conférenciers dans le fichier <code>conferenciers.csv</code>
+     *   </li>
+     *   <li>Les employés dans le fichier <code>employes.csv</code></li>
+     *   <li>Les expositions dans le fichier <code>expositions.csv</code></li>
+     *   <li>Les visites dans le fichier <code>visites.csv</code></li>
+     * </ul>
+     * 
+     * @throws ExportationCSVException si une erreur survient lors de
+     *                                 l'écriture des fichiers.
      */
     public static void exporterDonnees() throws ExportationCSVException {
         

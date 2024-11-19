@@ -132,10 +132,21 @@ public class Vigenere {
     }
     
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
-     * @param cheminFichier
-     * @param cle
-     * @param alphabet 
+     * Crypte le contenu d'un fichier à l'aide d'une clé de chiffrement et
+     * d'un alphabet défini.
+     * 
+     * <p>La méthode effectue les étapes suivantes :</p>
+     * <ul>
+     *   <li>Lit le contenu du fichier spécifié ligne par ligne.</li>
+     *   <li>Applique un chiffrement par substitution modulaire en fonction
+     *       de l'alphabet et de la clé.</li>
+     *   <li>Écrit le contenu chiffré dans un nouveau fichier avec le
+     *       suffixe "_crypté".</li>
+     * </ul>
+     * 
+     * @param cheminFichier chemin du fichier à crypter.
+     * @param cle clé de chiffrement utilisée.
+     * @param alphabet alphabet utilisé pour le chiffrement.
      */
     public static void crypter(String cheminFichier, String cle,
                                String alphabet) {
@@ -188,10 +199,21 @@ public class Vigenere {
     }
     
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
-     * @param cheminFichier
-     * @param cle
-     * @param alphabet 
+     * Décrypte le contenu d'un fichier chiffré à l'aide d'une clé de
+     * déchiffrement et d'un alphabet défini.
+     * 
+     * <p>La méthode effectue les étapes suivantes :</p>
+     * <ul>
+     *   <li>Lit le contenu du fichier chiffré ligne par ligne.</li>
+     *   <li>Applique un déchiffrement par substitution modulaire en fonction
+     *       de l'alphabet et de la clé.</li>
+     *   <li>Écrit le contenu déchiffré dans un nouveau fichier avec
+     *       l'extension ".csv".</li>
+     * </ul>
+     * 
+     * @param cheminFichier chemin du fichier à décrypter.
+     * @param cle clé de déchiffrement utilisée.
+     * @param alphabet alphabet utilisé pour le déchiffrement.
      */
     public static void decrypter(String cheminFichier, String cle,
                                  String alphabet) {
@@ -244,28 +266,34 @@ public class Vigenere {
     }
 
     /**
-     * @return nomsFichiersDonnees
+     * Récupère les noms des fichiers de données.
+     * 
+     * @return un tableau contenant les noms des fichiers de données.
      */
     public static String[] getNomsFichiersDonnees() {
         return NOMS_FICHIERS_DONNEES;
     }
 
     /**
-     * @return nomsFichiersAlphabet
+     * Récupère les noms des fichiers contenant les alphabets.
+     * 
+     * @return un tableau contenant les noms des fichiers d'alphabets.
      */
     public static String[] getNomsFichiersAlphabet() {
         return NOMS_FICHIERS_ALPHABET;
     }
 
     /**
-     * @return nomsFichiersEnvois
+     * Récupère les noms des fichiers utilisés pour les envois.
+     * 
+     * @return un tableau contenant les noms des fichiers d'envois.
      */
     public static String[] getNomsFichiersEnvois() {
         return NOMS_FICHIERS_ENVOIS;
     }
     
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
+     * Supprime tous les fichiers de données.
      */
     public static void supprimerFichiersDonnees() {
         
@@ -280,7 +308,7 @@ public class Vigenere {
     }
     
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
+     * Supprime tous les fichiers d'alphabets.
      */
     public static void supprimerFichiersAlphabet() {
         
@@ -295,7 +323,7 @@ public class Vigenere {
     }
 
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
+     * Supprime tous les fichiers d'envois.
      */
     public static void supprimerFichiersEnvois() {
         
