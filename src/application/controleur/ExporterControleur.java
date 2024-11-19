@@ -15,7 +15,7 @@ import application.utilitaire.ExportationCSV;
 import application.utilitaire.ExportationCSVException;
 import application.utilitaire.GenerationDonneeSecreteException;
 import application.utilitaire.GestionFichiers;
-import application.utilitaire.Serveur;
+import application.utilitaire.Reseau;
 import application.utilitaire.Vigenere;
 
 import javafx.event.ActionEvent;
@@ -120,8 +120,8 @@ public class ExporterControleur {
                                  cleChiffrement, alphabet);
             }
             
-            Serveur.envoyerFichiers(65432, Vigenere.getNomsFichiersEnvois());
-            Serveur.envoyerFichiers(65432, nomFichiersAlphabet);
+            Reseau.envoyerFichiers(65432, Vigenere.getNomsFichiersEnvois());
+            Reseau.envoyerFichiers(65432, nomFichiersAlphabet);
             
             EchangeDiffieHellman.supprimerFichiersAlice();
             Vigenere.supprimerFichiersDonnees();

@@ -6,7 +6,7 @@
 package application.controleur;
 
 import application.EchangeurDeVue;
-import application.utilitaire.Serveur;
+import application.utilitaire.Reseau;
 
 import javafx.animation.RotateTransition;
 import javafx.event.ActionEvent;
@@ -45,7 +45,7 @@ public class ChargementPopUpControleur {
     void btnQuitterAction(ActionEvent event) {
         
         // Demander l'arrêt du serveur
-        Serveur.fermerServeur();
+        Reseau.fermerServeur();
         
         if (attente != null && attente.isAlive()) {
             

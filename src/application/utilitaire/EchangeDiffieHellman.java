@@ -127,7 +127,7 @@ public class EchangeDiffieHellman {
         } catch (IOException e) {
             throw new GenerationDonneeSecreteException(ERREUR_ECRITURE_ALICE);
         }  
-        InetAddress ipClient = Serveur.envoyerFichiers(65432, NOMS_FICHIER_CLES_ALICE);
+        InetAddress ipClient = Reseau.envoyerFichiers(65432, NOMS_FICHIER_CLES_ALICE);
         
         if (ipClient == null) {
             
@@ -139,7 +139,7 @@ public class EchangeDiffieHellman {
                     ERREUR_COMMUNICATION_FERMEE);
         }
 
-        Client.recevoirFichiers(ipClient.getHostAddress(), 65432,
+        Reseau.recevoirFichiers(ipClient.getHostAddress(), 65432,
                                 NOMS_FICHIER_CLES_BOB, null);
         int gExpB;
         try {
@@ -180,7 +180,7 @@ public class EchangeDiffieHellman {
             throw new IllegalArgumentException(ERREUR_IPSERVEUR_INVALIDE);
         }
         
-        Client.recevoirFichiers(ipServeur, 65432,
+        Reseau.recevoirFichiers(ipServeur, 65432,
                                 NOMS_FICHIER_CLES_ALICE, null);
 
         int p, g, gExpA;
@@ -204,7 +204,7 @@ public class EchangeDiffieHellman {
             e.printStackTrace();
             throw new GenerationDonneeSecreteException(ERREUR_ECRITURE_BOB);
         }  
-        Serveur.envoyerFichiers(65432, NOMS_FICHIER_CLES_BOB);
+        Reseau.envoyerFichiers(65432, NOMS_FICHIER_CLES_BOB);
 
         return Mathematiques.calculExponentielleModulo(gExpA, b, p);
     }

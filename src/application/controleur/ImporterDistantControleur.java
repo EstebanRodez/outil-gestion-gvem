@@ -8,12 +8,12 @@ package application.controleur;
 import java.io.IOException;
 
 import application.EchangeurDeVue;
-import application.utilitaire.Client;
 import application.utilitaire.EchangeDiffieHellman;
 import application.utilitaire.FichierDonneesInvalidesException;
 import application.utilitaire.GenerationDonneeSecreteException;
 import application.utilitaire.GestionFichiers;
 import application.utilitaire.ImportationCSV;
+import application.utilitaire.Reseau;
 import application.utilitaire.Vigenere;
 
 import javafx.event.ActionEvent;
@@ -80,9 +80,9 @@ public class ImporterDistantControleur {
             String[] nomFichierAlphabet = Vigenere.getNomsFichiersAlphabet();
             String[] nomFichierDonnees = Vigenere.getNomsFichiersDonnees();
             
-            Client.recevoirFichiers(ipServeur, 65432, nomFichierEnvois,
+            Reseau.recevoirFichiers(ipServeur, 65432, nomFichierEnvois,
                                     null);
-            Client.recevoirFichiers(ipServeur, 65432, nomFichierAlphabet,
+            Reseau.recevoirFichiers(ipServeur, 65432, nomFichierAlphabet,
                                     null);
             
             for (int indiceNomFichier = 0;
