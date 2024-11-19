@@ -397,6 +397,11 @@ class TestImportationCSV {
                     CHEMIN_EMPLOYES+"employes_valides_sans_entete.csv");
         });
         TraitementDonnees.supprimerDonnees();
+        assertDoesNotThrow(() -> {
+            ImportationCSV.importerDonnees(
+                    CHEMIN_EMPLOYES+"employes_valides_beaucoup.csv");
+        });
+        TraitementDonnees.supprimerDonnees();
         
         // Fichiers Visites avec données correctes
         insérerDonneesValides();
