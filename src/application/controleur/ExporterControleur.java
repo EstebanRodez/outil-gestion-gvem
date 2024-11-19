@@ -5,18 +5,13 @@
  */
 package application.controleur;
 
-import java.io.IOException;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 
 import application.EchangeurDeVue;
-import application.utilitaire.EchangeDiffieHellman;
 import application.utilitaire.ExportationCSV;
 import application.utilitaire.ExportationCSVException;
-import application.utilitaire.GenerationDonneeSecreteException;
-import application.utilitaire.GestionFichiers;
-import application.utilitaire.Reseau;
-import application.utilitaire.Vigenere;
+import application.utilitaire.ThreadExportation;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -78,8 +73,6 @@ public class ExporterControleur {
     @FXML
     void btnExporterAction(ActionEvent event) {
         
-        final int PORT_EXPORTATION = Reseau.getPortExportation();
-        
         EchangeurDeVue.creerPopUp("chargementPopUp");
         
         try {
@@ -88,61 +81,12 @@ public class ExporterControleur {
             e.printStackTrace();
         }
         
-        Thread attente;
-        attente = new Thread(() -> {
-            
-            int cleSecrete = -1;
-            try {
-                cleSecrete = EchangeDiffieHellman.genererDonneeSecreteAlice();
-                System.out.println(cleSecrete);
-            } catch (GenerationDonneeSecreteException e) {
-                e.printStackTrace();
-            }
-            
-            String[] nomFichiersDonnees = Vigenere.getNomsFichiersDonnees();
-            String[] nomFichiersAlphabet = Vigenere.getNomsFichiersAlphabet();
-            for (int indiceNomFichier = 0;
-                 indiceNomFichier < nomFichiersDonnees.length;
-                 indiceNomFichier++) {
-                
-                String alphabet
-                = Vigenere.recupererAlphabet(nomFichiersDonnees[indiceNomFichier]);
-                try {
-                    GestionFichiers.ecrireFichier(
-                        nomFichiersAlphabet[indiceNomFichier], alphabet);
-                } catch (IOException e) {
-                    // Ne rien faire
-                }
-                String cleChiffrement
-                = Vigenere.genererCleChiffrement(cleSecrete, alphabet);
-                
-                System.out.println(cleChiffrement);
-                
-                Vigenere.crypter(nomFichiersDonnees[indiceNomFichier],
-                                 cleChiffrement, alphabet);
-            }
-            
-            Reseau.envoyerFichiers(PORT_EXPORTATION,
-                                   Vigenere.getNomsFichiersEnvois());
-            Reseau.envoyerFichiers(PORT_EXPORTATION, nomFichiersAlphabet);
-            
-            EchangeDiffieHellman.supprimerFichiersAlice();
-            EchangeDiffieHellman.supprimerFichiersBob();
-            Vigenere.supprimerFichiersDonnees();
-            Vigenere.supprimerFichiersAlphabet();
-            Vigenere.supprimerFichiersEnvois();
-            
-            // FIXME erreur thread
-//            if (!Thread.currentThread().isInterrupted()) {
-//                EchangeurDeVue.fermerPopUp("chargementPopUp");
-//                EchangeurDeVue.changerVue("exporterValideVue");
-//            }
-        });
+        ThreadExportation threadExportation = new ThreadExportation();
         
         ChargementPopUpControleur controleur
         = EchangeurDeVue.getFXMLLoader("chargementPopUp").getController();
-        controleur.setThreadAttente(attente);
-        attente.start();
+        controleur.setThreadExportation(threadExportation);
+        threadExportation.start();
     }
 
     @FXML

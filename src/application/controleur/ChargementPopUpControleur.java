@@ -7,7 +7,7 @@ package application.controleur;
 
 import application.EchangeurDeVue;
 import application.utilitaire.Reseau;
-
+import application.utilitaire.ThreadExportation;
 import javafx.animation.RotateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,7 +26,7 @@ import javafx.util.Duration;
  */
 public class ChargementPopUpControleur {
     
-    private static Thread attente;
+    private static ThreadExportation threadExportation;
       
     @FXML
     private Button btnQuitter;
@@ -47,14 +47,15 @@ public class ChargementPopUpControleur {
         // Demander l'arrêt du serveur
         Reseau.fermerServeur();
         
-        if (attente != null && attente.isAlive()) {
+        if (threadExportation != null && threadExportation.isAlive()) {
             
+            threadExportation.arreterExportation();
             // Interrompt le thread pour sortir de l'attente de connexion
-            attente.interrupt();
+            threadExportation.interrupt();
             try {
                 
                 // Attendre que le thread termine jusqu'à 500ms
-                attente.join(); 
+                threadExportation.join(); 
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -66,10 +67,10 @@ public class ChargementPopUpControleur {
     
     /**
      * TODO commenter le rôle de cette méthode (SRP)
-     * @param attente
+     * @param threadExportation
      */
-    public void setThreadAttente(Thread attente) {
-        ChargementPopUpControleur.attente = attente;
+    public void setThreadExportation(ThreadExportation threadExportation) {
+        ChargementPopUpControleur.threadExportation = threadExportation;
     }
     
     /**
