@@ -88,7 +88,8 @@ public class EchangeDiffieHellman {
      * 
      * <p>Cette méthode effectue les opérations suivantes :</p>
      * <ul>
-     *   <li>Génération des paramètres p (nombre premier) et g (générateur).</li>
+     *   <li>Génération des paramètres p (nombre premier) et g (générateur)
+     *   </li>
      *   <li>Calcul de g^a mod p, où a est un entier secret.</li>
      *   <li>Envoi des fichiers contenant p, g, et g^a à Bob.</li>
      *   <li>Réception de g^b envoyé par Bob.</li>
@@ -151,7 +152,7 @@ public class EchangeDiffieHellman {
             throw new GenerationDonneeSecreteException(ERREUR_LECTURE_ALICE);
         }
         
-        return Mathematiques.calculExponentielleModulo(gExpB, a, p); // bouchon
+        return Mathematiques.calculExponentielleModulo(gExpB, a, p);
     }
     
     /**
