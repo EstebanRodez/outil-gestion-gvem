@@ -111,6 +111,11 @@ public class ImporterDistantControleur {
                 } catch (FichierDonneesInvalidesException e) {
                     // Ne rien faire
                 }
+                
+                EchangeDiffieHellman.supprimerFichiersBob();
+                Vigenere.supprimerFichiersEnvois();
+                Vigenere.supprimerFichiersAlphabet();
+                Vigenere.supprimerFichiersDonnees();
             }
         }
     }

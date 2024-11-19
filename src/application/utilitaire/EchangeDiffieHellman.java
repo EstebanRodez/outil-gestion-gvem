@@ -7,6 +7,8 @@ package application.utilitaire;
 
 import java.io.IOException;
 import java.net.InetAddress;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 /**
  * Cette classe implémente le protocole d'échange de clés Diffie-Hellman,
@@ -205,5 +207,37 @@ public class EchangeDiffieHellman {
         Serveur.envoyerFichiers(65432, NOMS_FICHIER_CLES_BOB);
 
         return Mathematiques.calculExponentielleModulo(gExpA, b, p);
+    }
+    
+    /**
+     * Supprime tous les fichiers crées par Alice.<br>
+     * Fichiers concernés : p, g, g^a
+     */
+    public static void supprimerFichiersAlice() {
+        
+        for (String nomFichier : NOMS_FICHIER_CLES_ALICE) {
+            
+            try {
+                Files.deleteIfExists(Path.of(nomFichier));
+            } catch (IOException e) {
+                // Ne rien faire
+            }
+        }
+    }
+    
+    /**
+     * Supprime tous les fichiers crées par Bob.<br>
+     * Fichiers concernés : g^b
+     */
+    public static void supprimerFichiersBob() {
+        
+        for (String nomFichier : NOMS_FICHIER_CLES_BOB) {
+            
+            try {
+                Files.deleteIfExists(Path.of(nomFichier));
+            } catch (IOException e) {
+                // Ne rien faire
+            }
+        }
     }
 }

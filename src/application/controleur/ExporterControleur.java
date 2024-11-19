@@ -123,6 +123,11 @@ public class ExporterControleur {
             Serveur.envoyerFichiers(65432, Vigenere.getNomsFichiersEnvois());
             Serveur.envoyerFichiers(65432, nomFichiersAlphabet);
             
+            EchangeDiffieHellman.supprimerFichiersAlice();
+            Vigenere.supprimerFichiersDonnees();
+            Vigenere.supprimerFichiersAlphabet();
+            Vigenere.supprimerFichiersEnvois();
+            
             // FIXME erreur thread
 //            if (!Thread.currentThread().isInterrupted()) {
 //                EchangeurDeVue.fermerPopUp("chargementPopUp");
