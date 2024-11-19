@@ -63,6 +63,8 @@ public class ImporterDistantControleur {
     @FXML
     void btnConnexionAction(ActionEvent event) {
         
+        final int PORT_EXPORTATION = Reseau.getPortExportation();
+        
         String ipServeur = txtFieldIPServeur.getText().trim();
         
         if (isAdresseIPValide(ipServeur)) {
@@ -80,10 +82,10 @@ public class ImporterDistantControleur {
             String[] nomFichierAlphabet = Vigenere.getNomsFichiersAlphabet();
             String[] nomFichierDonnees = Vigenere.getNomsFichiersDonnees();
             
-            Reseau.recevoirFichiers(ipServeur, 65432, nomFichierEnvois,
-                                    null);
-            Reseau.recevoirFichiers(ipServeur, 65432, nomFichierAlphabet,
-                                    null);
+            Reseau.recevoirFichiers(ipServeur, PORT_EXPORTATION,
+                                    nomFichierEnvois, null);
+            Reseau.recevoirFichiers(ipServeur, PORT_EXPORTATION,
+                                    nomFichierAlphabet, null);
             
             for (int indiceNomFichier = 0;
                  indiceNomFichier < nomFichierEnvois.length;

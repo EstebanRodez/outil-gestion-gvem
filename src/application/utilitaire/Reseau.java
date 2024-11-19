@@ -29,6 +29,8 @@ import java.net.Socket;
  */
 public class Reseau {
     
+    private static final int PORT_EXPORTATION = 65430;
+    
     private static ServerSocket serverSocket;
 
     /**
@@ -166,5 +168,14 @@ public class Reseau {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    
+    /**
+     * Récupère le port utilisé pour l'exportation des données
+     * 
+     * @return le port pour l'exportation des données
+     */
+    public static int getPortExportation() {
+        return PORT_EXPORTATION;
     }
 }

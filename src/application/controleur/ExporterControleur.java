@@ -78,6 +78,8 @@ public class ExporterControleur {
     @FXML
     void btnExporterAction(ActionEvent event) {
         
+        final int PORT_EXPORTATION = Reseau.getPortExportation();
+        
         EchangeurDeVue.creerPopUp("chargementPopUp");
         
         try {
@@ -120,8 +122,9 @@ public class ExporterControleur {
                                  cleChiffrement, alphabet);
             }
             
-            Reseau.envoyerFichiers(65432, Vigenere.getNomsFichiersEnvois());
-            Reseau.envoyerFichiers(65432, nomFichiersAlphabet);
+            Reseau.envoyerFichiers(PORT_EXPORTATION,
+                                   Vigenere.getNomsFichiersEnvois());
+            Reseau.envoyerFichiers(PORT_EXPORTATION, nomFichiersAlphabet);
             
             EchangeDiffieHellman.supprimerFichiersAlice();
             Vigenere.supprimerFichiersDonnees();
