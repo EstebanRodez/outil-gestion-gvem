@@ -404,28 +404,28 @@ class TestImportationCSV {
         TraitementDonnees.supprimerDonnees();
         
         // Fichiers Visites avec données correctes
-        insérerDonneesValides();
+        insererDonneesValides();
         assertDoesNotThrow(() -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_VISITES+"visites_valides1.csv");
         });
         TraitementDonnees.supprimerDonnees();
         
-        insérerDonneesValides();
+        insererDonneesValides();
         assertDoesNotThrow(() -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_VISITES+"visites_valides2.csv");
         });
         TraitementDonnees.supprimerDonnees();
         
-        insérerDonneesValides();
+        insererDonneesValides();
         assertDoesNotThrow(() -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_VISITES+"visites_valides3.csv");
         });
         TraitementDonnees.supprimerDonnees();
         
-        insérerDonneesValides();
+        insererDonneesValides();
         assertDoesNotThrow(() -> {
             ImportationCSV.importerDonnees(
                     CHEMIN_VISITES+"visites_valides_sans_entete.csv");
@@ -438,7 +438,7 @@ class TestImportationCSV {
      * Insère des données valides en mémoire pour insérer ensuite des
      * visites valides
      */
-    private void insérerDonneesValides() {
+    private void insererDonneesValides() {
         
         assertDoesNotThrow(() -> {
             ImportationCSV.importerDonnees(
