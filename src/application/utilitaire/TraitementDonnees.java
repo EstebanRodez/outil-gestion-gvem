@@ -45,6 +45,12 @@ public class TraitementDonnees {
     private final static DateTimeFormatter FORMATTER_DATE_FR
     = AccueilControleur.getDateFormatterFR();
 
+    private static final String ERREUR_DONNEES_NULLES =
+    """
+    Impossible de définir les données de l'application.                
+    La référence des données ne doit pas être nulle.
+    """;
+
     private static Donnees donnees = new Donnees();
 
     /**
@@ -337,6 +343,11 @@ public class TraitementDonnees {
      * @param donnees les données à stocker
      */
     public static void setDonnees(Donnees donnees) {
+        
+        if (donnees == null) {
+            throw new IllegalArgumentException(ERREUR_DONNEES_NULLES);
+        }
+        
         TraitementDonnees.donnees = donnees;
     }
 
