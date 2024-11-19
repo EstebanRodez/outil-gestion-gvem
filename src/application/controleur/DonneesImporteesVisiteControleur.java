@@ -5,6 +5,8 @@
  */
 package application.controleur;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -12,6 +14,7 @@ import java.util.Map.Entry;
 
 import application.EchangeurDeVue;
 import application.modele.Visite;
+import application.utilitaire.GenererPdf;
 import application.utilitaire.TraitementDonnees;
 
 import javafx.beans.property.SimpleStringProperty;
@@ -19,9 +22,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.stage.DirectoryChooser;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 
 /**
@@ -46,16 +52,13 @@ public class DonneesImporteesVisiteControleur {
     
     // Format pour les dates au format jj/MM/aaaa
     private static final DateTimeFormatter DATE_FORMAT 
-    = AccueilControleur.getDateFormatterFR();
+        = AccueilControleur.getDateFormatterFR(); 
     
     @FXML
     private Button aideAction;
     
     @FXML
     private Button btnRetour;
-    
-    @FXML
-    private Button btnGenererPDF;
     
     @FXML
     private TableColumn<Map.Entry<String, Visite>, String> conferencier;
@@ -135,17 +138,25 @@ public class DonneesImporteesVisiteControleur {
     }
     
     @FXML
-    void btnGenererPDFAction(ActionEvent event) {
-        /*try {
-            // Create a list to hold VisiteMoyenneResultat objects
-            List<VisiteMoyenneResultat> results = new ArrayList<>();
-
-            // Generate PDF with the results
-            CreerPdf pdfGenerator = new CreerPdf();
-            pdfGenerator.generatePdf("rapport_visites_sans_traitements.pdf", results);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } */
+    void convertirPdfOnAction(ActionEvent event) {
+        String chemin = "";
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        directoryChooser.setInitialDirectory
+            (new File(System.getProperty("user.home"), "Documents"));
+        
+        File selectedDirectory = directoryChooser.showDialog(null);
+        
+        if (selectedDirectory != null) {
+            chemin = selectedDirectory.getAbsolutePath() 
+                        + File.separator + "visites.pdf";
+            
+            try {
+                GenererPdf.visitePdf(visites, chemin);
+                AccueilControleur.alertePdfSucces();
+            } catch (IOException err) {  
+                AccueilControleur.alertePdfEchec(err);
+            }
+        }        
     }
     
     private static Visite getVisite(

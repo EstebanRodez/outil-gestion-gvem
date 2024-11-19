@@ -14,6 +14,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Alert.AlertType;
 
 /**
  * Contrôleur de l'interface d'accueil de l'application.
@@ -51,6 +52,12 @@ public class AccueilControleur {
         "https://docs.google.com/document/d/1wA1ytqySDYe1D-2ZL1M0mLKMvUmv9SCtS0uORFgoRIY/edit?tab=t.0#bookmark=id.6o2rk7o9eltt", // Stat Pourcentage Expo
         "https://docs.google.com/document/d/1wA1ytqySDYe1D-2ZL1M0mLKMvUmv9SCtS0uORFgoRIY/edit?tab=t.0#bookmark=id.ukb3nu3upixl" // Stat Pourcentage Conf
     };
+
+    private static final String PDF_CREATION_SUCCES 
+        = "Le fichier pdf a était crée avec succés";
+    
+    private static final String ERREUR_I_O 
+        = "Une erreur est survenue lors de la génération du fichier PDF.";
 
     @FXML
     private Button btnAide;
@@ -160,5 +167,30 @@ public class AccueilControleur {
         if (result == ButtonType.OK) {
             EchangeurDeVue.getFenetreAppli().hide();
         }
+    }
+    
+    /**
+     * Message d'alerte lorsque le pdf a était crée avec succes.
+     */
+    public static void alertePdfSucces() {
+        Alert boiteInformationPdf
+        = new Alert(Alert.AlertType.INFORMATION, PDF_CREATION_SUCCES, ButtonType.OK);
+
+        boiteInformationPdf.setTitle("Importation");
+        boiteInformationPdf.setHeaderText(
+                "Fichier PDF crée avec succés");
+        boiteInformationPdf.showAndWait();
+    }
+    
+    /**
+     * Message d'alerte lorsque le pdf n'a pas était crée.
+     * @param err l'erreur
+     */
+    public static void alertePdfEchec(IOException err) {
+        Alert errorAlert = new Alert(AlertType.ERROR);
+        errorAlert.setTitle("Erreur d'I/O");
+        errorAlert.setHeaderText(ERREUR_I_O);
+        errorAlert.setContentText("Détails de l'erreur : " + err.getMessage());
+        errorAlert.showAndWait();
     }
 }
