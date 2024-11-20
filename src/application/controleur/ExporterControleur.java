@@ -62,7 +62,8 @@ public class ExporterControleur {
             labelIp.setText(socket.getLocalAddress().getHostAddress());
         } catch (Exception e) {
             Alert boiteIpInconnu = new Alert(Alert.AlertType.ERROR, 
-                    "Impossible de connaître l'adresse IP de l'interface Ethernet", 
+                    "Impossible de connaître l'adresse IP de l'interface "
+                    + "Ethernet", 
                     ButtonType.OK);
             boiteIpInconnu.setTitle("Erreur adresse IP inconnue");
             boiteIpInconnu.setHeaderText("Erreur adresse IP inconnue");
@@ -80,12 +81,12 @@ public class ExporterControleur {
             ExportationCSV.exporterDonnees();
         } catch (ExportationCSVException e) {
             erreurExportation = true;
-            lancerErreurExportation(
-                "Vos données n'ont pas pu être exportées dans un format csv.");
+            lancerErreurExportation();
         }
         
         if (!erreurExportation) {
             
+            EchangeurDeVue.creerPopUp("chargementPopUp");
             ThreadExportation threadExportation = new ThreadExportation();
             
             ChargementPopUpControleur controleur
@@ -112,15 +113,30 @@ public class ExporterControleur {
     
     /**
      * TODO commenter le rôle de cette méthode (SRP)
-     * @param message
      */
-    public static void lancerErreurExportation(String message) {
+    public static void lancerErreurExportation() {
+        
+        Alert boiteErreurChargementVue
+        = new Alert(Alert.AlertType.ERROR, 
+                    "Vos données n'ont pas pu être exportées dans un format "
+                    + "csv.", ButtonType.OK);
+        boiteErreurChargementVue.setTitle("Erreur Exportation");
+        boiteErreurChargementVue.setHeaderText(
+                "Erreur lors de l'exportation de vos données");
+        boiteErreurChargementVue.showAndWait();
+    }
+    
+    /**
+     * TODO commenter le rôle de cette méthode (SRP)
+     * @param message 
+     */
+    public static void lancerErreurGenerationDonneeSecrete(String message) {
         
         Alert boiteErreurChargementVue
         = new Alert(Alert.AlertType.ERROR, message, ButtonType.OK);
         boiteErreurChargementVue.setTitle("Erreur Exportation");
         boiteErreurChargementVue.setHeaderText(
-                "Erreur lors de l'exportation de vos données");
+                "Erreur lors de la génération de la donnée secrète");
         boiteErreurChargementVue.showAndWait();
     }
     

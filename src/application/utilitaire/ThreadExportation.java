@@ -50,7 +50,8 @@ public class ThreadExportation extends Thread {
                 cleSecrete = EchangeDiffieHellman.genererDonneeSecreteAlice();
             } catch (GenerationDonneeSecreteException e) {
                 if (!arretExportation) {
-                    ExporterControleur.lancerErreurExportation(e.getMessage());
+                    ExporterControleur.lancerErreurGenerationDonneeSecrete(
+                            e.getMessage());
                 }
             }
             
@@ -71,7 +72,7 @@ public class ThreadExportation extends Thread {
                                 nomFichiersAlphabet[indiceNomFichier],
                                 alphabet);
                     } catch (IOException e) {
-                        ExporterControleur.lancerErreurExportation(
+                        ExporterControleur.lancerErreurGenerationDonneeSecrete(
                                 ERREUR_ECRITURE_ALPHABET);
                     }
                     String cleChiffrement
