@@ -20,6 +20,13 @@
                <HBox.margin>
                   <Insets />
                </HBox.margin>
+               <graphic>
+                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../image/accueil.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
             <Button mnemonicParsing="false" prefHeight="47.0" prefWidth="320.0" style="-fx-background-color: #FFEE8E;" text="Consulter des classements">
                <font>
