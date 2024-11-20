@@ -139,24 +139,16 @@ public class DonneesImporteesVisiteControleur {
     
     @FXML
     void convertirPdfOnAction(ActionEvent event) {
-        String chemin = "";
-        DirectoryChooser directoryChooser = new DirectoryChooser();
-        directoryChooser.setInitialDirectory
-            (new File(System.getProperty("user.home"), "Documents"));
-        
-        File selectedDirectory = directoryChooser.showDialog(null);
-        
-        if (selectedDirectory != null) {
-            chemin = selectedDirectory.getAbsolutePath() 
-                        + File.separator + "visites.pdf";
-            
-            try {
-                GenererPdf.visitePdf(visites, chemin);
-                AccueilControleur.alertePdfSucces();
-            } catch (IOException err) {  
+        String chemin;
+        chemin = AccueilControleur.chemin("visites");
+        if (chemin != null) {
+          try {
+            GenererPdf.visitePdf(visites, chemin);
+            AccueilControleur.alertePdfSucces();
+          } catch (IOException err) {  
                 AccueilControleur.alertePdfEchec(err);
-            }
-        }        
+          }
+        }   
     }
     
     private static Visite getVisite(

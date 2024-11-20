@@ -5,7 +5,6 @@
  */
 package application.controleur;
 
-import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -28,7 +27,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
-import javafx.stage.DirectoryChooser;
 import javafx.scene.control.TableView;
 import javafx.util.Callback;
 
@@ -173,22 +171,14 @@ public class DonneesImporteesExpositionControleur {
     
     @FXML
     void convertirPdfOnAction(ActionEvent event) {
-        String chemin = "";
-        DirectoryChooser directoryChooser = new DirectoryChooser();
-        directoryChooser.setInitialDirectory
-            (new File(System.getProperty("user.home"), "Documents"));
-        
-        File selectedDirectory = directoryChooser.showDialog(null);
-        
-        if (selectedDirectory != null) {
-            chemin = selectedDirectory.getAbsolutePath() 
-                        + File.separator + "expositions.pdf";
-            
+        String chemin;
+        chemin = AccueilControleur.chemin("expositions");
+        if (chemin != null) {
             try {
-                GenererPdf.expositionsPdf(expositions, chemin);
-                AccueilControleur.alertePdfSucces();
+              GenererPdf.expositionsPdf(expositions, chemin);
+              AccueilControleur.alertePdfSucces();
             } catch (IOException err) {  
-                AccueilControleur.alertePdfEchec(err);
+                  AccueilControleur.alertePdfEchec(err);
             }
         }        
     }

@@ -20,6 +20,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import application.controleur.AccueilControleur;
+import application.modele.Conferencier;
 import application.modele.Exposition;
 import application.modele.ExpositionTemporaire;
 import application.modele.Visite;
@@ -58,10 +59,19 @@ public class GenererPdf {
     private static final String[] ENTETE_EXPOSITION 
         = {"Identifiant", "Intitulé", "Période début", "Période fin",
             "Nombre d'oeuvre", "Mot clé", "Résumé", "Date début", "Date fin"};
+
+    private static final float[] FORMAT_CONFERENCIER 
+        = {5, 5, 5, 15, 5, 3, 10};
+    
+    private static final String[] ENTETE_CONFERENCIER
+    = {"Identifiant", "Nom", "Prénom", "Spécialité", "Téléphone", "Employé",
+       "Indisponiblité"};
     
     private static LinkedHashMap<String, Visite> visitesPdf;
     
     private static LinkedHashMap<String, Exposition> expositionsPdf;
+    
+    private static LinkedHashMap<String, Conferencier> conferenciersPdf;
     
     private static PdfWriter destination;
     
@@ -93,6 +103,19 @@ public class GenererPdf {
         expositionsPdf = expositions;
         creerEntetePDF(cheminPdf, "expositions");
         donneesImporteesExposition();       
+    }
+    
+    /**
+     * Méthode publique pour générer un PDF à partir des conferenciers.
+     * @param conferenciers Données des conferenciers.
+     * @param cheminPdf le chemin ou sera stocké le fichier pdf
+     * @throws IOException
+     */
+    public static void conferenciersPdf(LinkedHashMap<String, Conferencier> conferenciers,
+                                        String cheminPdf) throws IOException {
+        conferenciersPdf = conferenciers;
+        creerEntetePDF(cheminPdf, "conferenciers");
+        donneesImporteesConferencier();     
     }
     
     /**
@@ -297,5 +320,76 @@ public class GenererPdf {
         document.add(table);
         document.close();  
     }
+    
+    /**
+     * Génère un PDF avec un tableau contenant les données des expositions.
+     * @throws IOException 
+     */
+    private static void donneesImporteesConferencier() throws IOException {
+        Table table;
+        PdfFont font;
+        
+        String[] specialitesTextes,
+                 indisponibilitesTextes;
+        
+        font = PdfFontFactory.createRegisteredFont(POLICE_ECRITURE);
+        table = new Table(UnitValue.createPercentArray(FORMAT_CONFERENCIER))
+                    .useAllAvailableWidth();
+        
+        enteteTableau(table, font, COULEUR_DONNEES_IMPORTEES, ENTETE_CONFERENCIER);
+            
+        for (Entry<String, Conferencier> entry : conferenciersPdf.entrySet()) {
+            Conferencier conferencier = entry.getValue();
+                
+            table.addCell(creerCelluleTableau(
+                    entry.getKey().toString(), font)); // Identifiant
+            table.addCell(creerCelluleTableau(
+                    conferencier.getNom(), font)); // Nom
+            table.addCell(creerCelluleTableau(
+                    conferencier.getPrenom(), font)); // Prenom
+            
+            specialitesTextes
+                = new String[conferencier.getSpecialites().length];
+            
+            for (int indexSpecialité = 0; 
+                 indexSpecialité < conferencier.getSpecialites().length;
+                 indexSpecialité++) {
+                specialitesTextes[indexSpecialité] 
+                        = conferencier.getSpecialites()[indexSpecialité]
+                                      .toString();             
+            }
+            
+            table.addCell(creerCelluleTableau
+                    (String.join(", ", specialitesTextes), font)); // Spécialité
+            
+            table.addCell(creerCelluleTableau(
+                    conferencier.getNumTel(), font)); // Telephone
+            table.addCell(creerCelluleTableau(
+                    conferencier.estInterne() ? "Oui" : "Non", font)); // Employé
+            
+            if (conferencier.getIndisponibilites() == null
+                    || conferencier.getIndisponibilites().length == 0) {
+                table.addCell(creerCelluleTableau("Aucune indisponibilité"
+                                                   , font)); 
+            } else {
+                indisponibilitesTextes
+                    = new String[conferencier.getIndisponibilites().length];
+                
+                for (int indexIndispo = 0; 
+                     indexIndispo < conferencier.getIndisponibilites().length;
+                     indexIndispo++) {
+                    indisponibilitesTextes[indexIndispo] 
+                            = conferencier.getIndisponibilites()[indexIndispo]
+                                          .toString();
+                }
+                
+                table.addCell(creerCelluleTableau
+                                 (String.join(", ", indisponibilitesTextes)
+                                 , font));
+            } 
+        }
+        document.add(table);
+        document.close();      
+    }   
 }
 

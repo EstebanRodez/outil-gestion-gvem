@@ -5,6 +5,8 @@
  */
 package application.controleur;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -12,6 +14,7 @@ import java.util.Map.Entry;
 import application.EchangeurDeVue;
 import application.modele.Conferencier;
 import application.modele.Indisponibilite;
+import application.utilitaire.GenererPdf;
 import application.utilitaire.TraitementDonnees;
 
 import javafx.beans.property.SimpleStringProperty;
@@ -22,6 +25,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
+import javafx.stage.DirectoryChooser;
 import javafx.scene.control.TableView;
 
 /**
@@ -49,10 +53,7 @@ public class DonneesImporteesConferencierControleur {
     
     @FXML
     private Button btnRetour;
-    
-    @FXML
-    private Button btnGenererPDF;
-    
+      
     @FXML
     private TableColumn<Map.Entry<String, Conferencier>, String> estInterne;
 
@@ -76,23 +77,7 @@ public class DonneesImporteesConferencierControleur {
 
     @FXML
     private TableView<Map.Entry<String, Conferencier>> tableExposition;
-    
-    @FXML
-    void btnGenererPDFAction(ActionEvent event) {
-        /*try {
-            // Create a list to hold VisiteMoyenneResultat objects
-            List<VisiteMoyenneResultat> results = new ArrayList<>();
-           
-            // Generate PDF with the results
-            CreerPdf pdfGenerator = new CreerPdf();
-            pdfGenerator.generatePdf("rapport_Conferenciers_sans_traitements.pdf", results);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } */
-    }
-
-    
-    
+         
     /**
      * 
      */
@@ -157,6 +142,20 @@ public class DonneesImporteesConferencierControleur {
         }
         
         return String.join(", ", indisponibilitesTextes);
+    }
+    
+    @FXML
+    void convertirPdfOnAction(ActionEvent event) {
+        String chemin;
+        chemin = AccueilControleur.chemin("conferenciers");
+            
+        try {
+            GenererPdf.conferenciersPdf(conferenciers, chemin);
+            AccueilControleur.alertePdfSucces();
+        } catch (IOException err) {  
+            AccueilControleur.alertePdfEchec(err);
+        }
+               
     }
     
     @FXML

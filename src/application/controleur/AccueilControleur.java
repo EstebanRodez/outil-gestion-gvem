@@ -1,9 +1,11 @@
 package application.controleur;
 
 import java.awt.Desktop;
+import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import application.EchangeurDeVue;
@@ -14,6 +16,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.stage.DirectoryChooser;
 import javafx.scene.control.Alert.AlertType;
 
 /**
@@ -192,5 +195,40 @@ public class AccueilControleur {
         errorAlert.setHeaderText(ERREUR_I_O);
         errorAlert.setContentText("Détails de l'erreur : " + err.getMessage());
         errorAlert.showAndWait();
+    }
+    
+    /**
+     * Permet d'obtenir le chemin du fichier pdf choisit par l'utilisateur
+     * Format du fichier : 
+     * Nom du fichier + "1911241530"  (19 novembre 2024, 15:30)  + .pdf
+     * @param typeFichier
+     * @return chemin du fichier valide
+     */
+    public static String chemin(String typeFichier ) {
+        String chemin = null;
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        directoryChooser.setInitialDirectory(new File(System.getProperty("user.home"), "Documents"));
+        File selectedDirectory = directoryChooser.showDialog(null);
+        
+        if (selectedDirectory != null) {
+            LocalDateTime now = LocalDateTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMyyHHmm");
+            
+            String JJMMAAHMIN = now.format(formatter); 
+            
+            String baseFileName = typeFichier + " " + JJMMAAHMIN + ".pdf";
+            
+
+            File file = new File(selectedDirectory, baseFileName);
+
+            int i = 1;
+            while (file.exists()) {
+                String newFileName = typeFichier + JJMMAAHMIN + "(" + i + ").pdf";
+                file = new File(selectedDirectory, newFileName);
+                i++;
+            }
+            chemin = file.getAbsolutePath();
+      } 
+        return chemin;
     }
 }
