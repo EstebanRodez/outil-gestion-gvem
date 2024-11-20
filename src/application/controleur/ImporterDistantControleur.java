@@ -73,7 +73,6 @@ public class ImporterDistantControleur {
             try {
                 cleSecrete
                 = EchangeDiffieHellman.genererDonneeSecreteBob(ipServeur);
-                System.out.println(cleSecrete);
             } catch (GenerationDonneeSecreteException e) {
                 e.printStackTrace();
             }
@@ -101,8 +100,6 @@ public class ImporterDistantControleur {
                 
                 String cleChiffrement
                 = Vigenere.genererCleChiffrement(cleSecrete, alphabet);
-                
-                System.out.println(cleChiffrement);
                 
                 Vigenere.decrypter(nomFichierEnvois[indiceNomFichier],
                                    cleChiffrement, alphabet);

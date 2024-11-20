@@ -111,10 +111,8 @@ public class EchangeDiffieHellman {
 
         int p = Mathematiques.trouverNombrePremier(
                 Mathematiques.genererNombreAleatoire(1000,9999));
-        System.out.println(p);
 
         int g = Mathematiques.trouverDernierGroupeMultiplicatif(p);
-        System.out.println(g);
 
         int a = Mathematiques.genererNombreAleatoire(1, p);
         int gExpA = Mathematiques.calculExponentielleModulo(g, a, p);

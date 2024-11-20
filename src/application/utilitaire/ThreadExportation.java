@@ -48,7 +48,6 @@ public class ThreadExportation extends Thread {
             int cleSecrete = -1;
             try {
                 cleSecrete = EchangeDiffieHellman.genererDonneeSecreteAlice();
-                System.out.println(cleSecrete);
             } catch (GenerationDonneeSecreteException e) {
                 interrupt();
                 ExporterControleur.lancerErreurExportation(e.getMessage());
@@ -76,8 +75,6 @@ public class ThreadExportation extends Thread {
                     }
                     String cleChiffrement
                     = Vigenere.genererCleChiffrement(cleSecrete, alphabet);
-
-                    System.out.println(cleChiffrement);
 
                     Vigenere.crypter(nomFichiersDonnees[indiceNomFichier],
                             cleChiffrement, alphabet);

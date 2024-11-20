@@ -124,8 +124,6 @@ public class DonneesCalculeesVisiteFiltresPopUPControleur {
 
         expositions = listeExpositions.toArray(new String[0]);
         conferenciers = listeConferenciers.toArray(new String[0]);
-        
-        System.out.println(Arrays.toString(conferenciers));
 
         listeExpo.setItems(FXCollections.observableArrayList(expositions));
         listeConf.setItems(FXCollections.observableArrayList(conferenciers));

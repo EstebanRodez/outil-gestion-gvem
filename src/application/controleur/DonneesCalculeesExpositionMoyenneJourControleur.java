@@ -229,7 +229,6 @@ public class DonneesCalculeesExpositionMoyenneJourControleur {
         // Calculer le nombre total de jours global entre dateDebutGlobal et dateFinGlobal
         long totalJours = ChronoUnit.DAYS.between(dateDebutGlobal, 
                                                   dateFinGlobal) + 1;
-        System.out.println("Nombre total de jours global : " + totalJours);
 
         // Création d'une Map pour compter les visites par exposition
         Map<String, Integer> visitesParExposition = new HashMap<>();
