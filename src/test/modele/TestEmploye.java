@@ -49,7 +49,7 @@ class TestEmploye {
     void testEmployeInvalide() {
         
         /*
-         * Tests spécifiques au constructeur à 3 arguments
+         * Tests spécifiques au constructeur à 2 arguments
          */
         assertThrows(IllegalArgumentException.class, 
                      () -> new Employe(null, null));
@@ -79,7 +79,7 @@ class TestEmploye {
                      () -> new Employe("", PRENOM_EMPLOYE_VALIDE));
         
         /*
-         * Tests spécifiques au constructeur à 4 arguments
+         * Tests spécifiques au constructeur à 3 arguments
          */
         assertThrows(IllegalArgumentException.class, 
                      () -> new Employe(null, null, null));
@@ -160,7 +160,7 @@ class TestEmploye {
     void testEmployeValide() {
         
         /*
-         * Tests spécifiques au constructeur à 3 arguments
+         * Tests spécifiques au constructeur à 2 arguments
          */
         assertDoesNotThrow(() -> new Employe(NOM_EMPLOYE_VALIDE,
                                              PRENOM_EMPLOYE_VALIDE));
@@ -170,7 +170,7 @@ class TestEmploye {
         assertDoesNotThrow(() -> new Employe("Vroemen", "Esteban"));
         
         /*
-         * Tests spécifiques au constructeur à 4 arguments
+         * Tests spécifiques au constructeur à 3 arguments
          */
         assertDoesNotThrow(() -> new Employe("Thenieres", "Baptiste", "1234"));
         assertDoesNotThrow(() -> new Employe("Laluti", "Ayoub", "5678"));
