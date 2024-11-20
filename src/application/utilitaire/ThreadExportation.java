@@ -49,8 +49,9 @@ public class ThreadExportation extends Thread {
             try {
                 cleSecrete = EchangeDiffieHellman.genererDonneeSecreteAlice();
             } catch (GenerationDonneeSecreteException e) {
-                interrupt();
-                ExporterControleur.lancerErreurExportation(e.getMessage());
+                if (!arretExportation) {
+                    ExporterControleur.lancerErreurExportation(e.getMessage());
+                }
             }
             
             if (!Thread.interrupted()) {
@@ -100,6 +101,7 @@ public class ThreadExportation extends Thread {
      */
     public void arreterExportation() {
         arretExportation = true;
+        this.interrupt();
     }
     
 }

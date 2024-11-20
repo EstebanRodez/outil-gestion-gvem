@@ -50,15 +50,6 @@ public class ChargementPopUpControleur {
         if (threadExportation != null && threadExportation.isAlive()) {
             
             threadExportation.arreterExportation();
-            // Interrompt le thread pour sortir de l'attente de connexion
-            threadExportation.interrupt();
-            try {
-                
-                // Attendre que le thread termine jusqu'à 500ms
-                threadExportation.join(); 
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
         }
 
         // Fermer la fenêtre pop-up
