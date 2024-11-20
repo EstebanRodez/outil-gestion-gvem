@@ -83,13 +83,14 @@ public class GenererPdf {
      * Méthode publique pour générer un PDF à partir des visites.
      * @param visites Données des visites.
      * @param cheminPdf le chemin ou sera stocké le fichier pdf
+     * @param type si c'est données importées, calculées ou statistiqu
      * @throws IOException 
      */
     public static void visitePdf(LinkedHashMap<String, Visite> visites,
-                                 String cheminPdf) throws IOException {
+                                 String cheminPdf, char type) throws IOException {
         visitesPdf = visites;
         creerEntetePDF(cheminPdf, "visites");
-        donneesImporteesVisite();
+        donneesVisite(type);
     }
     
     /**
@@ -102,7 +103,7 @@ public class GenererPdf {
                                       String cheminPdf) throws IOException {
         expositionsPdf = expositions;
         creerEntetePDF(cheminPdf, "expositions");
-        donneesImporteesExposition();       
+        donneesExposition();       
     }
     
     /**
@@ -115,7 +116,7 @@ public class GenererPdf {
                                         String cheminPdf) throws IOException {
         conferenciersPdf = conferenciers;
         creerEntetePDF(cheminPdf, "conferenciers");
-        donneesImporteesConferencier();     
+        donneesConferencier();     
     }
     
     /**
@@ -233,9 +234,10 @@ public class GenererPdf {
       
     /**
      * Génère un PDF avec un tableau contenant les données des visites.
+     * @param type si c'est données importées, calculées ou statistique
      * @throws IOException
      */
-    private static void donneesImporteesVisite() throws IOException { 
+    private static void donneesVisite(char type) throws IOException { 
         Table table;
         PdfFont font;
         
@@ -243,9 +245,12 @@ public class GenererPdf {
         table = new Table(UnitValue.createPercentArray(FORMAT_VISITE))
                     .useAllAvailableWidth();
         
-        enteteTableau(table, font, COULEUR_DONNEES_IMPORTEES, ENTETE_VISITE);
-     
-        
+        if (type == 'I') {       
+            enteteTableau(table, font, COULEUR_DONNEES_IMPORTEES, ENTETE_VISITE);
+        } else  {
+            enteteTableau(table, font, COULEUR_DONNEES_CALCULEES, ENTETE_VISITE);
+        } 
+ 
         for (Entry<String, Visite> entry : visitesPdf.entrySet()) {
             Visite visite = entry.getValue();
                 
@@ -275,7 +280,7 @@ public class GenererPdf {
      * Génère un PDF avec un tableau contenant les données des expositions.
      * @throws IOException 
      */
-    private static void donneesImporteesExposition() throws IOException {
+    private static void donneesExposition() throws IOException {
         Table table;
         PdfFont font;
         
@@ -325,7 +330,7 @@ public class GenererPdf {
      * Génère un PDF avec un tableau contenant les données des expositions.
      * @throws IOException 
      */
-    private static void donneesImporteesConferencier() throws IOException {
+    private static void donneesConferencier() throws IOException {
         Table table;
         PdfFont font;
         

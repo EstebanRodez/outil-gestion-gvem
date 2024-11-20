@@ -143,7 +143,7 @@ public class DonneesImporteesVisiteControleur {
         chemin = AccueilControleur.chemin();
         if (chemin != null) {
           try {
-            GenererPdf.visitePdf(visites, chemin);
+            GenererPdf.visitePdf(visites, chemin, 'I');
             AccueilControleur.alertePdfSucces();
           } catch (IOException err) {  
                 AccueilControleur.alertePdfEchec(err);

@@ -5,6 +5,7 @@
  */
 package application.controleur;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedHashMap;
@@ -15,6 +16,7 @@ import application.EchangeurDeVue;
 import application.modele.CritereFiltreVisite;
 import application.modele.ExpositionTemporaire;
 import application.modele.Visite;
+import application.utilitaire.GenererPdf;
 import application.utilitaire.TraitementDonnees;
 
 import javafx.beans.property.SimpleStringProperty;
@@ -46,7 +48,10 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
 public class DonneesCalculeesVisiteControleur {
     
     private static LinkedHashMap<String, Visite> visites
-    = TraitementDonnees.getDonnees().getVisites();
+        = TraitementDonnees.getDonnees().getVisites();
+    
+    private static LinkedHashMap<String, Visite> visitesAvecFiltre 
+        = visites;
     
     // Format pour les dates au format jj/MM/aaaa
     private static final DateTimeFormatter DATE_FORMAT 
@@ -174,6 +179,20 @@ public class DonneesCalculeesVisiteControleur {
     void btnFiltresAction(ActionEvent event) {
         EchangeurDeVue.creerPopUp("donneesCalculeesVisiteFiltresPopUP");
     }
+    
+    @FXML
+    void convertirPdfOnAction(ActionEvent event) {
+        String chemin;
+        chemin = AccueilControleur.chemin();
+            
+        try {
+            GenererPdf.visitePdf(visitesAvecFiltre, chemin, 'C');
+            AccueilControleur.alertePdfSucces();
+        } catch (IOException err) {  
+            AccueilControleur.alertePdfEchec(err);
+        }
+               
+    }
 
     /**
      * Applique les critères de filtrage sur la liste des visites.
@@ -266,6 +285,11 @@ public class DonneesCalculeesVisiteControleur {
             if (match) {
                 visitesFiltrees.add(paire);
             }
+        }
+        
+        visitesAvecFiltre.clear();
+        for (Map.Entry<String, Visite> entry : visitesFiltrees) {
+            visitesAvecFiltre.put(entry.getKey(), entry.getValue());
         }
         
         tableExposition.setItems(visitesFiltrees);
