@@ -85,12 +85,13 @@ public class ThreadExportation extends Thread {
                         Vigenere.getNomsFichiersEnvois());
                 Reseau.envoyerFichiers(PORT_EXPORTATION, nomFichiersAlphabet);
 
-                EchangeDiffieHellman.supprimerFichiersAlice();
                 EchangeDiffieHellman.supprimerFichiersBob();
                 Vigenere.supprimerFichiersAlphabet();
                 Vigenere.supprimerFichiersEnvois();
             }
             
+            // Forcément généré au début
+            EchangeDiffieHellman.supprimerFichiersAlice();
         } 
         
         Vigenere.supprimerFichiersDonnees();
