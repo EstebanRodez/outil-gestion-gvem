@@ -140,7 +140,7 @@ public class DonneesImporteesVisiteControleur {
     @FXML
     void convertirPdfOnAction(ActionEvent event) {
         String chemin;
-        chemin = AccueilControleur.chemin("visites");
+        chemin = AccueilControleur.chemin();
         if (chemin != null) {
           try {
             GenererPdf.visitePdf(visites, chemin);

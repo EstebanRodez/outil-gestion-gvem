@@ -172,7 +172,7 @@ public class DonneesImporteesExpositionControleur {
     @FXML
     void convertirPdfOnAction(ActionEvent event) {
         String chemin;
-        chemin = AccueilControleur.chemin("expositions");
+        chemin = AccueilControleur.chemin();
         if (chemin != null) {
             try {
               GenererPdf.expositionsPdf(expositions, chemin);

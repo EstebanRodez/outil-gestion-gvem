@@ -147,7 +147,7 @@ public class DonneesImporteesConferencierControleur {
     @FXML
     void convertirPdfOnAction(ActionEvent event) {
         String chemin;
-        chemin = AccueilControleur.chemin("conferenciers");
+        chemin = AccueilControleur.chemin();
             
         try {
             GenererPdf.conferenciersPdf(conferenciers, chemin);

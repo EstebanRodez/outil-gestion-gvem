@@ -7,6 +7,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 import application.EchangeurDeVue;
 import application.utilitaire.TraitementDonnees;
@@ -16,6 +17,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.TextInputDialog;
 import javafx.stage.DirectoryChooser;
 import javafx.scene.control.Alert.AlertType;
 
@@ -201,34 +203,42 @@ public class AccueilControleur {
      * Permet d'obtenir le chemin du fichier pdf choisit par l'utilisateur
      * Format du fichier : 
      * Nom du fichier + "1911241530"  (19 novembre 2024, 15:30)  + .pdf
-     * @param typeFichier
      * @return chemin du fichier valide
      */
-    public static String chemin(String typeFichier ) {
-        String chemin = null;
-        DirectoryChooser directoryChooser = new DirectoryChooser();
-        directoryChooser.setInitialDirectory(new File(System.getProperty("user.home"), "Documents"));
-        File selectedDirectory = directoryChooser.showDialog(null);
+    public static String chemin() {
+        String chemin = null,
+               nomfichier;
+        DirectoryChooser directoryChooser;
+        File selectedDirectory,
+             fichier;
         
-        if (selectedDirectory != null) {
-            LocalDateTime now = LocalDateTime.now();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMyyHHmm");
+        directoryChooser = new DirectoryChooser();
+        directoryChooser.setInitialDirectory
+            (new File(System.getProperty("user.home"), "Documents"));
+        selectedDirectory = directoryChooser.showDialog(null);
+        
+        if (selectedDirectory != null) {            
+            TextInputDialog dialog = new TextInputDialog("nom_fichier");
+            dialog.setTitle("Saisie du nom de fichier");
+            dialog.setHeaderText("Veuillez entrer le nom du fichier (sans extension)");
+            dialog.setContentText("Nom du fichier:");
             
-            String JJMMAAHMIN = now.format(formatter); 
+            Optional<String> result = dialog.showAndWait();
             
-            String baseFileName = typeFichier + " " + JJMMAAHMIN + ".pdf";
-            
+            if (result.isPresent()) {
+                nomfichier = result.get() + ".pdf";
 
-            File file = new File(selectedDirectory, baseFileName);
+                fichier = new File(selectedDirectory, nomfichier);
+                int i = 1;
 
-            int i = 1;
-            while (file.exists()) {
-                String newFileName = typeFichier + JJMMAAHMIN + "(" + i + ").pdf";
-                file = new File(selectedDirectory, newFileName);
-                i++;
+                while (fichier.exists()) {
+                    nomfichier = result.get() + " (" + i + ").pdf";
+                    fichier = new File(selectedDirectory, nomfichier);
+                    i++;
+                }
+                chemin = fichier.getAbsolutePath();
             }
-            chemin = file.getAbsolutePath();
-      } 
+        } 
         return chemin;
     }
 }
