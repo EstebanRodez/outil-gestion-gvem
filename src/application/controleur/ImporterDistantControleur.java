@@ -80,31 +80,20 @@ public class ImporterDistantControleur {
             }
             
             String[] nomFichierEnvois = Vigenere.getNomsFichiersEnvois();
-            String[] nomFichierAlphabet = Vigenere.getNomsFichiersAlphabet();
             String[] nomFichierDonnees = Vigenere.getNomsFichiersDonnees();
             
             Reseau.recevoirFichiers(ipServeur, PORT_EXPORTATION,
                                     nomFichierEnvois, null);
-            Reseau.recevoirFichiers(ipServeur, PORT_EXPORTATION,
-                                    nomFichierAlphabet, null);
             
             for (int indiceNomFichier = 0;
                  indiceNomFichier < nomFichierEnvois.length;
                  indiceNomFichier++) {
                 
-                String alphabet = "";
-                try {
-                    alphabet = GestionFichiers.lireFichier(
-                                   nomFichierAlphabet[indiceNomFichier]);
-                } catch (IOException e) {
-                    // Ne rien faire
-                }
-                
                 String cleChiffrement
-                = Vigenere.genererCleChiffrement(cleSecrete, alphabet);
+                = Vigenere.genererCleChiffrement(cleSecrete);
                 
                 Vigenere.decrypter(nomFichierEnvois[indiceNomFichier],
-                                   cleChiffrement, alphabet);
+                                   cleChiffrement);
                 
                 try {
                     ImportationCSV.importerDonnees(
@@ -121,7 +110,6 @@ public class ImporterDistantControleur {
             EchangeDiffieHellman.supprimerFichiersAlice();
             EchangeDiffieHellman.supprimerFichiersBob();
             Vigenere.supprimerFichiersEnvois();
-            Vigenere.supprimerFichiersAlphabet();
             Vigenere.supprimerFichiersDonnees();
         }
     }

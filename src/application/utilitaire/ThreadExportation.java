@@ -35,9 +35,6 @@ public class ThreadExportation extends Thread {
     
     private static final int PORT_EXPORTATION = Reseau.getPortExportation();
 
-    private static final String ERREUR_ECRITURE_ALPHABET = 
-    "Les fichiers contenant les alphabets n'ont pas pu être crées.";
-
     private boolean arretExportation = false;
     
     @Override 
@@ -58,36 +55,21 @@ public class ThreadExportation extends Thread {
             if (!Thread.interrupted()) {
                 
                 String[] nomFichiersDonnees = Vigenere.getNomsFichiersDonnees();
-                String[] nomFichiersAlphabet
-                = Vigenere.getNomsFichiersAlphabet();
                 for (int indiceNomFichier = 0;
                         indiceNomFichier < nomFichiersDonnees.length;
                         indiceNomFichier++) {
 
-                    String alphabet
-                    = Vigenere.recupererAlphabet(
-                            nomFichiersDonnees[indiceNomFichier]);
-                    try {
-                        GestionFichiers.ecrireFichier(
-                                nomFichiersAlphabet[indiceNomFichier],
-                                alphabet);
-                    } catch (IOException e) {
-                        ExporterControleur.lancerErreurGenerationDonneeSecrete(
-                                ERREUR_ECRITURE_ALPHABET);
-                    }
                     String cleChiffrement
-                    = Vigenere.genererCleChiffrement(cleSecrete, alphabet);
+                    = Vigenere.genererCleChiffrement(cleSecrete);
 
                     Vigenere.crypter(nomFichiersDonnees[indiceNomFichier],
-                            cleChiffrement, alphabet);
+                                     cleChiffrement);
                 }
 
                 Reseau.envoyerFichiers(PORT_EXPORTATION,
                         Vigenere.getNomsFichiersEnvois());
-                Reseau.envoyerFichiers(PORT_EXPORTATION, nomFichiersAlphabet);
 
                 EchangeDiffieHellman.supprimerFichiersBob();
-                Vigenere.supprimerFichiersAlphabet();
                 Vigenere.supprimerFichiersEnvois();
             }
             

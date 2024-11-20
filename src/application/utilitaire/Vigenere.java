@@ -37,16 +37,23 @@ import java.util.HashSet;
  */
 public class Vigenere {
     
+    private static final String ALPHABET_26LETTRES
+    = "abcdefghijklmnopqrstuvwxyz";
+    
+    private static final String ALPHABET_CARACTERES_SPECIAUX
+    = ";,'- ()[]°./!?*%$€";
+    
+    private static final String ALPHABET_LETTRES_ACCENTS
+    = "àâäéèêëïîôöùûüÿç";
+    
+    private static final String ALPHABET_CHIFFREMENT
+    = ALPHABET_26LETTRES.toUpperCase() + ALPHABET_26LETTRES
+      + ALPHABET_CARACTERES_SPECIAUX + ALPHABET_LETTRES_ACCENTS;
+    
     private static final String[] NOMS_FICHIERS_DONNEES
     = {
         "conferenciers.csv", "employes.csv",
         "expositions.csv", "visites.csv"
-    };
-    
-    private static final String[] NOMS_FICHIERS_ALPHABET
-    = {
-        "conferenciers_alphabet", "employes_alphabet",
-        "expositions_alphabet", "visites_alphabet"
     };
     
     private static final String[] NOMS_FICHIERS_ENVOIS
@@ -62,19 +69,17 @@ public class Vigenere {
      * appliquant des décalages successifs.
      *
      * @param donneeSecrete la donnée secrète utilisée pour générer la clé.
-     * @param alphabet l'alphabet à utiliser pour les caractères de la clé.
      * @return une chaîne de caractères représentant la clé de chiffrement.
      */
-    public static String genererCleChiffrement(int donneeSecrete,
-                                               String alphabet) {
+    public static String genererCleChiffrement(int donneeSecrete) {
         
         int donnee = donneeSecrete;
-        int longueurAlphabet = alphabet.length();
+        int longueurAlphabet = ALPHABET_CHIFFREMENT.length();
         StringBuilder cle = new StringBuilder();
         
         while (donnee > 0) {
             int decalage = donnee % longueurAlphabet;
-            cle.append(alphabet.charAt(decalage));
+            cle.append(ALPHABET_CHIFFREMENT.charAt(decalage));
             donnee /= longueurAlphabet;
         }
         
@@ -148,8 +153,7 @@ public class Vigenere {
      * @param cle clé de chiffrement utilisée.
      * @param alphabet alphabet utilisé pour le chiffrement.
      */
-    public static void crypter(String cheminFichier, String cle,
-                               String alphabet) {
+    public static void crypter(String cheminFichier, String cle) {
         
         try {
             
@@ -169,7 +173,7 @@ public class Vigenere {
             BufferedWriter fluxEcriture
             = new BufferedWriter(outputStreamWriter);
             
-            int modulo = alphabet.length();
+            int modulo = ALPHABET_CHIFFREMENT.length();
             String ligne = fluxLecture.readLine();
             while (ligne != null) {
                 
@@ -178,12 +182,14 @@ public class Vigenere {
                      indiceLigne++) {
                     
                     char lettre = ligne.charAt(indiceLigne);
-                    int indexLettre = alphabet.indexOf(lettre);
+                    int indexLettre = ALPHABET_CHIFFREMENT.indexOf(lettre);
                     int indexLettreCrypte
                     = (indexLettre
-                       + alphabet.indexOf(cle.charAt(indiceLigne%cle.length())))
+                       + ALPHABET_CHIFFREMENT.indexOf(
+                               cle.charAt(indiceLigne%cle.length())))
                        % modulo;
-                    char lettreCrypte = alphabet.charAt(indexLettreCrypte);
+                    char lettreCrypte
+                    = ALPHABET_CHIFFREMENT.charAt(indexLettreCrypte);
                     fluxEcriture.append(lettreCrypte);
                 }
                 ligne = fluxLecture.readLine();
@@ -194,7 +200,6 @@ public class Vigenere {
             fluxEcriture.close();
         } catch (IOException e) {
             // Ne rien faire
-            e.printStackTrace();
         }
     }
     
@@ -215,8 +220,7 @@ public class Vigenere {
      * @param cle clé de déchiffrement utilisée.
      * @param alphabet alphabet utilisé pour le déchiffrement.
      */
-    public static void decrypter(String cheminFichier, String cle,
-                                 String alphabet) {
+    public static void decrypter(String cheminFichier, String cle) {
         
         try {
             
@@ -236,7 +240,7 @@ public class Vigenere {
             BufferedWriter fluxEcriture
             = new BufferedWriter(outputStreamWriter);
             
-            int modulo = alphabet.length();
+            int modulo = ALPHABET_CHIFFREMENT.length();
             String ligne = fluxLecture.readLine();
             while (ligne != null) {
                 
@@ -245,12 +249,13 @@ public class Vigenere {
                      indiceLigne++) {
                     
                     char lettreCrypte = ligne.charAt(indiceLigne);
-                    int indexLettreCrypte = alphabet.indexOf(lettreCrypte);
+                    int indexLettreCrypte = ALPHABET_CHIFFREMENT.indexOf(lettreCrypte);
                     int indexLettre
                     = (indexLettreCrypte
-                       - alphabet.indexOf(cle.charAt(indiceLigne%cle.length()))
+                       - ALPHABET_CHIFFREMENT.indexOf(
+                               cle.charAt(indiceLigne%cle.length()))
                        + modulo) % modulo;
-                    char lettre = alphabet.charAt(indexLettre);
+                    char lettre = ALPHABET_CHIFFREMENT.charAt(indexLettre);
                     fluxEcriture.append(lettre);
                 }
                 ligne = fluxLecture.readLine();
@@ -275,15 +280,6 @@ public class Vigenere {
     }
 
     /**
-     * Récupère les noms des fichiers contenant les alphabets.
-     * 
-     * @return un tableau contenant les noms des fichiers d'alphabets.
-     */
-    public static String[] getNomsFichiersAlphabet() {
-        return NOMS_FICHIERS_ALPHABET;
-    }
-
-    /**
      * Récupère les noms des fichiers utilisés pour les envois.
      * 
      * @return un tableau contenant les noms des fichiers d'envois.
@@ -298,21 +294,6 @@ public class Vigenere {
     public static void supprimerFichiersDonnees() {
         
         for (String nomFichier : NOMS_FICHIERS_DONNEES) {
-            
-            try {
-                Files.deleteIfExists(Path.of(nomFichier));
-            } catch (IOException e) {
-                // Ne rien faire
-            }
-        }
-    }
-    
-    /**
-     * Supprime tous les fichiers d'alphabets.
-     */
-    public static void supprimerFichiersAlphabet() {
-        
-        for (String nomFichier : NOMS_FICHIERS_ALPHABET) {
             
             try {
                 Files.deleteIfExists(Path.of(nomFichier));
