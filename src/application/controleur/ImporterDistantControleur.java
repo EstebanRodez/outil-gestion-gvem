@@ -14,6 +14,8 @@ import application.utilitaire.GenerationDonneeSecreteException;
 import application.utilitaire.GestionFichiers;
 import application.utilitaire.ImportationCSV;
 import application.utilitaire.Reseau;
+import application.utilitaire.SauvegardeDonnees;
+import application.utilitaire.TraitementDonnees;
 import application.utilitaire.Vigenere;
 
 import javafx.event.ActionEvent;
@@ -107,6 +109,9 @@ public class ImporterDistantControleur {
                 try {
                     ImportationCSV.importerDonnees(
                             nomFichierDonnees[indiceNomFichier]);
+                    SauvegardeDonnees.sauvegarderDonnees(
+                            TraitementDonnees.getDonnees());
+                    EchangeurDeVue.changerVue("importerDistantValideVue");
                 } catch (FichierDonneesInvalidesException e) {
                     // Ne rien faire
                 }
