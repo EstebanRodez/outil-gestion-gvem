@@ -50,15 +50,7 @@ public class DonneesCalculeesExpositionEnsembleJourControleur {
     private static final DateTimeFormatter DATE_FORMAT 
     = AccueilControleur.getDateFormatterFR();
     
-    private static String[] choix = {"expositions qui n’ont aucune visite",
-                                    "expositions et leur nombre moyen de " 
-                                    + "visites programmées chaque jour",
-                                    "expositions et leur nombre moyen de "
-                                    + "visites programmées chaque semaine",
-                                    "l’esembles des expositions et leur nombre moyen de "
-                                    + "visites prévues chaque jour",
-                                    "l’esembles des expositions et leur nombre moyen de "
-                                    + "visites prévues chaque semaine"};
+    private static String[] choix = DonneesCalculeesExpositionControleur.choix;
     
     @FXML
     private Button btnFiltres;

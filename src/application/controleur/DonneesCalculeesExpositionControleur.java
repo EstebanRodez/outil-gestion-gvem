@@ -5,6 +5,7 @@
  */
 package application.controleur;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedHashMap;
@@ -14,6 +15,7 @@ import java.util.Map.Entry;
 import application.EchangeurDeVue;
 import application.modele.CritereFiltreVisite;
 import application.modele.Visite;
+import application.utilitaire.GenererPdf;
 import application.utilitaire.TraitementDonnees;
 
 import javafx.beans.property.SimpleStringProperty;
@@ -47,19 +49,23 @@ public class DonneesCalculeesExpositionControleur {
     private static LinkedHashMap<String, Visite> visites
     = TraitementDonnees.getDonnees().getVisites();
     
+    private static LinkedHashMap<String, Visite> expositionsCalculees = visites;
+    
     // Format pour les dates au format jj/MM/aaaa
     private static final DateTimeFormatter DATE_FORMAT 
     = AccueilControleur.getDateFormatterFR();
     
-    private static String[] choix = {"exposition qui n’ont aucune visite",
-                                     "exposition et leur nombre moyen de " 
-                                     + "visites programmées chaque jour",
-                                     "exposition et leur nombre moyen de "
-                                     + "visites programmées chaque semaine",
-                                     " exposition et leur nombre moyen de "
-                                     + "visites prévues chaque jour",
-                                     " exposition et leur nombre moyen de "
-                                     + "visites prévues chaque semaine"};
+    /** Ensemble des choix disponibles pour filtrer */
+    public static final String[] choix 
+        = {"Expositions qui n’ont aucune visite",
+           "Expositions et leur nombre moyen de visites programmées chaque jour",
+           "Expositions et leur nombre moyen de visites programmées chaque "
+               + "semaine",
+         "L’esembles des expositions et leur nombre moyen de visites prévues "
+               + "chaque jour",
+         "L’esembles des expositions et leur nombre moyen de visites "
+               + "prévues chaque semaine"
+        };
     
     @FXML
     private Button aideAction;
@@ -116,13 +122,28 @@ public class DonneesCalculeesExpositionControleur {
         
         ObservableList<Map.Entry<String, Visite>> exposListe
         = FXCollections.observableArrayList(visites.entrySet());
-        tableExposition.setItems(exposListe);
+        tableExposition.setItems(exposListe);            
     }
     
     private static Visite getVisite(
             CellDataFeatures<Entry<String, Visite>, String> celluleDonnees) {
         
         return celluleDonnees.getValue().getValue();
+    }
+    
+    @FXML
+    void convertirPdfOnAction(ActionEvent event) {
+        String chemin;
+        chemin = AccueilControleur.chemin();
+            
+        try {
+            GenererPdf.troisColonneCalculeesPdf(expositionsCalculees, chemin, 
+                                                choix[0], "Exposition");
+            AccueilControleur.alertePdfSucces();
+        } catch (IOException err) {  
+            AccueilControleur.alertePdfEchec(err);
+        }
+               
     }
     
     @FXML
@@ -233,8 +254,12 @@ public class DonneesCalculeesExpositionControleur {
                 visitesNonCorrespondantes.add(paire);
             }
         }
+        
+        expositionsCalculees.clear();
+        for (Map.Entry<String, Visite> entry : visitesNonCorrespondantes) {
+            expositionsCalculees.put(entry.getKey(), entry.getValue());
+        }
+        
         tableExposition.setItems(visitesNonCorrespondantes);
     }
-
-
 }

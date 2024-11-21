@@ -55,7 +55,7 @@ public class GenererPdf {
     
     private static final float[] FORMAT_EXPOSITION 
         = {6, 6, 5, 5, 3, 20, 20, 15, 15};
-
+    
     private static final String[] ENTETE_EXPOSITION 
         = {"Identifiant", "Intitulé", "Période début", "Période fin",
             "Nombre d'oeuvre", "Mot clé", "Résumé", "Date début", "Date fin"};
@@ -67,11 +67,23 @@ public class GenererPdf {
     = {"Identifiant", "Nom", "Prénom", "Spécialité", "Téléphone", "Employé",
        "Indisponiblité"};
     
+    private static final float[] FORMAT_DEUX_COLONNE = {10,10};
+    
+    private static final String[] ENTETE_DEUX_COLONNE_MOYEN
+    = {"", "Nombre moyen de visites programmées"};
+    
+    private static final String[] ENTETE_DEUX_COLONNE_PREVU
+    = {"", "Nombre moyen de visites prévues"};
+
+    private static final float[] FORMAT_TROIS_COLONNE = {10,5,5};
+       
     private static LinkedHashMap<String, Visite> visitesPdf;
     
     private static LinkedHashMap<String, Exposition> expositionsPdf;
     
     private static LinkedHashMap<String, Conferencier> conferenciersPdf;
+    
+    private static LinkedHashMap<String, Visite> donneesCalculeesPdf;
     
     private static PdfWriter destination;
     
@@ -89,7 +101,7 @@ public class GenererPdf {
     public static void visitePdf(LinkedHashMap<String, Visite> visites,
                                  String cheminPdf, char type) throws IOException {
         visitesPdf = visites;
-        creerEntetePDF(cheminPdf, "visites");
+        creerEntetePDF(cheminPdf, "Visites", null);
         donneesVisite(type);
     }
     
@@ -102,7 +114,7 @@ public class GenererPdf {
     public static void expositionsPdf(LinkedHashMap<String, Exposition> expositions,
                                       String cheminPdf) throws IOException {
         expositionsPdf = expositions;
-        creerEntetePDF(cheminPdf, "expositions");
+        creerEntetePDF(cheminPdf, "Expositions", null);
         donneesExposition();       
     }
     
@@ -115,19 +127,38 @@ public class GenererPdf {
     public static void conferenciersPdf(LinkedHashMap<String, Conferencier> conferenciers,
                                         String cheminPdf) throws IOException {
         conferenciersPdf = conferenciers;
-        creerEntetePDF(cheminPdf, "conferenciers");
+        creerEntetePDF(cheminPdf, "Conferenciers", null);
         donneesConferencier();     
     }
     
     /**
-     * Créer un fichier pdf avec l'entete
+     * Méthode publique pour générer un PDF à partir de données calculées
+     * a trois colonnes.
+     * @param donneesCalculees les données a convertir en pdf
+     * @param cheminPdf le chemin ou stocker le fichier
+     * @param choix le type de filtre
+     * @param type le type de données Exposition/Conferencier
      * @throws IOException 
      */
-    private static void creerEntetePDF(String chemin, 
-                                       String type) throws IOException {
+    public static void troisColonneCalculeesPdf(LinkedHashMap<String, Visite> donneesCalculees,
+                                                String cheminPdf, String choix, 
+                                                String type) throws IOException {
+        donneesCalculeesPdf = donneesCalculees;
+        creerEntetePDF(cheminPdf, type, choix);
+        donneesTroisColonneCalculees(type);
+    }   
+
+    /**
+     * Créer un fichier pdf avec l'entete
+     * @param choix Le choix si un filtre est appliqué
+     * @throws IOException 
+     */
+    private static void creerEntetePDF(String chemin, String type,
+                                       String choix) throws IOException {
         Paragraph titre,
                   sousTitre1,
-                  sousTitre2;
+                  sousTitre2,
+                  sousTitreFiltre;
         String date;
 
         destination = new PdfWriter(chemin);
@@ -151,7 +182,14 @@ public class GenererPdf {
         document.add(titre);
         document.add(sousTitre1);
         document.add(sousTitre2); 
-        document.add(new Paragraph("\n"));      
+        document.add(new Paragraph("\n"));    
+        
+        if (choix != null) {
+            sousTitreFiltre = new Paragraph(choix)
+                    .setTextAlignment(TextAlignment.CENTER)
+                        .setFontSize(10);
+            document.add(sousTitreFiltre);
+        }
     }
     
     /**
@@ -395,6 +433,50 @@ public class GenererPdf {
         }
         document.add(table);
         document.close();      
-    }   
+    }
+    
+    /**
+     * Génère un PDF avec un tableau contenant les données des calculées 
+     * qui possède 3 colonnes.
+     * @param type Exposition ou Conferencier
+     * @throws IOException 
+     */
+    private static void donneesTroisColonneCalculees(String type) throws IOException {
+        Table table;
+        PdfFont font;
+        String[] ENTETE_TROIS_COLONNE
+            = {" n'ayant aucune visite", "Date", "Heure début"};
+        
+        font = PdfFontFactory.createRegisteredFont(POLICE_ECRITURE);
+        table = new Table(UnitValue.createPercentArray(FORMAT_TROIS_COLONNE))
+                    .useAllAvailableWidth();
+        
+        ENTETE_TROIS_COLONNE[0] = type + ENTETE_TROIS_COLONNE[0];
+
+        enteteTableau(table, font, COULEUR_DONNEES_CALCULEES
+                      , ENTETE_TROIS_COLONNE);
+        
+        for (Entry<String, Visite> entry : donneesCalculeesPdf.entrySet()) {
+            Visite visite = entry.getValue();
+            
+            if (type.equals("Exposition")) {
+                table.addCell(creerCelluleTableau(
+                        visite.getExposition().getIntitule().toString(),
+                        font)); // Exposition 
+            } else {
+                table.addCell(creerCelluleTableau(
+                        visite.getConferencier().getNom(), font)); // Conferencier
+            }
+            
+            table.addCell(creerCelluleTableau(
+                    visite.getDate().format(FORMAT_DATE), font)); // Date
+            table.addCell(creerCelluleTableau(
+                    visite.toStringHoraireDebut().toString(), font)); // Horaire Début
+        }
+
+        document.add(table);
+        document.close();
+        
+    }
 }
 

@@ -5,6 +5,7 @@
  */
 package application.controleur;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedHashMap;
@@ -14,6 +15,7 @@ import java.util.Map.Entry;
 import application.EchangeurDeVue;
 import application.modele.CritereFiltreVisite;
 import application.modele.Visite;
+import application.utilitaire.GenererPdf;
 import application.utilitaire.TraitementDonnees;
 
 import javafx.beans.property.SimpleStringProperty;
@@ -50,16 +52,19 @@ public class DonneesCalculeesConferencierControleur {
     // Format pour les dates au format jj/MM/aaaa
     private static final DateTimeFormatter DATE_FORMAT 
     = AccueilControleur.getDateFormatterFR();
+
+    private static LinkedHashMap<String, Visite> conferenciersCalculees = visites;
     
-    private static String[] choix
+    /** Ensemble des choix disponibles pour filtrer */
+    public static final String[] choix
     = {
-        "conférencier qui n’ont aucune visite",
-        "conférencier et leur nombre moyen de visites programmées chaque jour",
-        "conférencier et leur nombre moyen de visites programmées chaque "
+        "Conférencier qui n’ont aucune visite",
+        "Conférencier et leur nombre moyen de visites programmées chaque jour",
+        "Conférencier et leur nombre moyen de visites programmées chaque "
         + "semaine",
-        "l’esembles des conférencier et leur nombre moyen de visites prévues "
+        "L’ensemble des conférenciers et leur nombre moyen de visites prévues "
         + "chaque jour",
-        "l’esembles des conférencier et leur nombre moyen de visites prévues "
+        "l’ensemble des conférenciers et leur nombre moyen de visites prévues "
         + "chaque semaine"
     };
     
@@ -119,7 +124,22 @@ public class DonneesCalculeesConferencierControleur {
         
         ObservableList<Map.Entry<String, Visite>> confListe
         = FXCollections.observableArrayList(visites.entrySet());
-        tableExposition.setItems(confListe);
+        tableExposition.setItems(confListe);        
+    }
+    
+    @FXML
+    void convertirPdfOnAction(ActionEvent event) {
+        String chemin;
+        chemin = AccueilControleur.chemin();
+            
+        try {
+            GenererPdf.troisColonneCalculeesPdf(conferenciersCalculees, chemin, 
+                                                choix[0], "Conferencier");
+            AccueilControleur.alertePdfSucces();
+        } catch (IOException err) {  
+            AccueilControleur.alertePdfEchec(err);
+        }
+               
     }
     
     private static Visite getVisite(
@@ -253,6 +273,11 @@ public class DonneesCalculeesConferencierControleur {
                 visitesNonCorrespondantes.add(paire);
             }
         }
+        conferenciersCalculees.clear();
+        for (Map.Entry<String, Visite> entry : visitesNonCorrespondantes) {
+            conferenciersCalculees.put(entry.getKey(), entry.getValue());
+        }
+        
         tableExposition.setItems(visitesNonCorrespondantes);
     }
 
