@@ -81,7 +81,7 @@ public class ExporterControleur {
             ExportationCSV.exporterDonnees();
         } catch (ExportationCSVException e) {
             erreurExportation = true;
-            lancerErreurExportation();
+            lancerErreurExportationCSV();
         }
         
         for (String nomFichier : Vigenere.getNomsFichiersDonnees()) {
@@ -118,16 +118,16 @@ public class ExporterControleur {
     /**
      * TODO commenter le rôle de cette méthode (SRP)
      */
-    public static void lancerErreurExportation() {
+    public static void lancerErreurExportationCSV() {
         
-        Alert boiteErreurChargementVue
+        Alert boiteErreurExportationCSV
         = new Alert(Alert.AlertType.ERROR, 
                     "Vos données n'ont pas pu être exportées dans un format "
                     + "csv.", ButtonType.OK);
-        boiteErreurChargementVue.setTitle("Erreur Exportation");
-        boiteErreurChargementVue.setHeaderText(
+        boiteErreurExportationCSV.setTitle("Erreur Exportation");
+        boiteErreurExportationCSV.setHeaderText(
                 "Erreur lors de l'exportation de vos données");
-        boiteErreurChargementVue.showAndWait();
+        boiteErreurExportationCSV.showAndWait();
     }
     
     /**
@@ -136,12 +136,12 @@ public class ExporterControleur {
      */
     public static void lancerErreurGenerationDonneeSecrete(String message) {
         
-        Alert boiteErreurChargementVue
+        Alert boiteErreurGenerationDonneeSecrete
         = new Alert(Alert.AlertType.ERROR, message, ButtonType.OK);
-        boiteErreurChargementVue.setTitle("Erreur Exportation");
-        boiteErreurChargementVue.setHeaderText(
+        boiteErreurGenerationDonneeSecrete.setTitle("Erreur Exportation");
+        boiteErreurGenerationDonneeSecrete.setHeaderText(
                 "Erreur lors de la génération de la donnée secrète");
-        boiteErreurChargementVue.showAndWait();
+        boiteErreurGenerationDonneeSecrete.showAndWait();
     }
     
     /**
@@ -149,15 +149,15 @@ public class ExporterControleur {
      */
     public static void lancerErreurAlphabet() {
         
-        Alert boiteErreurChargementVue
+        Alert boiteErreurAlphabet
         = new Alert(Alert.AlertType.ERROR, 
                     "Un caractère contenu dans vos fichiers, n'est pas dans "
                     + "l'alphabet universel du cryptage. Cryptage impossible",
                     ButtonType.OK);
-        boiteErreurChargementVue.setTitle("Erreur Exportation");
-        boiteErreurChargementVue.setHeaderText(
+        boiteErreurAlphabet.setTitle("Erreur Exportation");
+        boiteErreurAlphabet.setHeaderText(
                 "Erreur lors du cryptage de vos données");
-        boiteErreurChargementVue.showAndWait();
+        boiteErreurAlphabet.showAndWait();
     } 
     
 }
