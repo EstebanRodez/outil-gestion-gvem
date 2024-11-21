@@ -11,6 +11,7 @@ import java.net.InetAddress;
 import application.EchangeurDeVue;
 import application.utilitaire.ExportationCSV;
 import application.utilitaire.ExportationCSVException;
+import application.utilitaire.Reseau;
 import application.utilitaire.ThreadExportation;
 import application.utilitaire.Vigenere;
 import javafx.event.ActionEvent;
@@ -57,6 +58,8 @@ public class ExporterControleur {
      */
     @FXML
     public void initialize() {
+        int portActuel = Reseau.getPortExportation();
+        labelPort.setText(Integer.toString(portActuel));
         try (DatagramSocket socket = new DatagramSocket()) {
             socket.connect(InetAddress.getByName("8.8.8.8"), 10002);
             labelIp.setText(socket.getLocalAddress().getHostAddress());
@@ -159,5 +162,14 @@ public class ExporterControleur {
                 "Erreur lors du cryptage de vos données");
         boiteErreurAlphabet.showAndWait();
     } 
+    
+    /**
+     * TODO commenter le rôle de cette méthode (SRP)
+     */
+    public void rafraichirPort() {
+        int portActuel = Reseau.getPortExportation();
+        labelPort.setText(Integer.toString(portActuel));
+    }
+
     
 }

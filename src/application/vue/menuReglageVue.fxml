@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" style="-fx-background-color: #9FCFF3;" stylesheets="@css/vue.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controleur.MenuReglageControleur">
+   <children>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Button fx:id="btnAide" mnemonicParsing="false" onAction="#btnAideAction" prefWidth="60.0" style="-fx-background-color: #ffffff;" text="Aide">
+               <HBox.margin>
+                  <Insets left="15.0" top="15.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Réglage" textAlignment="CENTER" wrappingWidth="611.9892578125">
+               <font>
+                  <Font name="System Bold" size="35.0" />
+               </font>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Text>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="161.0" prefWidth="960.0">
+         <children>
+            <Button fx:id="btnRenit" mnemonicParsing="false" onAction="#btnRenitAction" prefHeight="80.0" prefWidth="280.0" style="-fx-background-radius: 30; -fx-background-color: #ffffff;" text="Réinitialiser les données" textAlignment="CENTER">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnPort" mnemonicParsing="false" onAction="#btnPortAction" prefHeight="80.0" prefWidth="280.0" style="-fx-background-color: #ffffff; -fx-background-radius: 30;" text="Changer le numérot port">
+               <HBox.margin>
+                  <Insets left="150.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="37.0" prefWidth="960.0">
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </HBox>
+      <Button fx:id="btnAccueil" mnemonicParsing="false" onAction="#btnAccueilAction" prefHeight="55.0" prefWidth="264.0" style="-fx-background-color: #ffffff;" styleClass="btnMenu" text="Accueil">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <VBox.margin>
+            <Insets left="345.0" top="20.0" />
+         </VBox.margin>
+      </Button>
+   </children>
+</VBox>

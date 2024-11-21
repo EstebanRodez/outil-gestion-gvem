@@ -29,9 +29,14 @@ import java.net.Socket;
  */
 public class Reseau {
     
-    private static final int PORT_EXPORTATION = 65430;
+    private static int portExportation = 65430;
     
     private static ServerSocket serverSocket;
+    
+    private static final String ERREUR_PORT_INVALIDE =
+    """
+    Le port doit être entre 1 et 65535.     
+    """;
 
     /**
      * Envoie plusieurs fichiers à un client via une connexion
@@ -176,6 +181,18 @@ public class Reseau {
      * @return le port pour l'exportation des données
      */
     public static int getPortExportation() {
-        return PORT_EXPORTATION;
+        return portExportation;
+    }
+    
+    /**
+     * TODO commenter le rôle de cette méthode (SRP)
+     * @param nouveauPort
+     */
+    public static void setPortExportation(int nouveauPort) {
+        if (nouveauPort > 0 && nouveauPort <= 65535) { 
+            portExportation = nouveauPort;
+        } else {
+            throw new IllegalArgumentException(ERREUR_PORT_INVALIDE);
+        }
     }
 }

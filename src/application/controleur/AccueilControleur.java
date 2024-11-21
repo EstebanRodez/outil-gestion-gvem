@@ -78,6 +78,9 @@ public class AccueilControleur {
 
     @FXML
     private Button btnQuitter;
+    
+    @FXML
+    private Button btnReglage;
 
     /**
      * Ouvre l'URL dans le navigateur avec un signet spécifique
@@ -240,5 +243,10 @@ public class AccueilControleur {
             }
         } 
         return chemin;
+    }
+    
+    @FXML
+    void btnReglageAction(ActionEvent event) {
+        EchangeurDeVue.changerVue("menuReglageVue");
     }
 }

@@ -3,12 +3,13 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" style="-fx-background-color: #9FCFF3;" stylesheets="@css/vue.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controleur.ExporterControleur">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" style="-fx-background-color: #9FCFF3;" stylesheets="@css/vue.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controleur.MenuChangerPortControleur">
    <children>
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
@@ -18,13 +19,10 @@
                </HBox.margin>
             </Button>
          </children>
-         <VBox.margin>
-            <Insets />
-         </VBox.margin>
       </HBox>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Menu exportation fichier" textAlignment="CENTER" wrappingWidth="611.9892578125">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Changer le numérot port" textAlignment="CENTER" wrappingWidth="611.9892578125">
                <font>
                   <Font name="System Bold" size="35.0" />
                </font>
@@ -36,9 +34,9 @@
       </HBox>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Label prefHeight="35.0" style="-fx-background-color: #ffffff;" text="IP de connexion :">
+            <Label prefHeight="67.0" prefWidth="190.0" style="-fx-background-color: #ffffff;" text="Port actuel :">
                <font>
-                  <Font name="System Bold" size="25.0" />
+                  <Font size="25.0" />
                </font>
                <HBox.margin>
                   <Insets />
@@ -47,41 +45,41 @@
                   <Insets bottom="15.0" left="15.0" top="15.0" />
                </padding>
             </Label>
-            <Label fx:id="labelIp" alignment="CENTER" prefHeight="66.0" prefWidth="218.0" style="-fx-background-color: #ffffff;" text="XXX.XXX.XXX.XXX">
+            <Label fx:id="labelPortActuel" prefHeight="66.0" prefWidth="106.0" style="-fx-background-color: #ffffff;">
+               <HBox.margin>
+                  <Insets right="70.0" />
+               </HBox.margin>
                <font>
                   <Font size="25.0" />
                </font>
-               <HBox.margin>
-                  <Insets left="-1.0" right="1.0" />
-               </HBox.margin>
-               <padding>
-                  <Insets bottom="15.0" right="10.0" top="15.0" />
-               </padding>
             </Label>
-            <Label alignment="CENTER" prefHeight="66.0" prefWidth="90.0" style="-fx-background-color: #ffffff;" text="Port :">
+            <Label alignment="CENTER" prefHeight="66.0" prefWidth="190.0" style="-fx-background-color: #ffffff;" text="Nouveau port :">
                <HBox.margin>
-                  <Insets left="-1.0" />
+                  <Insets />
                </HBox.margin>
                <font>
-                  <Font name="System Bold" size="25.0" />
+                  <Font size="25.0" />
                </font>
                <padding>
                   <Insets bottom="15.0" left="15.0" top="15.0" />
                </padding>
             </Label>
-            <Label fx:id="labelPort" alignment="CENTER" prefHeight="66.0" prefWidth="95.0" style="-fx-background-color: #ffffff;" text="65430">
+            <TextField fx:id="txtFieldNouveauPort" prefHeight="66.0" prefWidth="106.0" promptText="12345" style="-fx-background-color: #ffffff; -fx-background-radius: 0;">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
                <font>
                   <Font size="25.0" />
                </font>
                <padding>
                   <Insets bottom="15.0" right="15.0" top="15.0" />
                </padding>
-            </Label>
+            </TextField>
          </children>
       </HBox>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="723.0">
          <children>
-            <Button fx:id="btnExporter" mnemonicParsing="false" onAction="#btnExporterAction" prefHeight="55.0" prefWidth="264.0" style="-fx-background-color: #29CA5E;" styleClass="btnMenu" text="Lancement" textFill="WHITE">
+            <Button fx:id="btnChanger" mnemonicParsing="false" onAction="#btnChangerAction" prefHeight="55.0" prefWidth="264.0" style="-fx-background-color: #29CA5E;" styleClass="btnMenu" text="Changer" textFill="WHITE">
                <HBox.margin>
                   <Insets top="40.0" />
                </HBox.margin>
