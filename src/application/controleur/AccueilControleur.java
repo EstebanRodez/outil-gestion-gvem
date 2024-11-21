@@ -144,6 +144,7 @@ public class AccueilControleur {
         if (TraitementDonnees.getDonnees().isDonneesVides()) {
             btnConsulterDonnees.setDisable(true);
             btnExporter.setDisable(true);
+            btnReglage.setDisable(true);
         }
         
     }
