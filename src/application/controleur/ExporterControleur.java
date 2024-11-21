@@ -12,7 +12,7 @@ import application.EchangeurDeVue;
 import application.utilitaire.ExportationCSV;
 import application.utilitaire.ExportationCSVException;
 import application.utilitaire.ThreadExportation;
-
+import application.utilitaire.Vigenere;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -84,6 +84,10 @@ public class ExporterControleur {
             lancerErreurExportation();
         }
         
+        for (String nomFichier : Vigenere.getNomsFichiersDonnees()) {
+            erreurExportation = !Vigenere.verifierFichier(nomFichier);
+        }
+        
         if (!erreurExportation) {
             
             EchangeurDeVue.creerPopUp("chargementPopUp");
@@ -139,5 +143,21 @@ public class ExporterControleur {
                 "Erreur lors de la génération de la donnée secrète");
         boiteErreurChargementVue.showAndWait();
     }
+    
+    /**
+     * TODO commenter le rôle de cette méthode (SRP)
+     */
+    public static void lancerErreurAlphabet() {
+        
+        Alert boiteErreurChargementVue
+        = new Alert(Alert.AlertType.ERROR, 
+                    "Un caractère contenu dans vos fichiers, n'est pas dans "
+                    + "l'alphabet universel du cryptage. Cryptage impossible",
+                    ButtonType.OK);
+        boiteErreurChargementVue.setTitle("Erreur Exportation");
+        boiteErreurChargementVue.setHeaderText(
+                "Erreur lors du cryptage de vos données");
+        boiteErreurChargementVue.showAndWait();
+    } 
     
 }
