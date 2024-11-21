@@ -41,14 +41,18 @@ public class Vigenere {
     = "abcdefghijklmnopqrstuvwxyz";
     
     private static final String ALPHABET_CARACTERES_SPECIAUX
-    = ";,'- ()[]°./!?*%$€";
+    = ";,'- ()[]°./!?*%$€#";
     
     private static final String ALPHABET_LETTRES_ACCENTS
     = "àâäéèêëïîôöùûüÿç";
     
+    private static final String ALPHABET_CHIFFRES
+    = "0123456789";
+    
     private static final String ALPHABET_CHIFFREMENT
     = ALPHABET_26LETTRES.toUpperCase() + ALPHABET_26LETTRES
-      + ALPHABET_CARACTERES_SPECIAUX + ALPHABET_LETTRES_ACCENTS;
+      + ALPHABET_CARACTERES_SPECIAUX + ALPHABET_LETTRES_ACCENTS
+      + ALPHABET_CHIFFRES;
     
     private static final String[] NOMS_FICHIERS_DONNEES
     = {
@@ -61,6 +65,46 @@ public class Vigenere {
         "conferenciers_crypté", "employes_crypté",
         "expositions_crypté", "visites_crypté"
     };
+    
+    /**
+     * TODO commenter le rôle de cette méthode (SRP)
+     * @param cheminFichier
+     * @return true
+     */
+    public static boolean verifierFichier(String cheminFichier) {
+        
+        try {
+            
+            FileInputStream fileInputStream
+            = new FileInputStream(cheminFichier);
+            InputStreamReader inputStreamReader
+            = new InputStreamReader(fileInputStream, "windows-1252");
+            BufferedReader fluxLecture = new BufferedReader(inputStreamReader);
+            
+            String ligne = fluxLecture.readLine();
+            while (ligne != null) {
+                
+                for (int indiceLigne = 0;
+                     indiceLigne < ligne.length();
+                     indiceLigne++) {
+                    
+                    if (ALPHABET_CHIFFREMENT.indexOf(
+                            ligne.charAt(indiceLigne)) == -1) {
+                        
+                        fluxLecture.close();
+                        return false;
+                    }
+                }
+                ligne = fluxLecture.readLine();
+            }
+            
+            fluxLecture.close();
+            return true;
+        } catch (IOException e) {
+            
+            return false;
+        }
+    }
     
     /**
      * Génère une clé de chiffrement basée sur une donnée secrète et
