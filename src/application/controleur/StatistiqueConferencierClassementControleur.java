@@ -5,6 +5,7 @@
  */
 package application.controleur;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,6 +17,7 @@ import application.EchangeurDeVue;
 import application.modele.CritereFiltreVisite;
 import application.modele.Visite;
 import application.modele.VisiteCalculResultat;
+import application.utilitaire.GenererPdf;
 import application.utilitaire.TraitementDonnees;
 
 import javafx.beans.property.SimpleDoubleProperty;
@@ -41,7 +43,10 @@ import javafx.scene.control.TableView;
 public class StatistiqueConferencierClassementControleur {
 
     private static LinkedHashMap<String, Visite> visites
-    = TraitementDonnees.getDonnees().getVisites();
+        = TraitementDonnees.getDonnees().getVisites();
+    
+    private static  List<VisiteCalculResultat> resultatsPdf 
+        = new ArrayList<>();
     
     @FXML
     private TableColumn<VisiteCalculResultat, String> Conferencier;
@@ -75,6 +80,21 @@ public class StatistiqueConferencierClassementControleur {
                     cellData.getValue().getCalculVisites()).asObject());
         
         calculerTotalVisitesParConferencier(visites);
+    }
+    
+    @FXML
+    void convertirPdfOnAction(ActionEvent event) {
+        String chemin;
+        chemin = AccueilControleur.chemin();
+            
+        try {
+            GenererPdf.deuxColonnePdf(resultatsPdf , chemin, null,
+                                        "Conferencier", 'S', 'P', null);
+            AccueilControleur.alertePdfSucces();
+        } catch (IOException err) {  
+            AccueilControleur.alertePdfEchec(err);
+        }
+               
     }
     
     @FXML
@@ -144,6 +164,11 @@ public class StatistiqueConferencierClassementControleur {
         = new SortedList<>(exposListe,
                            (v1, v2) -> Double.compare(v2.getCalculVisites(), 
                                                       v1.getCalculVisites()));
+        
+        resultatsPdf.clear();
+        for (VisiteCalculResultat entry : sortedList) {
+            resultatsPdf.add(entry);
+        }
         
         tableConferencier.setItems(sortedList);
     }

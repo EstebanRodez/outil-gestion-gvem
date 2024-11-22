@@ -22,6 +22,8 @@
                <items>
                   <MenuItem mnemonicParsing="false" onAction="#retourAccueilAction" text="Accueil" />
                   <SeparatorMenuItem mnemonicParsing="false" onAction="#quitterAction" />
+                  <MenuItem mnemonicParsing="false" onAction="#convertirPdfOnAction" text="Convertir en PDF" />
+                  <SeparatorMenuItem mnemonicParsing="false" onAction="#quitterAction" />
                   <MenuItem mnemonicParsing="false" onAction="#quitterAction" text="Quitter" />
                </items>
             </Menu>

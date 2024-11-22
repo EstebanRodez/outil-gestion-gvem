@@ -5,6 +5,7 @@
  */
 package application.controleur;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,6 +18,7 @@ import application.modele.CritereFiltreVisite;
 import application.modele.ExpositionTemporaire;
 import application.modele.Visite;
 import application.modele.VisiteCalculResultat;
+import application.utilitaire.GenererPdf;
 import application.utilitaire.TraitementDonnees;
 
 import javafx.beans.property.SimpleStringProperty;
@@ -40,7 +42,10 @@ import javafx.scene.control.TableView;
 public class StatistiqueConferencierPourcentageControleur {
     
     private static LinkedHashMap<String, Visite> visites
-    = TraitementDonnees.getDonnees().getVisites();
+        = TraitementDonnees.getDonnees().getVisites();
+    
+    private static  List<VisiteCalculResultat> resultatsPdf 
+        = new ArrayList<>();
     
     @FXML
     private TableColumn<VisiteCalculResultat, String> Conferencier;
@@ -74,6 +79,21 @@ public class StatistiqueConferencierPourcentageControleur {
                     cellData.getValue().getCalculVisitesPourcentage()));
         
         calculerTauxVisitesParConferencier(visites);
+    }
+    
+    @FXML
+    void convertirPdfOnAction(ActionEvent event) {
+        String chemin;
+        chemin = AccueilControleur.chemin();
+            
+        try {
+            GenererPdf.deuxColonnePdf(resultatsPdf , chemin, null,
+                                        "Conferencier", 'S', 'R', null);
+            AccueilControleur.alertePdfSucces();
+        } catch (IOException err) {  
+            AccueilControleur.alertePdfEchec(err);
+        }
+               
     }
 
     @FXML
@@ -150,6 +170,11 @@ public class StatistiqueConferencierPourcentageControleur {
         
         ObservableList<VisiteCalculResultat> exposListe 
         = FXCollections.observableArrayList(resultats);
+        
+        resultatsPdf.clear();
+        for (VisiteCalculResultat entry : exposListe) {
+            resultatsPdf.add(entry);
+        }
         
         tableConferencier.setItems(exposListe);
     }

@@ -155,7 +155,7 @@ public class GenererPdf {
      * @param choix le type de filtre
      * @param type type de donnée Exposition ou Conferencier
      * @param theme Calculé ou Statistique
-     * @param typeEvenement Programmé (P) ou Prevu (V)
+     * @param typeEvenement Programmé (P) ou Prevu (V) ou Repartition (R)
      * @param date les dates du filtre
      * @throws IOException 
      */
@@ -165,7 +165,10 @@ public class GenererPdf {
                                       char typeEvenement, 
                                       String date) throws IOException {
         listeDonneesPdf = listeDonnees;
-        creerEntetePDF(cheminPdf, type, choix + " " + date);
+        if (date != null) {
+            choix += " " + date;
+        }
+        creerEntetePDF(cheminPdf, type, choix);
         donneesDeuxColonne(type, theme, typeEvenement);
     }
 
@@ -182,34 +185,36 @@ public class GenererPdf {
                   sousTitreFiltre;
         String date;
 
-        destination = new PdfWriter(chemin);
-        pdf = new PdfDocument(destination);
-        document = new Document(pdf);
-               
-        titre = new Paragraph(TITRE_PDF)
-                .setTextAlignment(TextAlignment.CENTER)
-                    .setFontSize(15);
-        sousTitre1 = new Paragraph("Données des " + type + "s")
+        if (chemin != null) {
+            destination = new PdfWriter(chemin);
+            pdf = new PdfDocument(destination);
+            document = new Document(pdf);
+                   
+            titre = new Paragraph(TITRE_PDF)
                     .setTextAlignment(TextAlignment.CENTER)
-                        .setFontSize(12);
-        
-        date = java.time.LocalDate.now().format(
-            java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        
-        sousTitre2 = new Paragraph("Publication du " + date)
-                   .setTextAlignment(TextAlignment.CENTER)
-                       .setFontSize(10);
-        
-        document.add(titre);
-        document.add(sousTitre1);
-        document.add(sousTitre2); 
-        document.add(new Paragraph("\n"));    
-        
-        if (choix != null) {
-            sousTitreFiltre = new Paragraph(choix)
-                    .setTextAlignment(TextAlignment.CENTER)
-                        .setFontSize(10);
-            document.add(sousTitreFiltre);
+                        .setFontSize(15);
+            sousTitre1 = new Paragraph("Données des " + type + "s")
+                        .setTextAlignment(TextAlignment.CENTER)
+                            .setFontSize(12);
+            
+            date = java.time.LocalDate.now().format(
+                java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            
+            sousTitre2 = new Paragraph("Publication du " + date)
+                       .setTextAlignment(TextAlignment.CENTER)
+                           .setFontSize(10);
+            
+            document.add(titre);
+            document.add(sousTitre1);
+            document.add(sousTitre2); 
+            document.add(new Paragraph("\n"));    
+            
+            if (choix != null) {
+                sousTitreFiltre = new Paragraph(choix)
+                        .setTextAlignment(TextAlignment.CENTER)
+                            .setFontSize(10);
+                document.add(sousTitreFiltre);
+            }
         }
     }
     
@@ -504,7 +509,7 @@ public class GenererPdf {
      * Génère un PDF avec un tableau contenant les données a deux colonnes.
      * @param type type de donnée Exposition ou Conferencier
      * @param theme Calculé ou Statistique
-     * @param typeEvenement Programmé (P) ou Prevu (V)
+     * @param typeEvenement Programmé (P) ou Prevu (V) ou Repartition (R)
      * @throws IOException 
      */
     private static void donneesDeuxColonne(String type, char theme, 
@@ -518,6 +523,9 @@ public class GenererPdf {
         
         String[] ENTETE_DEUX_COLONNE_PREVU
         = {"", "Nombre moyen de visites prévues"};
+        
+        String[] ENTETE_DEUX_COLONNE_REPARTITION        
+        = {"", "Répartition des visites"};
         
         font = PdfFontFactory.createRegisteredFont(POLICE_ECRITURE);
         table = new Table(UnitValue.createPercentArray(FORMAT_DEUX_COLONNE))
@@ -545,13 +553,22 @@ public class GenererPdf {
                 enteteTableau(table, font, COULEUR_STATISTIQUE
                         , ENTETE_DEUX_COLONNE_PREVU);
             }
+        } else if (typeEvenement == 'R') {
+            isStat = true;
+            ENTETE_DEUX_COLONNE_REPARTITION[0] 
+                    = type + ENTETE_DEUX_COLONNE_REPARTITION[0];
+            
+             if (theme == 'S') {
+                enteteTableau(table, font, COULEUR_STATISTIQUE
+                        , ENTETE_DEUX_COLONNE_REPARTITION);
+            }
         }
         
         for (VisiteCalculResultat entry : listeDonneesPdf) {
-            
+          
             table.addCell(creerCelluleTableau(entry.getIntitule(), font));
          
-            if (isStat) {
+            if (isStat && typeEvenement == 'R') {  
                 table.addCell(creerCelluleTableau(
                                   entry.getCalculVisitesPourcentage(), font));
             } else {

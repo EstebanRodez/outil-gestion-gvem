@@ -5,6 +5,7 @@
  */
 package application.controleur;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,6 +18,7 @@ import application.modele.CritereFiltreVisite;
 import application.modele.ExpositionTemporaire;
 import application.modele.Visite;
 import application.modele.VisiteCalculResultat;
+import application.utilitaire.GenererPdf;
 import application.utilitaire.TraitementDonnees;
 
 import javafx.beans.property.SimpleDoubleProperty;
@@ -42,7 +44,10 @@ import javafx.scene.control.TableView;
 public class StatistiqueExpositionClassementControleur {
     
     private static LinkedHashMap<String, Visite> visites
-    = TraitementDonnees.getDonnees().getVisites();
+        = TraitementDonnees.getDonnees().getVisites();
+    
+    private static  List<VisiteCalculResultat> resultatsPdf 
+        = new ArrayList<>();
     
     @FXML
     private TableColumn<VisiteCalculResultat, String> Exposition;
@@ -76,6 +81,21 @@ public class StatistiqueExpositionClassementControleur {
                     cellData.getValue().getCalculVisites()).asObject());
         
         calculerTotalVisitesParExposition(visites);
+    }
+    
+    @FXML
+    void convertirPdfOnAction(ActionEvent event) {
+        String chemin;
+        chemin = AccueilControleur.chemin();
+            
+        try {
+            GenererPdf.deuxColonnePdf(resultatsPdf , chemin, null,
+                                        "Exposition", 'S', 'P', null);
+            AccueilControleur.alertePdfSucces();
+        } catch (IOException err) {  
+            AccueilControleur.alertePdfEchec(err);
+        }
+               
     }
 
     @FXML
@@ -144,6 +164,10 @@ public class StatistiqueExpositionClassementControleur {
         = new SortedList<>(exposListe,
                            (v1, v2) -> Double.compare(v2.getCalculVisites(), 
                                                       v1.getCalculVisites()));
+        resultatsPdf.clear();
+        for (VisiteCalculResultat entry : sortedList) {
+            resultatsPdf.add(entry);
+        }
         
         tableExposition.setItems(sortedList);
     }
