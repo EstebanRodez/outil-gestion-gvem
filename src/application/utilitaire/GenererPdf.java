@@ -12,11 +12,11 @@ import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.properties.TextAlignment;
 import com.itextpdf.layout.properties.UnitValue;
 
-import java.io.FileNotFoundException;
+
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.List;
 import java.util.Map.Entry;
 
 import application.controleur.AccueilControleur;
@@ -24,9 +24,13 @@ import application.modele.Conferencier;
 import application.modele.Exposition;
 import application.modele.ExpositionTemporaire;
 import application.modele.Visite;
+import application.modele.VisiteCalculResultat;
 
 /**
- * TODO commenter la responsabilité de cette class (SRP)
+ * Permet de generer des pdf a partir des données importées
+ * 
+ * @author Ayoub Laluti
+ * @version 1.0
  */
 public class GenererPdf {
 
@@ -69,12 +73,6 @@ public class GenererPdf {
     
     private static final float[] FORMAT_DEUX_COLONNE = {10,10};
     
-    private static final String[] ENTETE_DEUX_COLONNE_MOYEN
-    = {"", "Nombre moyen de visites programmées"};
-    
-    private static final String[] ENTETE_DEUX_COLONNE_PREVU
-    = {"", "Nombre moyen de visites prévues"};
-
     private static final float[] FORMAT_TROIS_COLONNE = {10,5,5};
        
     private static LinkedHashMap<String, Visite> visitesPdf;
@@ -84,6 +82,8 @@ public class GenererPdf {
     private static LinkedHashMap<String, Conferencier> conferenciersPdf;
     
     private static LinkedHashMap<String, Visite> donneesCalculeesPdf;
+    
+    private static List<VisiteCalculResultat> listeDonneesPdf;
     
     private static PdfWriter destination;
     
@@ -101,7 +101,7 @@ public class GenererPdf {
     public static void visitePdf(LinkedHashMap<String, Visite> visites,
                                  String cheminPdf, char type) throws IOException {
         visitesPdf = visites;
-        creerEntetePDF(cheminPdf, "Visites", null);
+        creerEntetePDF(cheminPdf, "Visite", null);
         donneesVisite(type);
     }
     
@@ -114,7 +114,7 @@ public class GenererPdf {
     public static void expositionsPdf(LinkedHashMap<String, Exposition> expositions,
                                       String cheminPdf) throws IOException {
         expositionsPdf = expositions;
-        creerEntetePDF(cheminPdf, "Expositions", null);
+        creerEntetePDF(cheminPdf, "Exposition", null);
         donneesExposition();       
     }
     
@@ -127,7 +127,7 @@ public class GenererPdf {
     public static void conferenciersPdf(LinkedHashMap<String, Conferencier> conferenciers,
                                         String cheminPdf) throws IOException {
         conferenciersPdf = conferenciers;
-        creerEntetePDF(cheminPdf, "Conferenciers", null);
+        creerEntetePDF(cheminPdf, "Conferencier", null);
         donneesConferencier();     
     }
     
@@ -147,6 +147,27 @@ public class GenererPdf {
         creerEntetePDF(cheminPdf, type, choix);
         donneesTroisColonneCalculees(type);
     }   
+    
+    /**
+     * Méthode publique pour générer un PDF à partir de données a deux colonnes
+     * @param listeDonnees liste des données
+     * @param cheminPdf le chemin ou stocker le fichier
+     * @param choix le type de filtre
+     * @param type type de donnée Exposition ou Conferencier
+     * @param theme Calculé ou Statistique
+     * @param typeEvenement Programmé (P) ou Prevu (V)
+     * @param date les dates du filtre
+     * @throws IOException 
+     */
+    public static void deuxColonnePdf(List<VisiteCalculResultat> listeDonnees, 
+                                      String cheminPdf, String choix, 
+                                      String type, char theme,
+                                      char typeEvenement, 
+                                      String date) throws IOException {
+        listeDonneesPdf = listeDonnees;
+        creerEntetePDF(cheminPdf, type, choix + " " + date);
+        donneesDeuxColonne(type, theme, typeEvenement);
+    }
 
     /**
      * Créer un fichier pdf avec l'entete
@@ -168,7 +189,7 @@ public class GenererPdf {
         titre = new Paragraph(TITRE_PDF)
                 .setTextAlignment(TextAlignment.CENTER)
                     .setFontSize(15);
-        sousTitre1 = new Paragraph("Données des " + type)
+        sousTitre1 = new Paragraph("Données des " + type + "s")
                     .setTextAlignment(TextAlignment.CENTER)
                         .setFontSize(12);
         
@@ -477,6 +498,70 @@ public class GenererPdf {
         document.add(table);
         document.close();
         
+    }
+    
+    /**
+     * Génère un PDF avec un tableau contenant les données a deux colonnes.
+     * @param type type de donnée Exposition ou Conferencier
+     * @param theme Calculé ou Statistique
+     * @param typeEvenement Programmé (P) ou Prevu (V)
+     * @throws IOException 
+     */
+    private static void donneesDeuxColonne(String type, char theme, 
+                                           char typeEvenement) throws IOException {
+        Table table;
+        PdfFont font;
+        Boolean isStat = false;
+        
+        String[] ENTETE_DEUX_COLONNE_PROG
+        = {"", "Nombre moyen de visites programmées"};
+        
+        String[] ENTETE_DEUX_COLONNE_PREVU
+        = {"", "Nombre moyen de visites prévues"};
+        
+        font = PdfFontFactory.createRegisteredFont(POLICE_ECRITURE);
+        table = new Table(UnitValue.createPercentArray(FORMAT_DEUX_COLONNE))
+                    .useAllAvailableWidth();
+        
+        if (typeEvenement == 'P') {
+            ENTETE_DEUX_COLONNE_PROG[0] = type + ENTETE_DEUX_COLONNE_PROG[0];
+            
+            if (theme == 'C') {
+                enteteTableau(table, font, COULEUR_DONNEES_CALCULEES
+                        , ENTETE_DEUX_COLONNE_PROG);
+            } else if (theme == 'S') {
+                isStat = true;
+                enteteTableau(table, font, COULEUR_STATISTIQUE
+                        , ENTETE_DEUX_COLONNE_PROG);
+            }    
+            
+        } else if (typeEvenement == 'V') {
+            ENTETE_DEUX_COLONNE_PREVU[0] = type + ENTETE_DEUX_COLONNE_PREVU[0];
+            
+            if (theme == 'C') {
+                enteteTableau(table, font, COULEUR_DONNEES_CALCULEES
+                        , ENTETE_DEUX_COLONNE_PROG);
+            } else if (theme == 'S') {
+                enteteTableau(table, font, COULEUR_STATISTIQUE
+                        , ENTETE_DEUX_COLONNE_PROG);
+            }
+        }
+        
+        for (VisiteCalculResultat entry : listeDonneesPdf) {
+            
+            table.addCell(creerCelluleTableau(entry.getIntitule(), font));
+         
+            if (isStat) {
+                table.addCell(creerCelluleTableau(
+                                  entry.getCalculVisitesPourcentage(), font));
+            } else {
+                table.addCell(creerCelluleTableau(
+                                  Double.toString(entry.getCalculVisites()),
+                                                      font));
+            }
+        }
+        document.add(table);
+        document.close();
     }
 }
 

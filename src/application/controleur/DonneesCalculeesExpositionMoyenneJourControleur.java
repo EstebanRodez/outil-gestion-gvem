@@ -5,6 +5,7 @@
  */
 package application.controleur;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -19,6 +20,7 @@ import application.modele.CritereFiltreVisite;
 import application.modele.ExpositionTemporaire;
 import application.modele.Visite;
 import application.modele.VisiteCalculResultat;
+import application.utilitaire.GenererPdf;
 import application.utilitaire.TraitementDonnees;
 
 import javafx.beans.property.SimpleDoubleProperty;
@@ -53,6 +55,10 @@ public class DonneesCalculeesExpositionMoyenneJourControleur {
     
     private static String[] choix = DonneesCalculeesExpositionControleur.choix;
     
+    private static String date= "";
+    
+    private static List<VisiteCalculResultat> resultatsPdf = new ArrayList<>();
+    
     @FXML
     private Button btnFiltres;
 
@@ -67,9 +73,6 @@ public class DonneesCalculeesExpositionMoyenneJourControleur {
 
     @FXML
     private TableColumn<VisiteCalculResultat, String> Exposition;
-    @FXML
-    private Button btnGenererPDF;
-
     
     @FXML
     private TableColumn<VisiteCalculResultat, Double> nbMoyen;
@@ -99,6 +102,7 @@ public class DonneesCalculeesExpositionMoyenneJourControleur {
             cellData -> new SimpleDoubleProperty(
                     cellData.getValue().getCalculVisites()).asObject());
         
+        
         // Déterminer les dates de début et de fin globales
         LocalDate dateDebutGlobal = LocalDate.MAX;
         LocalDate dateFinGlobal = LocalDate.MIN;
@@ -116,9 +120,24 @@ public class DonneesCalculeesExpositionMoyenneJourControleur {
         // Appel avec les dates globales
         calculerMoyenneVisitesParExposition(visites, dateDebutGlobal,
                                                      dateFinGlobal);
-        
-        labelDate.setText("du " + dateDebutGlobal.format(DATE_FORMAT) 
-                          + " au " + dateFinGlobal.format(DATE_FORMAT));
+        date = "du " + dateDebutGlobal.format(DATE_FORMAT) 
+                + " au " + dateFinGlobal.format(DATE_FORMAT);
+        labelDate.setText(date);
+    }
+    
+    @FXML
+    void convertirPdfOnAction(ActionEvent event) {
+        String chemin;
+        chemin = AccueilControleur.chemin();
+            
+        try {
+            GenererPdf.deuxColonnePdf(resultatsPdf , chemin, choix[1],
+                                        "Exposition", 'C', 'P', date);
+            AccueilControleur.alertePdfSucces();
+        } catch (IOException err) {  
+            AccueilControleur.alertePdfEchec(err);
+        }
+               
     }
     
     @FXML
@@ -151,18 +170,6 @@ public class DonneesCalculeesExpositionMoyenneJourControleur {
         }
     }
     
-    @FXML
-    void btnGenererPDFAction(ActionEvent event) {
-        /*try {
-            List<VisiteCalculResultat> results = tableExposition.getItems();
-            CreerPdf pdfGenerator = new CreerPdf();
-            pdfGenerator.generatePdf("rapport_moyenne_expositions_jours.pdf", results);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } */
-    }
-    
-
     @FXML
     void retourAccueilAction(ActionEvent event) {
         EchangeurDeVue.changerVue("accueilVue");
@@ -259,10 +266,17 @@ public class DonneesCalculeesExpositionMoyenneJourControleur {
         // Mettre à jour le tableau avec les résultats
         ObservableList<VisiteCalculResultat> exposListe 
         = FXCollections.observableArrayList(resultats);
+        
+        resultatsPdf.clear();
+        for (VisiteCalculResultat entry : exposListe) {
+            resultatsPdf.add(entry);
+        }
+        
         tableExposition.setItems(exposListe);
         
-        labelDate.setText("du " + dateDebutGlobal.format(DATE_FORMAT) 
-                          + " au " + dateFinGlobal.format(DATE_FORMAT));
+        date = "du " + dateDebutGlobal.format(DATE_FORMAT) 
+                + " au " + dateFinGlobal.format(DATE_FORMAT);
+        labelDate.setText(date);
     }
 
 
