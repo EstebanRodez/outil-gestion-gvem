@@ -6,6 +6,7 @@
  */
 package application.controleur;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -20,6 +21,7 @@ import application.modele.CritereFiltreVisite;
 import application.modele.ExpositionTemporaire;
 import application.modele.Visite;
 import application.modele.VisiteCalculResultat;
+import application.utilitaire.GenererPdf;
 import application.utilitaire.TraitementDonnees;
 
 import javafx.beans.property.SimpleDoubleProperty;
@@ -52,15 +54,12 @@ public class DonneesCalculeesConferencierMoyenneSemaineControleur {
     private static final DateTimeFormatter DATE_FORMAT 
     = AccueilControleur.getDateFormatterFR();
     
-    private static String[] choix = {"conférencier qui n’ont aucune visite",
-                                    "conférencier et leur nombre moyen de " 
-                                    + "visites programmées chaque jour",
-                                    "conférencier et leur nombre moyen de "
-                                    + "visites programmées chaque semaine",
-                                    "l’esembles des conférencier et leur nombre"
-                                    + " moyen de visites prévues chaque jour",
-                                    "l’esembles des conférencier et leur nombre"
-                                    + " moyen de visites prévues chaque semaine"};
+    private static String[] choix = DonneesCalculeesConferencierControleur.choix;
+    
+    private static  List<VisiteCalculResultat> resultatsPdf 
+    = new ArrayList<>();
+
+    private static String date = "";
     
     @FXML
     private Button btnFiltres;
@@ -74,9 +73,6 @@ public class DonneesCalculeesConferencierMoyenneSemaineControleur {
     @FXML
     private Label labelDate;
     
-    @FXML
-    private Button btnGenererPDF;
-
     @FXML
     private TableColumn<VisiteCalculResultat, String> conferencier;
     
@@ -124,21 +120,31 @@ public class DonneesCalculeesConferencierMoyenneSemaineControleur {
 
         calculerMoyenneVisitesParConferencier(visites, dateDebutGlobal,
                                                        dateFinGlobal);
-        
-        labelDate.setText("du " + dateDebutGlobal.format(DATE_FORMAT) 
-                          + " au " + dateFinGlobal.format(DATE_FORMAT));
+        date = "du " + dateDebutGlobal.format(DATE_FORMAT) 
+                + " au " + dateFinGlobal.format(DATE_FORMAT);
+        labelDate.setText(date);
+    }
+    
+    @FXML
+    void convertirPdfOnAction(ActionEvent event) {
+        String chemin;
+        chemin = AccueilControleur.chemin();
+            
+        try {
+            GenererPdf.deuxColonnePdf(resultatsPdf , chemin, choix[2],
+                                        "Conferencier", 'C', 'P', date);
+            AccueilControleur.alertePdfSucces();
+        } catch (IOException err) {  
+            AccueilControleur.alertePdfEchec(err);
+        }
+               
     }
     
     @FXML
     void btnFiltresAction(ActionEvent event) {
         EchangeurDeVue.creerPopUp("donneesCalculeesConferencierMoyenneSemaineFiltrePopUp");
     }
-    
-    @FXML
-    void btnGenererPDFAction(ActionEvent event) {
-    
-    }
-    
+
     @FXML
     void btnValiderAction(ActionEvent event) {
         
@@ -259,11 +265,18 @@ public class DonneesCalculeesConferencierMoyenneSemaineControleur {
         // Mettre à jour le tableau avec les résultats
         ObservableList<VisiteCalculResultat> exposListe 
         = FXCollections.observableArrayList(resultats);
+        
+        resultatsPdf.clear();
+        for (VisiteCalculResultat entry : exposListe) {
+            resultatsPdf.add(entry);
+        }
+        
         tableConferencier.setItems(exposListe);
         
-        labelDate.setText("du " + dateDebutGlobal.format(DATE_FORMAT) 
-                          + " au " + dateFinGlobal.format(DATE_FORMAT)
-                          + " (" + totalSemaines +" semaines)");
+        date =  "du " + dateDebutGlobal.format(DATE_FORMAT) 
+                    + " au " + dateFinGlobal.format(DATE_FORMAT)
+                    + " (" + totalSemaines +" semaines)";
+        labelDate.setText(date);
     }
 
 

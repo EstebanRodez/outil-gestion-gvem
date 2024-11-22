@@ -6,6 +6,7 @@
  */
 package application.controleur;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -19,6 +20,7 @@ import application.modele.CritereFiltreVisite;
 import application.modele.ExpositionTemporaire;
 import application.modele.Visite;
 import application.modele.VisiteCalculResultat;
+import application.utilitaire.GenererPdf;
 import application.utilitaire.TraitementDonnees;
 
 import javafx.beans.property.SimpleDoubleProperty;
@@ -53,6 +55,11 @@ public class DonneesCalculeesExpositionEnsembleSemaineControleur {
     
     private static String[] choix = DonneesCalculeesExpositionControleur.choix;
     
+    private static  List<VisiteCalculResultat> resultatsPdf 
+    = new ArrayList<>();
+
+    private static String date = "";
+    
     @FXML
     private Button btnFiltres;
 
@@ -65,9 +72,6 @@ public class DonneesCalculeesExpositionEnsembleSemaineControleur {
     @FXML
     private Label labelDate;
     
-    @FXML
-    private Button btnGenererPDF;
-
     @FXML
     private TableColumn<VisiteCalculResultat, String> Exposition;
     
@@ -116,9 +120,24 @@ public class DonneesCalculeesExpositionEnsembleSemaineControleur {
         calculerMoyenneVisitesEnsembleHebdomadaireExposition(visites, 
                                                              dateDebutGlobal,
                                                              dateFinGlobal);
-        
-        labelDate.setText("du " + dateDebutGlobal.format(DATE_FORMAT) 
-                          + " au " + dateFinGlobal.format(DATE_FORMAT));
+        date = "du " + dateDebutGlobal.format(DATE_FORMAT) 
+                + " au " + dateFinGlobal.format(DATE_FORMAT);
+        labelDate.setText(date);
+    }
+    
+    @FXML
+    void convertirPdfOnAction(ActionEvent event) {
+        String chemin;
+        chemin = AccueilControleur.chemin();
+            
+        try {
+            GenererPdf.deuxColonnePdf(resultatsPdf , chemin, choix[4],
+                                        "Exposition", 'C', 'V', date);
+            AccueilControleur.alertePdfSucces();
+        } catch (IOException err) {  
+            AccueilControleur.alertePdfEchec(err);
+        }
+               
     }
     
     @FXML
@@ -151,11 +170,6 @@ public class DonneesCalculeesExpositionEnsembleSemaineControleur {
         }
     }
     
-    @FXML
-    void btnGenererPDFAction(ActionEvent event) {
-    	
-    }
-
     @FXML
     void retourAccueilAction(ActionEvent event) {
         EchangeurDeVue.changerVue("accueilVue");
@@ -232,11 +246,18 @@ public class DonneesCalculeesExpositionEnsembleSemaineControleur {
         // Mettre à jour le tableau avec le résultat
         ObservableList<VisiteCalculResultat> expoListe 
         = FXCollections.observableArrayList(resultats);
+        
+        resultatsPdf.clear();
+        for (VisiteCalculResultat entry : expoListe) {
+            resultatsPdf.add(entry);
+        }
+        
         tableExposition.setItems(expoListe);
         
-        labelDate.setText("du " + dateDebutGlobal.format(DATE_FORMAT) 
-                          + " au " + dateFinGlobal.format(DATE_FORMAT)
-                          + " (" + totalSemainesGlobal +" semaines)");
+        date = "du " + dateDebutGlobal.format(DATE_FORMAT) 
+                + " au " + dateFinGlobal.format(DATE_FORMAT)
+                + " (" + totalSemainesGlobal +" semaines)";
+        labelDate.setText(date);
         
     }
     

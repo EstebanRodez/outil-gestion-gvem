@@ -5,6 +5,7 @@
  */
 package application.controleur;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -18,6 +19,7 @@ import application.modele.CritereFiltreVisite;
 import application.modele.ExpositionTemporaire;
 import application.modele.Visite;
 import application.modele.VisiteCalculResultat;
+import application.utilitaire.GenererPdf;
 import application.utilitaire.TraitementDonnees;
 
 import javafx.beans.property.SimpleDoubleProperty;
@@ -52,6 +54,11 @@ public class DonneesCalculeesExpositionEnsembleJourControleur {
     
     private static String[] choix = DonneesCalculeesExpositionControleur.choix;
     
+    private static  List<VisiteCalculResultat> resultatsPdf 
+    = new ArrayList<>();
+
+    private static String date = "";
+    
     @FXML
     private Button btnFiltres;
 
@@ -64,9 +71,6 @@ public class DonneesCalculeesExpositionEnsembleJourControleur {
     @FXML
     private Label labelDate;
     
-    @FXML
-    private Button btnGenererPDF;
-
     @FXML
     private TableColumn<VisiteCalculResultat, String> Exposition;
     
@@ -114,9 +118,24 @@ public class DonneesCalculeesExpositionEnsembleJourControleur {
         
         calculerMoyenneVisitesEnsembleExposition(visites, dateDebutGlobal,
                                                           dateFinGlobal);
-        
-        labelDate.setText("du " + dateDebutGlobal.format(DATE_FORMAT) 
-                          + " au " + dateFinGlobal.format(DATE_FORMAT));
+        date = "du " + dateDebutGlobal.format(DATE_FORMAT) 
+                + " au " + dateFinGlobal.format(DATE_FORMAT);
+        labelDate.setText(date);
+    }
+    
+    @FXML
+    void convertirPdfOnAction(ActionEvent event) {
+        String chemin;
+        chemin = AccueilControleur.chemin();
+            
+        try {
+            GenererPdf.deuxColonnePdf(resultatsPdf , chemin, choix[3],
+                                        "Exposition", 'C', 'V', date);
+            AccueilControleur.alertePdfSucces();
+        } catch (IOException err) {  
+            AccueilControleur.alertePdfEchec(err);
+        }
+               
     }
     
     @FXML
@@ -150,17 +169,6 @@ public class DonneesCalculeesExpositionEnsembleJourControleur {
         }
     }
     
-    @FXML
-    void btnGenererPDFAction(ActionEvent event) {
-        /*try {
-            List<VisiteMoyenneResultat> results = tableExposition.getItems();
-            CreerPdf pdfGenerator = new CreerPdf();
-            pdfGenerator.generatePdf("rapport_ensembles_expositions_jours.pdf", results);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } */
-    } 
-
     @FXML
     void retourAccueilAction(ActionEvent event) {
         EchangeurDeVue.changerVue("accueilVue");
@@ -234,10 +242,17 @@ public class DonneesCalculeesExpositionEnsembleJourControleur {
         // Mettre à jour le tableau avec le résultat
         ObservableList<VisiteCalculResultat> confsListe 
         = FXCollections.observableArrayList(resultats);
+        
+        resultatsPdf.clear();
+        for (VisiteCalculResultat entry : confsListe) {
+            resultatsPdf.add(entry);
+        }
+        
         tableExposition.setItems(confsListe);
         
-        labelDate.setText("du " + dateDebutGlobal.format(DATE_FORMAT) 
-                          + " au " + dateFinGlobal.format(DATE_FORMAT));
+        date = "du " + dateDebutGlobal.format(DATE_FORMAT) 
+                + " au " + dateFinGlobal.format(DATE_FORMAT);
+        labelDate.setText(date);
         
     }
     

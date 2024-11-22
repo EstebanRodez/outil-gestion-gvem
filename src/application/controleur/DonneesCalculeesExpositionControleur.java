@@ -61,10 +61,10 @@ public class DonneesCalculeesExpositionControleur {
            "Expositions et leur nombre moyen de visites programmées chaque jour",
            "Expositions et leur nombre moyen de visites programmées chaque "
                + "semaine",
-         "L’esembles des expositions et leur nombre moyen de visites prévues "
-               + "chaque jour",
-         "L’esembles des expositions et leur nombre moyen de visites "
-               + "prévues chaque semaine"
+           "L’ensembles des expositions et leur nombre moyen de visites prévues "
+                   + "chaque jour",
+           "L’ensembles des expositions et leur nombre moyen de visites "
+                   + "prévues chaque semaine"
         };
     
     @FXML

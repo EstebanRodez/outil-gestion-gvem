@@ -540,10 +540,10 @@ public class GenererPdf {
             
             if (theme == 'C') {
                 enteteTableau(table, font, COULEUR_DONNEES_CALCULEES
-                        , ENTETE_DEUX_COLONNE_PROG);
+                        , ENTETE_DEUX_COLONNE_PREVU);
             } else if (theme == 'S') {
                 enteteTableau(table, font, COULEUR_STATISTIQUE
-                        , ENTETE_DEUX_COLONNE_PROG);
+                        , ENTETE_DEUX_COLONNE_PREVU);
             }
         }
         

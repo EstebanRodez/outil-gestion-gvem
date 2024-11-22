@@ -278,10 +278,6 @@ public class DonneesCalculeesExpositionMoyenneJourControleur {
                 + " au " + dateFinGlobal.format(DATE_FORMAT);
         labelDate.setText(date);
     }
-
-
-
-
     
     /**
      * Applique les critères de filtrage inversés sur la liste des visites.

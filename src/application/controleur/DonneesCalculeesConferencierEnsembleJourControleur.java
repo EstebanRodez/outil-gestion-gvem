@@ -5,6 +5,7 @@
  */
 package application.controleur;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -18,7 +19,7 @@ import application.modele.CritereFiltreVisite;
 import application.modele.ExpositionTemporaire;
 import application.modele.Visite;
 import application.modele.VisiteCalculResultat;
-
+import application.utilitaire.GenererPdf;
 import application.utilitaire.TraitementDonnees;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -50,17 +51,12 @@ public class DonneesCalculeesConferencierEnsembleJourControleur {
     private static final DateTimeFormatter DATE_FORMAT 
     = AccueilControleur.getDateFormatterFR();
     
-    private static String[] choix 
-    = {
-        "conférencier qui n’ont aucune visite",
-        "conférencier et leur nombre moyen de visites programmées chaque jour",
-        "conférencier et leur nombre moyen de visites programmées chaque "
-        + "semaine",
-        "l’esembles des conférencier et leur nombre moyen de visites prévues "
-        + "chaque jour",
-        "l’esembles des conférencier et leur nombre moyen de visites prévues "
-        + "chaque semaine"
-    };
+    private static String[] choix = DonneesCalculeesConferencierControleur.choix;
+    
+    private static  List<VisiteCalculResultat> resultatsPdf 
+    = new ArrayList<>();
+
+    private static String date = "";
     
     @FXML
     private Button btnFiltres;
@@ -70,10 +66,7 @@ public class DonneesCalculeesConferencierEnsembleJourControleur {
 
     @FXML
     private Button btnValider;
-    
-    @FXML
-    private Button btnGenererPDF;
-    
+
     @FXML
     private Label labelDate;
 
@@ -124,9 +117,24 @@ public class DonneesCalculeesConferencierEnsembleJourControleur {
         
         calculerMoyenneVisitesEnsembleConferencier(visites, dateDebutGlobal,
                                                             dateFinGlobal);
-        
-        labelDate.setText("du " + dateDebutGlobal.format(DATE_FORMAT) 
-                          + " au " + dateFinGlobal.format(DATE_FORMAT));
+        date = "du " + dateDebutGlobal.format(DATE_FORMAT) 
+                + " au " + dateFinGlobal.format(DATE_FORMAT);
+        labelDate.setText(date);
+    }
+    
+    @FXML
+    void convertirPdfOnAction(ActionEvent event) {
+        String chemin;
+        chemin = AccueilControleur.chemin();
+            
+        try {
+            GenererPdf.deuxColonnePdf(resultatsPdf , chemin, choix[3],
+                                        "Conferencier", 'C', 'V', date);
+            AccueilControleur.alertePdfSucces();
+        } catch (IOException err) {  
+            AccueilControleur.alertePdfEchec(err);
+        }
+               
     }
     
     @FXML
@@ -163,17 +171,6 @@ public class DonneesCalculeesConferencierEnsembleJourControleur {
         }
     }
     
-    @FXML
-    void btnGenererPDFAction(ActionEvent event) {
-        /*try {
-            List<VisiteMoyenneResultat> results = tableConferencier.getItems();
-            CreerPdf pdfGenerator = new CreerPdf();
-            pdfGenerator.generatePdf("rapport_ensemble_conferenciers_jours.pdf", results);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } */
-    }
-
     @FXML
     void retourAccueilAction(ActionEvent event) {
         EchangeurDeVue.changerVue("accueilVue");
@@ -263,10 +260,17 @@ public class DonneesCalculeesConferencierEnsembleJourControleur {
         // Mettre à jour le tableau avec le résultat
         ObservableList<VisiteCalculResultat> confsListe 
         = FXCollections.observableArrayList(resultats);
+        
+        resultatsPdf.clear();
+        for (VisiteCalculResultat entry : confsListe) {
+            resultatsPdf.add(entry);
+        }
+        
         tableConferencier.setItems(confsListe);
         
-        labelDate.setText("du " + dateDebutGlobal.format(DATE_FORMAT) 
-                          + " au " + dateFinGlobal.format(DATE_FORMAT));
+        date = "du " + dateDebutGlobal.format(DATE_FORMAT) 
+                + " au " + dateFinGlobal.format(DATE_FORMAT);
+        labelDate.setText(date);
         
     }
     

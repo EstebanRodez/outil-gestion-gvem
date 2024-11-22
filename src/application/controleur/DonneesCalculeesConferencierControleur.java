@@ -64,7 +64,7 @@ public class DonneesCalculeesConferencierControleur {
         + "semaine",
         "L’ensemble des conférenciers et leur nombre moyen de visites prévues "
         + "chaque jour",
-        "l’ensemble des conférenciers et leur nombre moyen de visites prévues "
+        "L’ensemble des conférenciers et leur nombre moyen de visites prévues "
         + "chaque semaine"
     };
     
