@@ -120,7 +120,7 @@ public class DonneesCalculeesExpositionMoyenneJourControleur {
         // Appel avec les dates globales
         calculerMoyenneVisitesParExposition(visites, dateDebutGlobal,
                                                      dateFinGlobal);
-        date = "du " + dateDebutGlobal.format(DATE_FORMAT) 
+        date = "Du " + dateDebutGlobal.format(DATE_FORMAT) 
                 + " au " + dateFinGlobal.format(DATE_FORMAT);
         labelDate.setText(date);
     }
@@ -274,7 +274,7 @@ public class DonneesCalculeesExpositionMoyenneJourControleur {
         
         tableExposition.setItems(exposListe);
         
-        date = "du " + dateDebutGlobal.format(DATE_FORMAT) 
+        date = "Du " + dateDebutGlobal.format(DATE_FORMAT) 
                 + " au " + dateFinGlobal.format(DATE_FORMAT);
         labelDate.setText(date);
     }

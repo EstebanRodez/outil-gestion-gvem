@@ -7,6 +7,7 @@ package application.controleur;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -27,6 +28,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
@@ -44,8 +46,14 @@ public class StatistiqueExpositionPourcentageControleur {
     private static LinkedHashMap<String, Visite> visites
         = TraitementDonnees.getDonnees().getVisites();
     
+    // Format pour les dates au format jj/MM/aaaa
+    private static final DateTimeFormatter DATE_FORMAT 
+    = AccueilControleur.getDateFormatterFR();
+    
     private static  List<VisiteCalculResultat> resultatsPdf 
         = new ArrayList<>();
+    
+    private static String date = "";
     
     @FXML
     private TableColumn<VisiteCalculResultat, String> Exposition;
@@ -58,6 +66,9 @@ public class StatistiqueExpositionPourcentageControleur {
 
     @FXML
     private Button btnRetour;
+    
+    @FXML
+    private Label labelDate;
 
     @FXML
     private TableColumn<VisiteCalculResultat, String> tauxVisites;
@@ -78,7 +89,26 @@ public class StatistiqueExpositionPourcentageControleur {
             cellData -> new SimpleStringProperty(
                     cellData.getValue().getCalculVisitesPourcentage()));
         
-        calculerTauxVisitesParExposition(visites);
+        // Déterminer les dates de début et de fin globales
+        LocalDate dateDebutGlobal = LocalDate.MAX;
+        LocalDate dateFinGlobal = LocalDate.MIN;
+
+        for (Visite visite : visites.values()) {
+            LocalDate dateVisite = visite.getDate();
+            if (dateVisite.isBefore(dateDebutGlobal)) {
+                dateDebutGlobal = dateVisite;
+            }
+            if (dateVisite.isAfter(dateFinGlobal)) {
+                dateFinGlobal = dateVisite;
+            }
+        }
+        
+        calculerTauxVisitesParExposition(visites, dateDebutGlobal,
+                                                  dateFinGlobal);
+        
+        date = "Du " + dateDebutGlobal.format(DATE_FORMAT) 
+                + " au " + dateFinGlobal.format(DATE_FORMAT);
+        labelDate.setText(date);
     }
     
     @FXML
@@ -87,8 +117,9 @@ public class StatistiqueExpositionPourcentageControleur {
         chemin = AccueilControleur.chemin();
             
         try {
-            GenererPdf.deuxColonnePdf(resultatsPdf , chemin, null,
-                                        "Exposition", 'S', 'R', null);
+            GenererPdf.deuxColonnePdf(resultatsPdf , chemin, 
+                                        "Pourcentages des Expositions",
+                                        "Exposition", 'S', 'R', date);
             AccueilControleur.alertePdfSucces();
         } catch (IOException err) {  
             AccueilControleur.alertePdfEchec(err);
@@ -122,7 +153,28 @@ public class StatistiqueExpositionPourcentageControleur {
     }
     
     private void calculerTauxVisitesParExposition(
-            LinkedHashMap<String, Visite> visites) {
+            LinkedHashMap<String, Visite> visites,
+            LocalDate dateDebut,
+            LocalDate dateFin) {
+        
+        // Initialiser les dates globales de début et de fin si elles ne sont pas spécifiées
+        LocalDate dateDebutGlobal = dateDebut != null ? dateDebut 
+                                                      : LocalDate.MAX;
+        LocalDate dateFinGlobal = dateFin != null ? dateFin 
+                                                  : LocalDate.MIN;
+
+        // Parcourir toutes les visites pour ajuster les dates globales de début et de fin
+        for (Map.Entry<String, Visite> paire : visites.entrySet()) {
+            LocalDate dateVisite = paire.getValue().getDate();
+
+            // Ajuster dateDebutGlobal et dateFinGlobal en fonction des dates de visite trouvées
+            if (dateDebut == null && dateVisite.isBefore(dateDebutGlobal)) {
+                dateDebutGlobal = dateVisite;
+            }
+            if (dateFin == null && dateVisite.isAfter(dateFinGlobal)) {
+                dateFinGlobal = dateVisite;
+            }
+        }
         
         // Création d'une Map pour compter les visites par exposition
         Map<String, Integer> visitesParExposition = new HashMap<>();
@@ -177,6 +229,10 @@ public class StatistiqueExpositionPourcentageControleur {
         }
         
         tableExposition.setItems(exposListe);
+        
+        date = "Du " + dateDebutGlobal.format(DATE_FORMAT) 
+                + " au " + dateFinGlobal.format(DATE_FORMAT);
+        labelDate.setText(date);
     }
 
     /**
@@ -248,7 +304,9 @@ public class StatistiqueExpositionPourcentageControleur {
             }
         }
 
-        calculerTauxVisitesParExposition(visitesFiltrees);
+        calculerTauxVisitesParExposition(visitesFiltrees,
+                                        critere.getDateDebut(), 
+                                        critere.getDateFin());
             
         }
 }

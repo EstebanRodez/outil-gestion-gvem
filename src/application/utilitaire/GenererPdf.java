@@ -521,6 +521,9 @@ public class GenererPdf {
         String[] ENTETE_DEUX_COLONNE_PROG
         = {"", "Nombre moyen de visites programmées"};
         
+        String[] ENTETE_DEUX_COLONNE_PROG_TOTAL
+        = {"", "Nombre total de visites programmées"};
+        
         String[] ENTETE_DEUX_COLONNE_PREVU
         = {"", "Nombre moyen de visites prévues"};
         
@@ -533,6 +536,7 @@ public class GenererPdf {
         
         if (typeEvenement == 'P') {
             ENTETE_DEUX_COLONNE_PROG[0] = type + ENTETE_DEUX_COLONNE_PROG[0];
+            ENTETE_DEUX_COLONNE_PROG_TOTAL[0] = type + ENTETE_DEUX_COLONNE_PROG_TOTAL[0];
             
             if (theme == 'C') {
                 enteteTableau(table, font, COULEUR_DONNEES_CALCULEES
@@ -540,7 +544,7 @@ public class GenererPdf {
             } else if (theme == 'S') {
                 isStat = true;
                 enteteTableau(table, font, COULEUR_STATISTIQUE
-                        , ENTETE_DEUX_COLONNE_PROG);
+                        , ENTETE_DEUX_COLONNE_PROG_TOTAL);
             }    
             
         } else if (typeEvenement == 'V') {
