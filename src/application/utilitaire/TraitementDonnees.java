@@ -367,7 +367,7 @@ public class TraitementDonnees {
         } else if (lettreIdentifiant == 'R') { // Visite
             return !donnees.getVisites().containsKey(identifiant);
         } else if (lettreIdentifiant == 'N') { // Employé
-            return !donnees.getVisites().containsKey(identifiant);
+            return !donnees.getEmployes().containsKey(identifiant);
         } else { // Forcément Conférencier
             return !donnees.getConferenciers().containsKey(identifiant);
         }
