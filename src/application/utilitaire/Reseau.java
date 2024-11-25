@@ -195,4 +195,53 @@ public class Reseau {
             throw new IllegalArgumentException(ERREUR_PORT_INVALIDE);
         }
     }
+    
+    /**
+     * Vérifie si une adresse IP est valide
+     * @param ip Adresse IP sous forme de chaîne
+     * @return true si l'adresse est valide, sinon false
+     */
+    public static boolean isAdresseIPValide(String ip) {
+        // Expression régulière pour vérifier une adresse IPv4
+        String ipPattern = 
+            "^([0-9]{1,3}\\.){3}[0-9]{1,3}$";
+        
+        if (!ip.matches(ipPattern)) {
+            return false;
+        }
+
+        String[] segments = ip.split("\\.");
+        for (String segment : segments) {
+            int value = Integer.parseInt(segment);
+            if (value < 0 || value > 255) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    /**
+     * Vérifie si le port est valide
+     * @param port Chaîne représentant le port
+     * @return true si le port est un entier valide entre 0 et 65535,
+     *         sinon false
+     */
+    public static boolean isPortValide(String port) {
+        return port.matches("(\\d){1,5}") && Integer.parseInt(port) >= 0
+               && Integer.parseInt(port) <= 65535;
+    }
+    
+    /**
+     * TODO commenter le rôle de cette méthode (SRP)
+     * @param adresseIP
+     * @return true
+     */
+    public static boolean isAdresseIPDisponible(String adresseIP) {
+        
+        try {
+            return InetAddress.getByName(adresseIP).isReachable(0);
+        } catch (IOException e) {
+            return false;
+        }
+    }
 }
