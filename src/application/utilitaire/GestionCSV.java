@@ -130,39 +130,6 @@ public class GestionCSV {
     }
     
     /**
-     * Lit les lignes d'un fichier CSV spécifié et retourne les données
-     * sous forme de liste. Chaque ligne est transformée en un tableau de
-     * chaînes de caractères, les éléments étant séparés par le caractère ';'.
-     *
-     * @param cheminFichier le chemin du fichier CSV à lire.
-     * @return une liste d'arrays de chaînes de caractères représentant
-     *         les lignes de données du fichier CSV.
-     * @throws IOException si une erreur d'entrée/sortie se produit lors de
-     *                     la lecture du fichier.
-     */
-    public static ArrayList<String[]> getDonneesLignes(String cheminFichier)
-            throws IOException {
-        
-        FileInputStream fileInputStream
-        = new FileInputStream(cheminFichier);
-        InputStreamReader inputStreamReader
-        = new InputStreamReader(fileInputStream, "windows-1252");
-        BufferedReader fichierCSV = new BufferedReader(inputStreamReader);
-        
-        String ligne;
-        ArrayList<String[]> donnees = new ArrayList<>();
-        
-        ligne = fichierCSV.readLine();
-        while (ligne != null && !ligne.matches("^;*")) {
-            donnees.add(ligne.split(";"));
-            ligne = fichierCSV.readLine();
-        }
-        fichierCSV.close();
-        
-        return donnees;
-    }
-    
-    /**
      * Vérifie si le fichier est vide ou contient uniquement des espaces.
      * Cette méthode lit le fichier ligne par ligne et utilise la méthode
      * trim() pour vérifier si une ligne ne contient que des espaces.
