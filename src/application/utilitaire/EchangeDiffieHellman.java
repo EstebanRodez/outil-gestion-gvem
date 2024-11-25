@@ -39,8 +39,6 @@ import java.nio.file.Path;
  */
 public class EchangeDiffieHellman {
     
-    private static final int PORT_EXPORTATION = Reseau.getPortExportation();
-    
     private static final String[] NOMS_FICHIER_CLES_ALICE
     = {"p.txt", "g.txt", "g^a.txt"};
     
@@ -108,6 +106,8 @@ public class EchangeDiffieHellman {
      */
     public static int genererDonneeSecreteAlice()
             throws GenerationDonneeSecreteException {
+        
+        int portExportation = Reseau.getPortExportation();
 
         int p = Mathematiques.trouverNombrePremier(
                 Mathematiques.genererNombreAleatoire(1000,9999));
@@ -130,7 +130,7 @@ public class EchangeDiffieHellman {
         }  
         
         InetAddress ipClient
-        = Reseau.envoyerFichiers(PORT_EXPORTATION, NOMS_FICHIER_CLES_ALICE);       
+        = Reseau.envoyerFichiers(portExportation, NOMS_FICHIER_CLES_ALICE);       
         if (ipClient == null) {
             
             /*
@@ -141,7 +141,7 @@ public class EchangeDiffieHellman {
                     ERREUR_COMMUNICATION_FERMEE);
         }
 
-        Reseau.recevoirFichiers(ipClient.getHostAddress(), PORT_EXPORTATION,
+        Reseau.recevoirFichiers(ipClient.getHostAddress(), portExportation,
                                 NOMS_FICHIER_CLES_BOB, null);
         int gExpB;
         try {
@@ -178,11 +178,13 @@ public class EchangeDiffieHellman {
     public static int genererDonneeSecreteBob(String ipServeur)
             throws GenerationDonneeSecreteException {
         
+        int portExportation = Reseau.getPortExportation();
+        
         if (ipServeur == null || ipServeur.isBlank()) {
             throw new IllegalArgumentException(ERREUR_IPSERVEUR_INVALIDE);
         }
         
-        Reseau.recevoirFichiers(ipServeur, PORT_EXPORTATION,
+        Reseau.recevoirFichiers(ipServeur, portExportation,
                                 NOMS_FICHIER_CLES_ALICE, null);
 
         int p, g, gExpA;
@@ -206,7 +208,7 @@ public class EchangeDiffieHellman {
             e.printStackTrace();
             throw new GenerationDonneeSecreteException(ERREUR_ECRITURE_BOB);
         }  
-        Reseau.envoyerFichiers(PORT_EXPORTATION, NOMS_FICHIER_CLES_BOB);
+        Reseau.envoyerFichiers(portExportation, NOMS_FICHIER_CLES_BOB);
 
         return Mathematiques.calculExponentielleModulo(gExpA, b, p);
     }

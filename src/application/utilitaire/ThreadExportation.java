@@ -33,7 +33,7 @@ import application.controleur.ExporterControleur;
  */
 public class ThreadExportation extends Thread {
     
-    private static final int PORT_EXPORTATION = Reseau.getPortExportation();
+    private int portExportation = Reseau.getPortExportation();
 
     private boolean arretExportation = false;
     
@@ -66,8 +66,8 @@ public class ThreadExportation extends Thread {
                                      cleChiffrement);
                 }
 
-                Reseau.envoyerFichiers(PORT_EXPORTATION,
-                        Vigenere.getNomsFichiersEnvois());
+                Reseau.envoyerFichiers(portExportation,
+                                       Vigenere.getNomsFichiersEnvois());
 
                 EchangeDiffieHellman.supprimerFichiersBob();
                 Vigenere.supprimerFichiersEnvois();
