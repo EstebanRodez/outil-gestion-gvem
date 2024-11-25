@@ -5,6 +5,7 @@
  */
 package application.controleur;
 
+import java.io.IOException;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 
@@ -82,7 +83,7 @@ public class ExporterControleur {
         boolean erreurExportation = false;
         try {
             ExportationCSV.exporterDonnees();
-        } catch (ExportationCSVException e) {
+        } catch (ExportationCSVException | IOException e) {
             erreurExportation = true;
             lancerErreurExportationCSV();
         }

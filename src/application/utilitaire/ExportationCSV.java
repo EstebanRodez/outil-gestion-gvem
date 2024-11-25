@@ -57,24 +57,20 @@ public class ExportationCSV {
      *   <li>Les visites dans le fichier <code>visites.csv</code></li>
      * </ul>
      * 
-     * @throws ExportationCSVException si une erreur survient lors de
-     *                                 l'écriture des fichiers.
+     * @throws ExportationCSVException si un identifiant n'a pas pu être
+     *                                 associé à un objet.
+     * @throws IOException si une erreur survient lors de l'écriture des
+     *                     fichiers.
      */
-    public static void exporterDonnees() throws ExportationCSVException {
+    public static void exporterDonnees() throws IOException,
+                                                ExportationCSVException {
         
         Donnees donnees = TraitementDonnees.getDonnees();
         
-        try {
-            
-            exporterConferenciers(donnees);
-            exporterEmployes(donnees);
-            exporterExpositions(donnees);
-            exporterVisites(donnees);
-        } catch (IOException erreur) {
-            
-            erreur.printStackTrace();
-            throw new ExportationCSVException();
-        }
+        exporterConferenciers(donnees);
+        exporterEmployes(donnees);
+        exporterExpositions(donnees);
+        exporterVisites(donnees);
     }
     
     private static void exporterConferenciers(Donnees donnees)
