@@ -291,6 +291,43 @@ class TestImportationCSV {
                     CHEMIN_VISITES+"visites_invalides10.csv");
         });
         
+        // Tentatives d'enregistrement en double
+        assertDoesNotThrow(() -> {
+            ImportationCSV.importerDonnees(
+                    CHEMIN_EXPOSITIONS+"expositions_valides1.csv");
+        });
+        assertThrows(FichierDonneesInvalidesException.class, () -> {
+            ImportationCSV.importerDonnees(
+                    CHEMIN_EXPOSITIONS+"expositions_valides1.csv");
+        });
+        assertDoesNotThrow(() -> {
+            ImportationCSV.importerDonnees(
+                    CHEMIN_CONFERENCIERS+"conferencier_valide1.csv");
+        });
+        assertThrows(FichierDonneesInvalidesException.class, () -> {
+            ImportationCSV.importerDonnees(
+                    CHEMIN_CONFERENCIERS+"conferencier_valide1.csv");
+        });
+        assertDoesNotThrow(() -> {
+            ImportationCSV.importerDonnees(
+                    CHEMIN_EMPLOYES+"employes_valides1.csv");
+        });
+        assertThrows(FichierDonneesInvalidesException.class, () -> {
+            ImportationCSV.importerDonnees(
+                    CHEMIN_EMPLOYES+"employes_valides1.csv");
+        });
+        
+        TraitementDonnees.supprimerDonnees();
+        insererDonneesValides();
+        assertDoesNotThrow(() -> {
+            ImportationCSV.importerDonnees(
+                    CHEMIN_VISITES+"visites_valides1.csv");
+        });
+        assertThrows(FichierDonneesInvalidesException.class, () -> {
+            ImportationCSV.importerDonnees(
+                    CHEMIN_VISITES+"visites_valides1.csv");
+        });
+        
     }
     
     /**

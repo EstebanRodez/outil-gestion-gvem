@@ -30,6 +30,11 @@ class TestTraitementDonnees {
     @Test
     void testGetDonnees() {
         
+        // Test utile pour 100% couverture
+        assertDoesNotThrow(() -> {
+            new TraitementDonnees();
+        });
+        
         assertDoesNotThrow(() -> {
             TraitementDonnees.setDonnees(new Donnees());
         });
