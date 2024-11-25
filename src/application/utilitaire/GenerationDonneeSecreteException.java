@@ -16,6 +16,9 @@ package application.utilitaire;
  */
 public class GenerationDonneeSecreteException extends Exception {
     
+    /** Pour l'interface Serializable de la classe Exception */
+    private static final long serialVersionUID = 1L;
+    
     /**
      * Initialise l'exception sans message d'erreur
      */
@@ -31,6 +34,4 @@ public class GenerationDonneeSecreteException extends Exception {
         super(message);
     }
 
-    /** Pour l'interface Serializable de la classe Exception */
-    private static final long serialVersionUID = 1L;
 }
