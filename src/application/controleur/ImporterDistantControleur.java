@@ -6,6 +6,8 @@
 package application.controleur;
 
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 import application.EchangeurDeVue;
 import application.utilitaire.EchangeDiffieHellman;
@@ -20,7 +22,9 @@ import application.utilitaire.Vigenere;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 
 /**
@@ -69,7 +73,7 @@ public class ImporterDistantControleur {
         
         String ipServeur = txtFieldIPServeur.getText().trim();
         
-        if (isAdresseIPValide(ipServeur)) {
+        if (isAdresseIPValide(ipServeur) && isDisponible(ipServeur)) {
             
             int cleSecrete = -1;
             try {
@@ -111,6 +115,16 @@ public class ImporterDistantControleur {
             EchangeDiffieHellman.supprimerFichiersBob();
             Vigenere.supprimerFichiersEnvois();
             Vigenere.supprimerFichiersDonnees();
+        } else {
+            
+            Alert boiteErreurAdresseIPIndisponible
+            = new Alert(Alert.AlertType.ERROR,
+                        "L'adresse IP que vous avez saisie, n'est pas"
+                        + "disponible", ButtonType.OK);
+            boiteErreurAdresseIPIndisponible.setTitle("Erreur Adresse IP");
+            boiteErreurAdresseIPIndisponible.setHeaderText(
+                    "Erreur dans la saisie de votre adresse IP");
+            boiteErreurAdresseIPIndisponible.showAndWait();
         }
     }
 
@@ -152,5 +166,14 @@ public class ImporterDistantControleur {
     private static boolean isPortValide(String port) {
         return port.matches("(\\d){1,5}") && Integer.parseInt(port) >= 0
                && Integer.parseInt(port) <= 65535;
+    }
+    
+    private static boolean isDisponible(String adresseIP) {
+        
+        try {
+            return InetAddress.getByName(adresseIP).isReachable(0);
+        } catch (IOException e) {
+            return false;
+        }
     }
 }
