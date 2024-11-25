@@ -6,9 +6,7 @@
 package application.utilitaire;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
@@ -29,9 +27,12 @@ public class GestionCSV {
     
     private static final char[] LETTRES_IDENTIFIANT_VALIDES
     = {'E', 'R', 'C', 'N'};
-    
-    private static final String IDENTIFIANT_INCORRECT 
-    = "L'identifiant est vide ou nulle.";
+
+    private static final String ERREUR_CHEMIN_FICHIER_INVALIDE
+    = "La référence du chemin du fichier ne doit pas être nulle;";
+
+    private static final String ERREUR_CHEMIN_FICHIER_VIDE
+    = "Le chemin du fichier ne doit pas être nul.";
     
     /**
      * Détecte le type de données stockées dans un fichier CSV, en fonction du
@@ -47,6 +48,10 @@ public class GestionCSV {
      */
     public static char getTypeCSV(String cheminFichier) throws IOException {
         
+        if (!isFichierValide(cheminFichier)) {
+            return 0;
+        }
+        
         FileInputStream fileInputStream
         = new FileInputStream(cheminFichier);
         InputStreamReader inputStreamReader
@@ -55,10 +60,10 @@ public class GestionCSV {
         
         String premiereLigne = fichierCSV.readLine();
         char lettreIdentifiant = 0;
-        if (premiereLigne != null && !premiereLigne.isBlank()) {
+        if (!premiereLigne.isBlank()) {
             String[] valeurs = premiereLigne.split(";");
             
-            if (valeurs.length > 0 && !valeurs[0].isBlank()) {
+            if (valeurs.length > 0) {
                 String premierIdentifiant = valeurs[0];
                 lettreIdentifiant = premierIdentifiant.charAt(0); 
                 if (premierIdentifiant.matches("^Ident$")) {
@@ -127,19 +132,30 @@ public class GestionCSV {
      * Cette méthode lit le fichier ligne par ligne et utilise la méthode
      * trim() pour vérifier si une ligne ne contient que des espaces.
      * 
-     * @param fichier Le fichier à vérifier.
-     * @return true si le fichier est vide ou ne contient que des espaces, false sinon.
-     * @throws IOException Si une erreur de lecture du fichier se produit.
+     * @param cheminFichier le chemin du fichier à vérifier.
+     * @return true si le fichier est vide ou ne contient que des espaces,
+     *         false sinon.
+     * @throws IOException si une erreur de lecture du fichier se produit.
+     * @throws IllegalArgumentException si la référence du chemin du fichier
+     *                                  est nulle ou la chemin est vide
      */
-    public static boolean isFichierVide(File fichier) throws IOException {
+    public static boolean isFichierVide(String cheminFichier) throws IOException {
         
-        if (fichier.length() == 0) {
-            return true;
+        if (cheminFichier == null) {
+            throw new IllegalArgumentException(ERREUR_CHEMIN_FICHIER_INVALIDE);
         }
         
-        BufferedReader lecteur = new BufferedReader(new FileReader(fichier));
-        String ligne;
+        if (cheminFichier.isBlank()) {
+            throw new IllegalArgumentException(ERREUR_CHEMIN_FICHIER_VIDE);
+        }
         
+        FileInputStream fileInputStream
+        = new FileInputStream(cheminFichier);
+        InputStreamReader inputStreamReader
+        = new InputStreamReader(fileInputStream, "windows-1252");
+        BufferedReader lecteur = new BufferedReader(inputStreamReader);
+        
+        String ligne;
         while ((ligne = lecteur.readLine()) != null) {
             if (!ligne.replace(";", "").isBlank()) {
                 lecteur.close();

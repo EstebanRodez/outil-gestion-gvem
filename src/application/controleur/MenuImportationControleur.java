@@ -222,7 +222,8 @@ public class MenuImportationControleur {
         for (File fichier : fichiersSelectionnes) {
             indexLabel ++;
             try {
-                if (fichier == null || GestionCSV.isFichierVide(fichier)) { 
+                if (fichier == null
+                    || GestionCSV.isFichierVide(fichier.getPath())) { 
                     fichierNonVide = false;
                     labels.get(indexLabel).setStyle(EN_ROUGE);
                     gererErreur(indexLabel, "Contenu du fichier est vide");
