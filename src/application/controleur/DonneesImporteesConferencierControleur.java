@@ -5,7 +5,6 @@
  */
 package application.controleur;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -25,7 +24,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
-import javafx.stage.DirectoryChooser;
 import javafx.scene.control.TableView;
 
 /**

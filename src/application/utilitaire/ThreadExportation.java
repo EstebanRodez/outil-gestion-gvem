@@ -5,8 +5,6 @@
  */
 package application.utilitaire;
 
-import java.io.IOException;
-
 import application.controleur.ExporterControleur;
 
 /**
