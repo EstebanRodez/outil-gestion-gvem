@@ -5,15 +5,10 @@
  */
 package application.controleur;
 
-import java.io.IOException;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-
 import application.EchangeurDeVue;
 import application.utilitaire.EchangeDiffieHellman;
 import application.utilitaire.FichierDonneesInvalidesException;
 import application.utilitaire.GenerationDonneeSecreteException;
-import application.utilitaire.GestionFichiers;
 import application.utilitaire.ImportationCSV;
 import application.utilitaire.Reseau;
 import application.utilitaire.SauvegardeDonnees;
@@ -57,6 +52,14 @@ public class ImporterDistantControleur {
 
     @FXML
     private TextField txtFieldPort;
+    
+    /**
+     * TODO commenter le rôle de cette méthode (SRP)
+     */
+    @FXML
+    public void initialize() {
+        txtFieldPort.setText(Integer.toString(Reseau.getPortExportation()));
+    }
 
     @FXML
     void btnAideAction(ActionEvent event) {
@@ -69,25 +72,40 @@ public class ImporterDistantControleur {
     @FXML
     void btnConnexionAction(ActionEvent event) {
         
-        final int PORT_EXPORTATION = Reseau.getPortExportation();
-        
         String ipServeur = txtFieldIPServeur.getText().trim();
+        String portServeur = txtFieldPort.getText().trim();
+        boolean champsValides = true;
         
-        if (Reseau.isAdresseIPValide(ipServeur)
-            && Reseau.isAdresseIPDisponible(ipServeur)) {
+        if (!Reseau.isAdresseIPValide(ipServeur)) {
+            champsValides = false;
+            lancerErreurAdresseIPInvalide();
+        } else if (!Reseau.isAdresseIPDisponible(ipServeur)) {
+            champsValides = false;
+            lancerErreurAdresseIPIndisponible();
+        } else if (!Reseau.isPortValide(portServeur)) {
+            champsValides = false;
+            lancerErreurPortInvalide();
+        }
+        
+        boolean cleSecreteRecue = false;
+        int cleSecrete = -1;
+        if (champsValides) {
             
-            int cleSecrete = -1;
             try {
                 cleSecrete
                 = EchangeDiffieHellman.genererDonneeSecreteBob(ipServeur);
-            } catch (GenerationDonneeSecreteException e) {
-                e.printStackTrace();
+                cleSecreteRecue = true;
+            } catch (GenerationDonneeSecreteException erreur) {
+                lancerErreurGenerationDonneeSecrete(erreur.getMessage());
             }
+        }
+            
+        if (cleSecreteRecue) {
             
             String[] nomFichierEnvois = Vigenere.getNomsFichiersEnvois();
             String[] nomFichierDonnees = Vigenere.getNomsFichiersDonnees();
             
-            Reseau.recevoirFichiers(ipServeur, PORT_EXPORTATION,
+            Reseau.recevoirFichiers(ipServeur, Integer.parseInt(portServeur),
                                     nomFichierEnvois, null);
             
             for (int indiceNomFichier = 0;
@@ -107,26 +125,93 @@ public class ImporterDistantControleur {
                             TraitementDonnees.getDonnees());
                     EchangeurDeVue.changerVue("importerDistantValideVue");
                 } catch (FichierDonneesInvalidesException e) {
-                    // Ne rien faire
+                    lancerErreurFichiersImporteesInvalides();
                 }
                 
             }
             
-            EchangeDiffieHellman.supprimerFichiersAlice();
-            EchangeDiffieHellman.supprimerFichiersBob();
             Vigenere.supprimerFichiersEnvois();
             Vigenere.supprimerFichiersDonnees();
-        } else {
-            
-            Alert boiteErreurAdresseIPIndisponible
-            = new Alert(Alert.AlertType.ERROR,
-                        "L'adresse IP que vous avez saisie, n'est pas"
-                        + "disponible", ButtonType.OK);
-            boiteErreurAdresseIPIndisponible.setTitle("Erreur Adresse IP");
-            boiteErreurAdresseIPIndisponible.setHeaderText(
-                    "Erreur dans la saisie de votre adresse IP");
-            boiteErreurAdresseIPIndisponible.showAndWait();
         }
+        
+        EchangeDiffieHellman.supprimerFichiersAlice();
+        EchangeDiffieHellman.supprimerFichiersBob();
+    }
+
+    /**
+     * TODO commenter le rôle de cette méthode (SRP)
+     */
+    private static void lancerErreurFichiersImporteesInvalides() {
+        
+        Alert boiteErreurGenerationDonneeSecrete
+        = new Alert(Alert.AlertType.ERROR, 
+                    "Les fichiers importées contiennent des données "
+                    + "incorrectes. Importation annulée", ButtonType.OK);
+        boiteErreurGenerationDonneeSecrete.setTitle(
+                "Erreur Fichiers importées");
+        boiteErreurGenerationDonneeSecrete.setHeaderText(
+                "Erreur dans les fichiers importées");
+        boiteErreurGenerationDonneeSecrete.showAndWait();
+    }
+
+    /**
+     * TODO commenter le rôle de cette méthode (SRP)
+     * @param message
+     */
+    private static void lancerErreurGenerationDonneeSecrete(String message) {
+        
+        Alert boiteErreurGenerationDonneeSecrete
+        = new Alert(Alert.AlertType.ERROR, message, ButtonType.OK);
+        boiteErreurGenerationDonneeSecrete.setTitle(
+                "Erreur Lancement Importation");
+        boiteErreurGenerationDonneeSecrete.setHeaderText(
+                "Erreur dans le processus de l'importation");
+        boiteErreurGenerationDonneeSecrete.showAndWait();
+    }
+
+    /**
+     * TODO commenter le rôle de cette méthode (SRP)
+     */
+    private static void lancerErreurPortInvalide() {
+        
+        Alert boiteErreurAdressePortInvalide
+        = new Alert(Alert.AlertType.ERROR,
+                    "Le port que vous avez saisi est invalide. Il doit être "
+                    + "compris entre 1 et 65535", ButtonType.OK);
+        boiteErreurAdressePortInvalide.setTitle("Erreur Port");
+        boiteErreurAdressePortInvalide.setHeaderText(
+                "Erreur dans la saisie du port");
+        boiteErreurAdressePortInvalide.showAndWait();
+    }
+
+    /**
+     * TODO commenter le rôle de cette méthode (SRP)
+     */
+    private static void lancerErreurAdresseIPIndisponible() {
+        
+        Alert boiteErreurAdresseIPIndisponible
+        = new Alert(Alert.AlertType.ERROR,
+                    "L'adresse IP que vous avez saisie, n'est pas disponible",
+                    ButtonType.OK);
+        boiteErreurAdresseIPIndisponible.setTitle("Erreur Adresse IP");
+        boiteErreurAdresseIPIndisponible.setHeaderText(
+                "Erreur dans la saisie de l'adresse IP");
+        boiteErreurAdresseIPIndisponible.showAndWait();
+    }
+
+    /**
+     * TODO commenter le rôle de cette méthode (SRP)
+     */
+    private static void lancerErreurAdresseIPInvalide() {
+        
+        Alert boiteErreurAdresseIPInvalide
+        = new Alert(Alert.AlertType.ERROR,
+                    "L'adresse IP que vous avez saisie, n'a pas un format "
+                    + "valide", ButtonType.OK);
+        boiteErreurAdresseIPInvalide.setTitle("Erreur Adresse IP");
+        boiteErreurAdresseIPInvalide.setHeaderText(
+                "Erreur dans la saisie de l'adresse IP");
+        boiteErreurAdresseIPInvalide.showAndWait();
     }
 
     @FXML
