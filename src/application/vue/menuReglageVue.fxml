@@ -20,7 +20,7 @@
       </HBox>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Réglage" textAlignment="CENTER" wrappingWidth="611.9892578125">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Réglages" textAlignment="CENTER" wrappingWidth="611.9892578125">
                <font>
                   <Font name="System Bold" size="35.0" />
                </font>
