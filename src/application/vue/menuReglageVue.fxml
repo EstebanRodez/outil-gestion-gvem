@@ -40,7 +40,7 @@
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button fx:id="btnPort" mnemonicParsing="false" onAction="#btnPortAction" prefHeight="80.0" prefWidth="280.0" style="-fx-background-color: #ffffff; -fx-background-radius: 30;" text="Changer le numérot port">
+            <Button fx:id="btnPort" mnemonicParsing="false" onAction="#btnPortAction" prefHeight="80.0" prefWidth="280.0" style="-fx-background-color: #ffffff; -fx-background-radius: 30;" text="Changer le numéro de port">
                <HBox.margin>
                   <Insets left="150.0" />
                </HBox.margin>
