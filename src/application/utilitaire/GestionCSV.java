@@ -56,10 +56,10 @@ public class GestionCSV {
         
         String premiereLigne = fichierCSV.readLine();
         char lettreIdentifiant = 0;
-        if (premiereLigne != null && !premiereLigne.trim().isEmpty()) {
+        if (premiereLigne != null && !premiereLigne.isBlank()) {
             String[] valeurs = premiereLigne.split(";");
             
-            if (valeurs.length > 0 && !valeurs[0].trim().isEmpty()) {
+            if (valeurs.length > 0 && !valeurs[0].isBlank()) {
                 String premierIdentifiant = valeurs[0];
                 lettreIdentifiant = premierIdentifiant.charAt(0); 
                 if (premierIdentifiant.matches("^Ident$")) {
@@ -144,16 +144,17 @@ public class GestionCSV {
             return true;
         }
         
-        BufferedReader reader = new BufferedReader(new FileReader(fichier));
+        BufferedReader lecteur = new BufferedReader(new FileReader(fichier));
         String ligne;
         
-        while ((ligne = reader.readLine()) != null) {
-            if (!ligne.trim().replace(";", "").isEmpty()) {
-                reader.close();
+        while ((ligne = lecteur.readLine()) != null) {
+            if (!ligne.replace(";", "").isBlank()) {
+                lecteur.close();
                 return false;
             }
         }
-        reader.close();
+        
+        lecteur.close();
         return true;
     }
 }
