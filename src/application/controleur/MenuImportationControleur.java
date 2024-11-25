@@ -254,9 +254,7 @@ public class MenuImportationControleur {
             try {
                 indexLabel++;
                 if (fichier != null 
-                        && !GestionCSV.isLettreIdentifiantValide(
-                                GestionCSV.getTypeCSV(
-                                        fichier.getAbsolutePath()))) {
+                    && GestionCSV.getTypeCSV(fichier.getAbsolutePath()) == 0) {
                     typeFichier = false;
                     labels.get(indexLabel).setStyle(EN_ROUGE);
                     gererErreur(indexLabel, FICHIER_AUCUNE_CATEGORIE);

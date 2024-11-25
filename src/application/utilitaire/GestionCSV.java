@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 
 /**
  * Classe utilitaire pour la gestion des fichiers CSV dans l'application.
@@ -71,14 +70,8 @@ public class GestionCSV {
                 } else {
                     lettreIdentifiant = premierIdentifiant.charAt(0);                      
                 }
-            } else {
-                fichierCSV.close();
-                throw new IllegalArgumentException(IDENTIFIANT_INCORRECT);
             }
-        } else {
-            fichierCSV.close();
-            throw new IllegalArgumentException(IDENTIFIANT_INCORRECT);
-        }  
+        } 
         fichierCSV.close();
         
         /* 
