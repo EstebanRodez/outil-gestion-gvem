@@ -13,10 +13,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
+import java.net.UnknownHostException;
 
 /**
  * Classe utilitaire pour gérer les opérations réseau liées à l'envoi et à
@@ -289,16 +291,46 @@ public class Reseau {
      * 
      * @param port Le numéro de port à tester
      * @return {@code true} si le port est utilisable, {@code false} sinon
+     * @throws UnknownHostException 
+     * @throws SocketException 
      */
     public static boolean isPortUtilisable(int port) {
         
-        try (ServerSocket serveurSocket = new ServerSocket()) {
-            serveurSocket.bind(new InetSocketAddress("localhost", port));
+        System.out.println(port);
+        try (ServerSocket socket = new ServerSocket(port)) {
             return true;
         } catch (IOException e) {
             // Ne rien faire
         }
         
         return false;
+    }
+    
+    /**
+     * Obtient l'adresse IP locale de la machine sur laquelle cette méthode
+     * est appelée.<br>
+     * La méthode crée une connexion fictive à un serveur DNS public
+     * (Google DNS : 8.8.8.8) pour déterminer l'adresse IP utilisée pour
+     * accéder au réseau.
+     * 
+     * @return L'adresse IP locale de la machine, ou {@code null} si une
+     *         erreur se produit
+     */
+    public static String getMonAdresseIP() {
+        
+        try {
+            DatagramSocket socket = new DatagramSocket();
+            
+            // DNS Google
+            socket.connect(InetAddress.getByName("8.8.8.8"), 10002);
+            
+            String monAdresseIP = socket.getLocalAddress().getHostAddress();
+            socket.close();
+            return monAdresseIP;
+        } catch (IOException e) {
+            // Ne rien faire
+        }
+        
+        return null;
     }
 }
