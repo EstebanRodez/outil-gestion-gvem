@@ -274,6 +274,7 @@ public class Reseau {
     public static boolean isPortDisponible(String adresseIP, int port) {
         
         try (Socket socket = new Socket(adresseIP, port)) {
+            socket.close();
             return true;
         } catch (IOException e) {
             // Ne rien faire
@@ -291,8 +292,8 @@ public class Reseau {
      */
     public static boolean isPortUtilisable(int port) {
         
-        try (ServerSocket serverSocket = new ServerSocket()) {
-            serverSocket.bind(new InetSocketAddress("localhost", port));
+        try (ServerSocket serveurSocket = new ServerSocket()) {
+            serveurSocket.bind(new InetSocketAddress("localhost", port));
             return true;
         } catch (IOException e) {
             // Ne rien faire
