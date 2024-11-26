@@ -87,6 +87,9 @@ public class ImporterDistantControleur {
             lancerErreurPortInvalide();
         }
         
+        /* Le port d'exportation est forcément valide donc on l'enregistre */
+        Reseau.setPortExportation(Integer.parseInt(portServeur));
+        
         boolean cleSecreteRecue = false;
         int cleSecrete = -1;
         if (champsValides) {
