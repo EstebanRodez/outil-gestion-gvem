@@ -16,17 +16,17 @@ Membres :
   - Vroemen Esteban, esteban.vroemen@iut-rodez.fr, login GitHub : EstebanRodez
 
 Rôles Itération 1 :
- - Product Owner : Romain
- - Scrum Master : Ayoub
+ - Product Owner : Romain AUGE
+ - Scrum Master : Ayoub LALUTI
 
 Rôles Itération 2 :
- - Product Owner : Baptiste
- - Scrum Master : Esteban
+ - Product Owner : Baptiste THENIERES
+ - Scrum Master : Esteban VROEMEN
 
 Rôles Itération 3 :
- - Product Owner : Ayoub
- - Scrum Master : Baptiste
+ - Product Owner : Ayoub LALUTI
+ - Scrum Master : Baptiste THENIERES
 
 Lien GitHub : https://github.com/EstebanRodez/sae-semestre3-projet-java
 
-Lien Google Drive : https://drive.google.com/drive/folders/0AFo8NSY6FjJ1Uk9PVA
+Lien Google Drive : [https://drive.google.com/drive/folders/0AFo8NSY6FjJ1Uk9PVA](https://drive.google.com/drive/folders/1mvS_Sn38srmguJT1ra-zKiZM4m87HwiD)
