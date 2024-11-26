@@ -78,14 +78,19 @@ public class ExporterControleur {
     @FXML
     void btnExporterAction(ActionEvent event) {
         
-        EchangeurDeVue.creerPopUp("chargementPopUp");
-        
         boolean erreurExportation = false;
-        try {
-            ExportationCSV.exporterDonnees();
-        } catch (ExportationCSVException | IOException e) {
+        
+        if (!Reseau.isPortUtilisable(Reseau.getPortExportation())) {
+            
             erreurExportation = true;
-            lancerErreurExportationCSV();
+            lancerErreurPortDejaUtilise();
+        } else {
+            try {
+                ExportationCSV.exporterDonnees();
+            } catch (ExportationCSVException | IOException e) {
+                erreurExportation = true;
+                lancerErreurExportationCSV();
+            }
         }
         
         for (String nomFichier : Vigenere.getNomsFichiersDonnees()) {
@@ -104,6 +109,22 @@ public class ExporterControleur {
         }
         
         
+    }
+
+    /**
+     * TODO commenter le rôle de cette méthode (SRP)
+     */
+    private void lancerErreurPortDejaUtilise() {
+        
+        Alert boiteErreurPortDejaUtilise
+        = new Alert(Alert.AlertType.ERROR, 
+                    "Le port "+Reseau.getPortExportation()+" est déjà utilisé "
+                    + "sur votre machine. Veuillez le modifier.",
+                    ButtonType.OK);
+        boiteErreurPortDejaUtilise.setTitle("Erreur Exportation");
+        boiteErreurPortDejaUtilise.setHeaderText(
+                "Erreur dans le processus de l'exportation");
+        boiteErreurPortDejaUtilise.showAndWait();
     }
 
     @FXML
