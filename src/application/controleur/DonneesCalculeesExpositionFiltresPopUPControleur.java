@@ -98,13 +98,13 @@ public class DonneesCalculeesExpositionFiltresPopUPControleur {
     @FXML
     void btnResetAction(ActionEvent event) {
         
-        dateDebut.setValue(null);
-        dateFin.setValue(null);
+        dateDebut.setValue(LocalDate.of(2020, 1, 1));
+        dateFin.setValue(LocalDate.of(2020, 1, 1));
         
-        labelHeureDebut.setText("");
-        labelHeureFin.setText("");
-        labelMinuteDebut.setText("");
-        labelMinuteFin.setText("");        
+        labelHeureDebut.setText("1");
+        labelHeureFin.setText("1");
+        labelMinuteDebut.setText("0");
+        labelMinuteFin.setText("0");        
     }
 
 }
