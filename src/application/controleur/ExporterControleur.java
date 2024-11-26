@@ -6,8 +6,6 @@
 package application.controleur;
 
 import java.io.IOException;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
 
 import application.EchangeurDeVue;
 import application.utilitaire.ExportationCSV;
@@ -59,12 +57,15 @@ public class ExporterControleur {
      */
     @FXML
     public void initialize() {
+        
         int portActuel = Reseau.getPortExportation();
         labelPort.setText(Integer.toString(portActuel));
-        try (DatagramSocket socket = new DatagramSocket()) {
-            socket.connect(InetAddress.getByName("8.8.8.8"), 10002);
-            labelIp.setText(socket.getLocalAddress().getHostAddress());
-        } catch (Exception e) {
+        
+        String adresseIP = Reseau.getMonAdresseIP();
+        if (adresseIP != null) {
+            labelIp.setText(adresseIP);
+        } else {
+            
             Alert boiteIpInconnu = new Alert(Alert.AlertType.ERROR, 
                     "Impossible de connaître l'adresse IP de l'interface "
                     + "Ethernet", 
