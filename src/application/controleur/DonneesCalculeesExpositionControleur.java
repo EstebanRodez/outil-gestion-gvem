@@ -49,7 +49,8 @@ public class DonneesCalculeesExpositionControleur {
     private static LinkedHashMap<String, Visite> visites
     = TraitementDonnees.getDonnees().getVisites();
     
-    private static LinkedHashMap<String, Visite> expositionsCalculees = visites;
+    private static LinkedHashMap<String, Visite> expositionsCalculees 
+    = new LinkedHashMap<>();
     
     // Format pour les dates au format jj/MM/aaaa
     private static final DateTimeFormatter DATE_FORMAT 
@@ -120,9 +121,8 @@ public class DonneesCalculeesExpositionControleur {
                     getVisite(cellData).toStringHoraireDebut()); 
         });
         
-        ObservableList<Map.Entry<String, Visite>> exposListe
-        = FXCollections.observableArrayList(visites.entrySet());
-        tableExposition.setItems(exposListe);            
+        afficherVisites(visites);
+        
     }
     
     private static Visite getVisite(
@@ -199,6 +199,20 @@ public class DonneesCalculeesExpositionControleur {
         EchangeurDeVue.changerVue("menuDonneesCalculeesVue");
     }
     
+    private void afficherVisites(
+            LinkedHashMap<String, Visite> visites) {
+        
+        ObservableList<Map.Entry<String, Visite>> exposListe
+        = FXCollections.observableArrayList(visites.entrySet());
+        
+        expositionsCalculees.clear();
+        for (Map.Entry<String, Visite> entry : exposListe) {
+            expositionsCalculees.put(entry.getKey(), entry.getValue());
+        }
+        
+        tableExposition.setItems(exposListe);
+    }
+    
     /**
      * Applique les critères de filtrage inversés sur la liste des visites.
      * Parcourt la liste des visites et affiche celles qui ne correspondent
@@ -211,9 +225,9 @@ public class DonneesCalculeesExpositionControleur {
      *                appliquer
      */
     public void appliquerFiltreInverse(CritereFiltreVisite critere) {
-        
-        ObservableList<Map.Entry<String, Visite>> visitesNonCorrespondantes
-        = FXCollections.observableArrayList();
+
+        LinkedHashMap<String, Visite> visitesNonCorrespondantes 
+        = new LinkedHashMap<>();
 
         for (Map.Entry<String, Visite> paire : visites.entrySet()) {
             
@@ -251,15 +265,10 @@ public class DonneesCalculeesExpositionControleur {
 
             // Si l'une des conditions de non-correspondance est vraie, ajouter la visite à la liste
             if (match) {
-                visitesNonCorrespondantes.add(paire);
+                visitesNonCorrespondantes.putLast(paire.getKey(), paire.getValue());
             }
         }
         
-        expositionsCalculees.clear();
-        for (Map.Entry<String, Visite> entry : visitesNonCorrespondantes) {
-            expositionsCalculees.put(entry.getKey(), entry.getValue());
-        }
-        
-        tableExposition.setItems(visitesNonCorrespondantes);
+        afficherVisites(visitesNonCorrespondantes);
     }
 }

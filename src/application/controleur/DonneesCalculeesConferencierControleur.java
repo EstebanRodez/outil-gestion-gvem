@@ -53,7 +53,8 @@ public class DonneesCalculeesConferencierControleur {
     private static final DateTimeFormatter DATE_FORMAT 
     = AccueilControleur.getDateFormatterFR();
 
-    private static LinkedHashMap<String, Visite> conferenciersCalculees = visites;
+    private static LinkedHashMap<String, Visite> conferenciersCalculees 
+    = new LinkedHashMap<>();
     
     /** Ensemble des choix disponibles pour filtrer */
     public static final String[] choix
@@ -94,7 +95,7 @@ public class DonneesCalculeesConferencierControleur {
     private ChoiceBox<String> listePhrase;
 
     @FXML
-    private TableView<Map.Entry<String, Visite>> tableExposition;
+    private TableView<Map.Entry<String, Visite>> tableConferencier;
     
     /**
      * 
@@ -122,9 +123,7 @@ public class DonneesCalculeesConferencierControleur {
                     getVisite(cellData).toStringHoraireDebut()); 
         });
         
-        ObservableList<Map.Entry<String, Visite>> confListe
-        = FXCollections.observableArrayList(visites.entrySet());
-        tableExposition.setItems(confListe);        
+        afficherVisites(visites);    
     }
     
     @FXML
@@ -204,6 +203,20 @@ public class DonneesCalculeesConferencierControleur {
         EchangeurDeVue.changerVue("menuDonneesCalculeesVue");
     }
     
+    private void afficherVisites(
+            LinkedHashMap<String, Visite> visites) {
+        
+        ObservableList<Map.Entry<String, Visite>> confListe
+        = FXCollections.observableArrayList(visites.entrySet());
+        
+        conferenciersCalculees.clear();
+        for (Map.Entry<String, Visite> entry : confListe) {
+            conferenciersCalculees.put(entry.getKey(), entry.getValue());
+        }
+        
+        tableConferencier.setItems(confListe);
+    }
+    
     /**
      * Applique les critères de filtrage inversés sur la liste des visites.
      * Parcourt la liste des visites et affiche celles qui ne correspondent
@@ -217,8 +230,8 @@ public class DonneesCalculeesConferencierControleur {
      */
     public void appliquerFiltreInverse(CritereFiltreVisite critere) {
         
-        ObservableList<Map.Entry<String, Visite>> visitesNonCorrespondantes
-        = FXCollections.observableArrayList();
+        LinkedHashMap<String, Visite> visitesNonCorrespondantes 
+        = new LinkedHashMap<>();
 
         for (Map.Entry<String, Visite> paire : visites.entrySet()) {
             
@@ -270,15 +283,11 @@ public class DonneesCalculeesConferencierControleur {
              * vraie, ajouter la visite à la liste
              */
             if (match) {
-                visitesNonCorrespondantes.add(paire);
+                visitesNonCorrespondantes.putLast(paire.getKey(), paire.getValue());
             }
         }
-        conferenciersCalculees.clear();
-        for (Map.Entry<String, Visite> entry : visitesNonCorrespondantes) {
-            conferenciersCalculees.put(entry.getKey(), entry.getValue());
-        }
         
-        tableExposition.setItems(visitesNonCorrespondantes);
+        afficherVisites(visitesNonCorrespondantes);
     }
 
 }

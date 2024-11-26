@@ -51,7 +51,7 @@ public class DonneesCalculeesVisiteControleur {
         = TraitementDonnees.getDonnees().getVisites();
     
     private static LinkedHashMap<String, Visite> visitesAvecFiltre 
-        = visites;
+        = new LinkedHashMap<>();
     
     // Format pour les dates au format jj/MM/aaaa
     private static final DateTimeFormatter DATE_FORMAT 
@@ -94,7 +94,7 @@ public class DonneesCalculeesVisiteControleur {
     private TableColumn<Map.Entry<String, Visite>, String> numTel;
 
     @FXML
-    private TableView<Map.Entry<String, Visite>> tableExposition;
+    private TableView<Map.Entry<String, Visite>> tableVisite;
     
     /**
      * 
@@ -141,9 +141,11 @@ public class DonneesCalculeesVisiteControleur {
                     getVisite(cellData).getClient().getNumTel()); 
         });
         
+        afficherVisites(visites);
+        
         ObservableList<Map.Entry<String, Visite>> visitesListe
         = FXCollections.observableArrayList(visites.entrySet());
-        tableExposition.setItems(visitesListe);
+        tableVisite.setItems(visitesListe);
     }
     
     private static Visite getVisite(
@@ -193,6 +195,20 @@ public class DonneesCalculeesVisiteControleur {
         }
                
     }
+    
+    private void afficherVisites(
+            LinkedHashMap<String, Visite> visites) {
+        
+        ObservableList<Map.Entry<String, Visite>> visitesListe
+        = FXCollections.observableArrayList(visites.entrySet());
+        
+        visitesAvecFiltre.clear();
+        for (Map.Entry<String, Visite> entry : visitesListe) {
+            visitesAvecFiltre.put(entry.getKey(), entry.getValue());
+        }
+        
+        tableVisite.setItems(visitesListe);
+    }
 
     /**
      * Applique les critères de filtrage sur la liste des visites.
@@ -209,8 +225,8 @@ public class DonneesCalculeesVisiteControleur {
     public void appliquerFiltre(CritereFiltreVisite critere) {
         
         // Filtrer la liste des visites en fonction des critères reçus
-        ObservableList<Map.Entry<String, Visite>> visitesFiltrees = FXCollections
-                                                 .observableArrayList();
+        LinkedHashMap<String, Visite> visitesFiltrees 
+        = new LinkedHashMap<>();
 
         for (Map.Entry<String, Visite> paire : visites.entrySet()) {
             
@@ -283,16 +299,11 @@ public class DonneesCalculeesVisiteControleur {
             }
 
             if (match) {
-                visitesFiltrees.add(paire);
+                visitesFiltrees.putLast(paire.getKey(), paire.getValue());
             }
         }
         
-        visitesAvecFiltre.clear();
-        for (Map.Entry<String, Visite> entry : visitesFiltrees) {
-            visitesAvecFiltre.put(entry.getKey(), entry.getValue());
-        }
-        
-        tableExposition.setItems(visitesFiltrees);
+        afficherVisites(visitesFiltrees);
         
         LabelResultat.setText("Nombre de visite correspondant aux filtres : " 
                                + visitesFiltrees.size());
