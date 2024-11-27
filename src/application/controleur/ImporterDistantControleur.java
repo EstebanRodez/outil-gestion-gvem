@@ -85,10 +85,6 @@ public class ImporterDistantControleur {
         } else if (!Reseau.isPortValide(portServeur)) {
             champsValides = false;
             lancerErreurPortInvalide();
-        } else if (!Reseau.isPortDisponible(ipServeur,
-                                            Integer.parseInt(portServeur))) {
-            champsValides = false;
-            lancerErreurPortIndisponible(ipServeur);
         }
         
         /* 
@@ -146,22 +142,6 @@ public class ImporterDistantControleur {
         
         EchangeDiffieHellman.supprimerFichiersAlice();
         EchangeDiffieHellman.supprimerFichiersBob();
-    }
-
-    /**
-     * TODO commenter le rôle de cette méthode (SRP)
-     */
-    private static void lancerErreurPortIndisponible(String adresseIP) {
-        
-        Alert boiteErreurPortIndisponible
-        = new Alert(Alert.AlertType.ERROR,
-                    "Le port que vous avez saisi, n'est pas disponible sur la "
-                    + "machine ("+adresseIP+").",
-                    ButtonType.OK);
-        boiteErreurPortIndisponible.setTitle("Erreur Port Indisponible");
-        boiteErreurPortIndisponible.setHeaderText(
-                "Erreur dans la saisie du Port");
-        boiteErreurPortIndisponible.showAndWait();
     }
 
     /**
