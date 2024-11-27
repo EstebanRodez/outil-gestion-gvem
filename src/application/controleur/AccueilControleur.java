@@ -138,13 +138,7 @@ public class AccueilControleur {
      */
     @FXML
     public void initialize() {
-        
-        if (TraitementDonnees.getDonnees().isDonneesVides()) {
-            btnConsulterDonnees.setDisable(true);
-            btnExporter.setDisable(true);
-            btnReglage.setDisable(true);
-        }
-        
+        mettreAJourBoutons(); 
     }
 
     @FXML
@@ -199,6 +193,19 @@ public class AccueilControleur {
         errorAlert.setHeaderText(ERREUR_I_O);
         errorAlert.setContentText("Détails de l'erreur : " + err.getMessage());
         errorAlert.showAndWait();
+    }
+    
+    /**
+     * TODO commenter le rôle de cette méthode (SRP)
+     */
+    @FXML
+    public void mettreAJourBoutons() {
+        
+        if (TraitementDonnees.getDonnees().isDonneesVides()) {
+            btnConsulterDonnees.setDisable(true);
+            btnExporter.setDisable(true);
+            btnReglage.setDisable(true);
+        }
     }
     
     /**

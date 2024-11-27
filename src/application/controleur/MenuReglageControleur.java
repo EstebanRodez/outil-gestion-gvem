@@ -86,6 +86,9 @@ public class MenuReglageControleur {
                 successAlert.showAndWait();
                 
                 EchangeurDeVue.changerVue("accueilVue");
+                AccueilControleur controleur 
+                = EchangeurDeVue.getFXMLLoader("accueilVue").getController();
+                controleur.mettreAJourBoutons();
             } else {
                 Alert errorAlert = new Alert(AlertType.ERROR);
                 errorAlert.setTitle("Erreur");
