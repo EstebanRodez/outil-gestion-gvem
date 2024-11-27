@@ -104,4 +104,14 @@ public class SauvegardeDonnees {
         
         return false;
     }
+    
+    /**
+     * Vérifie si un fichier contenant des données sauvegardées existe.
+     * 
+     * @return {@code true} si le fichier existe, {@code false} sinon.
+     */
+    public static boolean isDonneesSauvegardees() {
+        
+        return Files.exists(Path.of(NOM_FICHIER_DONNEES));
+    }
 }

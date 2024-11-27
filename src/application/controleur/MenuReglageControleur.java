@@ -33,6 +33,14 @@ public class MenuReglageControleur {
 
     @FXML
     private Button btnRenit;
+    
+    /**
+     * TODO commenter le rôle de cette méthode (SRP)
+     */
+    @FXML
+    public void initialize() {
+        btnRenit.setDisable(!SauvegardeDonnees.isDonneesSauvegardees());
+    }
 
     @FXML
     void btnAccueilAction(ActionEvent event) {
@@ -76,6 +84,7 @@ public class MenuReglageControleur {
                 successAlert.setContentText(
                         "Les données ont été réinitialisées avec succès.");
                 successAlert.showAndWait();
+                
                 EchangeurDeVue.changerVue("accueilVue");
             } else {
                 Alert errorAlert = new Alert(AlertType.ERROR);
