@@ -63,7 +63,6 @@ public class Reseau {
 
         try {
             serverSocket = new ServerSocket(port);
-            System.out.println("Serveur en attente de connexion sur le port " + port + "...");
 
             try (Socket clientSocket = serverSocket.accept();
                  BufferedOutputStream out = new BufferedOutputStream(clientSocket.getOutputStream());
@@ -73,7 +72,6 @@ public class Reseau {
                     File fichier = new File(cheminFichier);
 
                     if (!fichier.exists() || !fichier.isFile()) {
-                        System.err.println("Le fichier " + fichier.getAbsolutePath() + " n'existe pas.");
                         continue;
                     }
 
@@ -87,7 +85,6 @@ public class Reseau {
                             dataOut.write(buffer, 0, tailleBloc);
                         }
                         dataOut.flush();
-                        System.out.println("Fichier " + fichier.getAbsolutePath() + " envoyé.");
                     }
                 }
                 
@@ -110,9 +107,7 @@ public class Reseau {
         if (serverSocket != null && !serverSocket.isClosed()) {
             try {
                 serverSocket.close();
-                System.out.println("Serveur fermé.");
             } catch (IOException e) {
-                System.err.println("Erreur lors de la fermeture du serveur : " + e.getMessage());
             }
         }
     }
@@ -145,11 +140,6 @@ public class Reseau {
                 
             BufferedInputStream in = new BufferedInputStream(socket.getInputStream());
             DataInputStream dataIn = new DataInputStream(in)) {
-            
-//            File dossier = new File(dossierDestination);
-//            if (!dossier.exists()) {
-//                dossier.mkdirs(); // Créer les répertoires nécessaires
-//            }
 
             for (String cheminFichier : cheminsFichiers) {
                 // Créer le fichier dans le dossier de destination
@@ -169,8 +159,6 @@ public class Reseau {
                         fileOut.write(buffer, 0, bytesLus);
                         bytesRestants -= bytesLus;
                     }
-                    System.out.println("Fichier " + fichier.getAbsolutePath() 
-                                       + " reçu.");
                 }
             }
         } catch (IOException e) {
@@ -296,7 +284,6 @@ public class Reseau {
      */
     public static boolean isPortUtilisable(int port) {
         
-        System.out.println(port);
         try (ServerSocket socket = new ServerSocket(port)) {
             return true;
         } catch (IOException e) {

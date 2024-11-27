@@ -127,12 +127,14 @@ public class ExporterControleur {
                 "Erreur dans le processus de l'exportation");
         boiteErreurPortDejaUtilise.showAndWait();
     }
-
+    
+    /**
+     * Appel de la méthode lancerAide de AccueilControleur avec un indice 
+     * spécifique. Utilise l'indice 7 pour ouvrir un lien d'aide correspondant
+     * à la réference de la partit de l'exportation
+     */
     @FXML
     void btnAideAction(ActionEvent event) {
-    	// Appel de la méthode lancerAide de AccueilControleur avec un indice spécifique
-    	// Utilise l'indice 7 pour ouvrir un lien d'aide correspondant
-    	// à la réference de la partit de l'exportation
         AccueilControleur.lancerAide(7);
     }
 

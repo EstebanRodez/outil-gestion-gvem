@@ -6,7 +6,13 @@
 package application.modele;
 
 /**
- * TODO commenter la responsabilité de cette class (SRP)
+ * Cette classe représente les résultats calculés pour une visite.
+ * Elle encapsule les informations sur un intitulé 
+ * (par exemple, le nom d'une catégorie ou d'une statistique) 
+ * et un calcul associé, soit sous forme de valeur numérique brute, 
+ * soit sous forme de pourcentage formaté.
+ * Son rôle est de stocker et de fournir ces informations calculées 
+ * pour les utiliser dans d'autres parties de l'application.
  * 
  * @author Romain Augé
  * @author Ayoub Laluti
@@ -21,7 +27,8 @@ public class VisiteCalculResultat {
     private String calculVisitesPourcentage;
 
     /**
-     * TODO commenter l'état initial
+     * Constructeur permettant d'initialiser un objet avec un intitulé
+     * et un calcul numérique.
      * @param intitule
      * @param calculVisites 
      */
@@ -31,7 +38,8 @@ public class VisiteCalculResultat {
     }
     
     /**
-     * TODO commenter l'état initial
+     * Constructeur permettant d'initialiser un objet avec un intitulé 
+     * et un calcul formaté en pourcentage.
      * @param intitule
      * @param calculVisites 
      */
@@ -41,7 +49,7 @@ public class VisiteCalculResultat {
     }
 
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
+     * Retourne l'intitulé associé à ce résultat.
      * @return l'intitule
      */
     public String getIntitule() {
@@ -49,7 +57,9 @@ public class VisiteCalculResultat {
     }
 
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
+     * Retourne la valeur numérique brute des calculs sur les visites.
+     * Cette méthode est utilisée si le calcul a été initialisé en tant
+     * que valeur numérique.
      * @return le calcul sur les visites
      */
     public double getCalculVisites() {
@@ -57,7 +67,9 @@ public class VisiteCalculResultat {
     }
     
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
+     * Retourne la valeur des calculs sur les visites formatée en pourcentage.
+     * Cette méthode est utilisée si le calcul a été initialisé sous forme de 
+     * chaîne pour un pourcentage.
      * @return le calcul sur les visites
      */
     public String getCalculVisitesPourcentage() {

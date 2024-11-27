@@ -16,7 +16,11 @@ import javafx.scene.image.ImageView;
 import javafx.util.Duration; 
 
 /**
- * TODO commenter la responsabilité de cette class (SRP)
+ * Cette classe contrôle les interactions et comportements de la 
+ * fenêtre pop-up 
+ * de chargement. Elle gère l'animation de la fenêtre, les actions utilisateur 
+ * comme la fermeture de la fenêtre, et les interactions avec d'autres composants 
+ * liés au traitement en cours (par exemple, le thread d'exportation ou le serveur réseau).
  * 
  * @author Romain Augé
  * @author Ayoub Laluti
