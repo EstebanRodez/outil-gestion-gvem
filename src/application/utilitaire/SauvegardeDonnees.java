@@ -10,6 +10,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 import application.modele.Donnees;
 
@@ -77,6 +79,26 @@ public class SauvegardeDonnees {
             fluxLecture.close();
             return true;
         } catch (IOException | ClassNotFoundException e) {
+            // Ne rien faire
+        }
+        
+        return false;
+    }
+    
+    /**
+     * Supprime le fichier contenant les données de l'application si celui-ci
+     * existe.
+     * 
+     * @return {@code true} si le fichier a été supprimé avec succès ou
+     *         n'existait pas, 
+     *         {@code false} en cas d'échec de suppression dû à une erreur
+     *         d'entrée/sortie.
+     */
+    public static boolean supprimerDonnees() {
+        
+        try {
+            return Files.deleteIfExists(Path.of(NOM_FICHIER_DONNEES));
+        } catch (IOException e) {
             // Ne rien faire
         }
         
