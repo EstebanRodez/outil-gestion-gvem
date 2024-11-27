@@ -130,7 +130,6 @@ public class MenuImportationControleur {
                 ImportationCSV.importerDonnees(fichier.getAbsolutePath());
             } catch (IllegalArgumentException
                      | FichierDonneesInvalidesException err) {
-                labelMessageErr.setText(err.getMessage());
                 labels.get(indexLabel).setStyle(EN_ROUGE);;
                 btnValider.setDisable(true);
             }
@@ -205,9 +204,11 @@ public class MenuImportationControleur {
                 emplacementValide,
                 fichiersDistincts,
                 extensionValide,
-                typeFichier;
+                typeFichier,
+                contenueCorrect;
         String text;
-        int indexLabel;
+        int indexLabel,
+            contenuIndex;
         
         stockageMessageErreur = new HashMap<>();       
         
@@ -292,10 +293,31 @@ public class MenuImportationControleur {
                 } 
             }
         }
-    
+        
+        contenueCorrect = true;
+        if (fichierNonVide && extensionValide && emplacementValide
+            && typeFichier && fichiersDistincts) {
+            
+            fichiersSelectionnesOrdre();      
+            contenueCorrect = true;
+            contenuIndex = -1;
+            for (File fichier : fichiersSelectionnes) {
+                try {
+                    contenuIndex++;
+                    ImportationCSV.importerDonnees(fichier.getAbsolutePath());
+                } catch (FichierDonneesInvalidesException err) {
+                    contenueCorrect = false;
+                    labels.get(contenuIndex).setStyle(EN_ROUGE);
+                    gererErreur(contenuIndex, "Le contenu du fichier est incorrect");
+                    
+                }
+            }
+            TraitementDonnees.supprimerDonnees();
+        }
+        
         return fichierNonVide && extensionValide 
                 && emplacementValide && typeFichier 
-                && fichiersDistincts;
+                && fichiersDistincts && contenueCorrect;
     }
     
     /**
