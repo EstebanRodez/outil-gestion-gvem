@@ -34,7 +34,13 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 /**
- * TODO commenter la responsabilité de cette class (SRP)
+ * Cette classe est responsable de gérer l'affichage et les interactions
+ * de la vue représentant les moyennes de visites de l'ensemble des conférenciers 
+ * par semaine. Elle offre les fonctionnalités suivantes :
+ * - Initialisation des données et affichage des résultats dans un tableau.
+ * - Application des filtres pour ajuster les données affichées.
+ * - Navigation entre différentes vues du système.
+ * - Génération de fichiers PDF pour l'export des résultats.
  * 
  * @author Romain Augé
  * @author Ayoub Laluti

@@ -61,7 +61,10 @@ public class ChargementPopUpControleur {
     }
     
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
+     * Définit le thread d'exportation à utiliser dans cette classe.
+     * Cette méthode permet d'associer un thread d'exportation spécifique 
+     * au contrôleur pour qu'il puisse interagir avec lui, notamment en cas 
+     * de besoin d'arrêt ou d'interruption du traitement en cours.
      * @param threadExportation
      */
     public void setThreadExportation(ThreadExportation threadExportation) {

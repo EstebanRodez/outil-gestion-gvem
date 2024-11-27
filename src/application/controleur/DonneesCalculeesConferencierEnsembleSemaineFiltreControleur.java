@@ -18,7 +18,16 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 
 /**
- * TODO commenter la responsabilité de cette class (SRP)
+ * Cette classe est responsable de gérer les interactions de l'interface 
+ * utilisateur pour l'application des filtres liés à l'affichage des moyennes 
+ * de l'ensemble des visites par semaine pour les conférenciers. Elle permet :
+ * 
+ * - La sélection de critères de filtrage, tels que les dates, 
+ *   le type d'exposition (permanente ou temporaire) et le type de conférenciers
+ *   (internes ou externes).
+ * - L'application des filtres définis à la vue principale via un appel à son 
+ *   contrôleur.
+ * - La réinitialisation des critères de filtrage.
  * 
  * @author Romain Augé
  * @author Ayoub Laluti

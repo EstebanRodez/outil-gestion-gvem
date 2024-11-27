@@ -34,7 +34,13 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 /**
- * TODO commenter la responsabilité de cette class (SRP)
+ * Cette classe est responsable de la gestion de l'interface utilisateur
+ * pour afficher les données calculées sur les conférenciers pour un ensemble
+ * de jours. Elle permet de :
+ * - Visualiser les statistiques (moyenne des visites) par conférencier.
+ * - Filtrer les données affichées selon des critères spécifiques.
+ * - Exporter les résultats en PDF.
+ * - Naviguer entre les différentes vues liées aux statistiques de conférenciers.
  * 
  * @author Romain Augé
  * @author Ayoub Laluti

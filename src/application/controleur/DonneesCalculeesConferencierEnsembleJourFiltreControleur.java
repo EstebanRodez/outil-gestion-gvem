@@ -18,7 +18,12 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 
 /**
- * TODO commenter la responsabilité de cette class (SRP)
+ * Cette classe est responsable de gérer l'interface utilisateur de la fenêtre
+ * de filtres pour les données calculées sur les conférenciers pour l'ensemble
+ * des conférenciers. Elle permet de :
+ * - Saisir les critères de filtrage (dates, type d'exposition, type de conférencier).
+ * - Valider les critères et transmettre ces filtres au contrôleur principal.
+ * - Réinitialiser les champs de saisie.
  * 
  * @author Romain Augé
  * @author Ayoub Laluti
