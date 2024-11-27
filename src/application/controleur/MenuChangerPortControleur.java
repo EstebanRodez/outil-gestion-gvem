@@ -18,6 +18,12 @@ import javafx.scene.control.TextField;
 /**
  * Contrôleur pour le menu de changement de port.
  * Gère la modification et l'affichage du port actuel utilisé par l'application.
+ * 
+ * @author Romain Augé
+ * @author Ayoub Laluti
+ * @author Baptiste Thenieres
+ * @author Esteban Vroemen
+ * @version 1.0 
  */
 public class MenuChangerPortControleur {
 

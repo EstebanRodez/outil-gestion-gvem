@@ -17,7 +17,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 
 /**
- * TODO commenter la responsabilité de cette class (SRP)
+ * Contrôleur de la pop up des données calculées des expositions avec filtres
  * 
  * @author Romain Augé
  * @author Ayoub Laluti

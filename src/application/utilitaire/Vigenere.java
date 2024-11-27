@@ -67,9 +67,16 @@ public class Vigenere {
     };
     
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
-     * @param cheminFichier
-     * @return true
+     * Vérifie si le contenu d'un fichier est conforme à un alphabet spécifique.
+     * Cette méthode lit le fichier spécifié ligne par ligne et vérifie que 
+     * tous les caractères appartiennent à l'alphabet défini par 
+     * {@code ALPHABET_CHIFFREMENT}. Si un caractère non conforme est détecté, 
+     * la méthode retourne immédiatement {@code false}.
+     *
+     * @param cheminFichier Le chemin absolu ou relatif du fichier à vérifier.
+     * @return {@code true} si tous les caractères du fichier respectent 
+     *         l'alphabet de chiffrement, {@code false} sinon ou si une 
+     *         erreur de lecture survient.
      */
     public static boolean verifierFichier(String cheminFichier) {
         

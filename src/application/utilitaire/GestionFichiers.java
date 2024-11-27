@@ -12,7 +12,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 /**
- * TODO commenter le fonctionnement
+ * Classe utilitaire qui permet d'écrire et de lire des fichiers
  * 
  * @author Romain Augé
  * @author Ayoub Laluti
@@ -22,12 +22,13 @@ import java.io.IOException;
  */
 public class GestionFichiers {
     
-    // Méthode pour lire le contenu d'un fichier texte (ou binaire converti en chaîne)
     /**
-     * TODO commenter le rôle de la méthode
-     * @param chemin
+     * 
+     * Permet de lire le contenu d'un fichier.
+     * 
+     * @param chemin le chemin du fichier
      * @return le contenu du fichier
-     * @throws IOException
+     * @throws IOException si une erreur survient à la lecture
      */
     public static String lireFichier(String chemin) throws IOException {
         
@@ -48,12 +49,12 @@ public class GestionFichiers {
         return contenu.toString();
     }
 
-    // Méthode pour écrire le contenu dans un fichier (utilisée pour .csv et .bin)
     /**
-     * TODO commenter le rôle de la méthode
-     * @param chemin
-     * @param contenu
-     * @throws IOException
+     * Permet d'écrire du contenu dans un fichier.
+     * 
+     * @param chemin le chemin du fichier
+     * @param contenu le contenu à écrire
+     * @throws IOException si une erreur survient à l'écriture
      */
     public static void ecrireFichier(String chemin, String contenu)
             throws IOException {

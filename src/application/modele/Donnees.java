@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 /**
- * TODO commenter le fonctionnement
+ * Classe représentant l'ensemble des données de l'application
  * 
  * @author Romain Augé
  * @author Ayoub Laluti

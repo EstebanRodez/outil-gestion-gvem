@@ -6,7 +6,7 @@
 package application.utilitaire;
 
 /**
- * TODO commenter la responsabilité de cette class (SRP)
+ * Exception pouvant être générée pendant l'exportation des données
  * 
  * @author Romain Augé
  * @author Ayoub Laluti
@@ -15,6 +15,9 @@ package application.utilitaire;
  * @version 1.0 
  */
 public class ExportationCSVException extends Exception {
+    
+    /** Pour l'interface Serializable de la classe Exception */
+    private static final long serialVersionUID = 1L;
     
     /**
      * Initialise l'exception sans message d'erreur
@@ -31,6 +34,4 @@ public class ExportationCSVException extends Exception {
         super(message);
     }
 
-    /** Pour l'interface Serializable de la classe Exception */
-    private static final long serialVersionUID = 1L;
 }

@@ -98,7 +98,7 @@ public class DonneesCalculeesConferencierControleur {
     private TableView<Map.Entry<String, Visite>> tableConferencier;
     
     /**
-     * 
+     * Méthode lancée à l'initialisation du contrôleur
      */
     @FXML
     public void initialize() {

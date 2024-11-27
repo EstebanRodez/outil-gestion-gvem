@@ -37,7 +37,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 /**
- * TODO commenter la responsabilité de cette class (SRP)
+ * Contrôleur des données calculées des conférenciers par semaine
  * 
  * @author Romain Augé
  * @author Ayoub Laluti

@@ -19,7 +19,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 
 /**
- * TODO commenter la responsabilité de cette class (SRP)
+ * Contrôleur des classements des conférenciers avec filtres
  * 
  * @author Romain Augé
  * @author Ayoub Laluti

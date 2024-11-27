@@ -33,7 +33,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 /**
- * TODO commenter la responsabilité de cette class (SRP)
+ * Contrôleur des pourcentages des expositions
  * 
  * @author Romain Augé
  * @author Ayoub Laluti
@@ -236,8 +236,8 @@ public class StatistiqueExpositionPourcentageControleur {
     }
 
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
-     * @param critere
+     * Applique un filtre saisi en argument
+     * @param critere le filtre voulu
      */
     public void appliquerFiltre(CritereFiltreVisite critere) {
 

@@ -18,7 +18,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 
 /**
- * TODO commenter la responsabilité de cette class (SRP)
+ * Contrôleur des réglages de l'application
+ * 
+ * @author Romain Augé
+ * @author Ayoub Laluti
+ * @author Baptiste Thenieres
+ * @author Esteban Vroemen
+ * @version 1.0
  */
 public class MenuReglageControleur {
 
@@ -35,7 +41,7 @@ public class MenuReglageControleur {
     private Button btnRenit;
     
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
+     * Méthode lancée à l'initialisation du contrôleur
      */
     @FXML
     public void initialize() {

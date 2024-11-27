@@ -6,7 +6,7 @@
 package application.utilitaire;
 
 /**
- * TODO commenter la responsabilité de cette class (SRP)
+ * Exception pouvant être générée lors de la génération de la donnée secrète
  * 
  * @author Romain Augé
  * @author Ayoub Laluti

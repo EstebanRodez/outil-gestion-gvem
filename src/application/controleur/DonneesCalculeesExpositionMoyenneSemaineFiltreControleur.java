@@ -18,7 +18,8 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 
 /**
- * TODO commenter la responsabilité de cette class (SRP)
+ * Contrôleur des données calculées des expositions en moyenne par jour avec
+ * filtres
  * 
  * @author Romain Augé
  * @author Ayoub Laluti

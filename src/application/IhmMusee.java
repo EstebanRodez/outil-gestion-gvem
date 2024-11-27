@@ -15,7 +15,7 @@ import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 
 /**
- * TODO commenter la responsabilité de cette class (SRP)
+ * Contrôleur principal/central
  * 
  * @author Romain Augé
  * @author Ayoub Laluti

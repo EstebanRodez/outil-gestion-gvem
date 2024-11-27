@@ -35,7 +35,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 /**
- * TODO commenter la responsabilité de cette class (SRP)
+ * Contrôleur des données calculées des expositions par jour
  * 
  * @author Romain Augé
  * @author Ayoub Laluti

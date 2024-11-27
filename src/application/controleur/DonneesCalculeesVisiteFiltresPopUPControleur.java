@@ -26,7 +26,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 
 /**
- * TODO commenter la responsabilité de cette class (SRP)
+ * Contrôleur de la pop up des données calculées des visites avec filtres
  * 
  * @author Romain Augé
  * @author Ayoub Laluti

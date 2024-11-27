@@ -134,7 +134,7 @@ public class AccueilControleur {
     }
 
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
+     * Méthode lancée à l'initialisation du contrôleur
      */
     @FXML
     public void initialize() {
