@@ -41,7 +41,7 @@ public class IhmMusee extends Application {
         stage.setScene(scene);
         stage.setResizable(false);
         stage.getIcons().add(
-            new Image(IhmMusee.class.getResourceAsStream("../image/nuage.png"))
+            new Image(IhmMusee.class.getResourceAsStream("/image/nuage.png"))
         );
         stage.setTitle("Gestion des visites des expositions d'un musée (GVEM)");
         stage.show();
