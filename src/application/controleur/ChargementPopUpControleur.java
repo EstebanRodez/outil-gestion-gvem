@@ -57,7 +57,7 @@ public class ChargementPopUpControleur {
         }
 
         // Fermer la fenêtre pop-up
-        EchangeurDeVue.fermerPopUp("chargementPopUp");
+        EchangeurDeVue.fermerPopUp("chargementPopUP");
     }
     
     /**

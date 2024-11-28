@@ -100,11 +100,11 @@ public class ExporterControleur {
         
         if (!erreurExportation) {
             
-            EchangeurDeVue.creerPopUp("chargementPopUp");
+            EchangeurDeVue.creerPopUp("chargementPopUP");
             ThreadExportation threadExportation = new ThreadExportation();
             
             ChargementPopUpControleur controleur
-            = EchangeurDeVue.getFXMLLoader("chargementPopUp").getController();
+            = EchangeurDeVue.getFXMLLoader("chargementPopUP").getController();
             controleur.setThreadExportation(threadExportation);
             threadExportation.start();
         } else {

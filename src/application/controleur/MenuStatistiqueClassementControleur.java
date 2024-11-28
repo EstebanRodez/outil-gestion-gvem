@@ -44,12 +44,12 @@ public class MenuStatistiqueClassementControleur {
     
     @FXML
     void btnRetourAction(ActionEvent event) {
-        EchangeurDeVue.changerVue("MenuStatistiqueVue");
+        EchangeurDeVue.changerVue("menuStatistiqueVue");
     }
 
     @FXML
     void btnMenuPourcentagesAction(ActionEvent event) {
-        EchangeurDeVue.changerVue("MenuStatistiquePourcentageVue");
+        EchangeurDeVue.changerVue("menuStatistiquePourcentageVue");
     }
 
     @FXML
