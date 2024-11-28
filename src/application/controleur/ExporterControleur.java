@@ -107,8 +107,9 @@ public class ExporterControleur {
             = EchangeurDeVue.getFXMLLoader("chargementPopUp").getController();
             controleur.setThreadExportation(threadExportation);
             threadExportation.start();
+        } else {
+            Vigenere.supprimerFichiersDonnees();
         }
-        
         
     }
 
