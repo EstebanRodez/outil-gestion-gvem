@@ -265,7 +265,11 @@ public class EchangeurDeVue {
      */
     private static Parent getParentVue(String nomVue, String lienVue) {
         
-        if (Files.notExists(Path.of("src"+lienVue))) {
+        if (Files.isDirectory(Path.of("src")) 
+            && Files.isDirectory(Path.of("src/application"))
+            && Files.isDirectory(Path.of("src/application/vue"))
+            && Files.notExists(Path.of("src"+lienVue))) {
+            
             lancerErreurFichierVueInexistant(nomVue, lienVue);
         }
         
