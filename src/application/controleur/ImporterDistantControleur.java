@@ -54,7 +54,7 @@ public class ImporterDistantControleur {
     private TextField txtFieldPort;
     
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
+     * Initialisation du contrôleur
      */
     @FXML
     public void initialize() {
@@ -145,7 +145,7 @@ public class ImporterDistantControleur {
     }
 
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
+     * Pop up erreur fichiers importés invalides
      */
     private static void lancerErreurFichiersImporteesInvalides() {
         
@@ -161,8 +161,8 @@ public class ImporterDistantControleur {
     }
 
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
-     * @param message
+     * Pop up erreur génération de la donnée secrète
+     * @param message le message précis
      */
     private static void lancerErreurGenerationDonneeSecrete(String message) {
         
@@ -176,7 +176,7 @@ public class ImporterDistantControleur {
     }
 
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
+     * Pop up erreur port invalide
      */
     private static void lancerErreurPortInvalide() {
         
@@ -191,7 +191,7 @@ public class ImporterDistantControleur {
     }
 
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
+     * Pop up erreur adresse IP indisponible
      */
     private static void lancerErreurAdresseIPIndisponible() {
         
@@ -206,7 +206,7 @@ public class ImporterDistantControleur {
     }
 
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
+     * Pop up erreur adresse IP format invalide
      */
     private static void lancerErreurAdresseIPInvalide() {
         

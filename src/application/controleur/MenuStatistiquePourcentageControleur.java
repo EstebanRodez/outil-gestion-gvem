@@ -12,7 +12,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
 /**
- * TODO commenter la responsabilité de cette class (SRP)
+ * Contrôleur des pourcentages
  * 
  * @author Romain Augé
  * @author Ayoub Laluti

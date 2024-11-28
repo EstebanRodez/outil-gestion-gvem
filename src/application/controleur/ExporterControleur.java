@@ -114,9 +114,9 @@ public class ExporterControleur {
     }
 
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
+     * Pop up erreur port déjà utilisée
      */
-    private void lancerErreurPortDejaUtilise() {
+    private static void lancerErreurPortDejaUtilise() {
         
         Alert boiteErreurPortDejaUtilise
         = new Alert(Alert.AlertType.ERROR, 
@@ -145,7 +145,7 @@ public class ExporterControleur {
     }
     
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
+     * Pop up erreur exportation en CSV
      */
     public static void lancerErreurExportationCSV() {
         
@@ -160,8 +160,8 @@ public class ExporterControleur {
     }
     
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
-     * @param message 
+     * Pop up erreur génération de la donnée secrète
+     * @param message le message précis
      */
     public static void lancerErreurGenerationDonneeSecrete(String message) {
         
@@ -174,7 +174,7 @@ public class ExporterControleur {
     }
     
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
+     * Pop up erreur alphabet
      */
     public static void lancerErreurAlphabet() {
         
@@ -190,7 +190,7 @@ public class ExporterControleur {
     } 
     
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
+     * Actualiser le port affiché à celui stocké en mémoire
      */
     public void rafraichirPort() {
         int portActuel = Reseau.getPortExportation();

@@ -196,7 +196,8 @@ public class AccueilControleur {
     }
     
     /**
-     * TODO commenter le rôle de cette méthode (SRP)
+     * Met à jour les boutons de l'interface en fonction des données stockées
+     * en mémoire dans l'application
      */
     @FXML
     public void mettreAJourBoutons() {
