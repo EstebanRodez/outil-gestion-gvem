@@ -35,9 +35,9 @@
       </HBox>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Gestion de visites de musée" textAlignment="CENTER" wrappingWidth="411.9892578125">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Gestion des visites des expositions d'un musée" textAlignment="CENTER" wrappingWidth="411.9892578125">
                <font>
-                  <Font name="System Bold" size="50.0" />
+                  <Font name="System Bold" size="40.0" />
                </font>
                <HBox.margin>
                   <Insets />

@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 /**
@@ -30,7 +31,8 @@ public class IhmMusee extends Application {
         
         boolean sessionRestauree = SauvegardeDonnees.restaurerDonnees();
         
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("vue/accueilVue.fxml"));
+        FXMLLoader loader
+        = new FXMLLoader(getClass().getResource("vue/accueilVue.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
         EchangeurDeVue.setFenetreAppli(stage);
@@ -38,6 +40,10 @@ public class IhmMusee extends Application {
         
         stage.setScene(scene);
         stage.setResizable(false);
+        stage.getIcons().add(
+            new Image(IhmMusee.class.getResourceAsStream("../image/nuage.png"))
+        );
+        stage.setTitle("Gestion des visites des expositions d'un musée (GVEM)");
         stage.show();
         
         if (sessionRestauree) {
