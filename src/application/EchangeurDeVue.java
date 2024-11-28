@@ -5,7 +5,6 @@
  */
 package application;
 
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
@@ -284,7 +283,7 @@ public class EchangeurDeVue {
                 cacheFXMLLoader.put(nomVue, loader);
                 parentVue = loader.load();
                 cacheVue.put(nomVue, parentVue);
-            } catch (IOException erreur) {
+            } catch (Exception erreur) {
                 lancerErreurChargementVue(nomVue, erreur);
             }
         }
