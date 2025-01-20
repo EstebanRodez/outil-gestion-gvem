@@ -43,9 +43,6 @@ public class ImporterDistantValideControleur {
     @FXML
     void btnImporterAction(ActionEvent event) {
         EchangeurDeVue.changerVue("accueilVue");
-        AccueilControleur controleur 
-        = EchangeurDeVue.getFXMLLoader("accueilVue").getController();
-        controleur.mettreAJourBoutons();
     }
 
     @FXML

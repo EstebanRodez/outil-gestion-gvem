@@ -130,6 +130,9 @@ public class ImporterDistantControleur {
                     SauvegardeDonnees.sauvegarderDonnees(
                             TraitementDonnees.getDonnees());
                     EchangeurDeVue.changerVue("importerDistantValideVue");
+                    AccueilControleur controleur 
+                    = EchangeurDeVue.getFXMLLoader("accueilVue").getController();
+                    controleur.mettreAJourBoutons();
                 } catch (FichierDonneesInvalidesException e) {
                     lancerErreurFichiersImporteesInvalides();
                 }

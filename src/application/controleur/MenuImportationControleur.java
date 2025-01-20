@@ -421,6 +421,9 @@ public class MenuImportationControleur {
                 "Fichiers importés avec succès");
         boiteInformationImportation.showAndWait();
         EchangeurDeVue.changerVue("accueilVue");
+        AccueilControleur controleur 
+        = EchangeurDeVue.getFXMLLoader("accueilVue").getController();
+        controleur.mettreAJourBoutons();
     }
     
     /**
