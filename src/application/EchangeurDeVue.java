@@ -5,6 +5,7 @@
  */
 package application;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
@@ -123,6 +124,30 @@ public class EchangeurDeVue {
      */
     public static Parent getParent(String nomVue) {
         return cacheVue.get(nomVue);
+    }
+    
+    /**
+     * Ajoute le parent et le FXML Loader d'une vue dans le cache.
+     * @param nomVue le nom de la vue
+     * @param loader le LoaderFXML préalablement chargé de la vue
+     * @return true si l'ajout a été effectué sinon false
+     */
+    public static boolean ajouterCacheVue(String nomVue, FXMLLoader loader) {
+        
+        if (loader == null) {
+            return false;
+        }
+        
+        cacheFXMLLoader.put(nomVue, loader);
+        Parent parentVue = null;
+        try {
+            parentVue = loader.load();
+        } catch (IOException e) {
+            return false;
+        }
+        
+        cacheVue.put(nomVue, parentVue);
+        return true;
     }
     
     /**
