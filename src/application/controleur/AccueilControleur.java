@@ -57,10 +57,10 @@ public class AccueilControleur {
     };
 
     private static final String PDF_CREATION_SUCCES 
-        = "Le fichier pdf a était crée avec succés";
+    = "Le fichier PDF a été crée avec succès.";
     
     private static final String ERREUR_I_O 
-        = "Une erreur est survenue lors de la génération du fichier PDF.";
+    = "Une erreur est survenue lors de la génération du fichier PDF.";
 
     @FXML
     private Button btnAide;
@@ -175,11 +175,11 @@ public class AccueilControleur {
      */
     public static void alertePdfSucces() {
         Alert boiteInformationPdf
-        = new Alert(Alert.AlertType.INFORMATION, PDF_CREATION_SUCCES, ButtonType.OK);
+        = new Alert(Alert.AlertType.INFORMATION, PDF_CREATION_SUCCES,
+                    ButtonType.OK);
 
         boiteInformationPdf.setTitle("Importation");
-        boiteInformationPdf.setHeaderText(
-                "Fichier PDF crée avec succés");
+        boiteInformationPdf.setHeaderText("Fichier PDF crée avec succès");
         boiteInformationPdf.showAndWait();
     }
     
