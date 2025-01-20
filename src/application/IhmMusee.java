@@ -46,6 +46,8 @@ public class IhmMusee extends Application {
         stage.setTitle("Gestion des visites des expositions d'un musée (GVEM)");
         stage.show();
         
+        EchangeurDeVue.ajouterCacheVue("accueilVue", loader);
+        
         if (sessionRestauree) {
             Alert boiteInformationSession
             = new Alert(Alert.AlertType.INFORMATION,
