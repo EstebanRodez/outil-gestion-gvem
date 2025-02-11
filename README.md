@@ -28,6 +28,6 @@ Ces rapports porteront sur les expositions, les conférenciers, les visites, ...
  - Product Owner : Ayoub LALUTI
  - Scrum Master : Baptiste THENIERES
 
-Lien GitHub : https://github.com/EstebanRodez/sae-semestre3-projet-java
+Lien GitHub : https://github.com/EstebanRodez/outil-gestion-gvem
 
-Lien Google Drive : [https://drive.google.com/drive/folders/0AFo8NSY6FjJ1Uk9PVA](https://drive.google.com/drive/folders/1mvS_Sn38srmguJT1ra-zKiZM4m87HwiD)
+Lien Google Drive : https://drive.google.com/drive/folders/1mvS_Sn38srmguJT1ra-zKiZM4m87HwiD
