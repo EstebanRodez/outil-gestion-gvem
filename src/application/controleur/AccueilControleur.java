@@ -206,6 +206,10 @@ public class AccueilControleur {
             btnConsulterDonnees.setDisable(true);
             btnExporter.setDisable(true);
             btnReglage.setDisable(true);
+        } else {
+            btnConsulterDonnees.setDisable(false);
+            btnExporter.setDisable(false);
+            btnReglage.setDisable(false);
         }
     }
     
