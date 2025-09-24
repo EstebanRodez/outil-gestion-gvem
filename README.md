@@ -10,6 +10,22 @@ Par sécurité, les fichiers seront cryptés pour cet échange.
 Les données présentes sur ces fichiers seront ensuite utilisées pour la génération des rapports statistiques automatisés.
 Ces rapports porteront sur les expositions, les conférenciers, les visites, ...
 
+### Fonctionnalités
+- Importation des données
+  - Import manuel des fichiers CSV exportés du site existant
+  - Import simplifié via le réseau local du musée (échange chiffré)
+- Sécurisation des échanges
+  - Chiffrement des fichiers lors du transfert entre postes
+- Traitement des données
+  - Validation du format CSV et gestion des erreurs d’import
+  - Normalisation et déduplication des enregistrements
+- Rapports statistiques automatisés
+  - Statistiques sur les expositions, les conférenciers et les visites
+  - Filtres par période et par entité (exposition/conférencier)
+  - Génération programmée/automatisée des rapports
+- Export et partage
+  - Export des rapports (PDF) et impression possible
+
 ## Membres : 
   - Augé Romain, romain.auge@iut-rodez.fr, login GitHub : R0MAINa
   - Laluti Ayoub, ayoub.laluti@iut-rodez.fr, login GitHub : Prolaluti
